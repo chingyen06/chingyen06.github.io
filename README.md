@@ -1,5 +1,5 @@
 # Academic Pages
-**This website is not yet complete.**
+### **This website is not yet complete.**
 
 **Academic Pages is a Github Pages template for academic websites.**
 
