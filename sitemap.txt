@@ -1,7 +1,6 @@
-https://blog.tseng-school.com/tags/index.html
-https://blog.tseng-school.com/repository/index.html
-https://blog.tseng-school.com/2026/02/03/test/
 https://blog.tseng-school.com/about/index.html
+https://blog.tseng-school.com/2026/02/03/test/
+https://blog.tseng-school.com/tags/index.html
 https://blog.tseng-school.com/categories/index.html
 https://blog.tseng-school.com/2026/02/03/hello-world/
 https://blog.tseng-school.com/
