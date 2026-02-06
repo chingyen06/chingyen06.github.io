@@ -45,16 +45,178 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770298812385.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1770370464584.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770298812385.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1770370464584.css">
 
 
     
     
 
     
+
+    <style>
+    /* 讓網格居中並增加上下間距 */
+    .resource-grid {
+        display: grid !important;
+        /* 這裡設定寬一點，讓它在寬螢幕能排成兩排或三排 */
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
+        gap: 35px; /* 加大卡片間距 */
+        margin: 60px auto; /* 增加上下外邊距，填補頁面空白 */
+        max-width: 1100px; 
+    }
+
+    /* 強化卡片的立體感與高度 */
+    .resource-card {
+        display: flex !important;
+        flex-direction: column !important; /* 讓圖示在標題上方 */
+        align-items: center;    /* 置中對齊 */
+        text-align: center;
+        padding: 50px 30px;     /* 大幅增加上下 Padding，強迫撐開高度 */
+        min-height: 280px;      /* 設定最小高度，確保下面不空 */
+        background: #ffffff !important;
+        border: 1px solid #e1e4e8 !important;
+        border-radius: 24px !important; /* 圓角更圓潤更現代 */
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .resource-card:hover {
+        transform: translateY(-12px); /* 懸停時浮起更高 */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        border-color: #42b983 !important;
+    }
+
+    .card-icon {
+        font-size: 4rem;        /* 放大圖示，視覺重心更穩 */
+        margin-bottom: 25px;
+        margin-right: 0;
+    }
+
+    .card-content h3 {
+        font-size: 1.5rem !important;
+        margin-bottom: 15px !important;
+        color: #2c3e50;
+    }
+
+    .card-content p {
+        font-size: 1.05rem !important;
+        color: #586069;
+        line-height: 1.6;
+    }
+
+    /* --- 手機版適配方案 --- */
+    @media (max-width: 600px) {
+        .resource-grid {
+            /* 強制單欄，且縮小間距 */
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+            margin: 30px auto !important;
+            padding: 0 10px; /* 增加螢幕左右邊距 */
+        }
+
+        .resource-card {
+            padding: 30px 20px !important; /* 縮小內邊距 */
+            min-height: auto !important;    /* 取消最小高度限制，讓它根據文字伸縮 */
+            border-radius: 16px !important; /* 稍微減小圓角 */
+        }
+
+        .card-icon {
+            font-size: 2.5rem !important;  /* 縮小圖示 */
+            margin-bottom: 15px !important;
+        }
+
+        .card-content h3 {
+            font-size: 1.2rem !important;  /* 縮小標題 */
+        }
+
+        .card-content p {
+            font-size: 0.95rem !important; /* 縮小內文 */
+        }
+    }
+    </style>
+    <style>
+        /* Study 頁面專用樣式 */
+        .study-container { max-width: 900px; margin: 0 auto; }
+        .study-section h2 { 
+            border-left: 5px solid #42b983; 
+            padding-left: 15px; 
+            margin: 40px 0 20px; 
+            font-size: 1.5rem;
+        }
+
+        .study-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #eef0f2;
+            transition: 0.3s;
+        }
+
+        .study-item:hover {
+            background: #ffffff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-color: #42b983;
+        }
+
+        .item-info h3 { margin: 0 0 8px 0 !important; font-size: 1.2rem; }
+        .item-info p { margin: 0 !important; font-size: 0.95rem; color: #666; }
+
+        .item-tags { margin-top: 10px; }
+        .item-tags span {
+            background: #e1f5fe;
+            color: #0288d1;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-right: 8px;
+        }
+
+        .item-btn {
+            padding: 8px 16px;
+            background: #2c3e50;
+            color: #fff !important;
+            border-radius: 6px;
+            text-decoration: none !important;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+
+        .item-btn:hover { background: #42b983; }
+
+        /* 子分類標題樣式 */
+        .sub-category-title {
+            font-size: 1.1rem !important;
+            color: #4a5568;
+            margin: 30px 0 15px 5px !important;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #e2e8f0; /* 加入虛線區隔 */
+            display: flex;
+            align-items: center;
+        }
+
+        /* 可以在子標題前加個小圓點裝飾 */
+        .sub-category-title::before {
+            content: "•";
+            color: #42b983;
+            font-weight: bold;
+            display: inline-block; 
+            width: 1em;
+            margin-left: -0.5em;
+        }
+
+        /* 手機版：按鈕變到下方 */
+        @media (max-width: 600px) {
+            .study-item { flex-direction: column; align-items: flex-start; }
+            .item-btn { margin: 15px 0 0 0; width: 100%; text-align: center; }
+        }
+    </style>
 <meta name="generator" content="Hexo 8.1.1"></head>
     <body>
         <header class="header header-fixture">
@@ -132,10 +294,18 @@
             </div>
         
         
+            <div class="menu-item menu-resources" role="menuitem">
+                <a href="/resources">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">資源</span>
+                </a>
+            </div>
+        
+        
             <div class="menu-item menu-categories" role="menuitem">
                 <a href="/categories">
                     <i class="iconfont icon-folder" aria-hidden="true"></i>
-                    <span class="menu-title">分類</span>
+                    <span class="menu-title">類別</span>
                 </a>
             </div>
         

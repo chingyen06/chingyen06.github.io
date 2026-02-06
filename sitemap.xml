@@ -2,27 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.tseng-school.com/resources/study/index.html</loc>
+    
+    <lastmod>2026-02-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.tseng-school.com/resources/index.html</loc>
+    
+    <lastmod>2026-02-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.tseng-school.com/resources/leetcode/index.html</loc>
+    
+    <lastmod>2026-02-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.tseng-school.com/resources/apcs/index.html</loc>
+    
+    <lastmod>2026-02-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.tseng-school.com/resources/cpe/index.html</loc>
+    
+    <lastmod>2026-02-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.tseng-school.com/about/index.html</loc>
     
-    <lastmod>2026-02-05</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.tseng-school.com/2026/02/03/test/</loc>
-    
-    <lastmod>2026-02-05</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.tseng-school.com/tags/index.html</loc>
-    
-    <lastmod>2026-02-05</lastmod>
+    <lastmod>2026-02-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -31,7 +58,25 @@
   <url>
     <loc>https://blog.tseng-school.com/categories/index.html</loc>
     
-    <lastmod>2026-02-05</lastmod>
+    <lastmod>2026-02-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.tseng-school.com/tags/index.html</loc>
+    
+    <lastmod>2026-02-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.tseng-school.com/2026/02/03/test/</loc>
+    
+    <lastmod>2026-02-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -49,7 +94,7 @@
 
   <url>
     <loc>https://blog.tseng-school.com/</loc>
-    <lastmod>2026-02-05</lastmod>
+    <lastmod>2026-02-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
