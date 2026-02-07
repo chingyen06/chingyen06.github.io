@@ -47,10 +47,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770449872368.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1770455332066.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770449872368.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1770455332066.css">
 
 
     
@@ -547,41 +547,65 @@
 <script src="/js/local-search.min.js"></script>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
-<script type="text/javascript">
+    <div id="gitalk-loader"></div> <script type="text/javascript">
   (function() {
-    // 1. 檢查 DOM 容器是否存在
     var container = document.getElementById('comments');
     if (!container) return;
 
-    // 2. 防禦性檢查：如果已經有 gitalk 的內容，就不再執行
-    if (container.querySelector('.gt-container')) {
-      console.log('Gitalk already initialized, skipping...');
-      return;
+    // 定義渲染函數
+    function loadAndRenderGitalk() {
+      if (window.GITALK_LOCK || container.querySelector('.gt-container')) return;
+      window.GITALK_LOCK = true;
+
+      // 動態載入 CSS 與 JS，避免阻塞首屏
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css';
+      document.head.appendChild(link);
+
+      var script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js";
+      var md5Script = document.createElement('script');
+      md5Script.src = "https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js";
+
+      script.onload = function() {
+        var gitalk = new Gitalk({
+            clientID: 'Ov23litX24icqsbLMK3L',
+            clientSecret: 'd6303376afaebeacf533c935a4348a03ab352bbf',
+            repo: 'blog-comment',
+            owner: 'chingyen06',
+            admin: ['chingyen06'],
+            id: '1770367826119', 
+            distractionFreeMode: true,
+            proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
+        });
+        gitalk.render('comments');
+      };
+
+      document.body.appendChild(md5Script);
+      document.body.appendChild(script);
     }
 
-    // 3. 全局鎖定，防止 PJAX 或重複引用導致的多次執行
-    if (window.GITALK_LOCK) return;
-    window.GITALK_LOCK = true;
+    // 使用 Intersection Observer 實現懶加載
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          loadAndRenderGitalk();
+          observer.disconnect(); // 觸發後就停止觀察
+        }
+      }, { rootMargin: '200px' }); // 提前 200px 開始載入，減少使用者等待感
 
-    var gitalk = new Gitalk({
-        clientID: 'Ov23litX24icqsbLMK3L',
-        clientSecret: 'd6303376afaebeacf533c935a4348a03ab352bbf',
-        repo: 'blog-comment',
-        owner: 'chingyen06',
-        admin: ['chingyen06'],
-        // 使用固定 ID 防止重複 Issue
-        id: '1770367826119', 
-        distractionFreeMode: true,
-        proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
-    });
+      observer.observe(container);
+    } else {
+      // 降級處理：不支援 Observer 的舊瀏覽器直接載入
+      loadAndRenderGitalk();
+    }
 
-    gitalk.render('comments');
-
-    // 4. 監聽頁面切換事件（針對有 PJAX 的主題）
+    // 針對 PJAX 頁面切換的處理
     document.addEventListener('pjax:complete', function() {
         window.GITALK_LOCK = false;
+        // 如果是 PJAX 切換，通常需要重新觀察新頁面的容器
+        if (typeof observer !== 'undefined') observer.observe(document.getElementById('comments'));
     });
   })();
 </script>
