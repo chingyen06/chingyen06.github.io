@@ -27,8 +27,8 @@
 <meta property="og:site_name" content="靖諺的資訊學習筆記">
 <meta property="og:description" content="我的資源     理論內容                     線性代數         線性代數自編中文講義         Linear Algebra理論              GitHub                          資料結構         資料結構與 Python 練習題         Data StructurePython理論實作">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2026-02-06T10:11:42.474Z">
-<meta property="article:modified_time" content="2026-02-06T10:11:42.474Z">
+<meta property="article:published_time" content="2026-02-07T04:35:03.531Z">
+<meta property="article:modified_time" content="2026-02-07T04:35:03.531Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="曾靖諺, C++, APCS, CPE, 資訊學習, 程式設計, 學習筆記">
 <meta name="twitter:card" content="summary">
@@ -47,10 +47,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770372763796.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1770439862361.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770372763796.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1770439862361.css">
 
 
     
@@ -224,6 +224,92 @@
             .item-btn { margin: 15px 0 0 0; width: 100%; text-align: center; }
         }
     </style>
+    <style>
+        .leetcode-filter-container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        
+        /* 統計卡片 */
+        .leetcode-stats { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+        .stat-card {
+            flex: 1; padding: 20px; border-radius: 12px; text-align: center;
+            color: white !important; cursor: pointer; transition: 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .stat-card:hover { transform: translateY(-3px); filter: brightness(1.05); }
+        .stat-card h3 { margin: 0 !important; font-size: 1.1rem !important; color: rgba(255,255,255,0.9) !important; font-weight: 500 !important; }
+        .stat-card p { margin: 5px 0 0 0 !important; font-size: 2.2rem !important; font-weight: 800 !important; color: #ffffff !important; }
+
+        .easy { background: #00af9b; }
+        .medium { background: #ffb800; }
+        .hard { background: #ff2d55; }
+
+        /* 搜尋框 */
+        #leetcode-search-input,
+        #cpe-search-input,
+        #apcs-search-input {
+            width: 100%; padding: 12px 18px; border: 2px solid #eef0f2;
+            border-radius: 10px; outline: none; font-size: 1rem; margin-bottom: 20px;
+        }
+        #leetcode-search-input:focus,
+        #cpe-search-input:focus,
+        #apcs-search-input:focus { border-color: #00af9b; }
+
+        /* 表格設計 */
+        .difficulty-section { margin-top: 35px; }
+        .table-wrapper { overflow-x: auto; background: #fff; border-radius: 8px; border: 1px solid #eee; }
+        table { width: 100%; min-width: 600px; border-collapse: collapse; }
+        th { background: #fafafa; padding: 14px; text-align: left; color: #666; border-bottom: 2px solid #f0f0f0; }
+        td { padding: 14px; border-bottom: 1px solid #f9f9f9; }
+
+        /* 移除按鈕感，改回純連結 */
+        .lc-link { color: #2c3e50 !important; font-weight: 600; text-decoration: none; }
+        .lc-link:hover { color: #00af9b !important; text-decoration: underline; }
+        
+        .sol-link { color: #42b983 !important; font-weight: 500; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.2s; }
+        .sol-link:hover { border-bottom: 1px solid #42b983; }
+
+        .note-tag { background: #f0f2f5; color: #666; padding: 3px 10px; border-radius: 4px; font-size: 0.85rem; }
+
+        .stat-btn-all { 
+            width: 100%; text-align: center; padding: 12px; background: #f8fafc; 
+            border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer; margin-top: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .stat-card { flex: 1 1 calc(50% - 10px); }
+            th, td { padding: 10px 5px; font-size: 0.85rem; }
+        }
+    </style>
+    <style>
+        /* --- CPE 專用樣式 --- */
+        /* 1. 網格佈局：讓卡片自動換行，保持整齊 */
+        .cpe-grid {
+            display: grid !important;
+            /* 電腦版：一排 3 個 */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 15px;
+        }
+
+        /* 2. 顏色定義 (Heatmap 風格) */
+        .star-1 { background: linear-gradient(135deg, #42b983 0%, #2ecc71 100%); } /* 綠 */
+        .star-2 { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); } /* 藍 */
+        .star-3 { background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%); } /* 黃 */
+        .star-4 { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); } /* 橘 */
+        .star-5 { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); } /* 紅 */
+        .star-other { background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%); } /* 灰 */
+
+        /* 3. 讓「顯示所有」按鈕橫跨整排 */
+        .full-width {
+            grid-column: 1 / -1; /* 從第一條線跨到最後一條線 */
+            width: 100%;
+        }
+
+        /* 4. 手機版適配：改為一排 2 個 */
+        @media (max-width: 600px) {
+            .cpe-grid {
+                grid-template-columns: repeat(2, 1fr); /* 手機變兩欄 */
+            }
+        }
+    </style>
 <meta name="generator" content="Hexo 8.1.1"></head>
     <body>
         <header class="header header-fixture">
@@ -248,7 +334,7 @@
 <div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
     <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
         <div class="input-group table bg-gray-100 lg:bg-white w-full">
-            <input id="search-input" type="text" placeholder="搜尋" class="inline-block w-full bg-gray-100 lg:bg-white p-1">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="inline-block w-full bg-gray-100 lg:bg-white p-1">
             <span class="table-cell">
                 <button name="search tigger button" disabled>
                     <i class="iconfont icon-search m-2"></i>
@@ -257,11 +343,11 @@
         </div>
     </form>
         
-<div id="content-json" data-placeholder="搜尋" class="invisible hidden">/content.json</div>
+<div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
 <script id="search-teamplate" type="text/html" data-path="/content.json">
     <div>
         <div class="search-header bg-gray-400">
-            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="搜尋" type="text">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
         </div>
         <div class="search-result bg-gray-200">
             {{#each searchPosts}}
@@ -439,6 +525,70 @@
 
   <section class="study-section">
     <h2>網路資源</h2>
+    <div class="study-item">
+      <div class="item-info">
+        <h3>線上系列課程</h3>
+        <p>李根逸教授</p>
+        <div class="item-tags"><span>C</span><span>C++</span><span>Python</span><span>Go</span></div>
+      </div>
+      <a target="_blank" rel="noopener" href="https://feis.studio/" class="item-btn">Website</a>
+    </div>
+    <div class="study-item">
+      <div class="item-info">
+        <h3>C語言入門影片</h3>
+        <p>李根逸教授</p>
+        <div class="item-tags"><span>C</span></div>
+      </div>
+      <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=yWPGumB64tM&list=PLY_qIufNHc293YnIjVeEwNDuqGo8y2Emx" class="item-btn">YouTube</a>
+    </div>
+    <div class="study-item">
+      <div class="item-info">
+        <h3>C語言入門投影片</h3>
+        <p>李根逸教授</p>
+        <div class="item-tags"><span>C</span></div>
+      </div>
+      <a target="_blank" rel="noopener" href="https://feis.studio/c" class="item-btn">Website</a>
+    </div>
+    <div class="study-item">
+      <div class="item-info">
+        <h3>邊聊邊入門 Python</h3>
+        <p>李根逸教授</p>
+        <div class="item-tags"><span>C</span></div>
+      </div>
+      <a target="_blank" rel="noopener" href="https://feis.studio/python_chat" class="item-btn">Website</a>
+    </div>
+    <div class="study-item">
+      <div class="item-info">
+        <h3>Python 入門教學課程</h3>
+        <p>彭彭老師 - 彭兆蔚</p>
+        <div class="item-tags"><span>Python</span></div>
+      </div>
+      <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=wqRlKVRUV_k&list=PL-g0fdC5RMboYEyt6QS2iLb_1m7QcgfHk" class="item-btn">YouTube</a>
+    </div>
+    <div class="study-item">
+      <div class="item-info">
+        <h3>Python for Beginners</h3>
+        <p>Christopher & Susan</p>
+        <div class="item-tags"><span>Python</span></div>
+      </div>
+      <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jFCNu1-Xdsw&list=PLlrxD0HtieHhS8VzuMCfQD4uJ9yne1mE6" class="item-btn">YouTube</a>
+    </div>
+    <div class="study-item">
+      <div class="item-info">
+        <h3>More Python for Beginners</h3>
+        <p>Christopher & Susan</p>
+        <div class="item-tags"><span>Python</span></div>
+      </div>
+      <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=xYDnHi0u6_c&list=PLlrxD0HtieHiXd-nEby-TMCoUNwhbLUnj" class="item-btn">YouTube</a>
+    </div>
+    <div class="study-item">
+      <div class="item-info">
+        <h3>Even More Python for Beginners</h3>
+        <p>Christopher & Susan</p>
+        <div class="item-tags"><span>Python</span></div>
+      </div>
+      <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=D8OaGUYkHTE&list=PLlrxD0HtieHhHnCUVtR8UHS7eLl33zfJ-" class="item-btn">YouTube</a>
+    </div>
   </section>
 
 </div>
@@ -466,7 +616,7 @@
     <div class="widget">
         <h3 class="widget-title">文章</h3>
         <div class="widget-body">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">2026/02</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -478,20 +628,6 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget-body">
         <ul class="recent-post-list list-unstyled">
-            
-                <li>
-                    <div class="recent-post">
-                        <p class="item-category">
-                            
-                        </p>
-                        <p class="item-title">
-                            <a href="/2026/02/03/hello-world/" class="title">Hello World</a>
-                        </p>
-                        <p class="item-date">
-                            <time datetime="2026-02-03T05:59:24.442Z" itemprop="datePublished">2026-02-03</time>
-                        </p>
-                    </div>
-                </li>
             
                 <li>
                     <div class="recent-post">
