@@ -21,15 +21,15 @@
         h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
     </style>
 
-    <meta name="description" content="document.addEventListener(&quot;DOMContentLoaded&quot;, function() {      &#x2F;**      * --- APCS 資料庫 ---      *&#x2F;      const apcsData &#x3D; [         &#x2F;&#x2F; 2025-10         { date: &quot;2025-10&quot;, leve">
+    <meta name="description" content="點選不同等級的區塊可以篩選不同等級的題目                        初級0     中級0     中高級0     高級0     N&#x2F;A0     顯示所有題目               &#x2F;&#x2F; --- APCS 資料庫 --- const apcsData &#x3D; [     &#x2F;&#x2F; 2025-10 (開始有等級)     { date: &quot;2025-10&quot;, level: &quot;">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APCS 大學程式設計先修檢測">
 <meta property="og:url" content="https://www.tseng-school.com/resources/apcs/index.html">
 <meta property="og:site_name" content="靖諺的資訊學習筆記">
-<meta property="og:description" content="document.addEventListener(&quot;DOMContentLoaded&quot;, function() {      &#x2F;**      * --- APCS 資料庫 ---      *&#x2F;      const apcsData &#x3D; [         &#x2F;&#x2F; 2025-10         { date: &quot;2025-10&quot;, leve">
+<meta property="og:description" content="點選不同等級的區塊可以篩選不同等級的題目                        初級0     中級0     中高級0     高級0     N&#x2F;A0     顯示所有題目               &#x2F;&#x2F; --- APCS 資料庫 --- const apcsData &#x3D; [     &#x2F;&#x2F; 2025-10 (開始有等級)     { date: &quot;2025-10&quot;, level: &quot;">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2026-02-09T10:41:58.215Z">
-<meta property="article:modified_time" content="2026-02-09T10:41:58.215Z">
+<meta property="article:published_time" content="2026-02-09T10:54:12.952Z">
+<meta property="article:modified_time" content="2026-02-09T10:54:12.952Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="曾靖諺, C++, APCS, CPE, 資訊學習, 程式設計, 學習筆記">
 <meta name="twitter:card" content="summary">
@@ -43,10 +43,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770633886242.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1770634460810.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770633886242.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1770634460810.css">
 
 
     
@@ -364,6 +364,84 @@
             border-radius: 8px;    /* 讓圖片有點圓角，看起來比較現代 */
         }
     </style>
+    <style>
+        /* --- APCS 專用網格佈局 (儀表板) --- */
+        .apcs-grid {
+            display: grid !important;
+            /* 電腦版：一排 5 個 (初級/中級/中高/高級/N/A) */
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 12px;
+        }
+
+        /* --- 等級顏色定義 (使用 levelConfig 的顏色做漸層) --- */
+        /* 初級 - 綠色 (#42b983) */
+        .apcs-level-1 { background: linear-gradient(135deg, #42b983 0%, #2ecc71 100%); }
+        /* 中級 - 藍色 (#3498db) */
+        .apcs-level-2 { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+        /* 中高級 - 橘色 (#e67e22) */
+        .apcs-level-3 { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); }
+        /* 高級 - 紅色 (#e74c3c) */
+        .apcs-level-4 { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+        /* 無等級 - 灰色 (#95a5a6) */
+        .apcs-level-na { background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%); }
+        
+        /* 統計卡片通用樣式 */
+        .stat-card {
+            flex: 1; 
+            padding: 15px 10px; /* 稍微縮小內距以容納5個 */
+            border-radius: 12px; 
+            text-align: center;
+            color: white !important; 
+            cursor: pointer; 
+            transition: 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .stat-card:hover { 
+            transform: translateY(-3px); 
+            filter: brightness(1.05); 
+        }
+        .stat-card h3 { 
+            margin: 0 !important; 
+            font-size: 1rem !important; 
+            color: rgba(255,255,255,0.95) !important; 
+            font-weight: 500 !important; 
+        }
+        .stat-card p { 
+            margin: 5px 0 0 0 !important; 
+            font-size: 1.8rem !important; 
+            font-weight: 800 !important; 
+            color: #ffffff !important; 
+        }
+
+        /* 讓「顯示所有」按鈕橫跨整排 */
+        .full-width {
+            grid-column: 1 / -1; 
+            width: 100%;
+            text-align: center; 
+            padding: 12px; 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            margin-top: 10px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .full-width:hover {
+            background: #e2e8f0;
+        }
+
+        /* 手機版適配：改為一排 2 個 (最後一個 N/A 獨佔一行或跟著排) */
+        @media (max-width: 600px) {
+            .apcs-grid {
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            /* 讓 N/A 按鈕在手機版橫跨兩欄，比較好看 */
+            .apcs-level-na {
+                grid-column: span 2;
+            }
+        }
+    </style>
 <meta name="generator" content="Hexo 8.1.1"></head>
     <body>
         <header class="header header-fixture">
@@ -509,10 +587,20 @@
 
             </header>
         <div class="marked-body article-body">
-            <div class="leetcode-filter-container">
+            <p>點選不同等級的區塊可以篩選不同等級的題目</p>
+<div class="leetcode-filter-container">
   
   <div class="leetcode-search-box">
     <input type="text" id="apcs-search-input" placeholder="🔍 搜尋">
+  </div>
+
+  <div class="leetcode-stats apcs-grid">
+    <div class="stat-card apcs-level-1" onclick="filterLevel('初級')"><h3>初級</h3><p id="count-level-1">0</p></div>
+    <div class="stat-card apcs-level-2" onclick="filterLevel('中級')"><h3>中級</h3><p id="count-level-2">0</p></div>
+    <div class="stat-card apcs-level-3" onclick="filterLevel('中高級')"><h3>中高級</h3><p id="count-level-3">0</p></div>
+    <div class="stat-card apcs-level-4" onclick="filterLevel('高級')"><h3>高級</h3><p id="count-level-4">0</p></div>
+    <div class="stat-card apcs-level-na" onclick="filterLevel('N/A')"><h3>N/A</h3><p id="count-level-na">0</p></div>
+    <div class="stat-btn-all full-width" onclick="filterLevel('All')">顯示所有題目</div>
   </div>
 
   <div id="apcs-table-container">
@@ -521,87 +609,93 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+// --- APCS 資料庫 ---
+const apcsData = [
+    // 2025-10 (開始有等級)
+    { date: "2025-10", level: "中級", num: 1, title: "彗星撞擊", link: "https://zerojudge.tw/ShowProblem?problemid=r488", name: "網站筆記", solution: "https://www.tseng-school.com/2026/02/09/apcs/apcs202510/#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E5%BD%97%E6%98%9F%E6%92%9E%E6%93%8A-ZeroJudge-r488", note: ""},
 
-    /**
-     * --- APCS 資料庫 ---
-     */
+    // 2025-06 (N/A)
+    { date: "2025-06", level: "N/A", num: 1, title: "小心陷阱", link: "https://zerojudge.tw/ShowProblem?problemid=q836", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E5%B0%8F%E5%BF%83%E9%99%B7%E9%98%B1-ZeroJudge-q836", note: " " },
+    { date: "2025-06", level: "N/A", num: 2, title: "轉盤得分", link: "https://zerojudge.tw/ShowProblem?problemid=q837", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E8%BD%89%E7%9B%A4%E5%BE%97%E5%88%86-ZeroJudge-q837", note: " " },
+    { date: "2025-06", level: "N/A", num: 3, title: "貪心闖關", link: "https://zerojudge.tw/ShowProblem?problemid=q838", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E8%B2%AA%E5%BF%83%E9%97%96%E9%97%9C-ZeroJudge-q838", note: " " },
+    { date: "2025-06", level: "N/A", num: 4, title: "分組遊戲", link: "https://zerojudge.tw/ShowProblem?problemid=q839", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E5%88%86%E7%B5%84%E9%81%8A%E6%88%B2-ZeroJudge-q839", note: " " },
 
-    const apcsData = [
-        // 2025-10
-        { date: "2025-10", level: "中級", num: 1, title: "彗星撞擊", link: "https://zerojudge.tw/ShowProblem?problemid=r488", name: "網站筆記", solution: "https://www.tseng-school.com/2026/02/09/apcs/apcs202510/#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E5%BD%97%E6%98%9F%E6%92%9E%E6%93%8A-ZeroJudge-r488", note: ""},
+    // 2025-01 (N/A)
+    { date: "2025-01", level: "N/A", num: 1, title: "等紅綠燈", link: "https://zerojudge.tw/ShowProblem?problemid=q181", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/B16Ic0Sdeg#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E7%AD%89%E7%B4%85%E7%B6%A0%E7%87%88-ZeroJudge-q181", note: " " },
+    { date: "2025-01", level: "N/A", num: 2, title: "字串操作", link: "https://zerojudge.tw/ShowProblem?problemid=q182", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/B16Ic0Sdeg#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C-ZeroJudge-q182", note: " " },
+    { date: "2025-01", level: "N/A", num: 3, title: "重組問題", link: "https://zerojudge.tw/ShowProblem?problemid=q183", name: "吳邦一教授 筆記", solution: "https://hackmd.io/@bangyewu/rJlvXNP81g#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E9%87%8D%E7%B5%84%E5%95%8F%E9%A1%8C-ZeroJudge-q182", note: "外部" },
+    { date: "2025-01", level: "N/A", num: 4, title: "分組開會", link: "https://zerojudge.tw/ShowProblem?problemid=q184", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/B16Ic0Sdeg#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E5%88%86%E7%B5%84%E9%96%8B%E6%9C%83-ZeroJudge-q184", note: " " },
 
-        // 2025-06
-        { date: "2025-06", level: "N/A", num: 1, title: "小心陷阱", link: "https://zerojudge.tw/ShowProblem?problemid=q836", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E5%B0%8F%E5%BF%83%E9%99%B7%E9%98%B1-ZeroJudge-q836", note: " " },
-        { date: "2025-06", level: "N/A", num: 2, title: "轉盤得分", link: "https://zerojudge.tw/ShowProblem?problemid=q837", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E8%BD%89%E7%9B%A4%E5%BE%97%E5%88%86-ZeroJudge-q837", note: " " },
-        { date: "2025-06", level: "N/A", num: 3, title: "貪心闖關", link: "https://zerojudge.tw/ShowProblem?problemid=q838", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E8%B2%AA%E5%BF%83%E9%97%96%E9%97%9C-ZeroJudge-q838", note: " " },
-        { date: "2025-06", level: "N/A", num: 4, title: "分組遊戲", link: "https://zerojudge.tw/ShowProblem?problemid=q839", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E5%88%86%E7%B5%84%E9%81%8A%E6%88%B2-ZeroJudge-q839", note: " " },
+    // 2024-10 (N/A)
+    { date: "2024-10", level: "N/A", num: 1, title: "裝飲料", link: "https://zerojudge.tw/ShowProblem?problemid=o711", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E8%A3%9D%E9%A3%B2%E6%96%99-ZeroJudge-o711", note: " " },
+    { date: "2024-10", level: "N/A", num: 2, title: "蒐集寶石", link: "https://zerojudge.tw/ShowProblem?problemid=o712", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E8%92%90%E9%9B%86%E5%AF%B6%E7%9F%B3-ZeroJudge-o712", note: " " },
+    { date: "2024-10", level: "N/A", num: 3, title: "連鎖反應", link: "https://zerojudge.tw/ShowProblem?problemid=o713", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E9%80%A3%E9%8E%96%E5%8F%8D%E6%87%89-ZeroJudge-o713", note: " " },
+    { date: "2024-10", level: "N/A", num: 4, title: "搭到終點", link: "https://zerojudge.tw/ShowProblem?problemid=o714", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E6%90%AD%E5%88%B0%E7%B5%82%E9%BB%9E-ZeroJudge-o714", note: " " },
 
-        // 2025-01
-        { date: "2025-01", level: "N/A", num: 1, title: "等紅綠燈", link: "https://zerojudge.tw/ShowProblem?problemid=q181", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/B16Ic0Sdeg#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E7%AD%89%E7%B4%85%E7%B6%A0%E7%87%88-ZeroJudge-q181", note: " " },
-        { date: "2025-01", level: "N/A", num: 2, title: "字串操作", link: "https://zerojudge.tw/ShowProblem?problemid=q182", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/B16Ic0Sdeg#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C-ZeroJudge-q182", note: " " },
-        { date: "2025-01", level: "N/A", num: 3, title: "重組問題", link: "https://zerojudge.tw/ShowProblem?problemid=q183", name: "吳邦一教授 筆記", solution: "https://hackmd.io/@bangyewu/rJlvXNP81g#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E9%87%8D%E7%B5%84%E5%95%8F%E9%A1%8C-ZeroJudge-q182", note: "外部" },
-        { date: "2025-01", level: "N/A", num: 4, title: "分組開會", link: "https://zerojudge.tw/ShowProblem?problemid=q184", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/B16Ic0Sdeg#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E5%88%86%E7%B5%84%E9%96%8B%E6%9C%83-ZeroJudge-q184", note: " " },
+    // 2024-06 (N/A)
+    { date: "2024-06", level: "N/A", num: 1, title: "特技表演", link: "https://zerojudge.tw/ShowProblem?problemid=o076", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rJKdh43rR#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E7%89%B9%E6%8A%80%E8%A1%A8%E6%BC%94-ZeroJudge-o076", note: " " },
+    { date: "2024-06", level: "N/A", num: 2, title: "電子畫布", link: "https://zerojudge.tw/ShowProblem?problemid=o077", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rJKdh43rR#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E9%9B%BB%E5%AD%90%E7%95%AB%E5%B8%83-ZeroJudge-o077", note: " " },
+    { date: "2024-06", level: "N/A", num: 3, title: "缺字問題", link: "https://zerojudge.tw/ShowProblem?problemid=o078", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rJKdh43rR#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E7%BC%BA%E5%AD%97%E5%95%8F%E9%A1%8C-ZeroJudge-o078", note: " " },
+    { date: "2024-06", level: "N/A", num: 4, title: "最佳選擇", link: "https://zerojudge.tw/ShowProblem?problemid=o079", name: "吳邦一教授 筆記", solution: "https://hackmd.io/@bangyewu/HycD81TH0?fbclid=IwZXh0bgNhZW0CMTEAAR2TSGEXf5kC4-8XYp0UQq4PBEwbz3QA7VQd2-VZdyJMV4Pw11ogLGd1Svk_aem_cNmtHoAXrJ2dxC40u5RrEg#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E6%9C%80%E4%BD%B3%E9%81%B8%E6%93%87-ZeroJudge-o079", note: "外部" },
 
-        // 2024-10
-        { date: "2024-10", level: "N/A", num: 1, title: "裝飲料", link: "https://zerojudge.tw/ShowProblem?problemid=o711", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E8%A3%9D%E9%A3%B2%E6%96%99-ZeroJudge-o711", note: " " },
-        { date: "2024-10", level: "N/A", num: 2, title: "蒐集寶石", link: "https://zerojudge.tw/ShowProblem?problemid=o712", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E8%92%90%E9%9B%86%E5%AF%B6%E7%9F%B3-ZeroJudge-o712", note: " " },
-        { date: "2024-10", level: "N/A", num: 3, title: "連鎖反應", link: "https://zerojudge.tw/ShowProblem?problemid=o713", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E9%80%A3%E9%8E%96%E5%8F%8D%E6%87%89-ZeroJudge-o713", note: " " },
-        { date: "2024-10", level: "N/A", num: 4, title: "搭到終點", link: "https://zerojudge.tw/ShowProblem?problemid=o714", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E6%90%AD%E5%88%B0%E7%B5%82%E9%BB%9E-ZeroJudge-o714", note: " " },
+    // 2024-01 (N/A)
+    { date: "2024-01", level: "N/A", num: 1, title: "遊戲選角", link: "https://zerojudge.tw/ShowProblem?problemid=m931", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E9%81%8A%E6%88%B2%E9%81%B8%E8%A7%92-ZeroJudge-m931", note: " " },
+    { date: "2024-01", level: "N/A", num: 2, title: "蜜蜂觀察", link: "https://zerojudge.tw/ShowProblem?problemid=m932", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E8%9C%9C%E8%9C%82%E8%A7%80%E5%AF%9F-ZeroJudge-m932", note: " " },
+    { date: "2024-01", level: "N/A", num: 3, title: "邏輯電路", link: "https://zerojudge.tw/ShowProblem?problemid=m933", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E9%82%8F%E8%BC%AF%E9%9B%BB%E8%B7%AF-ZeroJudge-m933", note: " " },
+    { date: "2024-01", level: "N/A", num: 4, title: "合併成本", link: "https://zerojudge.tw/ShowProblem?problemid=m934", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E5%90%88%E4%BD%B5%E6%88%90%E6%9C%AC-ZeroJudge-m934", note: " " },
 
-        // 2024-06
-        { date: "2024-06", level: "N/A", num: 1, title: "特技表演", link: "https://zerojudge.tw/ShowProblem?problemid=o076", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rJKdh43rR#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E7%89%B9%E6%8A%80%E8%A1%A8%E6%BC%94-ZeroJudge-o076", note: " " },
-        { date: "2024-06", level: "N/A", num: 2, title: "電子畫布", link: "https://zerojudge.tw/ShowProblem?problemid=o077", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rJKdh43rR#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E9%9B%BB%E5%AD%90%E7%95%AB%E5%B8%83-ZeroJudge-o077", note: " " },
-        { date: "2024-06", level: "N/A", num: 3, title: "缺字問題", link: "https://zerojudge.tw/ShowProblem?problemid=o078", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rJKdh43rR#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E7%BC%BA%E5%AD%97%E5%95%8F%E9%A1%8C-ZeroJudge-o078", note: " " },
-        { date: "2024-06", level: "N/A", num: 4, title: "最佳選擇", link: "https://zerojudge.tw/ShowProblem?problemid=o079", name: "吳邦一教授 筆記", solution: "https://hackmd.io/@bangyewu/HycD81TH0?fbclid=IwZXh0bgNhZW0CMTEAAR2TSGEXf5kC4-8XYp0UQq4PBEwbz3QA7VQd2-VZdyJMV4Pw11ogLGd1Svk_aem_cNmtHoAXrJ2dxC40u5RrEg#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E6%9C%80%E4%BD%B3%E9%81%B8%E6%93%87-ZeroJudge-o079", note: "外部" },
+    // 2023-10 (N/A)
+    { date: "2023-10", level: "N/A", num: 1, title: "機械鼠", link: "https://zerojudge.tw/ShowProblem?problemid=m370", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E6%A9%9F%E6%A2%B0%E9%BC%A0-ZeroJudge-m370", note: " " },
+    { date: "2023-10", level: "N/A", num: 2, title: "卡牌遊戲", link: "https://zerojudge.tw/ShowProblem?problemid=m371", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E5%8D%A1%E7%89%8C%E9%81%8A%E6%88%B2-ZeroJudge-m371", note: " " },
+    { date: "2023-10", level: "N/A", num: 3, title: "搬家", link: "https://zerojudge.tw/ShowProblem?problemid=m372", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E6%90%AC%E5%AE%B6-ZeroJudge-m372", note: " " },
+    { date: "2023-10", level: "N/A", num: 4, title: "投資遊戲", link: "https://zerojudge.tw/ShowProblem?problemid=m373", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E6%8A%95%E8%B3%87%E9%81%8A%E6%88%B2-ZeroJudge-m373", note: " " }
+];
 
-        // 2024-01
-        { date: "2024-01", level: "N/A", num: 1, title: "遊戲選角", link: "https://zerojudge.tw/ShowProblem?problemid=m931", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E9%81%8A%E6%88%B2%E9%81%B8%E8%A7%92-ZeroJudge-m931", note: " " },
-        { date: "2024-01", level: "N/A", num: 2, title: "蜜蜂觀察", link: "https://zerojudge.tw/ShowProblem?problemid=m932", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E8%9C%9C%E8%9C%82%E8%A7%80%E5%AF%9F-ZeroJudge-m932", note: " " },
-        { date: "2024-01", level: "N/A", num: 3, title: "邏輯電路", link: "https://zerojudge.tw/ShowProblem?problemid=m933", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E9%82%8F%E8%BC%AF%E9%9B%BB%E8%B7%AF-ZeroJudge-m933", note: " " },
-        { date: "2024-01", level: "N/A", num: 4, title: "合併成本", link: "https://zerojudge.tw/ShowProblem?problemid=m934", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E5%90%88%E4%BD%B5%E6%88%90%E6%9C%AC-ZeroJudge-m934", note: " " },
+function renderTable(data) {
+    const container = document.getElementById('apcs-table-container');
+    if (!container) return; 
 
-        // 2023-10
-        { date: "2023-10", level: "N/A", num: 1, title: "機械鼠", link: "https://zerojudge.tw/ShowProblem?problemid=m370", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E6%A9%9F%E6%A2%B0%E9%BC%A0-ZeroJudge-m370", note: " " },
-        { date: "2023-10", level: "N/A", num: 2, title: "卡牌遊戲", link: "https://zerojudge.tw/ShowProblem?problemid=m371", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E5%8D%A1%E7%89%8C%E9%81%8A%E6%88%B2-ZeroJudge-m371", note: " " },
-        { date: "2023-10", level: "N/A", num: 3, title: "搬家", link: "https://zerojudge.tw/ShowProblem?problemid=m372", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E6%90%AC%E5%AE%B6-ZeroJudge-m372", note: " " },
-        { date: "2023-10", level: "N/A", num: 4, title: "投資遊戲", link: "https://zerojudge.tw/ShowProblem?problemid=m373", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E6%8A%95%E8%B3%87%E9%81%8A%E6%88%B2-ZeroJudge-m373", note: " " }
+    // 1. 自動排序：先按日期(降序)，再按題號(升序)
+    data.sort((a, b) => {
+        if (a.date !== b.date) return b.date.localeCompare(a.date);
+        return a.num - b.num;
+    });
 
-        // { date: "", level: "", num: , title: "", link: "", name: "", solution: "", note: ""},
-    ];
+    // 2. 顏色配置 (表格內的純色文字)
+    const levelColors = { 
+        "初級": "#42b983",    // 綠
+        "中級": "#3498db",    // 藍
+        "中高級": "#e67e22",  // 橘
+        "高級": "#e74c3c",    // 紅
+        "N/A": "#95a5a6"      // 灰
+    };
+    
+    // 3. 題號顏色
+    const numColors = { 1: '#42b983', 2: '#3498db', 3: '#e67e22', 4: '#e74c3c' };
 
-    function renderTable(data) {
-        const container = document.getElementById('apcs-table-container');
-        if (!container) return; 
-
-        // 自動排序：先按日期(降序)，再按題號(升序)
-        data.sort((a, b) => {
-            if (a.date !== b.date) return b.date.localeCompare(a.date);
-            return a.num - b.num;
-        });
-
-        const numColors = { 1: '#42b983', 2: '#3498db', 3: '#e67e22', 4: '#e74c3c' };
-
-        const levelConfig = { "初級": "#42b983", "中級": "#3498db", "中高級": "#e67e22", "高級": "#e74c3c", "N/A": "#95a5a6" };
-
-        let html = `
+    let html = `
+        <div class="difficulty-section">
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
                             <th width="15%">日期</th>
-                            <th width="10%">等級</th>
+                            <th width="12%">等級</th>
                             <th width="8%">題號</th>
-                            <th width="30%">題目</th>
-                            <th width="20%">詳解</th>
-                            <th width="15%">註解</th>
+                            <th width="35%">題目</th>
+                            <th width="18%">詳解</th>
+                            <th width="12%">註解</th>
                         </tr>
                     </thead>
                     <tbody>
                         ${data.map(i => `
                             <tr>
                                 <td style="color:#666; font-weight:bold;">${i.date}</td>
-                                <td><span style="color:${levelConfig[i.level]}; font-weight:bold;">${i.level}</td>
+                                <td>
+                                    <span style="color:${levelColors[i.level] || '#666'}; font-weight:bold;">
+                                        ${i.level}
+                                    </span>
+                                </td>
                                 <td><span style="color:${numColors[i.num]}; font-weight:bold;">P${i.num}</span></td>
                                 <td style="font-weight:500;"><a href="${i.link}" target="_blank" class="lc-link">${i.title}</a></td>
                                 <td><a href="${i.solution}" class="sol-link">${i.name}</a></td>
@@ -611,29 +705,45 @@ document.addEventListener("DOMContentLoaded", function() {
                     </tbody>
                 </table>
             </div>
-        `;
-        
-        container.innerHTML = html;
-    }
+        </div>
+    `;
+    
+    container.innerHTML = html;
 
-    // 搜尋功能
-    const searchInput = document.getElementById('apcs-search-input');
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const key = e.target.value.toLowerCase();
-            const result = apcsData.filter(i => 
-                i.date.includes(key) || 
-                ('p' + i.num).includes(key) || 
-                i.title.toLowerCase().includes(key) || 
-                i.note.toLowerCase().includes(key)
-            );
-            renderTable(result);
-        });
+    // 3. 更新儀表板數字 (根據 level 統計)
+    const levels = { "初級": 1, "中級": 2, "中高級": 3, "高級": 4, "N/A": "na" };
+    
+    for (const [lvlName, lvlId] of Object.entries(levels)) {
+        const count = apcsData.filter(i => i.level === lvlName).length;
+        const el = document.getElementById(`count-level-${lvlId}`);
+        if(el) el.innerText = count;
     }
+}
 
-    // 初始渲染
+// 搜尋功能
+const searchInput = document.getElementById('apcs-search-input');
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const key = e.target.value.toLowerCase();
+        const result = apcsData.filter(i => 
+            i.date.includes(key) || 
+            i.level.includes(key) || 
+            i.title.toLowerCase().includes(key) || 
+            i.note.toLowerCase().includes(key)
+        );
+        renderTable(result);
+    });
+}
+
+// 篩選功能 (按鈕觸發)
+window.filterLevel = function(level) {
+    if (level === 'All') renderTable(apcsData);
+    else renderTable(apcsData.filter(i => i.level === level));
+};
+
+// 初始渲染
+document.addEventListener("DOMContentLoaded", function() {
     renderTable(apcsData);
-
 });
 </script>
         </div>
@@ -784,7 +894,7 @@ document.addEventListener("DOMContentLoaded", function() {
             repo: 'blog-comment',
             owner: 'chingyen06',
             admin: ['chingyen06'],
-            id: '1770633718215', 
+            id: '1770634452952', 
             distractionFreeMode: true,
             proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
         });

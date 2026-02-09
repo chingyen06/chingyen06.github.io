@@ -41,10 +41,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770633886252.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1770634460814.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770633886252.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1770634460814.css">
 
 
     
@@ -357,6 +357,84 @@
             display: block;        /* 避免圖片下方出現奇怪的空白 */
             margin: 20px auto;     /* 圖片置中，並增加上下間距 */
             border-radius: 8px;    /* 讓圖片有點圓角，看起來比較現代 */
+        }
+    </style>
+    <style>
+        /* --- APCS 專用網格佈局 (儀表板) --- */
+        .apcs-grid {
+            display: grid !important;
+            /* 電腦版：一排 5 個 (初級/中級/中高/高級/N/A) */
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 12px;
+        }
+
+        /* --- 等級顏色定義 (使用 levelConfig 的顏色做漸層) --- */
+        /* 初級 - 綠色 (#42b983) */
+        .apcs-level-1 { background: linear-gradient(135deg, #42b983 0%, #2ecc71 100%); }
+        /* 中級 - 藍色 (#3498db) */
+        .apcs-level-2 { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+        /* 中高級 - 橘色 (#e67e22) */
+        .apcs-level-3 { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); }
+        /* 高級 - 紅色 (#e74c3c) */
+        .apcs-level-4 { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+        /* 無等級 - 灰色 (#95a5a6) */
+        .apcs-level-na { background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%); }
+        
+        /* 統計卡片通用樣式 */
+        .stat-card {
+            flex: 1; 
+            padding: 15px 10px; /* 稍微縮小內距以容納5個 */
+            border-radius: 12px; 
+            text-align: center;
+            color: white !important; 
+            cursor: pointer; 
+            transition: 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .stat-card:hover { 
+            transform: translateY(-3px); 
+            filter: brightness(1.05); 
+        }
+        .stat-card h3 { 
+            margin: 0 !important; 
+            font-size: 1rem !important; 
+            color: rgba(255,255,255,0.95) !important; 
+            font-weight: 500 !important; 
+        }
+        .stat-card p { 
+            margin: 5px 0 0 0 !important; 
+            font-size: 1.8rem !important; 
+            font-weight: 800 !important; 
+            color: #ffffff !important; 
+        }
+
+        /* 讓「顯示所有」按鈕橫跨整排 */
+        .full-width {
+            grid-column: 1 / -1; 
+            width: 100%;
+            text-align: center; 
+            padding: 12px; 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            margin-top: 10px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .full-width:hover {
+            background: #e2e8f0;
+        }
+
+        /* 手機版適配：改為一排 2 個 (最後一個 N/A 獨佔一行或跟著排) */
+        @media (max-width: 600px) {
+            .apcs-grid {
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            /* 讓 N/A 按鈕在手機版橫跨兩欄，比較好看 */
+            .apcs-level-na {
+                grid-column: span 2;
+            }
         }
     </style>
 <meta name="generator" content="Hexo 8.1.1"></head>
