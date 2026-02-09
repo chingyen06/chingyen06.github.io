@@ -43,10 +43,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770627947228.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1770630642630.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770627947228.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1770630642630.css">
 
 
     
@@ -386,37 +386,33 @@
         
         
 <div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
-    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
-        <div class="input-group table bg-gray-100 lg:bg-white w-full">
-            <input id="search-input" type="text" placeholder="🔍 搜尋" class="inline-block w-full bg-gray-100 lg:bg-white p-1">
-            <span class="table-cell">
-                <button name="search tigger button" disabled>
-                    <i class="iconfont icon-search m-2"></i>
-                </button>
-            </span>
+    <form id="search-form" class="w-full my-auto">
+        <div class="relative w-full">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="w-full">
+            <button type="submit" style="display: none;"></button>
         </div>
     </form>
-        
+    
+    
 <div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
 <script id="search-teamplate" type="text/html" data-path="/content.json">
-    <div>
-        <div class="search-header bg-gray-400">
+    <div class="search-widget-container">
+        <div class="search-header">
             <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
         </div>
-        <div class="search-result bg-gray-200">
+        
+        <div class="search-result">
             {{#each searchPosts}}
-            <a href="/{{ path }}" class="result-item block px-2 pb-3 mb-1 pt-1 hover:bg-indigo-100">
-                <i class="iconfont icon-file"></i>
-                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
-                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            <a href="/{{ path }}" class="result-item block px-4 pb-3 mb-2 pt-3 hover:bg-green-50 rounded-lg transition duration-200">
+                <i class="iconfont icon-file text-gray-400 mr-2"></i>
+                <h1 class="result-title inline font-bold text-lg text-gray-800">{{ title }}</h1>
+                <p class="result-content text-gray-500 text-sm mt-1 line-clamp-2">{{{ text }}}</p>
             </a>
             {{/each}}
         </div>
     </div>
 </script>
-
 </div>
-
 
         <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
             <i class="iconfont icon-hamburger"></i>
