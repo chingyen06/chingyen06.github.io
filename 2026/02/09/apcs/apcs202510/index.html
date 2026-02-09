@@ -9,7 +9,7 @@
     
     <title>
     
-    test | 靖諺的資訊學習筆記
+    APCS 2025/10 實作題題解 — C++ | 靖諺的資訊學習筆記
     </title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,17 +21,19 @@
         h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
     </style>
 
-    <meta name="description" content="testtest C1234567#include &lt;stdio.h&gt;int main()&#123;    printf(&quot;Hello World&quot;);    return 0;&#125;  test C++12345678#include &lt;iostream&gt;using namespace std;int main()&#123;    cout">
+    <meta name="description" content="此筆記為APCS 2025年10月實作題考試的題目詳解。每一題的題解都包含解題思路、C++範例程式碼。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://www.tseng-school.com/2026/02/03/test/index.html">
+<meta property="og:title" content="APCS 2025&#x2F;10 實作題題解 — C++">
+<meta property="og:url" content="https://www.tseng-school.com/2026/02/09/apcs/apcs202510/index.html">
 <meta property="og:site_name" content="靖諺的資訊學習筆記">
-<meta property="og:description" content="testtest C1234567#include &lt;stdio.h&gt;int main()&#123;    printf(&quot;Hello World&quot;);    return 0;&#125;  test C++12345678#include &lt;iostream&gt;using namespace std;int main()&#123;    cout">
+<meta property="og:description" content="此筆記為APCS 2025年10月實作題考試的題目詳解。每一題的題解都包含解題思路、C++範例程式碼。">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2026-02-03T05:54:14.000Z">
-<meta property="article:modified_time" content="2026-02-07T10:42:41.459Z">
+<meta property="article:published_time" content="2026-02-09T07:15:00.000Z">
+<meta property="article:modified_time" content="2026-02-09T09:00:22.408Z">
 <meta property="article:author" content="chingyen06">
-<meta property="article:tag" content="曾靖諺, C++, APCS, CPE, 資訊學習, 程式設計, 學習筆記">
+<meta property="article:tag" content="APCS">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="ZeroJudge">
 <meta name="twitter:card" content="summary">
 
     
@@ -49,6 +51,20 @@
 <link rel="stylesheet" href="/css/iconfont.min.css?v=1770627641637.css">
 
 
+    
+        <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     
         <link href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css" rel="stylesheet">
@@ -505,7 +521,7 @@
             
     
         <h1 class="article-title text-lg" itemprop="name">
-            test
+            APCS 2025/10 實作題題解 — C++
         </h1>
     
 
@@ -514,41 +530,134 @@
             <p class="article-meta mb-3 text-xs">
                 <span class="article-date">
     <i class="iconfont icon-calendar-check"></i>
-	<a href="/2026/02/03/test/" class="article-date">
-	  <time datetime="2026-02-03T05:54:14.000Z" itemprop="datePublished">2026-02-03</time>
+	<a href="/2026/02/09/apcs/apcs202510/" class="article-date">
+	  <time datetime="2026-02-09T07:15:00.000Z" itemprop="datePublished">2026-02-09</time>
 	</a>
 </span>
 
                 
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/APCS/">APCS</a>
+  </span>
+
 
                 
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/APCS/" rel="tag">APCS</a>, <a class="article-tag-none-link" href="/tags/C/" rel="tag">C++</a>, <a class="article-tag-none-link" href="/tags/ZeroJudge/" rel="tag">ZeroJudge</a>
+  </span>
+
 
                 <span class="_partial/post-comment"><i class="icon icon-comment"></i>
-                    <a href="/2026/02/03/test/#comments" class="article-comment-link">
+                    <a href="/2026/02/09/apcs/apcs202510/#comments" class="article-comment-link">
                         評論
                     </a>
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">字數統計: 47(字)</span>
+        <span class="post-wordcount" itemprop="wordCount">字數統計: 1.4k(字)</span>
     
     
-        <span class="post-readcount" itemprop="timeRequired">閱讀時長: 1(分)</span>
+        <span class="post-readcount" itemprop="timeRequired">閱讀時長: 6(分)</span>
     
 
 
             </p>
         </header>
         <div class="marked-body article-body">
-            <h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><h3 id="test-C"><a href="#test-C" class="headerlink" title="test C"></a>test C</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <div class="alert-block alert-info">💡 此筆記為APCS 2025年10月實作題考試的題目詳解。每一題的題解都包含解題思路、C++範例程式碼。
+</div>
 
-<h3 id="test-C-1"><a href="#test-C-1" class="headerlink" title="test C++"></a>test C++</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="第一題-彗星撞擊-ZeroJudge-r488"><a href="#第一題-彗星撞擊-ZeroJudge-r488" class="headerlink" title="第一題 彗星撞擊 (ZeroJudge r488.)"></a>第一題 彗星撞擊 (ZeroJudge r488.)</h2><h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=r488">題目</a></h3><div class="alert-block alert-success">你正在研究一個長 $R$ 寬 $C$ 的矩形區域，模擬恐龍棲息地與彗星撞擊事件。
+初始地圖是 $R \times C$ 的網格（座標從 $0$ 開始編號，行座標範圍 $[0, R-1]$，列座標範圍 $[0, C-1]$），所有區域的<strong>初始地面高度均為 $D$</strong>。
+地圖上有 $K$ 隻<strong>清醒</strong>的恐龍，<strong>相同座標可能有多隻恐龍。</strong>
+接著，地圖將經歷 $M$ 次彗星撞擊事件。每次撞擊由<strong>中心點 $(a, b)$</strong>、<strong>撞擊邊長 $S$</strong> 和<strong>撞擊深度 $d$</strong> 定義。
+<strong>撞擊規則：</strong>
+	1. <strong>影響範圍：</strong> 每次撞擊的影響範圍是以 $(a, b)$ 為中心的邊長 $S$ 正方形區域（需與地圖邊界取交集）。
+	2. <strong>暈眩與凹陷判定：</strong>
+		• 如果在撞擊的影響範圍內<strong>存在至少一隻清醒的恐龍</strong>：
+			◦ 範圍內所有清醒恐龍會變為<strong>暈眩</strong>狀態。
+			◦ 本次撞擊不會對該範圍造成地面凹陷。
+		• 否則（影響範圍內沒有清醒恐龍）：
+			◦ 影響範圍內所有區域的地面高度會<strong>減少 $d$</strong>。地面高度可以為負數。
+請計算經歷 $M$ 次撞擊後：
+	1. 地圖上最高的地面高度。
+	2. 地圖上最低的地面高度。
+3	. 保持清醒的恐龍區域數量。
+</div>
 
-<h3 id="test-Python"><a href="#test-Python" class="headerlink" title="test Python"></a>test Python</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello World&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="輸入-輸出說明"><a href="#輸入-輸出說明" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>輸入說明</strong></th>
+<th align="left"><strong>輸出說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一行包含三個整數 $R, C, D$。($1 \le R, C, D \le 100$)<br>第二行包含一個整數 $K$。($0 \le K \le 100$)<br>接下來 $K$ 行，每行包含兩個整數 $r_i, c_i$，代表恐龍的初始座標。($0 \le r_i \le R, 0 \le c_i \le C$)<br>接下來一行包含一個整數 $M$。($0 \le M \le 100$)<br>接下來 $M$ 行，每行包含四個整數 $a_j, b_j, S_j, d_j$，代表第 $j$ 次撞擊的參數。<br>($0 \le a_j &lt; R, 0 \le b_j &lt; C, 1 \le S_j \le 19$ 且為奇數 $,1 \le d_j \le 10$)<br>(60 分): $R &#x3D; 1$<br>(40 分): 無限制</td>
+<td align="left">輸出僅一行，包含三個整數，以空格分隔：<strong>最高地面高度 最低地面高度 清醒恐龍數量</strong></td>
+</tr>
+</tbody></table>
+<h3 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">這題有點考驗耐心，慢慢看題目。
+我用 mapp 陣列存地形高度、dinosaur 陣列存清醒的恐龍數。
+要注意的是題目給 (a, b) 這樣的寫法，陣列要寫 mapp[b][a]，因為 a 是 x 座標，屬於 mapp 的行 (column)；b 是 y 座標，屬於 mapp 的列 (row)。
+因為題目說 $s_j$ 是奇數，而且 C++ 如果用 s / 2 就會是無條件捨去，所以找出彗星撞擊的範圍就只需要找 $(a - s/2, b - s/2)$ 到 $(a + s/2, b + s/2)$ 的範圍內有沒有清醒的恐龍。
+找出清醒的恐龍數後，如果沒有清醒的恐龍，就將 $(a - s/2, b - s/2)$ 到 $(a + s/2, b + s/2)$ 範圍內的高度減掉 $d_j$。
+最後再用迴圈找出剩餘的恐龍數與最高與最低的地面高度就可以了。
+</div>
+
+<h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> i, j, k, l;</span><br><span class="line">	<span class="type">int</span> R, C, D, K, M, r, c;</span><br><span class="line">	<span class="type">int</span> a, b, s, d;</span><br><span class="line">	<span class="type">int</span> t, Max, Min;</span><br><span class="line">	</span><br><span class="line">	cin &gt;&gt; R &gt;&gt; C &gt;&gt; D &gt;&gt; K;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> mapp[C][R]=&#123;&#125;, dinosaur[C][R]=&#123;&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;C;i++) &#123;  <span class="comment">// 初始高度設為 D </span></span><br><span class="line">		<span class="keyword">for</span> (j=<span class="number">0</span>;j&lt;R;j++) &#123;</span><br><span class="line">			mapp[i][j] = D;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;K;i++) &#123;</span><br><span class="line">		cin &gt;&gt; r &gt;&gt; c;</span><br><span class="line">		</span><br><span class="line">		dinosaur[c][r]++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	cin &gt;&gt; M;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (j=<span class="number">0</span>;j&lt;M;j++) &#123;</span><br><span class="line">		cin &gt;&gt; a &gt;&gt; b &gt;&gt; s &gt;&gt; d;</span><br><span class="line">		</span><br><span class="line">		t = <span class="number">0</span>;  <span class="comment">// 範圍內是否有清醒的恐龍</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">// cout &lt;&lt; &quot;k: &quot; &lt;&lt; b-s/2 &lt;&lt; &quot;~&quot; &lt;&lt; b+s/2 &lt;&lt; endl;</span></span><br><span class="line">		<span class="comment">// cout &lt;&lt; &quot;l: &quot; &lt;&lt; a-s/2 &lt;&lt; &quot;~&quot; &lt;&lt; a+s/2 &lt;&lt; endl;</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (k=b-s/<span class="number">2</span>;k&lt;=b+s/<span class="number">2</span>;k++) &#123;  <span class="comment">// 列的範圍 (y 座標) </span></span><br><span class="line">			<span class="keyword">for</span> (l=a-s/<span class="number">2</span>;l&lt;=a+s/<span class="number">2</span>;l++) &#123;  <span class="comment">// 行的範圍 (x 座標) </span></span><br><span class="line">				<span class="keyword">if</span> (k &lt; <span class="number">0</span> || k &gt;= C || l &lt; <span class="number">0</span> || l &gt;= R)  <span class="comment">//超出邊界 </span></span><br><span class="line">					<span class="keyword">continue</span>;  <span class="comment">// 略過</span></span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span> (dinosaur[k][l] &gt; <span class="number">0</span>) &#123; </span><br><span class="line">					<span class="comment">// cout &lt;&lt; l &lt;&lt; &quot; &quot; &lt;&lt; k &lt;&lt; &quot; | &quot; &lt;&lt; dinosaur[k][l] &lt;&lt; endl;</span></span><br><span class="line">					t++;</span><br><span class="line">					dinosaur[k][l] = <span class="number">0</span>;  <span class="comment">// 砸暈所有恐龍 </span></span><br><span class="line">				&#125; </span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> (t == <span class="number">0</span>) &#123;  <span class="comment">// 沒有清醒的恐龍 </span></span><br><span class="line">			<span class="keyword">for</span> (k=b-s/<span class="number">2</span>;k&lt;=b+s/<span class="number">2</span>;k++) &#123;  <span class="comment">// 列的範圍 (y 座標) </span></span><br><span class="line">				<span class="keyword">for</span> (l=a-s/<span class="number">2</span>;l&lt;=a+s/<span class="number">2</span>;l++) &#123;  <span class="comment">// 行的範圍 (x 座標) </span></span><br><span class="line">					<span class="keyword">if</span> (k &lt; <span class="number">0</span> || k &gt;= C || l &lt; <span class="number">0</span> || l &gt;= R)  <span class="comment">//超出邊界 </span></span><br><span class="line">						<span class="keyword">continue</span>;  <span class="comment">// 略過</span></span><br><span class="line">					</span><br><span class="line">					mapp[k][l] = mapp[k][l] - d;  <span class="comment">// 地面高度下降 </span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	t = <span class="number">0</span>;  <span class="comment">// 存剩餘的清醒恐龍數 </span></span><br><span class="line">	Max = mapp[<span class="number">0</span>][<span class="number">0</span>];  <span class="comment">// 存最高的地面高度</span></span><br><span class="line">	Min = mapp[<span class="number">0</span>][<span class="number">0</span>];  <span class="comment">// 存最低的地面高度</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;C;i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (j=<span class="number">0</span>;j&lt;R;j++) &#123;</span><br><span class="line">			t += dinosaur[i][j];</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (mapp[i][j] &gt; Max)  <span class="comment">// 取較大的當最高的地面高度</span></span><br><span class="line">				Max = mapp[i][j];</span><br><span class="line">				</span><br><span class="line">			<span class="keyword">if</span> (mapp[i][j] &lt; Min)  <span class="comment">// 取較小的當最低的地面高度</span></span><br><span class="line">				Min = mapp[i][j];</span><br><span class="line">				</span><br><span class="line">			<span class="comment">// cout &lt;&lt; mapp[i][j] &lt;&lt; &quot; &quot;;</span></span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// cout &lt;&lt; endl;</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; Max &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; Min &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; t; </span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="運行結果"><a href="#運行結果" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> (1ms, 396KB)</p>
+<h2 id="第二題-ZeroJudge"><a href="#第二題-ZeroJudge" class="headerlink" title="第二題  (ZeroJudge .)"></a>第二題  (ZeroJudge .)</h2><h3 id="題目-1"><a href="#題目-1" class="headerlink" title="題目"></a><a href="https://">題目</a></h3><div class="alert-block alert-success">
+</div>
+
+<h3 id="輸入-輸出說明-1"><a href="#輸入-輸出說明-1" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>輸入說明</strong></th>
+<th align="left"><strong>輸出說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+</tbody></table>
+<h3 id="解題思路-1"><a href="#解題思路-1" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">
+</div>
+
+<h3 id="範例程式碼-1"><a href="#範例程式碼-1" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="運行結果-1"><a href="#運行結果-1" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> </p>
+<h2 id="第三題-ZeroJudge"><a href="#第三題-ZeroJudge" class="headerlink" title="第三題  (ZeroJudge .)"></a>第三題  (ZeroJudge .)</h2><h3 id="題目-2"><a href="#題目-2" class="headerlink" title="題目"></a><a href="https://">題目</a></h3><div class="alert-block alert-success">
+</div>
+
+<h3 id="輸入-輸出說明-2"><a href="#輸入-輸出說明-2" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>輸入說明</strong></th>
+<th align="left"><strong>輸出說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+</tbody></table>
+<h3 id="解題思路-2"><a href="#解題思路-2" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">
+</div>
+
+<h3 id="範例程式碼-2"><a href="#範例程式碼-2" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="運行結果-2"><a href="#運行結果-2" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> </p>
+<div class="alert-block alert-danger"><strong>查看更多資訊請至：</strong><a href="https://www.tseng-school.com/">https://www.tseng-school.com/</a> 
+</div>
         </div>
         
 <blockquote class="copyright">
-    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/02/03/test/">https://www.tseng-school.com/2026/02/03/test/</a></p>
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/02/09/apcs/apcs202510/">https://www.tseng-school.com/2026/02/09/apcs/apcs202510/</a></p>
     <p><strong> </strong></p>
 </blockquote>
 
@@ -585,7 +694,7 @@
             repo: 'blog-comment',
             owner: 'chingyen06',
             admin: ['chingyen06'],
-            id: '1770098054000', 
+            id: '1770621300000', 
             distractionFreeMode: true,
             proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
         });
@@ -630,7 +739,7 @@
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">文章目錄</h3>
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#test"><span class="toc-number">1.</span> <span class="toc-text">test</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#test-C"><span class="toc-number">1.1.</span> <span class="toc-text">test C</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#test-C-1"><span class="toc-number">1.2.</span> <span class="toc-text">test C++</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#test-Python"><span class="toc-number">1.3.</span> <span class="toc-text">test Python</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E5%BD%97%E6%98%9F%E6%92%9E%E6%93%8A-ZeroJudge-r488"><span class="toc-number">1.</span> <span class="toc-text">第一題 彗星撞擊 (ZeroJudge r488.)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8C%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">題目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-%E8%BC%B8%E5%87%BA%E8%AA%AA%E6%98%8E"><span class="toc-number">1.2.</span> <span class="toc-text">輸入 &#x2F; 輸出說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF"><span class="toc-number">1.3.</span> <span class="toc-text">解題思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.4.</span> <span class="toc-text">範例程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8B%E8%A1%8C%E7%B5%90%E6%9E%9C"><span class="toc-number">1.5.</span> <span class="toc-text">運行結果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%A1%8C-ZeroJudge"><span class="toc-number">2.</span> <span class="toc-text">第二題  (ZeroJudge .)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8C%E7%9B%AE-1"><span class="toc-number">2.1.</span> <span class="toc-text">題目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-%E8%BC%B8%E5%87%BA%E8%AA%AA%E6%98%8E-1"><span class="toc-number">2.2.</span> <span class="toc-text">輸入 &#x2F; 輸出說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF-1"><span class="toc-number">2.3.</span> <span class="toc-text">解題思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-1"><span class="toc-number">2.4.</span> <span class="toc-text">範例程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8B%E8%A1%8C%E7%B5%90%E6%9E%9C-1"><span class="toc-number">2.5.</span> <span class="toc-text">運行結果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%A1%8C-ZeroJudge"><span class="toc-number">3.</span> <span class="toc-text">第三題  (ZeroJudge .)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8C%E7%9B%AE-2"><span class="toc-number">3.1.</span> <span class="toc-text">題目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-%E8%BC%B8%E5%87%BA%E8%AA%AA%E6%98%8E-2"><span class="toc-number">3.2.</span> <span class="toc-text">輸入 &#x2F; 輸出說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF-2"><span class="toc-number">3.3.</span> <span class="toc-text">解題思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-2"><span class="toc-number">3.4.</span> <span class="toc-text">範例程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8B%E8%A1%8C%E7%B5%90%E6%9E%9C-2"><span class="toc-number">3.5.</span> <span class="toc-text">運行結果</span></a></li></ol></li></ol>
         </nav>
     </div>
 </aside>
@@ -695,7 +804,7 @@
             repo: 'blog-comment',
             owner: 'chingyen06',
             admin: ['chingyen06'],
-            id: '1770098054000', 
+            id: '1770621300000', 
             distractionFreeMode: true,
             proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
         });

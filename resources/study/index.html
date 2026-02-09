@@ -6,7 +6,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
-    <!-- <title>程式學習資源 | 靖諺的資訊學習筆記</title> -->
+    
     <title>
     
     程式學習資源 | 靖諺的資訊學習筆記
@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <style>
         body { font-family: 'Noto Sans TC', sans-serif !important; }
         h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
@@ -34,33 +35,24 @@
 <meta name="twitter:card" content="summary">
 
     
-        
-            <link rel="alternate" type="application/atom+xml" href="${url_for(config.feed.path)}">
-        
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
     
 
-    
-        <link rel="icon" href="/images/avatar.png" type="image/x-icon">
-    
-    
+    <link rel="icon" href="/images/avatar.png" type="image/x-icon">
     
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770467552856.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1770627641623.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770467552856.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1770627641623.css">
 
 
     
     
-        
-            <link href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css" rel="stylesheet">
-        
-        
-            <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
-        
+        <link href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css" rel="stylesheet">
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
     
 
     
@@ -69,7 +61,6 @@
     /* 讓網格居中並增加上下間距 */
     .resource-grid {
         display: grid !important;
-        /* 這裡設定寬一點，讓它在寬螢幕能排成兩排或三排 */
         grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
         gap: 35px; /* 加大卡片間距 */
         margin: 60px auto; /* 增加上下外邊距，填補頁面空白 */
@@ -310,6 +301,67 @@
             .cpe-grid {
                 grid-template-columns: repeat(2, 1fr); /* 手機變兩欄 */
             }
+        }
+    </style>
+    <style>
+        /* --- HackMD 風格提示框 (Alert Blocks) --- */
+        .alert-block {
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-left: 5px solid #eee;
+            border-radius: 4px;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        /* .alert-block strong {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 700;
+        } */
+
+        .alert-block strong {
+            display: inline;     /* 改成行內元素 */
+            font-weight: 700;    /* 只保留粗體效果 */
+        }
+
+        /* 藍色 Info */
+        .alert-info {
+            background-color: #e7f3f8;
+            border-left-color: #31708f;
+            color: #31708f;
+        }
+
+        /* 綠色 Success */
+        .alert-success {
+            background-color: #dff0d8;
+            border-left-color: #3c763d;
+            color: #3c763d;
+        }
+
+        /* 黃色 Warning */
+        .alert-warning {
+            background-color: #fcf8e3;
+            border-left-color: #8a6d3b;
+            color: #8a6d3b;
+        }
+
+        /* 紅色 Danger */
+        .alert-danger {
+            background-color: #f2dede;
+            border-left-color: #a94442;
+            color: #a94442;
+        }
+
+        /* --- 圖片全域限制 --- */
+        .post-content img, .article-entry img {
+            max-width: 100%;       /* 圖片最大寬度不超過父容器 */
+            height: auto;          /* 高度自動等比例縮放 */
+            display: block;        /* 避免圖片下方出現奇怪的空白 */
+            margin: 20px auto;     /* 圖片置中，並增加上下間距 */
+            border-radius: 8px;    /* 讓圖片有點圓角，看起來比較現代 */
         }
     </style>
 <meta name="generator" content="Hexo 8.1.1"></head>
@@ -606,10 +658,26 @@
             <hr>
         
             
+    <div class="widget">
+        <h3 class="widget-title">類別</h3>
+        <div class="widget-body">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APCS/">APCS</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
 
             <hr>
         
             
+    <div class="widget">
+        <h3 class="widget-title">
+            標籤
+        </h3>
+        <div class="widget-body">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APCS/" rel="tag">APCS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZeroJudge/" rel="tag">ZeroJudge</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
 
             <hr>
         
@@ -617,7 +685,7 @@
     <div class="widget">
         <h3 class="widget-title">文章</h3>
         <div class="widget-body">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">2026/02</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">2026/02</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -629,6 +697,20 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget-body">
         <ul class="recent-post-list list-unstyled">
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/APCS/">APCS</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/02/09/apcs/apcs202510/" class="title">APCS 2025/10 實作題題解 — C++</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-02-09T07:15:00.000Z" itemprop="datePublished">2026-02-09</time>
+                        </p>
+                    </div>
+                </li>
             
                 <li>
                     <div class="recent-post">
