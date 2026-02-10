@@ -43,10 +43,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770697608300.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1770697943583.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770697608300.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1770697943583.css">
 
 
     
@@ -554,7 +554,6 @@
             border-bottom-right-radius: 8px;
         }
     </style>
-
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const COLLAPSE_HEIGHT = 450; 
@@ -563,9 +562,13 @@
         const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
         const iconChevronDown = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
 
-        const figures = document.querySelectorAll('figure.highlight');
+        // [修正重點] 這裡改了！
+        // 原本是 document.querySelectorAll('figure.highlight') 會抓到全站所有代碼
+        // 現在限制只抓取 .article-entry (文章內容) 或 .content (通用內容) 底下的代碼
+        const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
 
         figures.forEach(figure => {
+            // --- 以下邏輯完全沒變 ---
             const wrapper = document.createElement('div');
             wrapper.className = 'code-wrapper';
             figure.parentNode.insertBefore(wrapper, figure);
@@ -592,7 +595,7 @@
                 });
             });
 
-            // 摺疊按鈕 (只有超過高度才顯示)
+            // 摺疊按鈕
             if (figure.offsetHeight > COLLAPSE_HEIGHT) {
                 wrapper.classList.add('collapsed');
 
