@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.tseng-school.com/2026/02/09/apcs/apcs202510/</loc>
+    <loc>https://www.tseng-school.com/resources/apcs/index.html</loc>
     
     <lastmod>2026-02-10</lastmod>
     
@@ -11,9 +11,9 @@
   </url>
   
   <url>
-    <loc>https://www.tseng-school.com/resources/apcs/index.html</loc>
+    <loc>https://www.tseng-school.com/2026/02/09/apcs/apcs202510/</loc>
     
-    <lastmod>2026-02-09</lastmod>
+    <lastmod>2026-02-10</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
