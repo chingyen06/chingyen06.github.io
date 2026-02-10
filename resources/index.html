@@ -43,10 +43,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770634460810.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1770697453190.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770634460810.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1770697453190.css">
 
 
     
@@ -442,6 +442,177 @@
             }
         }
     </style>
+    <style>
+        /* 這裡鎖定 article 內的表格，避免影響到其他地方 */
+        .article-entry table, 
+        .content table {
+            width: 100%;
+            table-layout: fixed; /* 關鍵：這會強制忽略內容長度，依照欄位數量均分寬度 */
+        }
+
+        /* 確保文字太長時會自動換行，不會撐爆表格 */
+        .article-entry table td, 
+        .content table td {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    </style>
+    <style>
+        /* 1. 外包裝容器 */
+        .code-wrapper {
+            position: relative;
+            margin: 20px 0;
+            border-radius: 8px;
+            background: #f8f9fa;
+            transition: all 0.3s;
+        }
+
+        /* 調整原本的 figure 樣式 */
+        figure.highlight {
+            margin: 0 !important;
+            border-radius: 8px;
+            overflow-x: auto;
+            /* [關鍵] 頂部留白，避免文字被按鈕擋住 */
+            padding-top: 35px !important; 
+        }
+
+        /* --- 頂部按鈕通用樣式 --- */
+        .code-btn {
+            position: absolute;
+            top: 6px; /* [位置] 距離頂部 6px，看起來最舒適 */
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            
+            background: #ffffff;
+            border: 1px solid #e0e0e0; /* 獨立邊框 */
+            border-radius: 6px;        /* 獨立圓角 */
+            
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* 輕微陰影 */
+        }
+        
+        .code-btn:hover {
+            opacity: 1;
+            background: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .code-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #666;
+            transition: transform 0.3s ease;
+        }
+
+        /* 2. 展開/收合按鈕 (最右邊) */
+        .toggle-btn {
+            right: 10px; /* 距離右側邊緣 10px */
+        }
+        
+        .toggle-btn.expanded svg {
+            transform: rotate(180deg);
+        }
+
+        /* 3. 複製按鈕 (在箭頭左邊，並留有空隙) */
+        .copy-btn {
+            /* 計算公式：右邊距(10px) + 按鈕寬(32px) + 空隙(8px) = 50px */
+            right: 50px; 
+        }
+        
+        .copy-btn.copied {
+            background: #e6fffa;
+            border-color: #42b983;
+        }
+        .copy-btn.copied svg {
+            fill: #42b983;
+        }
+
+        /* 4. 摺疊狀態樣式 */
+        .code-wrapper.collapsed figure.highlight {
+            max-height: 350px;
+            overflow-y: hidden;
+        }
+
+        .code-wrapper.collapsed::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(248, 249, 250, 0), rgba(248, 249, 250, 1) 95%);
+            pointer-events: none;
+            z-index: 50;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const COLLAPSE_HEIGHT = 450; 
+
+        const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+        const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        const iconChevronDown = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+
+        const figures = document.querySelectorAll('figure.highlight');
+
+        figures.forEach(figure => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            figure.parentNode.insertBefore(wrapper, figure);
+            wrapper.appendChild(figure);
+
+            // 複製按鈕
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-btn copy-btn';
+            copyBtn.innerHTML = iconCopy;
+            copyBtn.title = "複製程式碼";
+            wrapper.appendChild(copyBtn);
+
+            copyBtn.addEventListener('click', () => {
+                let codeText = "";
+                const codeCell = figure.querySelector('td.code');
+                codeText = codeCell ? codeCell.innerText : figure.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = iconCheck;
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = iconCopy;
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+
+            // 摺疊按鈕 (只有超過高度才顯示)
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const toggleBtn = document.createElement('button');
+                toggleBtn.className = 'code-btn toggle-btn';
+                toggleBtn.innerHTML = iconChevronDown;
+                toggleBtn.title = "展開/收合程式碼";
+                wrapper.appendChild(toggleBtn);
+
+                toggleBtn.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                    toggleBtn.classList.toggle('expanded');
+                    if (wrapper.classList.contains('collapsed')) {
+                        wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+        });
+    });
+    </script>
 <meta name="generator" content="Hexo 8.1.1"></head>
     <body>
         <header class="header header-fixture">
