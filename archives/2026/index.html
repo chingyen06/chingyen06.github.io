@@ -41,10 +41,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770789635398.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1770789995470.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770789635398.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1770789995470.css">
 
 
     
@@ -658,6 +658,24 @@
             {{/each}}
         </div>
     </div>
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var observer = new MutationObserver(function(mutations) {
+    var gtInput = document.querySelector('.gt-header-textarea');
+    
+    if (gtInput) {
+      gtInput.addEventListener('keydown', function(e) {
+        e.stopPropagation();
+      });
+      
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+});
 </script>
 </div>
 
