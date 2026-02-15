@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://www.tseng-school.com/2026/02/09/apcs/apcs202510/%E5%9C%96%E7%89%874.jpg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/02/09/apcs/apcs202510/%E5%9C%96%E7%89%875.jpg">
 <meta property="article:published_time" content="2026-02-09T07:15:00.000Z">
-<meta property="article:modified_time" content="2026-02-11T05:57:52.645Z">
+<meta property="article:modified_time" content="2026-02-13T09:49:45.753Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="APCS">
 <meta property="article:tag" content="C++">
@@ -51,10 +51,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1770799925569.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1771138846538.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1770799925569.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1771138846538.css">
 
 
     
@@ -957,7 +957,7 @@ $(S_{odd}+3 \times S_{even}) \bmod 10 + C = 0$ 或 $10$
 </tbody></table>
 <h3 id="解題思路-2"><a href="#解題思路-2" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">老實說我覺得這題好像比上一題簡單一點。
 這題其實只需要用陣列就可以了，不需要用 map，因為產地代碼只有 3 位，這樣就是 000 ~ 999，那我就設一個 num[1000] 去存就可以了。
-那我們就用 for(j=0;j<12;j=j+2) 迴圈去跑條碼 s 索引是 0 ~ 11 (第 1 位 ~ 第 12 位) 的狀況，那 j = j + 2 代表他是 j = 0, 2, 4, 6, 8, 10，我們每次就把 s[j] 加到 s_odd、s[j+1] 加到 s_even 就可以了 (這邊要注意，索引 0 是第 1 位，所以 j 每次加 2 都是在奇數位喔)。
+我們就用 for(j=0;j<12;j=j+2) 迴圈去跑條碼 s 索引是 0 ~ 11 (第 1 位 ~ 第 12 位) 的狀況，那 j = j + 2 代表他是 j = 0, 2, 4, 6, 8, 10，我們每次就把 s[j] 加到 s_odd、s[j+1] 加到 s_even 就可以了 (這邊要注意，索引 0 是第 1 位，所以 j 每次加 2 都是在奇數位喔)。
 最後記得判斷 < 10 的時候要補 00，10 ~ 99 之間的時候要補 0。
 </div>
 

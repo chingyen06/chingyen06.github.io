@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html  lang="zh-TW" >
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    
+    <title>
+    
+    APCS 2025/11 實作題題解 — C++ | 靖諺的資訊學習筆記
+    </title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif !important; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
+    </style>
+
+    <meta name="description" content="此筆記為APCS 2025年11月實作題考試的題目詳解。每一題的題解都包含解題思路、C++範例程式碼。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APCS 2025&#x2F;11 實作題題解 — C++">
+<meta property="og:url" content="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/index.html">
+<meta property="og:site_name" content="靖諺的資訊學習筆記">
+<meta property="og:description" content="此筆記為APCS 2025年11月實作題考試的題目詳解。每一題的題解都包含解題思路、C++範例程式碼。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/%E5%9C%96%E7%89%871.png">
+<meta property="og:image" content="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/%E5%9C%96%E7%89%872.png">
+<meta property="og:image" content="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/%E5%9C%96%E7%89%873.png">
+<meta property="og:image" content="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/%E5%9C%96%E7%89%874.png">
+<meta property="article:published_time" content="2026-02-11T06:10:45.000Z">
+<meta property="article:modified_time" content="2026-02-15T06:59:29.047Z">
+<meta property="article:author" content="chingyen06">
+<meta property="article:tag" content="APCS">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="ZeroJudge">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/%E5%9C%96%E7%89%871.png">
+
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+    <link rel="icon" href="/images/avatar.png" type="image/x-icon">
+    
+
+    
+    
+<link rel="stylesheet" href="/css/common.min.css?v=1771138846537.css">
+
+    
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1771138846537.css">
+
+
+    
+        <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css" rel="stylesheet">
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+
+    
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-18D6HBKZSF');
+        </script>
+    
+
+    <style>
+    /* 讓網格居中並增加上下間距 */
+    .resource-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
+        gap: 35px; /* 加大卡片間距 */
+        margin: 60px auto; /* 增加上下外邊距，填補頁面空白 */
+        max-width: 1100px; 
+    }
+
+    /* 強化卡片的立體感與高度 */
+    .resource-card {
+        display: flex !important;
+        flex-direction: column !important; /* 讓圖示在標題上方 */
+        align-items: center;    /* 置中對齊 */
+        text-align: center;
+        padding: 50px 30px;     /* 大幅增加上下 Padding，強迫撐開高度 */
+        min-height: 280px;      /* 設定最小高度，確保下面不空 */
+        background: #ffffff !important;
+        border: 1px solid #e1e4e8 !important;
+        border-radius: 24px !important; /* 圓角更圓潤更現代 */
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .resource-card:hover {
+        transform: translateY(-12px); /* 懸停時浮起更高 */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        border-color: #42b983 !important;
+    }
+
+    .card-icon {
+        font-size: 4rem;        /* 放大圖示，視覺重心更穩 */
+        margin-bottom: 25px;
+        margin-right: 0;
+    }
+
+    .card-content h3 {
+        font-size: 1.5rem !important;
+        margin-bottom: 15px !important;
+        color: #2c3e50;
+    }
+
+    .card-content p {
+        font-size: 1.05rem !important;
+        color: #586069;
+        line-height: 1.6;
+    }
+
+    /* --- 手機版適配方案 --- */
+    @media (max-width: 600px) {
+        .resource-grid {
+            /* 強制單欄，且縮小間距 */
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+            margin: 30px auto !important;
+            padding: 0 10px; /* 增加螢幕左右邊距 */
+        }
+
+        .resource-card {
+            padding: 30px 20px !important; /* 縮小內邊距 */
+            min-height: auto !important;    /* 取消最小高度限制，讓它根據文字伸縮 */
+            border-radius: 16px !important; /* 稍微減小圓角 */
+        }
+
+        .card-icon {
+            font-size: 2.5rem !important;  /* 縮小圖示 */
+            margin-bottom: 15px !important;
+        }
+
+        .card-content h3 {
+            font-size: 1.2rem !important;  /* 縮小標題 */
+        }
+
+        .card-content p {
+            font-size: 0.95rem !important; /* 縮小內文 */
+        }
+    }
+    </style>
+    <style>
+        /* Study 頁面專用樣式 */
+        .study-container { max-width: 900px; margin: 0 auto; }
+        .study-section h2 { 
+            border-left: 5px solid #42b983; 
+            padding-left: 15px; 
+            margin: 40px 0 20px; 
+            font-size: 1.5rem;
+        }
+
+        .study-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #eef0f2;
+            transition: 0.3s;
+        }
+
+        .study-item:hover {
+            background: #ffffff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-color: #42b983;
+        }
+
+        .item-info h3 { margin: 0 0 8px 0 !important; font-size: 1.2rem; }
+        .item-info p { margin: 0 !important; font-size: 0.95rem; color: #666; }
+
+        .item-tags { margin-top: 10px; }
+        .item-tags span {
+            background: #e1f5fe;
+            color: #0288d1;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-right: 8px;
+        }
+
+        .item-btn {
+            padding: 8px 16px;
+            background: #2c3e50;
+            color: #fff !important;
+            border-radius: 6px;
+            text-decoration: none !important;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+
+        .item-btn:hover { background: #42b983; }
+
+        /* 子分類標題樣式 */
+        .sub-category-title {
+            font-size: 1.1rem !important;
+            color: #4a5568;
+            margin: 30px 0 15px 5px !important;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #e2e8f0; /* 加入虛線區隔 */
+            display: flex;
+            align-items: center;
+        }
+
+        /* 可以在子標題前加個小圓點裝飾 */
+        .sub-category-title::before {
+            content: "•";
+            color: #42b983;
+            font-weight: bold;
+            display: inline-block; 
+            width: 1em;
+            margin-left: -0.5em;
+        }
+
+        /* 手機版：按鈕變到下方 */
+        @media (max-width: 600px) {
+            .study-item { flex-direction: column; align-items: flex-start; }
+            .item-btn { margin: 15px 0 0 0; width: 100%; text-align: center; }
+        }
+    </style>
+    <style>
+        .leetcode-filter-container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        
+        /* 統計卡片 */
+        .leetcode-stats { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+        .stat-card {
+            flex: 1; padding: 20px; border-radius: 12px; text-align: center;
+            color: white !important; cursor: pointer; transition: 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .stat-card:hover { transform: translateY(-3px); filter: brightness(1.05); }
+        .stat-card h3 { margin: 0 !important; font-size: 1.1rem !important; color: rgba(255,255,255,0.9) !important; font-weight: 500 !important; }
+        .stat-card p { margin: 5px 0 0 0 !important; font-size: 2.2rem !important; font-weight: 800 !important; color: #ffffff !important; }
+
+        .easy { background: #00af9b; }
+        .medium { background: #ffb800; }
+        .hard { background: #ff2d55; }
+
+        /* 搜尋框 */
+        #leetcode-search-input,
+        #cpe-search-input,
+        #apcs-search-input {
+            width: 100%; padding: 12px 18px; border: 2px solid #eef0f2;
+            border-radius: 10px; outline: none; font-size: 1rem; margin-bottom: 20px;
+        }
+        #leetcode-search-input:focus,
+        #cpe-search-input:focus,
+        #apcs-search-input:focus { border-color: #00af9b; }
+
+        /* 表格設計 */
+        .difficulty-section { margin-top: 35px; }
+        .table-wrapper { overflow-x: auto; background: #fff; border-radius: 8px; border: 1px solid #eee; }
+        table { width: 100%; min-width: 600px; border-collapse: collapse; }
+        th { background: #fafafa; padding: 14px; text-align: left; color: #666; border-bottom: 2px solid #f0f0f0; }
+        td { padding: 14px; border-bottom: 1px solid #f9f9f9; }
+
+        /* 移除按鈕感，改回純連結 */
+        .lc-link { color: #2c3e50 !important; font-weight: 600; text-decoration: none; }
+        .lc-link:hover { color: #00af9b !important; text-decoration: underline; }
+        
+        .sol-link { color: #42b983 !important; font-weight: 500; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.2s; }
+        .sol-link:hover { border-bottom: 1px solid #42b983; }
+
+        .note-tag { background: #f0f2f5; color: #666; padding: 3px 10px; border-radius: 4px; font-size: 0.85rem; }
+
+        .stat-btn-all { 
+            width: 100%; text-align: center; padding: 12px; background: #f8fafc; 
+            border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer; margin-top: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .stat-card { flex: 1 1 calc(50% - 10px); }
+            th, td { padding: 10px 5px; font-size: 0.85rem; }
+        }
+    </style>
+    <style>
+        /* --- CPE 專用樣式 --- */
+        /* 1. 網格佈局：讓卡片自動換行，保持整齊 */
+        .cpe-grid {
+            display: grid !important;
+            /* 電腦版：一排 3 個 */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 15px;
+        }
+
+        /* 2. 顏色定義 (Heatmap 風格) */
+        .star-1 { background: linear-gradient(135deg, #42b983 0%, #2ecc71 100%); } /* 綠 */
+        .star-2 { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); } /* 藍 */
+        .star-3 { background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%); } /* 黃 */
+        .star-4 { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); } /* 橘 */
+        .star-5 { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); } /* 紅 */
+        .star-other { background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%); } /* 灰 */
+
+        /* 3. 讓「顯示所有」按鈕橫跨整排 */
+        .full-width {
+            grid-column: 1 / -1; /* 從第一條線跨到最後一條線 */
+            width: 100%;
+        }
+
+        /* 4. 手機版適配：改為一排 2 個 */
+        @media (max-width: 600px) {
+            .cpe-grid {
+                grid-template-columns: repeat(2, 1fr); /* 手機變兩欄 */
+            }
+        }
+    </style>
+    <style>
+        /* --- HackMD 風格提示框 (Alert Blocks) --- */
+        .alert-block {
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-left: 5px solid #eee;
+            border-radius: 4px;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        /* .alert-block strong {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 700;
+        } */
+
+        .alert-block strong {
+            display: inline;     /* 改成行內元素 */
+            font-weight: 700;    /* 只保留粗體效果 */
+        }
+
+        /* 藍色 Info */
+        .alert-info {
+            background-color: #e7f3f8;
+            border-left-color: #31708f;
+            color: #31708f;
+        }
+
+        /* 綠色 Success */
+        .alert-success {
+            background-color: #dff0d8;
+            border-left-color: #3c763d;
+            color: #3c763d;
+        }
+
+        /* 黃色 Warning */
+        .alert-warning {
+            background-color: #fcf8e3;
+            border-left-color: #8a6d3b;
+            color: #8a6d3b;
+        }
+
+        /* 紅色 Danger */
+        .alert-danger {
+            background-color: #f2dede;
+            border-left-color: #a94442;
+            color: #a94442;
+        }
+
+        /* --- 圖片全域限制 --- */
+        .post-content img, .article-entry img {
+            max-width: 100%;       /* 圖片最大寬度不超過父容器 */
+            height: auto;          /* 高度自動等比例縮放 */
+            display: block;        /* 避免圖片下方出現奇怪的空白 */
+            margin: 20px auto;     /* 圖片置中，並增加上下間距 */
+            border-radius: 8px;    /* 讓圖片有點圓角，看起來比較現代 */
+        }
+    </style>
+    <style>
+        /* --- APCS 專用網格佈局 (儀表板) --- */
+        .apcs-grid {
+            display: grid !important;
+            /* 電腦版：一排 5 個 (初級/中級/中高/高級/N/A) */
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 12px;
+        }
+
+        /* --- 等級顏色定義 (使用 levelConfig 的顏色做漸層) --- */
+        /* 初級 - 綠色 (#42b983) */
+        .apcs-level-1 { background: linear-gradient(135deg, #42b983 0%, #2ecc71 100%); }
+        /* 中級 - 藍色 (#3498db) */
+        .apcs-level-2 { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+        /* 中高級 - 橘色 (#e67e22) */
+        .apcs-level-3 { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); }
+        /* 高級 - 紅色 (#e74c3c) */
+        .apcs-level-4 { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+        /* 無等級 - 灰色 (#95a5a6) */
+        .apcs-level-na { background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%); }
+        
+        /* 統計卡片通用樣式 */
+        .stat-card {
+            flex: 1; 
+            padding: 15px 10px; /* 稍微縮小內距以容納5個 */
+            border-radius: 12px; 
+            text-align: center;
+            color: white !important; 
+            cursor: pointer; 
+            transition: 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .stat-card:hover { 
+            transform: translateY(-3px); 
+            filter: brightness(1.05); 
+        }
+        .stat-card h3 { 
+            margin: 0 !important; 
+            font-size: 1rem !important; 
+            color: rgba(255,255,255,0.95) !important; 
+            font-weight: 500 !important; 
+        }
+        .stat-card p { 
+            margin: 5px 0 0 0 !important; 
+            font-size: 1.8rem !important; 
+            font-weight: 800 !important; 
+            color: #ffffff !important; 
+        }
+
+        /* 讓「顯示所有」按鈕橫跨整排 */
+        .full-width {
+            grid-column: 1 / -1; 
+            width: 100%;
+            text-align: center; 
+            padding: 12px; 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            margin-top: 10px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .full-width:hover {
+            background: #e2e8f0;
+        }
+
+        /* 手機版適配：改為一排 2 個 (最後一個 N/A 獨佔一行或跟著排) */
+        @media (max-width: 600px) {
+            .apcs-grid {
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            /* 讓 N/A 按鈕在手機版橫跨兩欄，比較好看 */
+            .apcs-level-na {
+                grid-column: span 2;
+            }
+        }
+    </style>
+    <style>
+        /* 這裡鎖定 article 內的表格，避免影響到其他地方 */
+        .article-entry table, 
+        .content table {
+            width: 100%;
+            table-layout: fixed; /* 關鍵：這會強制忽略內容長度，依照欄位數量均分寬度 */
+        }
+
+        /* 確保文字太長時會自動換行，不會撐爆表格 */
+        .article-entry table td, 
+        .content table td {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    </style>
+    <style>
+        /* 1. 外包裝容器 */
+        .code-wrapper {
+            position: relative;
+            margin: 20px 0;
+            border-radius: 8px;
+            background: #f8f9fa;
+            transition: all 0.3s;
+        }
+
+        /* 調整原本的 figure 樣式 */
+        figure.highlight {
+            margin: 0 !important;
+            border-radius: 8px;
+            overflow-x: auto;
+            /* [關鍵] 頂部留白，避免文字被按鈕擋住 */
+            padding-top: 35px !important; 
+        }
+
+        /* --- 頂部按鈕通用樣式 --- */
+        .code-btn {
+            position: absolute;
+            top: 6px; /* [位置] 距離頂部 6px，看起來最舒適 */
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            
+            background: #ffffff;
+            border: 1px solid #e0e0e0; /* 獨立邊框 */
+            border-radius: 6px;        /* 獨立圓角 */
+            
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* 輕微陰影 */
+        }
+        
+        .code-btn:hover {
+            opacity: 1;
+            background: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .code-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #666;
+            transition: transform 0.3s ease;
+        }
+
+        /* 2. 展開/收合按鈕 (最右邊) */
+        .toggle-btn {
+            right: 10px; /* 距離右側邊緣 10px */
+        }
+        
+        .toggle-btn.expanded svg {
+            transform: rotate(180deg);
+        }
+
+        /* 3. 複製按鈕 (在箭頭左邊，並留有空隙) */
+        .copy-btn {
+            /* 計算公式：右邊距(10px) + 按鈕寬(32px) + 空隙(8px) = 50px */
+            right: 50px; 
+        }
+        
+        .copy-btn.copied {
+            background: #e6fffa;
+            border-color: #42b983;
+        }
+        .copy-btn.copied svg {
+            fill: #42b983;
+        }
+
+        /* 4. 摺疊狀態樣式 */
+        .code-wrapper.collapsed figure.highlight {
+            max-height: 350px;
+            overflow-y: hidden;
+        }
+
+        .code-wrapper.collapsed::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(248, 249, 250, 0), rgba(248, 249, 250, 1) 95%);
+            pointer-events: none;
+            z-index: 50;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const COLLAPSE_HEIGHT = 450; 
+
+        const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+        const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        const iconChevronDown = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+
+        // [修正重點] 這裡改了！
+        // 原本是 document.querySelectorAll('figure.highlight') 會抓到全站所有代碼
+        // 現在限制只抓取 .article-entry (文章內容) 或 .content (通用內容) 底下的代碼
+        const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
+
+        figures.forEach(figure => {
+            // --- 以下邏輯完全沒變 ---
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            figure.parentNode.insertBefore(wrapper, figure);
+            wrapper.appendChild(figure);
+
+            // 複製按鈕
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-btn copy-btn';
+            copyBtn.innerHTML = iconCopy;
+            copyBtn.title = "複製程式碼";
+            wrapper.appendChild(copyBtn);
+
+            copyBtn.addEventListener('click', () => {
+                let codeText = "";
+                const codeCell = figure.querySelector('td.code');
+                codeText = codeCell ? codeCell.innerText : figure.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = iconCheck;
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = iconCopy;
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+
+            // 摺疊按鈕
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const toggleBtn = document.createElement('button');
+                toggleBtn.className = 'code-btn toggle-btn';
+                toggleBtn.innerHTML = iconChevronDown;
+                toggleBtn.title = "展開/收合程式碼";
+                wrapper.appendChild(toggleBtn);
+
+                toggleBtn.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                    toggleBtn.classList.toggle('expanded');
+                    if (wrapper.classList.contains('collapsed')) {
+                        wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+        });
+    });
+    </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/chingyen06" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/avatar.png" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">靖諺的資訊學習筆記</h2>
+            <h3 id="title" class="hidden lg:block"></h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Taipei, Taiwan
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="w-full my-auto">
+        <div class="relative w-full">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="w-full">
+            <button type="submit" style="display: none;"></button>
+        </div>
+    </form>
+    
+    
+<div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div class="search-widget-container">
+        <div class="search-header">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
+        </div>
+        
+        <div class="search-result">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-4 pb-3 mb-2 pt-3 hover:bg-green-50 rounded-lg transition duration-200">
+                <i class="iconfont icon-file text-gray-400 mr-2"></i>
+                <h1 class="result-title inline font-bold text-lg text-gray-800">{{ title }}</h1>
+                <p class="result-content text-gray-500 text-sm mt-1 line-clamp-2">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var observer = new MutationObserver(function(mutations) {
+    var gtInput = document.querySelector('.gt-header-textarea');
+    
+    if (gtInput) {
+      gtInput.addEventListener('keydown', function(e) {
+        e.stopPropagation();
+      });
+      
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+</div>
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">主頁</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">文章</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-resources" role="menuitem">
+                <a href="/resources">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">資源</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">類別</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">標籤</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">關於</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/ceng.jing.yan">
+                <i class="iconfont social-icon icon-facebook"></i>
+                <span class="menu-title hidden lg:inline">menu.facebook</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            APCS 2025/11 實作題題解 — C++
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2026/02/11/apcs/apcs202511/" class="article-date">
+	  <time datetime="2026-02-11T06:10:45.000Z" itemprop="datePublished">2026-02-11</time>
+	</a>
+</span>
+
+                
+  <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/APCS/">APCS</a>
+  </span>
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/APCS/" rel="tag">APCS</a>, <a class="article-tag-none-link" href="/tags/C/" rel="tag">C++</a>, <a class="article-tag-none-link" href="/tags/ZeroJudge/" rel="tag">ZeroJudge</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2026/02/11/apcs/apcs202511/#comments" class="article-comment-link">
+                        評論
+                    </a>
+                </span>
+                
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <div class="alert-block alert-info">💡 此筆記為APCS 2025年11月實作題考試的題目詳解。每一題的題解都包含解題思路、C++範例程式碼。
+</div>
+
+<h2 id="第一題-字母配對-ZeroJudge-r626"><a href="#第一題-字母配對-ZeroJudge-r626" class="headerlink" title="第一題 字母配對 (ZeroJudge r626.)"></a>第一題 字母配對 (ZeroJudge r626.)</h2><h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=r626">題目</a></h3><div class="alert-block alert-success">你有 $k$ 個堆疊，編號從 $1$ 到 $k$。每個堆疊中包含若干個物品。每個物品有兩個屬性：
+1. 一個大寫英文字母代表編號。
+2. 一個正整數代表分數。
+你可以執行任意次操作直到無法操作為止：
+<strong>操作：</strong>
+    1. 選擇兩個<strong>非空</strong>且<strong>不同</strong>的堆疊 $i$ 和 $j$（ $1 \le i, j \le k$ 且 $i \ne j$）。
+    2. 檢查堆疊 $i$ 和堆疊 $j$ <strong>頂部</strong>的物品。
+    3. 如果這兩個堆疊頂部物品的<strong>字母相同</strong>，則執行消除：
+        • 從堆疊 $i$ 和 $j$ 中移除頂部物品。
+        • 獲得的分數為這兩個被移除物品的<strong>分數總和</strong>。
+    4. 如果字母不同，則無法執行操作。
+目標是執行一系列操作，使得你最終獲得的<strong>總分數最大</strong>。
+</div>
+
+<h3 id="輸入-輸出說明"><a href="#輸入-輸出說明" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>輸入說明</strong></th>
+<th align="left"><strong>輸出說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一行包含一個整數 $k$ ( $2 \le k \le 6$)，表示堆疊的數量。<br>接下來 $k$ 行，每行描述一個堆疊的內容。第 $i$ 行描述堆疊 $i$。<br>每行首先是一個整數 $n_i$，表示堆疊 $i$ 中物品的數量。<br>接著是 $n_i$ 對 (字母, 分數) 的描述，按照從堆頂到堆底的順序給出。<br>&emsp;• <code>字母</code> 是一個大寫英文字母 (‘A’ - ‘Z’)。<br>&emsp;• <code>分數</code> 是一個正整數 $s$ ( $1 \le s \le 10$ )。<br>保證每個堆疊最多 $12$ 個物品。<br>30 分: $k &#x3D; 3$<br>70 分: 無限制</td>
+<td align="left">輸出一個正整數，代表能獲得的最大分數。</td>
+</tr>
+</tbody></table>
+<h3 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">這一題是 DFS 的題目，但如果要從 30 分到 100 分，就需要做記憶化搜尋。
+這題因為題目同時提到提到物品 (字母、分數) 與堆疊 (很多個物品)，所以大家可以發現到堆疊內有物品，物品內有字母、分數，所以我們可以使用物件導向 (OOP) 的封裝概念，別擔心，沒有很難看懂，下面有圖。如果不使用封裝來做，會有一堆變數散落，到時候會比較難看，debug 的時候會很痛苦。
+我將題目提到的物品用 struct 定義為 Item 物件，再把堆疊狀態用 struct 定義為 Content，結構如圖所示：
+<div style="display: flex; gap: 10px; margin: 10px 0;">
+  <img src="圖片1.png" alt="圖片1" style="width: 30%; border-radius: 4px; object-fit: contain;">
+</div><div style="display: flex; gap: 10px; margin: 10px 0;">
+  <img src="圖片2.png" alt="圖片2" style="width: 30%; border-radius: 4px; object-fit: contain;">
+</div>物品 Item 裡面放 `字母 w` 和 `分數 s`，堆疊狀態 Content 裡面包含 `物品數 n`、`堆疊 st` 和 `堆疊頂部位置 start`，其中 `堆疊 st` 用陣列存，陣列元素是 `物品 Item`。
+DFS 演算法：
+每個過程就是不斷嘗試。
+  1. 用雙層迴圈 i、j 任選兩個堆疊
+  2. 判斷是否頂部物品的字母相同，是就把他們用掉，start + 1
+  3. 呼叫 DFS 繼續遞迴，嘗試用掉這個組合後剩餘的組合
+  4. 遞迴回來後，判斷這個組合得到的分數 + 遞迴後得到的結果 (已經是最大值) 是否大於 Max，大於就把 Max 改成這個組合得到的分數 + 遞迴後得到的結果
+經過上述四步後，回傳 Max 作為這個狀態下繼續 DFS 的最大值。
+最後就會得到結果，但 k 太大就會超時。
+當我們每次在做 DFS 的時候，可能存在重複的組合，而上面的方法會重複做，太浪費時間。
+所以我們用一個 map<vector<int>, int> 存在這個狀態下，已經計算過的最大值。
+vector<int> 存 k 個堆疊各自剩餘的物品數量，代表一個狀態。
+再用 vector<int> 作為 map 的鑰匙 (key)，去存最大值，就直接用 map[這個 vector] = 最大值。
+那我們每次 DFS 開始前，就先檢查在目前狀態下，是否已經有計算過的最大值，有的話就直接回傳，達到記憶化搜尋的效果。<br>
+<strong><註解></strong> 這題我示範的是用 map 做，並且使用 vector 作為鑰匙 (key) ，好處是很直觀，但可能會導致面臨效能瓶頸，你們可以直接使用 $13^6$ 大的一維陣列 memo，並將每個狀態，即 k 個堆疊分別剩餘的數量透過 13 進位編碼，這樣會快很多喔。
+假設 k = 6，這 6 個堆疊分別剩下 10、12、0、7、5、8 個物品，那你可以用 $10 \times 13^0 + 12 \times 13^1 + 0 \times 13^2 + 7 \times 13^3 + 5 \times 13^4 + 8 \times 13^5$ 表示這個狀態，把得出的答案當作索引存入最大值，即 memo[得出的答案] = 最大值，這樣會快很多。
+</div>
+
+<h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Item</span> &#123;</span><br><span class="line">	<span class="type">char</span> w;</span><br><span class="line">	<span class="type">int</span> s;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Content</span> &#123;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	Item st[<span class="number">12</span>];  <span class="comment">// 由後往前可以當 stack 用 </span></span><br><span class="line">	<span class="type">int</span> start = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Content content[<span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 存在一個向量 &#123;?, ?, ?, ?, ?, ?&#125; 的狀態下 (? 存剩餘的物品數)</span></span><br><span class="line"><span class="comment">// 繼續 DFS 的最大分數 </span></span><br><span class="line">map&lt;vector&lt;<span class="type">int</span>&gt;, <span class="type">int</span>&gt; mapp;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="type">int</span> i, j, temp, Max = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> num1, num2;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 從 30 分到 100 分</span></span><br><span class="line">	vector&lt;<span class="type">int</span>&gt; state;  <span class="comment">// 目前狀態 </span></span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;k;i++) &#123;</span><br><span class="line">		state.<span class="built_in">push_back</span>(content[i].start);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (mapp.<span class="built_in">count</span>(state))  <span class="comment">// 已經試過了 </span></span><br><span class="line">		<span class="keyword">return</span> mapp[state];  <span class="comment">// 直接回傳 </span></span><br><span class="line">	<span class="comment">// </span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;k;i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (j=i<span class="number">+1</span>;j&lt;k;j++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (i == j)  <span class="comment">// 同一個略過</span></span><br><span class="line">				<span class="keyword">continue</span>; </span><br><span class="line">			</span><br><span class="line">			num1 = content[i].start;  <span class="comment">// 這一回合堆疊一頂部的物品的索引 </span></span><br><span class="line">			num2 = content[j].start;  <span class="comment">// 這一回合堆疊二頂部的物品的索引</span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (num1 &gt;= content[i].n || num2 &gt;= content[j].n)  <span class="comment">// 有任何地方取完了 </span></span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			 </span><br><span class="line">			<span class="comment">// 頂部的物品的字母相同</span></span><br><span class="line">			<span class="keyword">if</span> (content[i].st[num1].w == content[j].st[num2].w) &#123;</span><br><span class="line">				<span class="comment">// 暫時的分數 = 這一回合獲得的分數(2個堆疊) + dfs其他選項的最大分數 </span></span><br><span class="line">				temp = content[i].st[num1].s + content[j].st[num2].s;</span><br><span class="line">				content[i].start++;  <span class="comment">// 用掉之後 </span></span><br><span class="line">				content[j].start++;  <span class="comment">// 用掉之後</span></span><br><span class="line">				</span><br><span class="line">				temp += <span class="built_in">dfs</span>(k);  <span class="comment">// DFS 使用掉這個 i、j 後最大的可能 </span></span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span> (temp &gt; Max)</span><br><span class="line">					Max = temp;</span><br><span class="line">				</span><br><span class="line">				content[i].start--;  <span class="comment">// 還回去，不取 i 的其他可能 </span></span><br><span class="line">				content[j].start--;  <span class="comment">// 還回去，不取 j 的其他可能</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 從 30 分到 100 分</span></span><br><span class="line">	mapp[state] = Max;  <span class="comment">// 存目前狀態下，繼續 DFS 的最大分數，表示之後不必再查 </span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> Max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> i, j, k;</span><br><span class="line">	</span><br><span class="line">	cin &gt;&gt; k;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;k;i++) &#123;</span><br><span class="line">		cin &gt;&gt; content[i].n;  <span class="comment">// n_i</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (j=<span class="number">0</span>;j&lt;content[i].n;j++) &#123;</span><br><span class="line">			cin &gt;&gt; content[i].st[j].w &gt;&gt; content[i].st[j].s;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; <span class="built_in">dfs</span>(k);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="運行結果"><a href="#運行結果" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> (31ms, 3.3MB)</p>
+<h2 id="第二題-列印工廠-ZeroJudge-r627"><a href="#第二題-列印工廠-ZeroJudge-r627" class="headerlink" title="第二題 列印工廠 (ZeroJudge r627.)"></a>第二題 列印工廠 (ZeroJudge r627.)</h2><h3 id="題目-1"><a href="#題目-1" class="headerlink" title="題目"></a><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=r627">題目</a></h3><div class="alert-block alert-success">你擁有一台印刷機，需要處理 $n$ 個印刷任務。每個印刷任務 $i$ 都有三個相關的參數：
+	1. <strong>開始時間 (Start Time, $s_i$):</strong> 任務 $i$ 可以在 $s_i$ 或之後開始印刷。
+	2. <strong>截止時間 (Deadline, $d_i$):</strong> 任務 $i$ 必須在 $d_i$ 或之前<strong>完成</strong>印刷。
+	3. <strong>所需時間 (Processing Time, $t_i$):</strong> 任務 $i$ 需要 $t_i$ 秒的連續時間來完成印刷。
+印刷機在某一秒完成一個印刷品後，可以在<strong>下一秒開始</strong>時立即開始列印下一個印刷品。
+我們希望排定這 $n$ 個印刷任務的執行順序，使得所有任務都能在其截止時間內完成。然而若是讓印刷機空閒時間不足會減損印刷機的壽命，為了維護印刷機的壽命，我們希望最大化印刷機在能夠執行全部任務的前提下，<strong>任兩個任務的間隔時間</strong>最大值。
+<strong>任兩個任務的間隔時間</strong>定義為：在完成前一個印刷任務與開始下一個印刷任務之間，印刷機閒置的時間長度。
+你的任務是找出一個有效的任務排程順序，使得所有任務都能在截止時間內完成，並且印刷機在整個排程中獲得的總休息時間最大。
+</div>
+
+<h3 id="輸入-輸出說明-1"><a href="#輸入-輸出說明-1" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>輸入說明</strong></th>
+<th align="left"><strong>輸出說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一行包含一個整數 $n$（ $2 \le n \le 8$ ），表示印刷任務的總數量。 接下來 $n$ 行，每行包含三個非負整數 $s_i, d_i, t_i$（ $0 \le s_i &lt; d_i \le 1000$ , $1 \le t_i \le d_i - s_i$ ），分別表示第 $i$ 個任務的開始時間、截止時間和所需時間。<br>30 分: $n \le 3$<br>70 分: 無限制</td>
+<td align="left">如果存在一個有效的排程順序，使得所有任務都能在截止時間內完成，則輸出<strong>最大可能的總休息時間</strong>。保證測試資料一定可以存在一個排程方式完成所有任務。</td>
+</tr>
+</tbody></table>
+<h3 id="解題思路-1"><a href="#解題思路-1" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">這一題是二分搜 + DFS 的題目。
+題目要求找<strong>最大可能的總休息時間</strong>，其實是在要我們求出任兩個任務之間最短的間隔時間的最大值 (ans)。
+那這種題目很明顯是需要用二分搜才不會超時，題目說 $0 \le s_i < d_i \le 1000$，所以我就把 left 設為 0、right 設為 1000，去搜尋出 ans 最大值。
+二分搜會需要一個條件決定接下來往大還是往小搜尋，而這個條件我們可以使用 DFS 去找在間隔時間 ans 下，是否能完成所有任務。
+DFS 演算法：
+	1. 如果任務已經做完了就回傳 1，代表可以
+	2. 透過 for 迴圈遍歷還沒做，且截止之前可以做完的任務
+		now 代表可以開始印刷的時間。
+		used[i] 確認是否做過了。
+		max(s[i], now)：
+			1. 如果 s[i] >= now 代表要等一段時間到 s[i] 才能開始，所以做完的時間是 s[i] + t[i]
+			2. 如果 s[i] < now 代表可以直接開始做，所以做完的時間是 now + t[i]
+		max(s[i], now) + t[i] <= d 就代表截止之前可以做完的任務
+	3. 先做完這個任務，然後呼叫 DFS 繼續遞迴，嘗試剩餘的組合是否可以完成，可以就直接回傳 1
+	4. 不能做完就先不做這個任務，重新回到第二步找下一個可以先做的任務
+最後記得 DFS 演算法結束後，無論在間隔時間 ans 下，是否能完成所有任務，都要把 used 陣列重置。
+最後得到的 ans 就是答案。
+</div>
+
+<h3 id="範例程式碼-1"><a href="#範例程式碼-1" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> s[<span class="number">8</span>], d[<span class="number">8</span>], t[<span class="number">8</span>], used[<span class="number">8</span>]=&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> now, <span class="type">int</span> relax, <span class="type">int</span> count)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> i, check = <span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (count == n)  <span class="comment">// 任務已經都做完了 </span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;  <span class="comment">// 直接回傳 1 </span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;n;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">max</span>(s[i], now) + t[i] &lt;= d[i] &amp;&amp; used[i] == <span class="number">0</span>) &#123;  <span class="comment">// 若截止之前可以做完 &amp; 沒做過 </span></span><br><span class="line">			used[i] = <span class="number">1</span>;  <span class="comment">// 做這個任務  </span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">dfs</span>(<span class="built_in">max</span>(s[i], now)+t[i]+relax, relax, count<span class="number">+1</span>) == <span class="number">1</span>)  <span class="comment">// DFS 做完這個任務後是否能完成的可能 </span></span><br><span class="line">				<span class="keyword">return</span> <span class="number">1</span>;  <span class="comment">// 已經做完了，直接回傳 1 </span></span><br><span class="line">				</span><br><span class="line">			<span class="comment">// 這個組合不行，換其他組合 </span></span><br><span class="line">			used[i] = <span class="number">0</span>;  <span class="comment">// 不做這個任務 </span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	<span class="type">int</span> left = <span class="number">0</span>, right = <span class="number">1000</span>, mid, ans = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;n;i++) &#123;</span><br><span class="line">		cin &gt;&gt; s[i] &gt;&gt; d[i] &gt;&gt; t[i];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">		mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// cout &lt;&lt; mid &lt;&lt; &quot; | &quot; &lt;&lt; left &lt;&lt; &quot; &quot; &lt;&lt; right &lt;&lt; endl;</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">dfs</span>(<span class="number">0</span>, mid, <span class="number">0</span>) == <span class="number">1</span>) &#123;  <span class="comment">// 這個間隔時間可以 </span></span><br><span class="line">			<span class="comment">// cout &lt;&lt; &quot;Yes: &quot; &lt;&lt; mid &lt;&lt; endl;</span></span><br><span class="line">		</span><br><span class="line">			left = mid + <span class="number">1</span>;</span><br><span class="line">			ans = mid;</span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">else</span> &#123;  <span class="comment">// 這個間隔時間不行 </span></span><br><span class="line">			<span class="comment">// cout &lt;&lt; &quot;No: &quot; &lt;&lt; mid &lt;&lt; endl;</span></span><br><span class="line">		</span><br><span class="line">			right = mid - <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;n;i++) &#123;  <span class="comment">//  重置使用紀錄 </span></span><br><span class="line">			used[i] = <span class="number">0</span>;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; ans;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="運行結果-1"><a href="#運行結果-1" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> (1ms, 336KB)</p>
+<h2 id="第三題-翻來覆去-ZeroJudge-r628"><a href="#第三題-翻來覆去-ZeroJudge-r628" class="headerlink" title="第三題 翻來覆去 (ZeroJudge r628.)"></a>第三題 翻來覆去 (ZeroJudge r628.)</h2><h3 id="題目-2"><a href="#題目-2" class="headerlink" title="題目"></a><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=r628">題目</a></h3><div class="alert-block alert-success">給定一個長度為 $n$ 的排列（Permutation）$P=(p_1, p_2, ..., p_n)$，包含從 $1$ 到 $n$ 的所有整數。一開始，所有元素都按照它們在 $P$ 中的順序，從 $p_n$ 到 $p_1$ 依次被壓入 Stack $S_2$ 中（即 $p_n$ 在底，$p_1$ 在頂）。
+目標是要透過這兩個 stack 的 push 和 pop 操作來將這個排列做由小到大排序，並且輸出最少需要多少 pop 操作。
+以範例測資2 為例，目前的兩個 stack 為 [], [4, 2, 3, 1]
+<div style="display: flex; gap: 10px; margin: 10px 0;">
+  <img src="圖片3.png" alt="圖片3" style="width: 100%; border-radius: 4px; object-fit: contain;">
+</div>總共花費 8 次 pop 操作。
+</div>
+
+<h3 id="輸入-輸出說明-2"><a href="#輸入-輸出說明-2" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>輸入說明</strong></th>
+<th align="left"><strong>輸出說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一行輸入一個正整數 $n$ ( $1 \le n \le 10^5$ )，接下來一行為 $1$ 到 $n$ 的一個排列。<br>30 分: $n \le 100$<br>70 分: 無限制</td>
+<td align="left">輸出需要多少 pop 操作才能將這個排列由小到大排序好。</td>
+</tr>
+</tbody></table>
+<h3 id="解題思路-2"><a href="#解題思路-2" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">這題我看解題報告都教 BIT，所以我來寫一下分而治之的方法，這題我用線段樹的方法做一次。因為線段樹只要滿足結合律就可以使用，也能使用 lazy propagation，比較萬用。這方面大家在大學的資料結構會學到。
+這一題是在問兩個 stack 互相 pop 與 push 後排序，輸出最少需要多少次 pop 操作。觀察一下可以發現其實 pop 次數就是算目前位置的索引到目標數字的索引間隔多少。
+線段樹的建立如下圖，以範例 2 為例：
+<div style="display: flex; gap: 10px; margin: 10px 0;">
+  <img src="圖片4.png" alt="圖片4" style="width: 50%; border-radius: 4px; object-fit: contain;">
+</div>我們稱根節點 (root)，就是最上面那個節點，他的範圍是 [1, n]，這裡是 [1, 4]，他的數量就是`左子節點 [1, 2] 的數量 2` + `右子節點 [3, 4] 的數量 2` = 4，自己不算 1 個數字喔，因為它只是存範圍內有幾個數字 (葉節點)，每一個內部節點 (撇除根節點跟葉節點的節點) 也都是如此計算數量。
+綠色的地方稱葉節點 (leaf)，它的特點是下面沒有任何節點，它的數量一定是 1，就他自己一個數字。<br>
+建立這個線段樹的方式就是 build 函式，主要就是用遞迴的方式從上而下建立。大家要注意因為我是把樹建立在陣列上，所以我 2 * node 代表是左子節點 (可自行驗算)、2 * node + 1 代表是右子節點 (可自行驗算)。<br>
+主程式輸出每個數字的時候，都會去找目前位置 now 與目標數字 target 的位置，把他當作一個區間 [now, target] 傳入 move 函式當 [left, right]，接著我們就看 [left, right] 是否把 每個節點的範圍 [start, end] 包住，不是的話繼續地回到完全包住，包住後就可以回傳數值，代表 [left, right] 的某一個子區間得到的數量。最後得到的數字加到 t 內，代表 pop 總數。<br>
+找到一個數字後，那個數字所在的位置就該清空，用 update 函式從上而下，把有關 target 的所有節點都減少 1。<br>
+最後輸出的 t 就是答案。<br>
+<註解> 這方法比 BIT 慢，但是只需要具備結合律的特性就可以使用，即 $(a \times b) \time c = a \times (b \times c)$，所以除了區間加法，線段樹還能處理區間最大值 (Max)、最小值 (Min)、最大公因數 (GCD)等等問題。
+</div>
+
+<h3 id="範例程式碼-2"><a href="#範例程式碼-2" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> tree[<span class="number">100001</span>]=&#123;&#125;;</span><br><span class="line"><span class="type">int</span> p[<span class="number">100001</span>], pos[<span class="number">100001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">build</span><span class="params">(<span class="type">int</span> node, <span class="type">int</span> start, <span class="type">int</span> end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> mid = (start + end) / <span class="number">2</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (start == end) &#123;  <span class="comment">// 代表在葉節點 (最後一排，底下沒節點) </span></span><br><span class="line">		tree[node] = <span class="number">1</span>;  <span class="comment">// 自己一個數量就是 1 </span></span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">build</span>(<span class="number">2</span> * node, start, mid);  <span class="comment">// node 的左子節點 </span></span><br><span class="line">	<span class="built_in">build</span>(<span class="number">2</span> * node + <span class="number">1</span>, mid + <span class="number">1</span>, end);  <span class="comment">// node 的右子節點</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 這個節點 node 的數量就是左右子的加總</span></span><br><span class="line">	<span class="comment">// 自己不算，因為自己的數字存的是代表這區間有多少個葉節點 </span></span><br><span class="line">	tree[node] = tree[<span class="number">2</span> * node] + tree[<span class="number">2</span> * node + <span class="number">1</span>]; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">move</span><span class="params">(<span class="type">int</span> node, <span class="type">int</span> start, <span class="type">int</span> end, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> mid = (start + end) / <span class="number">2</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 這節點 node 代表的範圍 [start, end] 不在 [left, right] 內 </span></span><br><span class="line">	<span class="keyword">if</span> (right &lt; start || end &lt; left)  </span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 這節點 node 代表的範圍 [start, end] 在 [left, right] 內 </span></span><br><span class="line">	<span class="keyword">if</span> (left &lt;= start &amp;&amp; end &lt;= right)</span><br><span class="line">		<span class="keyword">return</span> tree[node];</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 這節點 node 代表的範圍 [start, end] 不完全在 [left, right] 內 </span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">move</span>(<span class="number">2</span> * node, start, mid, left, right) + <span class="built_in">move</span>(<span class="number">2</span> * node + <span class="number">1</span>, mid + <span class="number">1</span>, end, left, right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(<span class="type">int</span> node, <span class="type">int</span> start, <span class="type">int</span> end, <span class="type">int</span> target)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> mid = (start + end) / <span class="number">2</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (start == end) &#123;  <span class="comment">// 數字拿走了 </span></span><br><span class="line">		tree[node] = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">if</span> (target &lt;= mid)  <span class="comment">// 要輸出的數字 &lt;= mid 代表在左子節點範圍內 </span></span><br><span class="line">		<span class="built_in">update</span>(<span class="number">2</span> * node, start, mid, target);</span><br><span class="line">    <span class="keyword">else</span>  <span class="comment">// 反之在右子節點範圍內 </span></span><br><span class="line">		<span class="built_in">update</span>(<span class="number">2</span> * node + <span class="number">1</span>, mid + <span class="number">1</span>, end, target);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 把更新後的結果更新到這個節點</span></span><br><span class="line">	<span class="comment">// 這個節點 node 的數量就是左右子的加總 </span></span><br><span class="line">    tree[node] = tree[<span class="number">2</span> * node] + tree[<span class="number">2</span> * node + <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> i, n, now, target;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> <span class="type">int</span> t = <span class="number">0</span>; </span><br><span class="line">	<span class="type">int</span> left, right;</span><br><span class="line">	</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">		cin &gt;&gt; p[i];</span><br><span class="line">		</span><br><span class="line">		pos[p[i]] = i;  <span class="comment">// 存每個數字的索引 </span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">build</span>(<span class="number">1</span>, <span class="number">1</span>, n);  <span class="comment">// 建立線段樹</span></span><br><span class="line">	</span><br><span class="line">	now = <span class="number">1</span>;  <span class="comment">// 一開始位置設在 1</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">		target = pos[i];  <span class="comment">// 查詢現在要輸出的數字的位置</span></span><br><span class="line">		</span><br><span class="line">		left = <span class="built_in">min</span>(now, target);  <span class="comment">// 小的當左界</span></span><br><span class="line">		right = <span class="built_in">max</span>(now, target);  <span class="comment">// 大的當右界 </span></span><br><span class="line">		</span><br><span class="line">		t += <span class="built_in">move</span>(<span class="number">1</span>, <span class="number">1</span>, n, left, right);  <span class="comment">// 算這次輸出數字移動需要的 pop 數 </span></span><br><span class="line">	</span><br><span class="line">		<span class="built_in">update</span>(<span class="number">1</span>, <span class="number">1</span>, n, target);  <span class="comment">// 更新取走要輸出的數字後的線段樹 </span></span><br><span class="line">		</span><br><span class="line">		now = target;  <span class="comment">// 移動位置 </span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; t;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="運行結果-2"><a href="#運行結果-2" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> (20ms, 2.1MB)</p>
+<div class="alert-block alert-danger"><strong>查看更多資訊請至：</strong><a href="https://www.tseng-school.com/">https://www.tseng-school.com/</a> 
+</div>
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/">https://www.tseng-school.com/2026/02/11/apcs/apcs202511/</a></p>
+    <p><strong> </strong></p>
+</blockquote>
+
+
+    </article>
+    
+    
+        <section id="comments"></section> 
+        <div id="gitalk-loader"></div> <script type="text/javascript">
+  (function() {
+    var container = document.getElementById('comments');
+    if (!container) return;
+
+    // 定義渲染函數
+    function loadAndRenderGitalk() {
+      if (window.GITALK_LOCK || container.querySelector('.gt-container')) return;
+      window.GITALK_LOCK = true;
+
+      // 動態載入 CSS 與 JS，避免阻塞首屏
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css';
+      document.head.appendChild(link);
+
+      var script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js";
+      var md5Script = document.createElement('script');
+      md5Script.src = "https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js";
+
+      script.onload = function() {
+        var gitalk = new Gitalk({
+            clientID: 'Ov23litX24icqsbLMK3L',
+            clientSecret: 'd6303376afaebeacf533c935a4348a03ab352bbf',
+            repo: 'blog-comment',
+            owner: 'chingyen06',
+            admin: ['chingyen06'],
+            id: '1770790245000', 
+            distractionFreeMode: true,
+            proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
+        });
+        gitalk.render('comments');
+      };
+
+      document.body.appendChild(md5Script);
+      document.body.appendChild(script);
+    }
+
+    // 使用 Intersection Observer 實現懶加載
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          loadAndRenderGitalk();
+          observer.disconnect(); // 觸發後就停止觀察
+        }
+      }, { rootMargin: '200px' }); // 提前 200px 開始載入，減少使用者等待感
+
+      observer.observe(container);
+    } else {
+      // 降級處理：不支援 Observer 的舊瀏覽器直接載入
+      loadAndRenderGitalk();
+    }
+
+    // 針對 PJAX 頁面切換的處理
+    document.addEventListener('pjax:complete', function() {
+        window.GITALK_LOCK = false;
+        // 如果是 PJAX 切換，通常需要重新觀察新頁面的容器
+        if (typeof observer !== 'undefined') observer.observe(document.getElementById('comments'));
+    });
+  })();
+</script> 
+    
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目錄</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E5%AD%97%E6%AF%8D%E9%85%8D%E5%B0%8D-ZeroJudge-r626"><span class="toc-number">1.</span> <span class="toc-text">第一題 字母配對 (ZeroJudge r626.)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8C%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">題目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-%E8%BC%B8%E5%87%BA%E8%AA%AA%E6%98%8E"><span class="toc-number">1.2.</span> <span class="toc-text">輸入 &#x2F; 輸出說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF"><span class="toc-number">1.3.</span> <span class="toc-text">解題思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.4.</span> <span class="toc-text">範例程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8B%E8%A1%8C%E7%B5%90%E6%9E%9C"><span class="toc-number">1.5.</span> <span class="toc-text">運行結果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E5%88%97%E5%8D%B0%E5%B7%A5%E5%BB%A0-ZeroJudge-r627"><span class="toc-number">2.</span> <span class="toc-text">第二題 列印工廠 (ZeroJudge r627.)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8C%E7%9B%AE-1"><span class="toc-number">2.1.</span> <span class="toc-text">題目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-%E8%BC%B8%E5%87%BA%E8%AA%AA%E6%98%8E-1"><span class="toc-number">2.2.</span> <span class="toc-text">輸入 &#x2F; 輸出說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF-1"><span class="toc-number">2.3.</span> <span class="toc-text">解題思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-1"><span class="toc-number">2.4.</span> <span class="toc-text">範例程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8B%E8%A1%8C%E7%B5%90%E6%9E%9C-1"><span class="toc-number">2.5.</span> <span class="toc-text">運行結果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E7%BF%BB%E4%BE%86%E8%A6%86%E5%8E%BB-ZeroJudge-r628"><span class="toc-number">3.</span> <span class="toc-text">第三題 翻來覆去 (ZeroJudge r628.)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8C%E7%9B%AE-2"><span class="toc-number">3.1.</span> <span class="toc-text">題目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-%E8%BC%B8%E5%87%BA%E8%AA%AA%E6%98%8E-2"><span class="toc-number">3.2.</span> <span class="toc-text">輸入 &#x2F; 輸出說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF-2"><span class="toc-number">3.3.</span> <span class="toc-text">解題思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-2"><span class="toc-number">3.4.</span> <span class="toc-text">範例程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8B%E8%A1%8C%E7%B5%90%E6%9E%9C-2"><span class="toc-number">3.5.</span> <span class="toc-text">運行結果</span></a></li></ol></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div style="
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                flex-wrap: wrap;
+                width: 100%; 
+                margin: 40px 0 20px 0;
+                color: #666; 
+                font-size: 0.85rem;
+                clear: both;
+            ">
+              <span id="busuanzi_container_site_uv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-user" style="margin-right: 4px;"></i>
+                訪客數：<span id="busuanzi_value_site_uv"></span> 人
+              </span>
+              
+              <span style="margin: 0 12px; color: #ddd;">|</span>
+              
+              <span id="busuanzi_container_site_pv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-eye" style="margin-right: 4px;"></i>
+                總瀏覽：<span id="busuanzi_value_site_pv"></span> 次
+              </span>
+            </div>
+            </section>
+        
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/ceng.jing.yan">
+                <i class="iconfont icon-facebook"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+<script src="/js/local-search.min.js"></script>
+
+
+    <div id="gitalk-loader"></div> <script type="text/javascript">
+  (function() {
+    var container = document.getElementById('comments');
+    if (!container) return;
+
+    // 定義渲染函數
+    function loadAndRenderGitalk() {
+      if (window.GITALK_LOCK || container.querySelector('.gt-container')) return;
+      window.GITALK_LOCK = true;
+
+      // 動態載入 CSS 與 JS，避免阻塞首屏
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css';
+      document.head.appendChild(link);
+
+      var script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js";
+      var md5Script = document.createElement('script');
+      md5Script.src = "https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js";
+
+      script.onload = function() {
+        var gitalk = new Gitalk({
+            clientID: 'Ov23litX24icqsbLMK3L',
+            clientSecret: 'd6303376afaebeacf533c935a4348a03ab352bbf',
+            repo: 'blog-comment',
+            owner: 'chingyen06',
+            admin: ['chingyen06'],
+            id: '1770790245000', 
+            distractionFreeMode: true,
+            proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
+        });
+        gitalk.render('comments');
+      };
+
+      document.body.appendChild(md5Script);
+      document.body.appendChild(script);
+    }
+
+    // 使用 Intersection Observer 實現懶加載
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          loadAndRenderGitalk();
+          observer.disconnect(); // 觸發後就停止觀察
+        }
+      }, { rootMargin: '200px' }); // 提前 200px 開始載入，減少使用者等待感
+
+      observer.observe(container);
+    } else {
+      // 降級處理：不支援 Observer 的舊瀏覽器直接載入
+      loadAndRenderGitalk();
+    }
+
+    // 針對 PJAX 頁面切換的處理
+    document.addEventListener('pjax:complete', function() {
+        window.GITALK_LOCK = false;
+        // 如果是 PJAX 切換，通常需要重新觀察新頁面的容器
+        if (typeof observer !== 'undefined') observer.observe(document.getElementById('comments'));
+    });
+  })();
+</script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+
+    </body>
+</html>
