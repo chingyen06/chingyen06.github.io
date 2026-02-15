@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/%E5%9C%96%E7%89%873.png">
 <meta property="og:image" content="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/%E5%9C%96%E7%89%874.png">
 <meta property="article:published_time" content="2026-02-11T06:10:45.000Z">
-<meta property="article:modified_time" content="2026-02-15T07:05:52.274Z">
+<meta property="article:modified_time" content="2026-02-15T07:09:59.311Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="APCS">
 <meta property="article:tag" content="C++">
@@ -50,10 +50,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1771139267246.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1771139402067.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1771139267246.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1771139402067.css">
 
 
     
@@ -964,7 +964,7 @@ DFS 演算法：
 <td align="left">輸出需要多少 pop 操作才能將這個排列由小到大排序好。</td>
 </tr>
 </tbody></table>
-<h3 id="解題思路-2"><a href="#解題思路-2" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">這題我看解題報告都教 BIT，所以我來寫一下分而治之的方法，這題我用線段樹的方法做一次。因為線段樹只要滿足結合律就可以使用，也能使用 lazy propagation，比較萬用。這方面大家在大學的資料結構會學到。
+<h3 id="解題思路-2"><a href="#解題思路-2" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">這題我看解題報告都寫 BIT，所以我來寫一下分而治之的方法，這題我用線段樹的方法做一次。
 這一題是在問兩個 stack 互相 pop 與 push 後排序，輸出最少需要多少次 pop 操作。觀察一下可以發現其實 pop 次數就是算目前位置的索引到目標數字的索引間隔多少。
 線段樹的建立如下圖，以範例 2 為例：
 <div style="display: flex; gap: 10px; margin: 10px 0;">
