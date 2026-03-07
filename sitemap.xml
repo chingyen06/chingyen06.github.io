@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.tseng-school.com/resources/study/index.html</loc>
+    
+    <lastmod>2026-03-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.tseng-school.com/about/index.html</loc>
     
     <lastmod>2026-02-15</lastmod>
@@ -65,15 +74,6 @@
   </url>
   
   <url>
-    <loc>https://www.tseng-school.com/resources/study/index.html</loc>
-    
-    <lastmod>2026-02-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.tseng-school.com/resources/index.html</loc>
     
     <lastmod>2026-02-06</lastmod>
@@ -103,7 +103,7 @@
 
   <url>
     <loc>https://www.tseng-school.com/</loc>
-    <lastmod>2026-03-04</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -111,21 +111,21 @@
   
   <url>
     <loc>https://www.tseng-school.com/tags/C/</loc>
-    <lastmod>2026-03-04</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.tseng-school.com/tags/APCS-%E4%B8%AD%E7%B4%9A/</loc>
-    <lastmod>2026-03-04</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.tseng-school.com/tags/APCS-%E9%AB%98%E7%B4%9A/</loc>
-    <lastmod>2026-03-04</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -134,7 +134,7 @@
   
   <url>
     <loc>https://www.tseng-school.com/categories/APCS/</loc>
-    <lastmod>2026-03-04</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
