@@ -9,7 +9,7 @@
     
     <title>
     
-    文章 | 靖諺的資訊學習筆記
+    UVa 10055 題解 — C++ | 靖諺的資訊學習筆記
     </title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,15 +21,18 @@
         h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
     </style>
 
-    <meta name="description" content="我是曾靖諺，這個網站記錄了我的學習過程，包含APCS、CPE、LeetCode等，希望能幫助更多學習程式設計的同學。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="靖諺的資訊學習筆記">
-<meta property="og:url" content="https://www.tseng-school.com/archives/2026/index.html">
+    <meta name="description" content="此筆記為UVa 10055的題目詳解，包含解題思路、C++範例程式碼。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UVa 10055 題解 — C++">
+<meta property="og:url" content="https://www.tseng-school.com/2026/03/21/cpe/cpe10055/index.html">
 <meta property="og:site_name" content="靖諺的資訊學習筆記">
-<meta property="og:description" content="我是曾靖諺，這個網站記錄了我的學習過程，包含APCS、CPE、LeetCode等，希望能幫助更多學習程式設計的同學。">
+<meta property="og:description" content="此筆記為UVa 10055的題目詳解，包含解題思路、C++範例程式碼。">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-03-21T14:05:14.000Z">
+<meta property="article:modified_time" content="2026-03-21T14:07:35.895Z">
 <meta property="article:author" content="chingyen06">
-<meta property="article:tag" content="曾靖諺, C++, APCS, CPE, 資訊學習, 程式設計, 學習筆記">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="CPE 1星">
 <meta name="twitter:card" content="summary">
 
     
@@ -41,13 +44,30 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1774102219074.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1774102219073.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1774102219074.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1774102219073.css">
 
 
     
+        <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css" rel="stylesheet">
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
     
 
     
@@ -780,144 +800,174 @@ document.addEventListener('DOMContentLoaded', function() {
 
         
         <section class="main-section">
-            <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
     <article class="content article article-archives article-type-list" itemscope="">
         <header class="article-header">
-            <h1 itemprop="title">文章</h1>
-            <p class="text-gray-600">共 3 篇文章</p>
-        </header>
-        <div class="article-body">
             
     
-    <section class="year-archive">
-    <header>
-        <h1><a >2026</a></h1>
-    </header>
-    <div class="archive-content">
-        
-            <a href="/2026/03/21/cpe/cpe10055/" class="post-item">
-                <div class="post-time">03-21</div>
-                <div class="post-title">UVa 10055 題解 — C++</div>
-            </a>
-        
-            <a href="/2026/02/11/apcs/apcs202511/" class="post-item">
-                <div class="post-time">02-11</div>
-                <div class="post-title">APCS 2025/11 實作題題解 — C++</div>
-            </a>
-        
-            <a href="/2026/02/09/apcs/apcs202510/" class="post-item">
-                <div class="post-time">02-09</div>
-                <div class="post-title">APCS 2025/10 實作題題解 — C++</div>
-            </a>
-        
-    </div>
-</section>
+        <h1 class="article-title text-lg" itemprop="name">
+            UVa 10055 題解 — C++
+        </h1>
+    
 
 
 
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2026/03/21/cpe/cpe10055/" class="article-date">
+	  <time datetime="2026-03-21T14:05:14.000Z" itemprop="datePublished">2026-03-21</time>
+	</a>
+</span>
+
+                
+  <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/CPE/">CPE</a>
+  </span>
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/C/" rel="tag">C++</a>, <a class="article-tag-none-link" href="/tags/CPE-1%E6%98%9F/" rel="tag">CPE 1星</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2026/03/21/cpe/cpe10055/#comments" class="article-comment-link">
+                        評論
+                    </a>
+                </span>
+                
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <div class="alert-block alert-info">💡 此筆記為UVa 10055的題目詳解，包含解題思路、C++範例程式碼。
+</div>
+
+<h2 id="Hashmat-the-Brave-Warrior-ZeroJudge-a012"><a href="#Hashmat-the-Brave-Warrior-ZeroJudge-a012" class="headerlink" title="Hashmat the Brave Warrior (ZeroJudge a012.)"></a>Hashmat the Brave Warrior (ZeroJudge a012.)</h2><h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=a012">題目</a></h3><div class="alert-block alert-success">Hashmat是一個勇敢的將領，他帶著年輕的士兵從這個城市移動到另一個城市與敵人對抗。在打仗之前他會計算己方與敵方士兵的數目差距，來決定是要開打或不開打。Hashmat的士兵數絕不會比敵人的士兵數大。
+</div>
+
+<h3 id="輸入-輸出說明"><a href="#輸入-輸出說明" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>輸入說明</strong></th>
+<th align="left"><strong>輸出說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">每組測試資料1列，有2個整數，代表Hashmat及敵人的士兵數或反之。這些數不會超過 $2^63$。</td>
+<td align="left">對每組測試資料請輸出Hashmat與敵人士兵數目的差（正數）。</td>
+</tr>
+</tbody></table>
+<h3 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">直接做 a - b 取絕對值即可。
+記得用 long long int，因為是 $2^63$。
+</div>
+
+<h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>); </span><br><span class="line">	</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> <span class="type">int</span> a, b;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> (cin &gt;&gt; a &gt;&gt; b) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="built_in">abs</span>(a - b) &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="運行結果"><a href="#運行結果" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> (1ms, 308KB)</p>
+<div class="alert-block alert-danger"><strong>查看更多資訊請至：</strong><a href="https://www.tseng-school.com/">https://www.tseng-school.com/</a> 
+</div>
         </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/03/21/cpe/cpe10055/">https://www.tseng-school.com/2026/03/21/cpe/cpe10055/</a></p>
+    <p><strong> </strong></p>
+</blockquote>
+
+
     </article>
+    
+    
+        <section id="comments"></section> 
+        <div id="gitalk-loader"></div> <script type="text/javascript">
+  (function() {
+    var container = document.getElementById('comments');
+    if (!container) return;
+
+    // 定義渲染函數
+    function loadAndRenderGitalk() {
+      if (window.GITALK_LOCK || container.querySelector('.gt-container')) return;
+      window.GITALK_LOCK = true;
+
+      // 動態載入 CSS 與 JS，避免阻塞首屏
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css';
+      document.head.appendChild(link);
+
+      var script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js";
+      var md5Script = document.createElement('script');
+      md5Script.src = "https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js";
+
+      script.onload = function() {
+        var gitalk = new Gitalk({
+            clientID: 'Ov23litX24icqsbLMK3L',
+            clientSecret: 'd6303376afaebeacf533c935a4348a03ab352bbf',
+            repo: 'blog-comment',
+            owner: 'chingyen06',
+            admin: ['chingyen06'],
+            id: '1774101914000', 
+            distractionFreeMode: true,
+            proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
+        });
+        gitalk.render('comments');
+      };
+
+      document.body.appendChild(md5Script);
+      document.body.appendChild(script);
+    }
+
+    // 使用 Intersection Observer 實現懶加載
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          loadAndRenderGitalk();
+          observer.disconnect(); // 觸發後就停止觀察
+        }
+      }, { rootMargin: '200px' }); // 提前 200px 開始載入，減少使用者等待感
+
+      observer.observe(container);
+    } else {
+      // 降級處理：不支援 Observer 的舊瀏覽器直接載入
+      loadAndRenderGitalk();
+    }
+
+    // 針對 PJAX 頁面切換的處理
+    document.addEventListener('pjax:complete', function() {
+        window.GITALK_LOCK = false;
+        // 如果是 PJAX 切換，通常需要重新觀察新頁面的容器
+        if (typeof observer !== 'undefined') observer.observe(document.getElementById('comments'));
+    });
+  })();
+</script> 
+    
+
     
 
 </main>
+
+
 <aside style="" id="sidebar" class="aside aside-fixture">
-    <div class="widgets">
-        
-            
-            <hr>
-        
-            
-    <div class="widget">
-        <h3 class="widget-title">類別</h3>
-        <div class="widget-body">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APCS/">APCS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CPE/">CPE</a><span class="category-list-count">1</span></li></ul>
-        </div>
-    </div>
-
-
-            <hr>
-        
-            
-    <div class="widget">
-        <h3 class="widget-title">
-            標籤
-        </h3>
-        <div class="widget-body">
-            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APCS-%E4%B8%AD%E7%B4%9A/" rel="tag">APCS 中級</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/APCS-%E9%AB%98%E7%B4%9A/" rel="tag">APCS 高級</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPE-1%E6%98%9F/" rel="tag">CPE 1星</a><span class="tag-list-count">1</span></li></ul>
-        </div>
-    </div>
-
-
-            <hr>
-        
-            
-    <div class="widget">
-        <h3 class="widget-title">文章</h3>
-        <div class="widget-body">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">2026/03</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">2026/02</a><span class="archive-list-count">2</span></li></ul>
-        </div>
-    </div>
-
-
-            <hr>
-        
-            
-<div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-        <ul class="recent-post-list list-unstyled">
-            
-                <li>
-                    <div class="recent-post">
-                        <p class="item-category">
-                            <a class="category-link" href="/categories/CPE/">CPE</a>
-                        </p>
-                        <p class="item-title">
-                            <a href="/2026/03/21/cpe/cpe10055/" class="title">UVa 10055 題解 — C++</a>
-                        </p>
-                        <p class="item-date">
-                            <time datetime="2026-03-21T14:05:14.000Z" itemprop="datePublished">2026-03-21</time>
-                        </p>
-                    </div>
-                </li>
-            
-                <li>
-                    <div class="recent-post">
-                        <p class="item-category">
-                            <a class="category-link" href="/categories/APCS/">APCS</a>
-                        </p>
-                        <p class="item-title">
-                            <a href="/2026/02/11/apcs/apcs202511/" class="title">APCS 2025/11 實作題題解 — C++</a>
-                        </p>
-                        <p class="item-date">
-                            <time datetime="2026-02-11T06:10:45.000Z" itemprop="datePublished">2026-02-11</time>
-                        </p>
-                    </div>
-                </li>
-            
-                <li>
-                    <div class="recent-post">
-                        <p class="item-category">
-                            <a class="category-link" href="/categories/APCS/">APCS</a>
-                        </p>
-                        <p class="item-title">
-                            <a href="/2026/02/09/apcs/apcs202510/" class="title">APCS 2025/10 實作題題解 — C++</a>
-                        </p>
-                        <p class="item-date">
-                            <time datetime="2026-02-09T07:15:00.000Z" itemprop="datePublished">2026-02-09</time>
-                        </p>
-                    </div>
-                </li>
-            
-        </ul>
-    </div>
-</div>
-
-
-            <hr>
-        
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目錄</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hashmat-the-Brave-Warrior-ZeroJudge-a012"><span class="toc-number">1.</span> <span class="toc-text">Hashmat the Brave Warrior (ZeroJudge a012.)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8C%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">題目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-%E8%BC%B8%E5%87%BA%E8%AA%AA%E6%98%8E"><span class="toc-number">1.2.</span> <span class="toc-text">輸入 &#x2F; 輸出說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF"><span class="toc-number">1.3.</span> <span class="toc-text">解題思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.4.</span> <span class="toc-text">範例程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8B%E8%A1%8C%E7%B5%90%E6%9E%9C"><span class="toc-number">1.5.</span> <span class="toc-text">運行結果</span></a></li></ol></li></ol>
+        </nav>
     </div>
 </aside>
+
+
+
 
 
             
@@ -974,6 +1024,69 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script src="/js/local-search.min.js"></script>
 
+
+    <div id="gitalk-loader"></div> <script type="text/javascript">
+  (function() {
+    var container = document.getElementById('comments');
+    if (!container) return;
+
+    // 定義渲染函數
+    function loadAndRenderGitalk() {
+      if (window.GITALK_LOCK || container.querySelector('.gt-container')) return;
+      window.GITALK_LOCK = true;
+
+      // 動態載入 CSS 與 JS，避免阻塞首屏
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css';
+      document.head.appendChild(link);
+
+      var script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js";
+      var md5Script = document.createElement('script');
+      md5Script.src = "https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js";
+
+      script.onload = function() {
+        var gitalk = new Gitalk({
+            clientID: 'Ov23litX24icqsbLMK3L',
+            clientSecret: 'd6303376afaebeacf533c935a4348a03ab352bbf',
+            repo: 'blog-comment',
+            owner: 'chingyen06',
+            admin: ['chingyen06'],
+            id: '1774101914000', 
+            distractionFreeMode: true,
+            proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
+        });
+        gitalk.render('comments');
+      };
+
+      document.body.appendChild(md5Script);
+      document.body.appendChild(script);
+    }
+
+    // 使用 Intersection Observer 實現懶加載
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          loadAndRenderGitalk();
+          observer.disconnect(); // 觸發後就停止觀察
+        }
+      }, { rootMargin: '200px' }); // 提前 200px 開始載入，減少使用者等待感
+
+      observer.observe(container);
+    } else {
+      // 降級處理：不支援 Observer 的舊瀏覽器直接載入
+      loadAndRenderGitalk();
+    }
+
+    // 針對 PJAX 頁面切換的處理
+    document.addEventListener('pjax:complete', function() {
+        window.GITALK_LOCK = false;
+        // 如果是 PJAX 切換，通常需要重新觀察新頁面的容器
+        if (typeof observer !== 'undefined') observer.observe(document.getElementById('comments'));
+    });
+  })();
+</script>
 
 
     <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
