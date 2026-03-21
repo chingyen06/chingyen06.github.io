@@ -29,7 +29,7 @@
 <meta property="og:description" content="此筆記為UVa 10055的題目詳解，包含解題思路、C++範例程式碼。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2026-03-21T14:05:14.000Z">
-<meta property="article:modified_time" content="2026-03-21T14:07:35.895Z">
+<meta property="article:modified_time" content="2026-03-21T14:12:59.250Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="CPE 1星">
@@ -44,10 +44,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1774102219073.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1774102386611.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1774102219073.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1774102386611.css">
 
 
     
@@ -863,12 +863,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">每組測試資料1列，有2個整數，代表Hashmat及敵人的士兵數或反之。這些數不會超過 $2^63$。</td>
+<td align="left">每組測試資料1列，有2個整數，代表Hashmat及敵人的士兵數或反之。這些數不會超過 $2^{63}$。</td>
 <td align="left">對每組測試資料請輸出Hashmat與敵人士兵數目的差（正數）。</td>
 </tr>
 </tbody></table>
 <h3 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">直接做 a - b 取絕對值即可。
-記得用 long long int，因為是 $2^63$。
+記得用 long long int，因為是 $2^{63}$。
 </div>
 
 <h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>); </span><br><span class="line">	</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> <span class="type">int</span> a, b;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> (cin &gt;&gt; a &gt;&gt; b) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="built_in">abs</span>(a - b) &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
