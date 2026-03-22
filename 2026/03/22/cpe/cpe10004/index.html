@@ -9,7 +9,7 @@
     
     <title>
     
-    CPE 大學程式能力檢定 | 靖諺的資訊學習筆記
+    UVa 10004 題解 — C++ | 靖諺的資訊學習筆記
     </title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,17 +21,18 @@
         h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
     </style>
 
-    <meta name="description" content="點選不同難度的區塊可以篩選不同難度的題目                        ⭐ 1 星0     ⭐⭐ 2 星0     ⭐⭐⭐ 3 星0     ⭐⭐⭐⭐ 4 星0     ⭐⭐⭐⭐⭐ 5 星0     ❓ 其他（星等未定）0     顯示所有題目                const cpeData &#x3D; [     &#x2F;&#x2F; 1 星     { star: 1, uva: 100,">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CPE 大學程式能力檢定">
-<meta property="og:url" content="https://www.tseng-school.com/resources/cpe/index.html">
+    <meta name="description" content="此筆記為UVa 10004的題目詳解，包含解題思路、C++範例程式碼。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UVa 10004 題解 — C++">
+<meta property="og:url" content="https://www.tseng-school.com/2026/03/22/cpe/cpe10004/index.html">
 <meta property="og:site_name" content="靖諺的資訊學習筆記">
-<meta property="og:description" content="點選不同難度的區塊可以篩選不同難度的題目                        ⭐ 1 星0     ⭐⭐ 2 星0     ⭐⭐⭐ 3 星0     ⭐⭐⭐⭐ 4 星0     ⭐⭐⭐⭐⭐ 5 星0     ❓ 其他（星等未定）0     顯示所有題目                const cpeData &#x3D; [     &#x2F;&#x2F; 1 星     { star: 1, uva: 100,">
+<meta property="og:description" content="此筆記為UVa 10004的題目詳解，包含解題思路、C++範例程式碼。">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2026-03-22T08:53:19.636Z">
-<meta property="article:modified_time" content="2026-03-22T08:53:19.636Z">
+<meta property="article:published_time" content="2026-03-22T07:54:13.000Z">
+<meta property="article:modified_time" content="2026-03-22T09:02:07.998Z">
 <meta property="article:author" content="chingyen06">
-<meta property="article:tag" content="曾靖諺, C++, APCS, CPE, 資訊學習, 程式設計, 學習筆記">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="DFS">
 <meta name="twitter:card" content="summary">
 
     
@@ -43,12 +44,26 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1774170187383.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1774170187385.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1774170187383.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1774170187385.css">
 
 
+    
+        <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     
         <link href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css" rel="stylesheet">
@@ -794,304 +809,178 @@ document.addEventListener('DOMContentLoaded', function() {
             
     
         <h1 class="article-title text-lg" itemprop="name">
-            CPE 大學程式能力檢定
+            UVa 10004 題解 — C++
         </h1>
     
 
 
 
-            </header>
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2026/03/22/cpe/cpe10004/" class="article-date">
+	  <time datetime="2026-03-22T07:54:13.000Z" itemprop="datePublished">2026-03-22</time>
+	</a>
+</span>
+
+                
+  <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/CPE-2%E6%98%9F/">CPE 2星</a>
+  </span>
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/C/" rel="tag">C++</a>, <a class="article-tag-none-link" href="/tags/DFS/" rel="tag">DFS</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2026/03/22/cpe/cpe10004/#comments" class="article-comment-link">
+                        評論
+                    </a>
+                </span>
+                
+    
+    
+
+
+            </p>
+        </header>
         <div class="marked-body article-body">
-            <p>點選不同難度的區塊可以篩選不同難度的題目</p>
-<div class="leetcode-filter-container">
-  
-  <div class="leetcode-search-box">
-    <input type="text" id="cpe-search-input" placeholder="🔍 搜尋">
-  </div>
-
-  <div class="leetcode-stats cpe-grid">
-    <div class="stat-card star-1" onclick="filterStar(1)"><h3>⭐ 1 星</h3><p id="count-star-1">0</p></div>
-    <div class="stat-card star-2" onclick="filterStar(2)"><h3>⭐⭐ 2 星</h3><p id="count-star-2">0</p></div>
-    <div class="stat-card star-3" onclick="filterStar(3)"><h3>⭐⭐⭐ 3 星</h3><p id="count-star-3">0</p></div>
-    <div class="stat-card star-4" onclick="filterStar(4)"><h3>⭐⭐⭐⭐ 4 星</h3><p id="count-star-4">0</p></div>
-    <div class="stat-card star-5" onclick="filterStar(5)"><h3>⭐⭐⭐⭐⭐ 5 星</h3><p id="count-star-5">0</p></div>
-    <div class="stat-card star-other" onclick="filterStar(0)"><h3>❓ 其他（星等未定）</h3><p id="count-star-0">0</p></div>
-    <div class="stat-btn-all full-width" onclick="filterStar('All')">顯示所有題目</div>
-  </div>
-
-  <div id="cpe-table-container">
-    </div>
+            <div class="alert-block alert-info">💡 此筆記為UVa 10004的題目詳解，包含解題思路、C++範例程式碼。
 </div>
 
-<script>
-const cpeData = [
-    // 1 星
-    { star: 1, uva: 100, title: "c039. 00100 – The 3n + 1 problem", link: "https://zerojudge.tw/ShowProblem?problemid=c039", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeGlu2EA" },
-    { star: 1, uva: 118, title: "c082. 00118 – Mutant Flatworld Explorers", link: "https://zerojudge.tw/ShowProblem?problemid=c082", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Skou1K34A" },
-    { star: 1, uva: 272, title: "c007. 00272 – TeX Quotes", link: "https://zerojudge.tw/ShowProblem?problemid=c007", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1g6MaaVA" },
-    { star: 1, uva: 299, title: "e561. 00299 – Train Swapping", link: "https://zerojudge.tw/ShowProblem?problemid=e561", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Bk0I7R640" },
-    { star: 1, uva: 490, title: "c045. 00490 – Rotating Sentences", link: "https://zerojudge.tw/ShowProblem?problemid=c045", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/ByEVPRa40" },
-    { star: 1, uva: 948, title: "a134. 00948 – Fibonaccimal Base", link: "https://zerojudge.tw/ShowProblem?problemid=a134", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/HkcA8QJSA" },
-    { star: 1, uva: 10008, title: "c044. 10008 – What’s Cryptanalysis", link: "https://zerojudge.tw/ShowProblem?problemid=c044", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/By6PWdgB0" },
-    { star: 1, uva: 10019, title: "e545. 10019 – Funny Encryption Method", link: "https://zerojudge.tw/ShowProblem?problemid=e545", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/By6PWdgB0" },
-    { star: 1, uva: 10035, title: "c014. 10035 – Primary Arithmetic", link: "https://zerojudge.tw/ShowProblem?problemid=c014", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/ryyjPpCr0" },
-    { star: 1, uva: 10038, title: "d097. 10038 – Jolly Jumpers", link: "https://zerojudge.tw/ShowProblem?problemid=d097", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SygMEH4LA" },
-    { star: 1, uva: 10041, title: "a737. 10041 – Vito’s family", link: "https://zerojudge.tw/ShowProblem?problemid=a737", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/HkDnXBsF0" },
-    { star: 1, uva: 10050, title: "e579. 10050 – Hartals", link: "https://zerojudge.tw/ShowProblem?problemid=e579", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/HkDnXBsF0" },
-    { star: 1, uva: 10055, title: "a012. 10055 – Hashmat the Brave Warrior", link: "https://zerojudge.tw/ShowProblem?problemid=a012", name: "網站筆記", solution: "https://www.tseng-school.com/2026/03/21/cpe/cpe10055/" },
-    { star: 1, uva: 10056, title: "e510. 10056 – What is the Probability?", link: "https://zerojudge.tw/ShowProblem?problemid=e510", name: "網站筆記", solution: "https://www.tseng-school.com/2026/03/21/cpe/cpe10056/" },
-    // { star: 1, uva: 10057, title: "e606. 10057 – A mid-summer nights dream", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10062, title: "c012. 10062 – Tell me the frequencies!", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10071, title: "d226. 10071 – Back to High School Physics", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10093, title: "n786. 10093 - An Easy Problem!", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10101, title: "a741. 10101 – Bangla Numbers", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10170, title: "e555. 10170 – The Hotel with Infinite Rooms", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10180, title: "e605. 10189 – Minesweeper", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10190, title: "e566. 10190 – Divide, But Not Quite Conquer!", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10193, title: "d306. 10193 – All You Need Is Love", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10221, title: "10221 - Satellites", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10222, title: "e578. 10222 – Decode the Mad man", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10226, title: "d492. 10226 – Hardwood species", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10235, title: "d387. 10235 – Simply Emirp", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10242, title: "e512. 10242 – Fourth Point!!", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10252, title: "e507. 10252 – Common Permutation", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10268, title: "f444. 10268 – 498-bis", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10409, title: "e516. 10409 – Die Game", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10415, title: "e531. 10415 – Eb Alto Saxophone Player", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10420, title: "a743. 10420 – List of Conquests", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10642, title: "i859: 10642 – Can You Solve It?", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10783, title: "c022. 10783 – Odd Sum", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10812, title: "c004. 10812 – Beat the Spread!", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10908, title: "e575. 10908 – Largest Squares", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10922, title: "d672. 10922 – 2 the 9s", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10929, title: "d235. 10929 – You can say 11", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 10931, title: "a132. 10931 – Parity", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 11005, title: "11005 - Cheapest Base", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 11063, title: "d123. 11063 – B2-Sequence", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 11150, title: "d189. 11150 – Cola", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 11321, title: "d750. 11321 – Sort! Sort!! and Sort!!!", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 11332, title: "c813. 11332 – Summing Digits", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 11349, title: "e513. 11349 – Symmetric Matrix", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 11417, title: "d255. 11417 – GCD", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 11461, title: "d186. 11461 – Square Numbers", link: "", name: "網站筆記", solution: "" },
-    // { star: 1, uva: 12019, title: "f709: 12019 – Doom’s Day Algorithm", link: "", name: "網站筆記", solution: "" },
-    // 2 星
-    { star: 2, uva: 10327, title: "a539. 10327 - Flip Sort", link: "https://zerojudge.tw/ShowProblem?problemid=a539", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SJx38m2pkl"},
-    { star: 2, uva: 10815, title: "10815 - Andy's First Dictionary", link: "https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1756", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/S1jgOdTpJx" },
-    { star: 2, uva: 13242, title: "13242 - Pool Filling", link: "https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=878&page=show_problem&problem=5165", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/ByWJswApJg" },
-    { star: 2, uva: 10004, title: "10004 - Bicoloring", link: "https://zerojudge.tw/ShowProblem?problemid=d768", name: "網站筆記", solution: "https://www.tseng-school.com/2026/03/22/cpe/cpe10004/" },
-    // 3 星
-    { star: 3, uva: 674, title: "00674 - Coin Change", link: "https://zerojudge.tw/ShowProblem?problemid=d253", name: "網站筆記", solution: "https://www.tseng-school.com/2026/03/22/cpe/cpe00674/" },
-    // 4 星
-    // 5 星
-    // 其他
-    { star: 0, uva: 12442, title: "a523. 12442 - Forwarding Emails", link: "https://zerojudge.tw/ShowProblem?problemid=a523", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/ByA9bNMyxe" },
-    { star: 0, uva: 543, title: "c050. 00453 - Goldbach's Conjecture ", link: "https://zerojudge.tw/ShowProblem?problemid=c050", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/ryozHSlixx" },
-    { star: 0, uva: 483, title: "483 - Word Scramble", link: "https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&category=0&problem=424", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SypmmLThee" },
-    // { star: , uva: , title: "", link: "", name: "", solution: "" },
-];
+<h2 id="Bicoloring-ZeroJudge-d768"><a href="#Bicoloring-ZeroJudge-d768" class="headerlink" title="Bicoloring (ZeroJudge d768.)"></a>Bicoloring (ZeroJudge d768.)</h2><h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=d768">題目</a></h3><div class="alert-block alert-success">1976 年，在電腦協助之下證明了 4 色地圖理論 (Four Color Map Theorem)。就是僅以 4 種顏色在地圖上不同的區域塗色，使得相鄰的區域顏色均不相同。
+現在，你要解決一個類似，但比較簡單的問題。給你一個相連的圖，請你在節點上塗色 (只有2種不同的顏色)，並且回答是否可以使得相鄰的節點顏色均不相同。為了使問題簡單一些，你可以假設：
+    • 沒有節點會有連向自己的邊。
+    • 邊是沒有方向性的，也就是說如果節點 A 可以連到節點 B，那麼代表節點 B 也可以連到節點 A。
+    • 圖形是強連通的，也就是說任 2 節點之間皆有路徑相連。
+</div>
 
-function renderTable(data) {
-    const container = document.getElementById('cpe-table-container');
-    
-    const styleMap = {
-        1: { color: '#42b983', label: '⭐ 1 星' },
-        2: { color: '#3498db', label: '⭐⭐ 2 星' },
-        3: { color: '#f1c40f', label: '⭐⭐⭐ 3 星' },
-        4: { color: '#e67e22', label: '⭐⭐⭐⭐ 4 星' },
-        5: { color: '#e74c3c', label: '⭐⭐⭐⭐⭐ 5 星' },
-        0: { color: '#95a5a6', label: '❓ 其他（星等未定）' }
-    };
+<h3 id="輸入-輸出說明"><a href="#輸入-輸出說明" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>輸入說明</strong></th>
+<th align="left"><strong>輸出說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">輸入含有多組測試資料。每組測試資料的第一列有一個正整數 𝑛 (1 &lt; 𝑛 &lt; 200) 代表節點的數目。第二列有一個正整數 𝑚，代表邊的數目。接下來的 𝑚 列每列有 2 個整數代表邊所連接的 2 個節點的代號。這 𝑛 個節點的代號分別為 0 到 𝑛-1。<br>𝑛 &#x3D; 0 代表輸入結束。</td>
+<td align="left">對每一組測試資料輸出是否可以用 2 種顏色塗節點使得相鄰的節點顏色均不相同。若可以請輸出：BICOLORABLE.，否則輸出：NOT BICOLORABLE.</td>
+</tr>
+</tbody></table>
+<h3 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">這類型題目他並沒有按照節點連結的關係給輸入資料，所以大家要注意一定要先建圖再走訪。
+首先我用一個 vector<int> relation[200] 存節點之間的關聯，relation[i] 代表是第 i 個點會連到的所有節點形成的 vector。
+這樣我要去找有連接的地方就只需要找 relation[i] 內所有的元素即可。
+接著我用 1、-1 當兩種顏色去塗節點 graph[i]，一開始先定義第 0 個點 (graph[0]) 為 1，接著就跑 DFS。
+DFS 流程如下：
+    1. for 迴圈找所有有連接的節點 relation[node][i]
+    2. 判斷是否塗色
+        (1) 有塗色 => 如果是同色就直接 return 0 (絕對是 NOT BICOLORABLE)
+        (2) 未塗色 => 進入 3.
+    3. 將連接的節點塗成這個節點的相反色 (graph[relation[node][i]] = graph[node] * (-1))
+    4. 繼續從新的節點 relation[node][i] 開始跑 DFS
+        如果回傳是 0 就直接 return 0 (絕對是 NOT BICOLORABLE)
+</div>
 
-    const order = [1, 2, 3, 4, 5, 0];
-    let finalHtml = '';
+<h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> graph[<span class="number">200</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> node, vector&lt;<span class="type">int</span>&gt; relation[<span class="number">200</span>])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;relation[node].<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (graph[relation[node][i]] == <span class="number">0</span>) &#123;  <span class="comment">// 未塗色 </span></span><br><span class="line">			graph[relation[node][i]] = graph[node] * (<span class="number">-1</span>);  <span class="comment">// 塗相反色 </span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">dfs</span>(relation[node][i], relation) == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;  <span class="comment">// 有塗色 </span></span><br><span class="line">			<span class="keyword">if</span> (graph[relation[node][i]] == graph[node])  <span class="comment">// 同色</span></span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	<span class="type">int</span> n, l, a, b;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> (cin &gt;&gt; n &amp;&amp; n != <span class="number">0</span>) &#123;</span><br><span class="line">		cin &gt;&gt; l;</span><br><span class="line">		</span><br><span class="line">		vector&lt;<span class="type">int</span>&gt; relation[<span class="number">200</span>];</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">200</span>;i++)</span><br><span class="line">			graph[i] = <span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;l;i++) &#123;</span><br><span class="line">			cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">			</span><br><span class="line">			relation[a].<span class="built_in">push_back</span>(b);</span><br><span class="line">			relation[b].<span class="built_in">push_back</span>(a); </span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		graph[<span class="number">0</span>] = <span class="number">1</span>;  <span class="comment">// 0 先塗一種顏色 </span></span><br><span class="line">	</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">dfs</span>(<span class="number">0</span>, relation) == <span class="number">0</span>)</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;NOT BICOLORABLE.&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;BICOLORABLE.&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    order.forEach(starKey => {
-        // 1. 先篩選出該星級的題目
-        let filtered = data.filter(item => item.star === starKey);
-        
-        // 2. [新增功能] 自動按照 UVa 題號由小到大排序
-        filtered.sort((a, b) => a.uva - b.uva);
-
-        if (filtered.length > 0) {
-            const style = styleMap[starKey];
-            finalHtml += `
-                <div class="difficulty-section">
-                    <h2 style="color: ${style.color}; border-bottom: 2px solid ${style.color}20; padding-bottom: 10px;">${style.label}</h2>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead><tr><th width="15%">題號</th><th width="45%">題目</th><th width="15%">詳解</th></tr></thead>
-                            <tbody>
-                                ${filtered.map(i => `
-                                    <tr>
-                                        <td style="font-weight:bold; color:${style.color};">${i.uva}</td>
-                                        <td><a href="${i.link}" target="_blank" class="lc-link">${i.title}</a></td>
-                                        <td><a href="${i.solution}" class="sol-link">${i.name}</a></td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>`;
-        }
-    });
-    container.innerHTML = finalHtml;
-
-    // 更新統計數字
-    order.forEach(k => {
-        document.getElementById(`count-star-${k}`).innerText = cpeData.filter(i => i.star === k).length;
-    });
-}
-
-// 搜尋
-document.getElementById('cpe-search-input').addEventListener('input', (e) => {
-    const key = e.target.value.toLowerCase();
-    const result = cpeData.filter(i => 
-        i.uva.toString().includes(key) || 
-        i.title.toLowerCase().includes(key)
-    );
-    renderTable(result);
-});
-
-// 篩選
-window.filterStar = function(star) {
-    if (star === 'All') renderTable(cpeData);
-    else renderTable(cpeData.filter(i => i.star === star));
-};
-
-renderTable(cpeData);
-</script>
+<h3 id="運行結果"><a href="#運行結果" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> </p>
+<div class="alert-block alert-danger"><strong>查看更多資訊請至：</strong><a href="https://www.tseng-school.com/">https://www.tseng-school.com/</a> 
+</div>
         </div>
-        </article>
+        
+<blockquote class="copyright">
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/03/22/cpe/cpe10004/">https://www.tseng-school.com/2026/03/22/cpe/cpe10004/</a></p>
+    <p><strong> </strong></p>
+</blockquote>
+
+
+    </article>
+    
+    
+        <section id="comments"></section> 
+        <div id="gitalk-loader"></div> <script type="text/javascript">
+  (function() {
+    var container = document.getElementById('comments');
+    if (!container) return;
+
+    // 定義渲染函數
+    function loadAndRenderGitalk() {
+      if (window.GITALK_LOCK || container.querySelector('.gt-container')) return;
+      window.GITALK_LOCK = true;
+
+      // 動態載入 CSS 與 JS，避免阻塞首屏
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css';
+      document.head.appendChild(link);
+
+      var script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js";
+      var md5Script = document.createElement('script');
+      md5Script.src = "https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js";
+
+      script.onload = function() {
+        var gitalk = new Gitalk({
+            clientID: 'Ov23litX24icqsbLMK3L',
+            clientSecret: 'd6303376afaebeacf533c935a4348a03ab352bbf',
+            repo: 'blog-comment',
+            owner: 'chingyen06',
+            admin: ['chingyen06'],
+            id: '1774166053000', 
+            distractionFreeMode: true,
+            proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
+        });
+        gitalk.render('comments');
+      };
+
+      document.body.appendChild(md5Script);
+      document.body.appendChild(script);
+    }
+
+    // 使用 Intersection Observer 實現懶加載
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          loadAndRenderGitalk();
+          observer.disconnect(); // 觸發後就停止觀察
+        }
+      }, { rootMargin: '200px' }); // 提前 200px 開始載入，減少使用者等待感
+
+      observer.observe(container);
+    } else {
+      // 降級處理：不支援 Observer 的舊瀏覽器直接載入
+      loadAndRenderGitalk();
+    }
+
+    // 針對 PJAX 頁面切換的處理
+    document.addEventListener('pjax:complete', function() {
+        window.GITALK_LOCK = false;
+        // 如果是 PJAX 切換，通常需要重新觀察新頁面的容器
+        if (typeof observer !== 'undefined') observer.observe(document.getElementById('comments'));
+    });
+  })();
+</script> 
+    
+
     
 
 </main>
+
+
 <aside style="" id="sidebar" class="aside aside-fixture">
-    <div class="widgets">
-        
-            
-            <hr>
-        
-            
-    <div class="widget">
-        <h3 class="widget-title">類別</h3>
-        <div class="widget-body">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APCS-%E4%B8%AD%E7%B4%9A/">APCS 中級</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/APCS-%E9%AB%98%E7%B4%9A/">APCS 高級</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CPE-1%E6%98%9F/">CPE 1星</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CPE-2%E6%98%9F/">CPE 2星</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CPE-3%E6%98%9F/">CPE 3星</a><span class="category-list-count">1</span></li></ul>
-        </div>
-    </div>
-
-
-            <hr>
-        
-            
-    <div class="widget">
-        <h3 class="widget-title">
-            標籤
-        </h3>
-        <div class="widget-body">
-            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dynamic-Programming/" rel="tag">Dynamic Programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B/" rel="tag">二分搜尋</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B7%9A%E6%AE%B5%E6%A8%B9/" rel="tag">線段樹</a><span class="tag-list-count">1</span></li></ul>
-        </div>
-    </div>
-
-
-            <hr>
-        
-            
-    <div class="widget">
-        <h3 class="widget-title">文章</h3>
-        <div class="widget-body">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">2026/03</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">2026/02</a><span class="archive-list-count">2</span></li></ul>
-        </div>
-    </div>
-
-
-            <hr>
-        
-            
-<div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-        <ul class="recent-post-list list-unstyled">
-            
-                <li>
-                    <div class="recent-post">
-                        <p class="item-category">
-                            <a class="category-link" href="/categories/CPE-2%E6%98%9F/">CPE 2星</a>
-                        </p>
-                        <p class="item-title">
-                            <a href="/2026/03/22/cpe/cpe10004/" class="title">UVa 10004 題解 — C++</a>
-                        </p>
-                        <p class="item-date">
-                            <time datetime="2026-03-22T07:54:13.000Z" itemprop="datePublished">2026-03-22</time>
-                        </p>
-                    </div>
-                </li>
-            
-                <li>
-                    <div class="recent-post">
-                        <p class="item-category">
-                            <a class="category-link" href="/categories/CPE-3%E6%98%9F/">CPE 3星</a>
-                        </p>
-                        <p class="item-title">
-                            <a href="/2026/03/22/cpe/cpe00674/" class="title">UVa 00674 題解 — C++</a>
-                        </p>
-                        <p class="item-date">
-                            <time datetime="2026-03-22T07:29:08.000Z" itemprop="datePublished">2026-03-22</time>
-                        </p>
-                    </div>
-                </li>
-            
-                <li>
-                    <div class="recent-post">
-                        <p class="item-category">
-                            <a class="category-link" href="/categories/CPE-1%E6%98%9F/">CPE 1星</a>
-                        </p>
-                        <p class="item-title">
-                            <a href="/2026/03/21/cpe/cpe10056/" class="title">UVa 10056 題解 — C++</a>
-                        </p>
-                        <p class="item-date">
-                            <time datetime="2026-03-21T14:15:09.000Z" itemprop="datePublished">2026-03-21</time>
-                        </p>
-                    </div>
-                </li>
-            
-                <li>
-                    <div class="recent-post">
-                        <p class="item-category">
-                            <a class="category-link" href="/categories/CPE-1%E6%98%9F/">CPE 1星</a>
-                        </p>
-                        <p class="item-title">
-                            <a href="/2026/03/21/cpe/cpe10055/" class="title">UVa 10055 題解 — C++</a>
-                        </p>
-                        <p class="item-date">
-                            <time datetime="2026-03-21T14:05:14.000Z" itemprop="datePublished">2026-03-21</time>
-                        </p>
-                    </div>
-                </li>
-            
-                <li>
-                    <div class="recent-post">
-                        <p class="item-category">
-                            <a class="category-link" href="/categories/APCS-%E9%AB%98%E7%B4%9A/">APCS 高級</a>
-                        </p>
-                        <p class="item-title">
-                            <a href="/2026/02/11/apcs/apcs202511/" class="title">APCS 2025/11 實作題題解 — C++</a>
-                        </p>
-                        <p class="item-date">
-                            <time datetime="2026-02-11T06:10:45.000Z" itemprop="datePublished">2026-02-11</time>
-                        </p>
-                    </div>
-                </li>
-            
-        </ul>
-    </div>
-</div>
-
-
-            <hr>
-        
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目錄</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Bicoloring-ZeroJudge-d768"><span class="toc-number">1.</span> <span class="toc-text">Bicoloring (ZeroJudge d768.)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8C%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">題目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-%E8%BC%B8%E5%87%BA%E8%AA%AA%E6%98%8E"><span class="toc-number">1.2.</span> <span class="toc-text">輸入 &#x2F; 輸出說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF"><span class="toc-number">1.3.</span> <span class="toc-text">解題思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.4.</span> <span class="toc-text">範例程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8B%E8%A1%8C%E7%B5%90%E6%9E%9C"><span class="toc-number">1.5.</span> <span class="toc-text">運行結果</span></a></li></ol></li></ol>
+        </nav>
     </div>
 </aside>
+
+
 
 
 
@@ -1178,7 +1067,7 @@ renderTable(cpeData);
             repo: 'blog-comment',
             owner: 'chingyen06',
             admin: ['chingyen06'],
-            id: '1774169599636', 
+            id: '1774166053000', 
             distractionFreeMode: true,
             proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
         });
