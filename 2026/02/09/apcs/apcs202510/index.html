@@ -2,15 +2,10 @@
 <html  lang="zh-TW" >
     <head>
     <meta charset="UTF-8">
-    <!-- <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache"> -->
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
     
-    <title>
-    
-    APCS 2025/10 實作題題解 — C++ | 靖諺的資訊學習筆記
-    </title>
+    <title>APCS 2025/10 實作題題解 — C++ | 靖諺的資訊學習筆記 | 靖諺的資訊學習筆記</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,562 +44,51 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1774170187387.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1774172819505.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1774170187387.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1774172819505.css">
 
 
     
         <script>
         window.MathJax = {
-          tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']],
-            displayMath: [['$$', '$$'], ['\\[', '\\]']],
-            processEscapes: true
-          },
-          options: {
-            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-          }
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+          options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
         };
         </script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
+
     
         <link href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css" rel="stylesheet">
         <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
     
 
     
-        <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'G-18D6HBKZSF');
         </script>
     
 
-    <style>
-    /* 讓網格居中並增加上下間距 */
-    .resource-grid {
-        display: grid !important;
-        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
-        gap: 35px; /* 加大卡片間距 */
-        margin: 60px auto; /* 增加上下外邊距，填補頁面空白 */
-        max-width: 1100px; 
-    }
-
-    /* 強化卡片的立體感與高度 */
-    .resource-card {
-        display: flex !important;
-        flex-direction: column !important; /* 讓圖示在標題上方 */
-        align-items: center;    /* 置中對齊 */
-        text-align: center;
-        padding: 50px 30px;     /* 大幅增加上下 Padding，強迫撐開高度 */
-        min-height: 280px;      /* 設定最小高度，確保下面不空 */
-        background: #ffffff !important;
-        border: 1px solid #e1e4e8 !important;
-        border-radius: 24px !important; /* 圓角更圓潤更現代 */
-        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
-
-    .resource-card:hover {
-        transform: translateY(-12px); /* 懸停時浮起更高 */
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        border-color: #42b983 !important;
-    }
-
-    .card-icon {
-        font-size: 4rem;        /* 放大圖示，視覺重心更穩 */
-        margin-bottom: 25px;
-        margin-right: 0;
-    }
-
-    .card-content h3 {
-        font-size: 1.5rem !important;
-        margin-bottom: 15px !important;
-        color: #2c3e50;
-    }
-
-    .card-content p {
-        font-size: 1.05rem !important;
-        color: #586069;
-        line-height: 1.6;
-    }
-
-    /* --- 手機版適配方案 --- */
-    @media (max-width: 600px) {
-        .resource-grid {
-            /* 強制單欄，且縮小間距 */
-            grid-template-columns: 1fr !important;
-            gap: 20px !important;
-            margin: 30px auto !important;
-            padding: 0 10px; /* 增加螢幕左右邊距 */
-        }
-
-        .resource-card {
-            padding: 30px 20px !important; /* 縮小內邊距 */
-            min-height: auto !important;    /* 取消最小高度限制，讓它根據文字伸縮 */
-            border-radius: 16px !important; /* 稍微減小圓角 */
-        }
-
-        .card-icon {
-            font-size: 2.5rem !important;  /* 縮小圖示 */
-            margin-bottom: 15px !important;
-        }
-
-        .card-content h3 {
-            font-size: 1.2rem !important;  /* 縮小標題 */
-        }
-
-        .card-content p {
-            font-size: 0.95rem !important; /* 縮小內文 */
-        }
-    }
-    </style>
-    <style>
-        /* Study 頁面專用樣式 */
-        .study-container { max-width: 900px; margin: 0 auto; }
-        .study-section h2 { 
-            border-left: 5px solid #42b983; 
-            padding-left: 15px; 
-            margin: 40px 0 20px; 
-            font-size: 1.5rem;
-        }
-
-        .study-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #eef0f2;
-            transition: 0.3s;
-        }
-
-        .study-item:hover {
-            background: #ffffff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-color: #42b983;
-        }
-
-        .item-info h3 { margin: 0 0 8px 0 !important; font-size: 1.2rem; }
-        .item-info p { margin: 0 !important; font-size: 0.95rem; color: #666; }
-
-        .item-tags { margin-top: 10px; }
-        .item-tags span {
-            background: #e1f5fe;
-            color: #0288d1;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            margin-right: 8px;
-        }
-
-        .item-btn {
-            padding: 8px 16px;
-            background: #2c3e50;
-            color: #fff !important;
-            border-radius: 6px;
-            text-decoration: none !important;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            margin-left: 20px;
-        }
-
-        .item-btn:hover { background: #42b983; }
-
-        /* 子分類標題樣式 */
-        .sub-category-title {
-            font-size: 1.1rem !important;
-            color: #4a5568;
-            margin: 30px 0 15px 5px !important;
-            padding-bottom: 8px;
-            border-bottom: 1px dashed #e2e8f0; /* 加入虛線區隔 */
-            display: flex;
-            align-items: center;
-        }
-
-        /* 可以在子標題前加個小圓點裝飾 */
-        .sub-category-title::before {
-            content: "•";
-            color: #42b983;
-            font-weight: bold;
-            display: inline-block; 
-            width: 1em;
-            margin-left: -0.5em;
-        }
-
-        /* 手機版：按鈕變到下方 */
-        @media (max-width: 600px) {
-            .study-item { flex-direction: column; align-items: flex-start; }
-            .item-btn { margin: 15px 0 0 0; width: 100%; text-align: center; }
-        }
-    </style>
-    <style>
-        .leetcode-filter-container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        
-        /* 統計卡片 */
-        .leetcode-stats { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
-        .stat-card {
-            flex: 1; padding: 20px; border-radius: 12px; text-align: center;
-            color: white !important; cursor: pointer; transition: 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .stat-card:hover { transform: translateY(-3px); filter: brightness(1.05); }
-        .stat-card h3 { margin: 0 !important; font-size: 1.1rem !important; color: rgba(255,255,255,0.9) !important; font-weight: 500 !important; }
-        .stat-card p { margin: 5px 0 0 0 !important; font-size: 2.2rem !important; font-weight: 800 !important; color: #ffffff !important; }
-
-        .easy { background: #00af9b; }
-        .medium { background: #ffb800; }
-        .hard { background: #ff2d55; }
-
-        /* 搜尋框 */
-        #leetcode-search-input,
-        #cpe-search-input,
-        #apcs-search-input {
-            width: 100%; padding: 12px 18px; border: 2px solid #eef0f2;
-            border-radius: 10px; outline: none; font-size: 1rem; margin-bottom: 20px;
-        }
-        #leetcode-search-input:focus,
-        #cpe-search-input:focus,
-        #apcs-search-input:focus { border-color: #00af9b; }
-
-        /* 表格設計 */
-        .difficulty-section { margin-top: 35px; }
-        .table-wrapper { overflow-x: auto; background: #fff; border-radius: 8px; border: 1px solid #eee; }
-        table { width: 100%; min-width: 600px; border-collapse: collapse; }
-        th { background: #fafafa; padding: 14px; text-align: left; color: #666; border-bottom: 2px solid #f0f0f0; }
-        td { padding: 14px; border-bottom: 1px solid #f9f9f9; }
-
-        /* 移除按鈕感，改回純連結 */
-        .lc-link { color: #2c3e50 !important; font-weight: 600; text-decoration: none; }
-        .lc-link:hover { color: #00af9b !important; text-decoration: underline; }
-        
-        .sol-link { color: #42b983 !important; font-weight: 500; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.2s; }
-        .sol-link:hover { border-bottom: 1px solid #42b983; }
-
-        .note-tag { background: #f0f2f5; color: #666; padding: 3px 10px; border-radius: 4px; font-size: 0.85rem; }
-
-        .stat-btn-all { 
-            width: 100%; text-align: center; padding: 12px; background: #f8fafc; 
-            border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer; margin-top: 10px;
-        }
-        
-        @media (max-width: 600px) {
-            .stat-card { flex: 1 1 calc(50% - 10px); }
-            th, td { padding: 10px 5px; font-size: 0.85rem; }
-        }
-    </style>
-    <style>
-        /* --- CPE 專用樣式 --- */
-        /* 1. 網格佈局：讓卡片自動換行，保持整齊 */
-        .cpe-grid {
-            display: grid !important;
-            /* 電腦版：一排 3 個 */
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 15px;
-        }
-
-        /* 2. 顏色定義 (Heatmap 風格) */
-        .star-1 { background: linear-gradient(135deg, #42b983 0%, #2ecc71 100%); } /* 綠 */
-        .star-2 { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); } /* 藍 */
-        .star-3 { background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%); } /* 黃 */
-        .star-4 { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); } /* 橘 */
-        .star-5 { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); } /* 紅 */
-        .star-other { background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%); } /* 灰 */
-
-        /* 3. 讓「顯示所有」按鈕橫跨整排 */
-        .full-width {
-            grid-column: 1 / -1; /* 從第一條線跨到最後一條線 */
-            width: 100%;
-        }
-
-        /* 4. 手機版適配：改為一排 2 個 */
-        @media (max-width: 600px) {
-            .cpe-grid {
-                grid-template-columns: repeat(2, 1fr); /* 手機變兩欄 */
-            }
-        }
-    </style>
-    <style>
-        /* --- HackMD 風格提示框 (Alert Blocks) --- */
-        .alert-block {
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-left: 5px solid #eee;
-            border-radius: 4px;
-            position: relative;
-            font-size: 1rem;
-            line-height: 1.6;
-            white-space: pre-wrap;
-        }
-
-        /* .alert-block strong {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 700;
-        } */
-
-        .alert-block strong {
-            display: inline;     /* 改成行內元素 */
-            font-weight: 700;    /* 只保留粗體效果 */
-        }
-
-        /* 藍色 Info */
-        .alert-info {
-            background-color: #e7f3f8;
-            border-left-color: #31708f;
-            color: #31708f;
-        }
-
-        /* 綠色 Success */
-        .alert-success {
-            background-color: #dff0d8;
-            border-left-color: #3c763d;
-            color: #3c763d;
-        }
-
-        /* 黃色 Warning */
-        .alert-warning {
-            background-color: #fcf8e3;
-            border-left-color: #8a6d3b;
-            color: #8a6d3b;
-        }
-
-        /* 紅色 Danger */
-        .alert-danger {
-            background-color: #f2dede;
-            border-left-color: #a94442;
-            color: #a94442;
-        }
-
-        /* --- 圖片全域限制 --- */
-        .post-content img, .article-entry img {
-            max-width: 100%;       /* 圖片最大寬度不超過父容器 */
-            height: auto;          /* 高度自動等比例縮放 */
-            display: block;        /* 避免圖片下方出現奇怪的空白 */
-            margin: 20px auto;     /* 圖片置中，並增加上下間距 */
-            border-radius: 8px;    /* 讓圖片有點圓角，看起來比較現代 */
-        }
-    </style>
-    <style>
-        /* --- APCS 專用網格佈局 (儀表板) --- */
-        .apcs-grid {
-            display: grid !important;
-            /* 電腦版：一排 5 個 (初級/中級/中高/高級/N/A) */
-            grid-template-columns: repeat(5, 1fr); 
-            gap: 12px;
-        }
-
-        /* --- 等級顏色定義 (使用 levelConfig 的顏色做漸層) --- */
-        /* 初級 - 綠色 (#42b983) */
-        .apcs-level-1 { background: linear-gradient(135deg, #42b983 0%, #2ecc71 100%); }
-        /* 中級 - 藍色 (#3498db) */
-        .apcs-level-2 { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
-        /* 中高級 - 橘色 (#e67e22) */
-        .apcs-level-3 { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); }
-        /* 高級 - 紅色 (#e74c3c) */
-        .apcs-level-4 { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-        /* 無等級 - 灰色 (#95a5a6) */
-        .apcs-level-na { background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%); }
-        
-        /* 統計卡片通用樣式 */
-        .stat-card {
-            flex: 1; 
-            padding: 15px 10px; /* 稍微縮小內距以容納5個 */
-            border-radius: 12px; 
-            text-align: center;
-            color: white !important; 
-            cursor: pointer; 
-            transition: 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .stat-card:hover { 
-            transform: translateY(-3px); 
-            filter: brightness(1.05); 
-        }
-        .stat-card h3 { 
-            margin: 0 !important; 
-            font-size: 1rem !important; 
-            color: rgba(255,255,255,0.95) !important; 
-            font-weight: 500 !important; 
-        }
-        .stat-card p { 
-            margin: 5px 0 0 0 !important; 
-            font-size: 1.8rem !important; 
-            font-weight: 800 !important; 
-            color: #ffffff !important; 
-        }
-
-        /* 讓「顯示所有」按鈕橫跨整排 */
-        .full-width {
-            grid-column: 1 / -1; 
-            width: 100%;
-            text-align: center; 
-            padding: 12px; 
-            background: #f8fafc; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            margin-top: 10px;
-            color: #2c3e50;
-            font-weight: bold;
-        }
-        .full-width:hover {
-            background: #e2e8f0;
-        }
-
-        /* 手機版適配：改為一排 2 個 (最後一個 N/A 獨佔一行或跟著排) */
-        @media (max-width: 600px) {
-            .apcs-grid {
-                grid-template-columns: repeat(2, 1fr); 
-            }
-            /* 讓 N/A 按鈕在手機版橫跨兩欄，比較好看 */
-            .apcs-level-na {
-                grid-column: span 2;
-            }
-        }
-    </style>
-    <style>
-        /* 這裡鎖定 article 內的表格，避免影響到其他地方 */
-        .article-entry table, 
-        .content table {
-            width: 100%;
-            table-layout: fixed; /* 關鍵：這會強制忽略內容長度，依照欄位數量均分寬度 */
-        }
-
-        /* 確保文字太長時會自動換行，不會撐爆表格 */
-        .article-entry table td, 
-        .content table td {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-    </style>
-    <style>
-        /* 1. 外包裝容器 */
-        .code-wrapper {
-            position: relative;
-            margin: 20px 0;
-            border-radius: 8px;
-            background: #f8f9fa;
-            transition: all 0.3s;
-        }
-
-        /* 調整原本的 figure 樣式 */
-        figure.highlight {
-            margin: 0 !important;
-            border-radius: 8px;
-            overflow-x: auto;
-            /* [關鍵] 頂部留白，避免文字被按鈕擋住 */
-            padding-top: 35px !important; 
-        }
-
-        /* --- 頂部按鈕通用樣式 --- */
-        .code-btn {
-            position: absolute;
-            top: 6px; /* [位置] 距離頂部 6px，看起來最舒適 */
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            
-            background: #ffffff;
-            border: 1px solid #e0e0e0; /* 獨立邊框 */
-            border-radius: 6px;        /* 獨立圓角 */
-            
-            cursor: pointer;
-            opacity: 0.7;
-            transition: all 0.2s;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* 輕微陰影 */
-        }
-        
-        .code-btn:hover {
-            opacity: 1;
-            background: #fff;
-            transform: translateY(-1px);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        }
-
-        .code-btn svg {
-            width: 16px;
-            height: 16px;
-            fill: #666;
-            transition: transform 0.3s ease;
-        }
-
-        /* 2. 展開/收合按鈕 (最右邊) */
-        .toggle-btn {
-            right: 10px; /* 距離右側邊緣 10px */
-        }
-        
-        .toggle-btn.expanded svg {
-            transform: rotate(180deg);
-        }
-
-        /* 3. 複製按鈕 (在箭頭左邊，並留有空隙) */
-        .copy-btn {
-            /* 計算公式：右邊距(10px) + 按鈕寬(32px) + 空隙(8px) = 50px */
-            right: 50px; 
-        }
-        
-        .copy-btn.copied {
-            background: #e6fffa;
-            border-color: #42b983;
-        }
-        .copy-btn.copied svg {
-            fill: #42b983;
-        }
-
-        /* 4. 摺疊狀態樣式 */
-        .code-wrapper.collapsed figure.highlight {
-            max-height: 350px;
-            overflow-y: hidden;
-        }
-
-        .code-wrapper.collapsed::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background: linear-gradient(to bottom, rgba(248, 249, 250, 0), rgba(248, 249, 250, 1) 95%);
-            pointer-events: none;
-            z-index: 50;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-    </style>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const COLLAPSE_HEIGHT = 450; 
-
         const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
         const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
         const iconChevronDown = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
 
-        // [修正重點] 這裡改了！
-        // 原本是 document.querySelectorAll('figure.highlight') 會抓到全站所有代碼
-        // 現在限制只抓取 .article-entry (文章內容) 或 .content (通用內容) 底下的代碼
         const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
-
         figures.forEach(figure => {
-            // --- 以下邏輯完全沒變 ---
             const wrapper = document.createElement('div');
             wrapper.className = 'code-wrapper';
             figure.parentNode.insertBefore(wrapper, figure);
             wrapper.appendChild(figure);
 
-            // 複製按鈕
             const copyBtn = document.createElement('button');
             copyBtn.className = 'code-btn copy-btn';
             copyBtn.innerHTML = iconCopy;
@@ -612,9 +96,8 @@
             wrapper.appendChild(copyBtn);
 
             copyBtn.addEventListener('click', () => {
-                let codeText = "";
                 const codeCell = figure.querySelector('td.code');
-                codeText = codeCell ? codeCell.innerText : figure.innerText;
+                const codeText = codeCell ? codeCell.innerText : figure.innerText;
                 navigator.clipboard.writeText(codeText).then(() => {
                     copyBtn.innerHTML = iconCheck;
                     copyBtn.classList.add('copied');
@@ -625,10 +108,8 @@
                 });
             });
 
-            // 摺疊按鈕
             if (figure.offsetHeight > COLLAPSE_HEIGHT) {
                 wrapper.classList.add('collapsed');
-
                 const toggleBtn = document.createElement('button');
                 toggleBtn.className = 'code-btn toggle-btn';
                 toggleBtn.innerHTML = iconChevronDown;
