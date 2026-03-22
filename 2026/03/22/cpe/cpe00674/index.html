@@ -9,7 +9,7 @@
     
     <title>
     
-    類別: CPE | 靖諺的資訊學習筆記
+    UVa 00674 題解 — C++ | 靖諺的資訊學習筆記
     </title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,15 +21,18 @@
         h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
     </style>
 
-    <meta name="description" content="我是曾靖諺，這個網站記錄了我的學習過程，包含APCS、CPE、LeetCode等，希望能幫助更多學習程式設計的同學。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="靖諺的資訊學習筆記">
-<meta property="og:url" content="https://www.tseng-school.com/categories/CPE/index.html">
+    <meta name="description" content="此筆記為UVa 00674的題目詳解，包含解題思路、C++範例程式碼。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UVa 00674 題解 — C++">
+<meta property="og:url" content="https://www.tseng-school.com/2026/03/22/cpe/cpe00674/index.html">
 <meta property="og:site_name" content="靖諺的資訊學習筆記">
-<meta property="og:description" content="我是曾靖諺，這個網站記錄了我的學習過程，包含APCS、CPE、LeetCode等，希望能幫助更多學習程式設計的同學。">
+<meta property="og:description" content="此筆記為UVa 00674的題目詳解，包含解題思路、C++範例程式碼。">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-03-22T07:29:08.000Z">
+<meta property="article:modified_time" content="2026-03-22T07:49:36.842Z">
 <meta property="article:author" content="chingyen06">
-<meta property="article:tag" content="曾靖諺, C++, APCS, CPE, 資訊學習, 程式設計, 學習筆記">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Dynamic Programming">
 <meta name="twitter:card" content="summary">
 
     
@@ -41,13 +44,30 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1774105290514.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1774165860806.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1774105290514.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1774165860806.css">
 
 
     
+        <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css" rel="stylesheet">
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
     
 
     
@@ -780,42 +800,202 @@ document.addEventListener('DOMContentLoaded', function() {
 
         
         <section class="main-section">
-            <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
     <article class="content article article-archives article-type-list" itemscope="">
         <header class="article-header">
-            <h1 itemprop="title">category : CPE</h1>
-            <p class="text-gray-600">共 2 篇文章</p>
-        </header>
-        <div class="article-body">
             
     
-        <section class="year-archive">
-    <header>
-        <h1><a >2026</a></h1>
-    </header>
-    <div class="archive-content">
-        
-            <a href="/2026/03/21/cpe/cpe10056/" class="post-item">
-                <div class="post-time">03-21</div>
-                <div class="post-title">UVa 10056 題解 — C++</div>
-            </a>
-        
-            <a href="/2026/03/21/cpe/cpe10055/" class="post-item">
-                <div class="post-time">03-21</div>
-                <div class="post-title">UVa 10055 題解 — C++</div>
-            </a>
-        
-    </div>
-</section>
-
+        <h1 class="article-title text-lg" itemprop="name">
+            UVa 00674 題解 — C++
+        </h1>
     
 
 
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2026/03/22/cpe/cpe00674/" class="article-date">
+	  <time datetime="2026-03-22T07:29:08.000Z" itemprop="datePublished">2026-03-22</time>
+	</a>
+</span>
+
+                
+  <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/CPE-3%E6%98%9F/">CPE 3星</a>
+  </span>
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/C/" rel="tag">C++</a>, <a class="article-tag-none-link" href="/tags/Dynamic-Programming/" rel="tag">Dynamic Programming</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2026/03/22/cpe/cpe00674/#comments" class="article-comment-link">
+                        評論
+                    </a>
+                </span>
+                
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <div class="alert-block alert-info">💡 此筆記為UVa 00674的題目詳解，包含解題思路、C++範例程式碼。
+</div>
+
+<h2 id="Coin-Change-ZeroJudge-d253"><a href="#Coin-Change-ZeroJudge-d253" class="headerlink" title="Coin Change (ZeroJudge d253.)"></a>Coin Change (ZeroJudge d253.)</h2><h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a><a href="https://">題目</a></h3><div class="alert-block alert-success">給你一個金額（ n cents），請你回答共有多少種硬幣組合的方式。例如：n=11，那麼你可以有以下4種硬幣的組合：
+    1. 1個 10 cent的硬幣加上1個 1 cent的硬幣
+    2. 2個 5 cent的硬幣加上1個 1 cent的硬幣
+    3. 1個 5 cent的硬幣加上6個 1 cent的硬幣
+    4. 11個 1 cent的硬幣
+<strong>p.s 美國的零錢共有以下5種硬幣以及其面值：
+    • penny, 1 cent
+    • nickel, 5 cents
+    • dime, 10 cents
+    • quarter, 25 cents
+    • half-dollar, 50 cents</strong>
+請注意：n=0 我們算他是有一種方式。
+</div>
+
+<h3 id="輸入-輸出說明"><a href="#輸入-輸出說明" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>輸入說明</strong></th>
+<th align="left"><strong>輸出說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">每組測試資料1列，有1個整數n（0 &lt;&#x3D; n &lt;&#x3D; 7489），代表零錢的總金額（單位：cent）。</td>
+<td align="left">對每組測試資料請輸出共有多少種硬幣組合方式。</td>
+</tr>
+</tbody></table>
+<h3 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">教大家一個辨別要用貪心法還是動態規劃的方法：
+當你遇到求最小問題的時候：
+    1. 面額全部具備倍數關係：貪心法
+    2. 面額不具備倍數關係：動態規劃
+當你遇到求方法數的時候，要用動態規劃去做。
+好現在回來這一題，這一題我們可以只用一維的陣列做動態規劃，但前提是小的要先做。
+這邊要注意付 0 我們是 1 種方法 (什麼都不付)。
+一開始因為 1 塊錢在付任何金額的情況下都只有一種方法，先初始化付 i 塊錢的方法數 dp[i] = 1, $1 \le i \le 10000$。
+接著我們可以看新增不同面額 dollar[i] 後，方法數 dp[j] 的變化就是 dp[j] += dp[j-dollar[i]]。
+舉例而言：
+當我們要付 10 塊 (dp[10]) 的時候，用 1 塊錢付的方法就是 1 種，目前 dp[10] 是 1。
+現在看新增 5 塊面額的時候，付 10 塊的方法就會變成 dp[10] + dp[10-5]，因為這題目可以拆成：
+    1. 原本的 dp[10] 是用 1 塊錢的方法
+    2. dp[5] = dp[10-5] 是先用了一個 5 塊錢之後，剩下 5 塊錢怎麼用的方法。
+因為我們會從小到大維護這個陣列，所以 dp[5] 已經被維護過，他是 dp[5] + dp[0] = 2 種方法：
+    1. 原本的 dp[5] 是用 1 塊錢的方法
+    2. dp[0] = dp[5-0] 是先用了一個 5 塊錢之後，剩下 0 塊錢怎麼用的方法，顯然是 1 種。
+所以 dp[5] 已經是 2，現在的 dp[10] = dp[10] + dp[10-5] = 1 + 2 = 3。
+</div>
+
+<h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> i, j;</span><br><span class="line">	<span class="type">int</span> coin;</span><br><span class="line">	<span class="type">int</span> dollar[<span class="number">4</span>]=&#123;<span class="number">5</span>, <span class="number">10</span>, <span class="number">25</span>, <span class="number">50</span>&#125;, dp[<span class="number">10000</span>];</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;=<span class="number">10000</span>;i++)  <span class="comment">// 使用一塊錢 </span></span><br><span class="line">		dp[i] = <span class="number">1</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (j=<span class="number">1</span>;j&lt;=<span class="number">10000</span>;j++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (j &gt;= dollar[i]) &#123;  <span class="comment">// 可用 dollar[i] 面額 </span></span><br><span class="line">				dp[j] += dp[j-dollar[i]];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> (cin &gt;&gt; coin) &#123;</span><br><span class="line">		cout &lt;&lt; dp[coin] &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="運行結果"><a href="#運行結果" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> (4ms, 368KB)</p>
+<div class="alert-block alert-danger"><strong>查看更多資訊請至：</strong><a href="https://www.tseng-school.com/">https://www.tseng-school.com/</a> 
+</div>
         </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/03/22/cpe/cpe00674/">https://www.tseng-school.com/2026/03/22/cpe/cpe00674/</a></p>
+    <p><strong> </strong></p>
+</blockquote>
+
+
     </article>
+    
+    
+        <section id="comments"></section> 
+        <div id="gitalk-loader"></div> <script type="text/javascript">
+  (function() {
+    var container = document.getElementById('comments');
+    if (!container) return;
+
+    // 定義渲染函數
+    function loadAndRenderGitalk() {
+      if (window.GITALK_LOCK || container.querySelector('.gt-container')) return;
+      window.GITALK_LOCK = true;
+
+      // 動態載入 CSS 與 JS，避免阻塞首屏
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css';
+      document.head.appendChild(link);
+
+      var script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js";
+      var md5Script = document.createElement('script');
+      md5Script.src = "https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js";
+
+      script.onload = function() {
+        var gitalk = new Gitalk({
+            clientID: 'Ov23litX24icqsbLMK3L',
+            clientSecret: 'd6303376afaebeacf533c935a4348a03ab352bbf',
+            repo: 'blog-comment',
+            owner: 'chingyen06',
+            admin: ['chingyen06'],
+            id: '1774164548000', 
+            distractionFreeMode: true,
+            proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
+        });
+        gitalk.render('comments');
+      };
+
+      document.body.appendChild(md5Script);
+      document.body.appendChild(script);
+    }
+
+    // 使用 Intersection Observer 實現懶加載
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          loadAndRenderGitalk();
+          observer.disconnect(); // 觸發後就停止觀察
+        }
+      }, { rootMargin: '200px' }); // 提前 200px 開始載入，減少使用者等待感
+
+      observer.observe(container);
+    } else {
+      // 降級處理：不支援 Observer 的舊瀏覽器直接載入
+      loadAndRenderGitalk();
+    }
+
+    // 針對 PJAX 頁面切換的處理
+    document.addEventListener('pjax:complete', function() {
+        window.GITALK_LOCK = false;
+        // 如果是 PJAX 切換，通常需要重新觀察新頁面的容器
+        if (typeof observer !== 'undefined') observer.observe(document.getElementById('comments'));
+    });
+  })();
+</script> 
+    
+
     
 
 </main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目錄</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Coin-Change-ZeroJudge-d253"><span class="toc-number">1.</span> <span class="toc-text">Coin Change (ZeroJudge d253.)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8C%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">題目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-%E8%BC%B8%E5%87%BA%E8%AA%AA%E6%98%8E"><span class="toc-number">1.2.</span> <span class="toc-text">輸入 &#x2F; 輸出說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF"><span class="toc-number">1.3.</span> <span class="toc-text">解題思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.4.</span> <span class="toc-text">範例程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8B%E8%A1%8C%E7%B5%90%E6%9E%9C"><span class="toc-number">1.5.</span> <span class="toc-text">運行結果</span></a></li></ol></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
 
             
             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -871,6 +1051,69 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script src="/js/local-search.min.js"></script>
 
+
+    <div id="gitalk-loader"></div> <script type="text/javascript">
+  (function() {
+    var container = document.getElementById('comments');
+    if (!container) return;
+
+    // 定義渲染函數
+    function loadAndRenderGitalk() {
+      if (window.GITALK_LOCK || container.querySelector('.gt-container')) return;
+      window.GITALK_LOCK = true;
+
+      // 動態載入 CSS 與 JS，避免阻塞首屏
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css';
+      document.head.appendChild(link);
+
+      var script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js";
+      var md5Script = document.createElement('script');
+      md5Script.src = "https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js";
+
+      script.onload = function() {
+        var gitalk = new Gitalk({
+            clientID: 'Ov23litX24icqsbLMK3L',
+            clientSecret: 'd6303376afaebeacf533c935a4348a03ab352bbf',
+            repo: 'blog-comment',
+            owner: 'chingyen06',
+            admin: ['chingyen06'],
+            id: '1774164548000', 
+            distractionFreeMode: true,
+            proxy: 'https://purple-fire-8465.john1100729.workers.dev/'
+        });
+        gitalk.render('comments');
+      };
+
+      document.body.appendChild(md5Script);
+      document.body.appendChild(script);
+    }
+
+    // 使用 Intersection Observer 實現懶加載
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          loadAndRenderGitalk();
+          observer.disconnect(); // 觸發後就停止觀察
+        }
+      }, { rootMargin: '200px' }); // 提前 200px 開始載入，減少使用者等待感
+
+      observer.observe(container);
+    } else {
+      // 降級處理：不支援 Observer 的舊瀏覽器直接載入
+      loadAndRenderGitalk();
+    }
+
+    // 針對 PJAX 頁面切換的處理
+    document.addEventListener('pjax:complete', function() {
+        window.GITALK_LOCK = false;
+        // 如果是 PJAX 切換，通常需要重新觀察新頁面的容器
+        if (typeof observer !== 'undefined') observer.observe(document.getElementById('comments'));
+    });
+  })();
+</script>
 
 
     <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
