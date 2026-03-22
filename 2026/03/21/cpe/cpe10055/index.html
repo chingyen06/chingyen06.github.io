@@ -38,10 +38,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1774172819504.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1774174846196.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1774172819504.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1774174846196.css">
 
 
     
@@ -184,19 +184,26 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  var observer = new MutationObserver(function(mutations) {
-    var gtInput = document.querySelector('.gt-header-textarea');
-    
-    if (gtInput) {
-      gtInput.addEventListener('keydown', function(e) {
-        e.stopPropagation();
-      });
-      
-      observer.disconnect();
-    }
-  });
+    var observer = new MutationObserver(function(mutations) {
+        var gtInput = document.querySelector('.gt-header-textarea');
+        
+        if (gtInput && !gtInput.dataset.fixed) {
+            gtInput.dataset.fixed = "true";
 
-  observer.observe(document.body, { childList: true, subtree: true });
+            
+            gtInput.setAttribute('data-gramm', 'false');
+            gtInput.setAttribute('spellcheck', 'false');
+            gtInput.classList.add('notranslate');
+
+            ['keydown', 'keyup', 'keypress'].forEach(function(event) {
+                gtInput.addEventListener(event, function(e) {
+                    e.stopPropagation();
+                }, true); 
+            });
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
 });
 </script>
 </div>

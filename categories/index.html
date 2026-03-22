@@ -38,10 +38,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1774172819501.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1774174846192.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1774172819501.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1774174846192.css">
 
 
     
@@ -176,19 +176,26 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  var observer = new MutationObserver(function(mutations) {
-    var gtInput = document.querySelector('.gt-header-textarea');
-    
-    if (gtInput) {
-      gtInput.addEventListener('keydown', function(e) {
-        e.stopPropagation();
-      });
-      
-      observer.disconnect();
-    }
-  });
+    var observer = new MutationObserver(function(mutations) {
+        var gtInput = document.querySelector('.gt-header-textarea');
+        
+        if (gtInput && !gtInput.dataset.fixed) {
+            gtInput.dataset.fixed = "true";
 
-  observer.observe(document.body, { childList: true, subtree: true });
+            
+            gtInput.setAttribute('data-gramm', 'false');
+            gtInput.setAttribute('spellcheck', 'false');
+            gtInput.classList.add('notranslate');
+
+            ['keydown', 'keyup', 'keypress'].forEach(function(event) {
+                gtInput.addEventListener(event, function(e) {
+                    e.stopPropagation();
+                }, true); 
+            });
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
 });
 </script>
 </div>
@@ -315,6 +322,22 @@ document.addEventListener('DOMContentLoaded', function() {
             
             <section class="year-archive">
     <header>
+        <h1><a href="/categories/CPE-3%E6%98%9F/" >CPE 3星</a></h1>
+    </header>
+    <div class="archive-content">
+        
+            <a href="/2026/03/22/cpe/cpe00674/" class="post-item">
+                <div class="post-time">2026-03-22</div>
+                <div class="post-title">UVa 00674 題解 — C++</div>
+            </a>
+        
+    </div>
+</section>
+
+
+            
+            <section class="year-archive">
+    <header>
         <h1><a href="/categories/CPE-2%E6%98%9F/" >CPE 2星</a></h1>
     </header>
     <div class="archive-content">
@@ -343,22 +366,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <a href="/2026/03/21/cpe/cpe10056/" class="post-item">
                 <div class="post-time">2026-03-21</div>
                 <div class="post-title">UVa 10056 題解 — C++</div>
-            </a>
-        
-    </div>
-</section>
-
-
-            
-            <section class="year-archive">
-    <header>
-        <h1><a href="/categories/CPE-3%E6%98%9F/" >CPE 3星</a></h1>
-    </header>
-    <div class="archive-content">
-        
-            <a href="/2026/03/22/cpe/cpe00674/" class="post-item">
-                <div class="post-time">2026-03-22</div>
-                <div class="post-title">UVa 00674 題解 — C++</div>
             </a>
         
     </div>
