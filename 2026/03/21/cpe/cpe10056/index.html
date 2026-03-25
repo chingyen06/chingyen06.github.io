@@ -24,7 +24,7 @@
 <meta property="og:description" content="此筆記為UVa 10056的題目詳解，包含解題思路、C++範例程式碼。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2026-03-21T14:15:09.000Z">
-<meta property="article:modified_time" content="2026-03-25T05:27:19.245Z">
+<meta property="article:modified_time" content="2026-03-25T05:28:08.225Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -38,10 +38,10 @@
 
     
     
-<link rel="stylesheet" href="/css/common.min.css?v=1774416450776.css">
+<link rel="stylesheet" href="/css/common.min.css?v=1774416499415.css">
 
     
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1774416450776.css">
+<link rel="stylesheet" href="/css/iconfont.min.css?v=1774416499415.css">
 
 
     
@@ -374,20 +374,20 @@ $P_i = ((1-p)^{i-1} \times p) \times \frac{1 \times (1-((1-p)^n)^\infty)}{1-(1-p
 因為 $1 - p < 1$，所以 $((1-p)^n)^\infty \approx 0$<br>
 $P_i \approx ((1-p)^{i-1} \times p) \times \frac{1}{1-(1-p)^n} \approx \frac{(1-p)^{i-1} \times p}{1-(1-p)^n}$<br>
 答案就是此公式的結果。
-<另解> 這邊用條件機率的方式也算一下
+<strong><另解></strong> 這邊用條件機率的方式也算一下
 $E$：第 i 個人獲勝的事件
 $A$：第一輪第 i 個人獲勝的事件
 $B$：第一輪其他人獲勝的事件
 $F$：第一輪沒人獲勝的事件<br>
-$P(E)=P(E|A)P(A)+P(E|B)P(B)+P(E|F)P(F)$<br>
+$P(E)=P(E|A)P(A)+P(E|B)P(B)+P(E|F)P(F)$
 當 $P(A)$ 發生就代表第 $i$ 個人已經獲勝，那 $A$ 發生後 $E$ 發生的機率 $P(E|A)$ 一定是 1。
 反之當 $P(B)$ 發生就代表其他人已經獲勝，那 $B$ 發生後 $E$ 發生的機率 $P(E|B)$ 一定是 0。
 而當 $P(F)$ 發生後，就代表第一輪無人獲勝，那 $F$ 發生後 $E$ 發生的機率 $P(E|F)$ 其實也是 $P(E)$，因為他不影響第 $i$ 個人獲勝的機率。
-由此可知：<br>
+由此可知：
 $P(E)=1 \times P(A)+0 \times P(B)+P(E)P(F)$
 $\Rightarrow P(E)=(1-p)^{i-1} \times p+(1-p)^nP(E)$
 $\Rightarrow (1-(1-p)^n)P(E)=(1-p)^{i-1} \times p$
-$\Rightarrow P(E)=\frac{(1-p)^{i-1} \times p}{1-(1-p)^n}$<br>
+$\Rightarrow P(E)=\frac{(1-p)^{i-1} \times p}{1-(1-p)^n}$
 答案是一樣的。
 </div>
 
