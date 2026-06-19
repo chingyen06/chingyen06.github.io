@@ -2,17 +2,18 @@
 <html  lang="zh-TW" >
     <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
     
     <title>UVa 10056 題解 — C++ | 靖諺的資訊學習筆記 | 靖諺的資訊學習筆記</title>
     
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
+
     <style>
-        body { font-family: 'Noto Sans TC', sans-serif !important; }
+        body { font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif !important; }
         h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
     </style>
 
@@ -24,7 +25,7 @@
 <meta property="og:description" content="此筆記為UVa 10056的題目詳解，包含解題思路、C++範例程式碼。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2026-03-21T14:15:09.000Z">
-<meta property="article:modified_time" content="2026-03-25T05:28:25.568Z">
+<meta property="article:modified_time" content="2026-06-19T05:15:24.361Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -37,12 +38,8 @@
     
 
     
-    
-<link rel="stylesheet" href="/css/common.min.css?v=1780314218257.css">
-
-    
-<link rel="stylesheet" href="/css/iconfont.min.css?v=1780314218257.css">
-
+    <link rel="stylesheet" href="/css/common.min.css?v=09a14bfe">
+    <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600">
 
     
         <script>
@@ -54,9 +51,6 @@
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
 
-    
-        <link href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css" rel="stylesheet">
-        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
     
 
     
@@ -71,23 +65,73 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const COLLAPSE_HEIGHT = 450; 
+        const COLLAPSE_HEIGHT = 360; // 超過此高度才提供收合鈕
         const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
         const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
-        const iconChevronDown = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+        const iconChevron = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+        const iconChevronDouble = `<svg viewBox="0 0 24 24"><path d="M16.59 5.59L12 10.17 7.41 5.59 6 7l6 6 6-6zM16.59 11.59L12 16.17l-4.59-4.58L6 13l6 6 6-6z"/></svg>`;
+        const langMap = { cpp:'C++', 'c++':'C++', cc:'C++', cxx:'C++', c:'C', py:'Python', python:'Python', js:'JavaScript', javascript:'JavaScript', ts:'TypeScript', typescript:'TypeScript', java:'Java', html:'HTML', xml:'XML', css:'CSS', scss:'SCSS', bash:'Bash', sh:'Shell', shell:'Shell', zsh:'Shell', json:'JSON', yaml:'YAML', yml:'YAML', sql:'SQL', go:'Go', rust:'Rust', rs:'Rust', php:'PHP', ruby:'Ruby', rb:'Ruby', kotlin:'Kotlin', swift:'Swift', plaintext:'Text', text:'Text', plain:'Text', md:'Markdown', markdown:'Markdown' };
 
         const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
         figures.forEach(figure => {
             const wrapper = document.createElement('div');
             wrapper.className = 'code-wrapper';
             figure.parentNode.insertBefore(wrapper, figure);
-            wrapper.appendChild(figure);
+
+            // 標題列：左邊三個圓點 + 語言標籤，右邊工具列（仿 IDE 視窗）
+            const header = document.createElement('div');
+            header.className = 'code-header';
+
+            const dots = document.createElement('div');
+            dots.className = 'code-dots';
+            dots.innerHTML = '<span></span><span></span><span></span>';
+            header.appendChild(dots);
+
+            const lang = [...figure.classList].find(c => c !== 'highlight');
+            const label = document.createElement('span');
+            label.className = 'code-lang';
+            label.textContent = lang ? (langMap[lang.toLowerCase()] || lang.toUpperCase()) : 'CODE';
+            header.appendChild(label);
+
+            // 工具列（靠右）：複製在左、收合在右
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+            header.appendChild(toolbar);
 
             const copyBtn = document.createElement('button');
             copyBtn.className = 'code-btn copy-btn';
             copyBtn.innerHTML = iconCopy;
             copyBtn.title = "複製程式碼";
-            wrapper.appendChild(copyBtn);
+            toolbar.appendChild(copyBtn);
+
+            // 右上角收合鈕：負責「整個區塊」摺疊成只剩標題列（每個程式碼都有）
+            const foldBtn = document.createElement('button');
+            foldBtn.className = 'code-btn fold-btn';
+            foldBtn.innerHTML = iconChevron;
+            foldBtn.title = "收合 / 展開整個程式碼";
+            toolbar.appendChild(foldBtn);
+            foldBtn.addEventListener('click', () => {
+                const folded = wrapper.classList.toggle('folded');
+                foldBtn.classList.toggle('folded', folded);
+            });
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(figure);
+
+            // 長程式碼：預設部分收合（300px），底部整條雙箭頭負責展開/收回預覽
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const footer = document.createElement('div');
+                footer.className = 'code-footer';
+                footer.innerHTML = iconChevronDouble;
+                footer.title = "展開 / 收合程式碼";
+                wrapper.appendChild(footer);
+
+                footer.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                });
+            }
 
             copyBtn.addEventListener('click', () => {
                 const codeCell = figure.querySelector('td.code');
@@ -101,23 +145,6 @@
                     }, 2000);
                 });
             });
-
-            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
-                wrapper.classList.add('collapsed');
-                const toggleBtn = document.createElement('button');
-                toggleBtn.className = 'code-btn toggle-btn';
-                toggleBtn.innerHTML = iconChevronDown;
-                toggleBtn.title = "展開/收合程式碼";
-                wrapper.appendChild(toggleBtn);
-
-                toggleBtn.addEventListener('click', () => {
-                    wrapper.classList.toggle('collapsed');
-                    toggleBtn.classList.toggle('expanded');
-                    if (wrapper.classList.contains('collapsed')) {
-                        wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                });
-            }
         });
     });
     </script>
@@ -336,10 +363,9 @@ document.addEventListener('DOMContentLoaded', function() {
             </p>
         </header>
         <div class="marked-body article-body">
-            <div class="alert-block alert-info">💡 此筆記為UVa 10056的題目詳解，包含解題思路、C++範例程式碼。
-</div>
+            <div class="alert-block alert-info note-shortcode">此筆記為UVa 10056的題目詳解，包含解題思路、C++範例程式碼。</div>
 
-<h2 id="What-is-the-Probability-ZeroJudge-e510"><a href="#What-is-the-Probability-ZeroJudge-e510" class="headerlink" title="What is the Probability? (ZeroJudge e510.)"></a>What is the Probability? (ZeroJudge e510.)</h2><h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=e510">題目</a></h3><div class="alert-block alert-success">機率一直是電腦演算法不可或缺的一部分。
+<h2 id="What-is-the-Probability-ZeroJudge-e510"><a href="#What-is-the-Probability-ZeroJudge-e510" class="headerlink" title="What is the Probability? (ZeroJudge e510.)"></a>What is the Probability? (ZeroJudge e510.)</h2><h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=e510">題目</a></h3><div class="alert-block alert-success note-shortcode">機率一直是電腦演算法不可或缺的一部分。
 在確定性算法無法在短時間內解決問題的地方，概率性算法已應運而生。
 在這個問題上，我們不處理任何概率算法。我們將僅嘗試確定某個玩家的獲勝機率。<br>
 我們透過類似擲骰子的方式來玩這個遊戲 (他不像普通骰子一樣有六個面)。
@@ -347,8 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
 此遊戲可以有N個玩家。
 第一個玩家將擲骰子，然後第二個玩家，最後是第N個玩家，再來是第一個玩家，依此類推。
 當玩家獲得期望的結果時，宣佈為獲勝者，比賽停止。
-您必須確定其中一名 (第i名) 的獲勝機率。
-</div>
+您必須確定其中一名 (第i名) 的獲勝機率。</div>
 
 <h3 id="輸入-輸出說明"><a href="#輸入-輸出說明" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
 <thead>
@@ -362,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <td align="left">對於每組輸入，輸出第i個玩家獲勝的機率。<br>機率精確到小數點後四位。</td>
 </tr>
 </tbody></table>
-<h3 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning">記得考慮 p = 0 的情況，因為浮點數不一定準，所以我設為 p < 1e-9 就輸出 0.0000。
+<h3 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning note-shortcode">記得考慮 p = 0 的情況，因為浮點數不一定準，所以我設為 p < 1e-9 就輸出 0.0000。
 這題也同時要注意，不一定第一輪就會結束，因此要考慮無窮次數的情況。
 第 i 人獲勝的機率就是：
 前 i 個人輸、第 i 個人贏的機率 * 前面幾輪全輸的機率。<br>
@@ -388,14 +413,12 @@ $P(E)=1 \times P(A)+0 \times P(B)+P(E)P(F)$
 $\Rightarrow P(E)=(1-p)^{i-1} \times p+(1-p)^nP(E)$
 $\Rightarrow (1-(1-p)^n)P(E)=(1-p)^{i-1} \times p$
 $\Rightarrow P(E)=\frac{(1-p)^{i-1} \times p}{1-(1-p)^n}$
-答案是一樣的。
-</div>
+答案是一樣的。</div>
 
 <h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> j, k;</span><br><span class="line">	<span class="type">int</span> s, n, i;</span><br><span class="line">	<span class="type">double</span> p, ans;</span><br><span class="line">	</span><br><span class="line">	cin &gt;&gt; s;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (j=<span class="number">0</span>;j&lt;s;j++) &#123;</span><br><span class="line">		cin &gt;&gt; n &gt;&gt; p &gt;&gt; i;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> (p &lt; <span class="number">1e-9</span>) &#123;  <span class="comment">// 浮點數不一定準 </span></span><br><span class="line">			cout &lt;&lt; <span class="number">0.0000</span> &lt;&lt; endl;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		ans = (p * <span class="built_in">pow</span>((<span class="number">1</span>-p), i<span class="number">-1</span>)) / (<span class="number">1</span> - <span class="built_in">pow</span>((<span class="number">1</span>-p), n));</span><br><span class="line">		</span><br><span class="line">		cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">4</span>) &lt;&lt; ans &lt;&lt; endl; </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="運行結果"><a href="#運行結果" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> (1ms, 316KB)</p>
-<div class="alert-block alert-danger"><strong>查看更多資訊請至：</strong><a href="https://www.tseng-school.com/">https://www.tseng-school.com/</a> 
-</div>
+<div class="alert-block alert-danger note-shortcode"><strong>查看更多資訊請至：</strong><a href="https://www.tseng-school.com/">https://www.tseng-school.com/</a> </div>
         </div>
         
 <blockquote class="copyright">
@@ -609,10 +632,37 @@ $\Rightarrow P(E)=\frac{(1-p)^{i-1} \times p}{1-(1-p)^n}$
 </script>
 
 
-    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
     
-<script src="/js/light-gallery.min.js"></script>
-
+    <script>
+    (function () {
+        var imgs = document.querySelectorAll('main img, article img, .marked-body img');
+        if (!imgs.length) return;
+        var loaded = false;
+        function loadLG() {
+            if (loaded) return; loaded = true;
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css';
+            document.head.appendChild(css);
+            var cdn = document.createElement('script');
+            cdn.src = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js';
+            cdn.onload = function () {
+                var local = document.createElement('script');
+                local.src = '/js/light-gallery.min.js';
+                document.body.appendChild(local);
+            };
+            document.body.appendChild(cdn);
+        }
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) { loadLG(); io.disconnect(); }
+            }, { rootMargin: '300px' });
+            io.observe(imgs[0]);
+        } else {
+            loadLG();
+        }
+    })();
+    </script>
 
 
 
