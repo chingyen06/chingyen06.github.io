@@ -173,7 +173,14 @@
 
   
   <url>
-    <loc>https://www.tseng-school.com/tags/%E9%81%B8%E6%93%87/</loc>
+    <loc>https://www.tseng-school.com/tags/%E6%8E%92%E5%BA%8F/</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tseng-school.com/tags/%E5%89%8D%E7%B6%B4%E5%92%8C/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -187,21 +194,14 @@
   </url>
   
   <url>
+    <loc>https://www.tseng-school.com/tags/%E9%81%B8%E6%93%87/</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.tseng-school.com/tags/C/</loc>
-    <lastmod>2026-06-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.tseng-school.com/tags/%E6%8E%92%E5%BA%8F/</loc>
-    <lastmod>2026-06-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.tseng-school.com/tags/%E5%89%8D%E7%B6%B4%E5%92%8C/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -252,13 +252,6 @@
   </url>
   
   <url>
-    <loc>https://www.tseng-school.com/categories/APCS-%E4%B8%AD%E7%B4%9A/</loc>
-    <lastmod>2026-06-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.tseng-school.com/categories/APCS-%E9%AB%98%E7%B4%9A/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -273,6 +266,13 @@
   </url>
   
   <url>
+    <loc>https://www.tseng-school.com/categories/APCS-%E4%B8%AD%E7%B4%9A/</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.tseng-school.com/categories/CPE-2%E6%98%9F/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -280,14 +280,14 @@
   </url>
   
   <url>
-    <loc>https://www.tseng-school.com/categories/CPE-1%E6%98%9F/</loc>
+    <loc>https://www.tseng-school.com/categories/CPE-3%E6%98%9F/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.tseng-school.com/categories/CPE-3%E6%98%9F/</loc>
+    <loc>https://www.tseng-school.com/categories/CPE-1%E6%98%9F/</loc>
     <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
