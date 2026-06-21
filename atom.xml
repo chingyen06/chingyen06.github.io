@@ -58,9 +58,9 @@
     
     <category term="CLRS" scheme="https://www.tseng-school.com/tags/CLRS/"/>
     
-    <category term="前綴和" scheme="https://www.tseng-school.com/tags/%E5%89%8D%E7%B6%B4%E5%92%8C/"/>
-    
     <category term="排序" scheme="https://www.tseng-school.com/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+    <category term="前綴和" scheme="https://www.tseng-school.com/tags/%E5%89%8D%E7%B6%B4%E5%92%8C/"/>
     
   </entry>
   
@@ -83,9 +83,9 @@
     
     <category term="C++" scheme="https://www.tseng-school.com/tags/C/"/>
     
-    <category term="二分搜尋" scheme="https://www.tseng-school.com/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B/"/>
-    
     <category term="前綴和" scheme="https://www.tseng-school.com/tags/%E5%89%8D%E7%B6%B4%E5%92%8C/"/>
+    
+    <category term="二分搜尋" scheme="https://www.tseng-school.com/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B/"/>
     
     <category term="差分陣列" scheme="https://www.tseng-school.com/tags/%E5%B7%AE%E5%88%86%E9%99%A3%E5%88%97/"/>
     
