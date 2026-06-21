@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://www.tseng-school.com/2026/02/09/apcs/apcs202510/%E5%9C%96%E7%89%874.jpg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/02/09/apcs/apcs202510/%E5%9C%96%E7%89%875.jpg">
 <meta property="article:published_time" content="2026-02-09T07:15:00.000Z">
-<meta property="article:modified_time" content="2026-06-19T07:45:05.209Z">
+<meta property="article:modified_time" content="2026-06-21T11:17:50.635Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -44,7 +44,7 @@
     
 
     
-    <link rel="stylesheet" href="/css/common.min.css?v=09a14bfe">
+    <link rel="stylesheet" href="/css/common.min.css?v=ef04b200">
     
     <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
 因為假設 A 轉 90 度、B 不轉就等於 A 不轉、B 轉 270 度；A 轉 270 度、B 轉 90 度就等於 A 不轉、B 轉 180 度等等。所以 A 不需要轉就可以比對全部的組合。
 那這題的問題就是 B 轉 90 度、180 度、270 度要怎麼表示。
 我用圖片表示：
-<div class="img-row"><img src="圖片1.jpg" alt="圖片1" loading="lazy" decoding="async">
+<div class="img-row left"><img src="圖片1.jpg" alt="圖片1" loading="lazy" decoding="async">
 <img src="圖片2.jpg" alt="圖片2" loading="lazy" decoding="async">
 <img src="圖片3.jpg" alt="圖片3" loading="lazy" decoding="async"></div>我們先看轉 90 度、270 度，因為這兩個必須在 R 等於 C 的時候才可以對比，因此比較容易看。
 我們都看第一列 (綠色標示的地方)，可以觀察到：
@@ -443,7 +443,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	在原本的列 i = 0 的位置，轉了之後的 B 是行固定在 0，一樣的道理，是新的行對應的是受舊的列控制，也就是 B[?][i]。
 	接著看原本的列 i = 0 的時候，原本的行 j 改變的時候，新的列跟著變，從 j = 0 對應到新的 4、j = 1 對應到新的 3等等，可以看出是 R-j-1，結合剛剛得到的 B[?][i]，轉 270 度就是 B[R-j-1][i]。
 接著我們看 B 轉 180 度的情況，因為這兩個 R 不一定等於 C，所以要小心，上面轉 90 度、270 度的時候，R 寫成 C 是一樣的，但這邊不一樣。
-<div class="img-row"><img src="圖片4.jpg" alt="圖片4" loading="lazy" decoding="async">
+<div class="img-row left"><img src="圖片4.jpg" alt="圖片4" loading="lazy" decoding="async">
 <img src="圖片5.jpg" alt="圖片5" loading="lazy" decoding="async"></div>這邊一樣看第一列 (綠色標示的地方)，可以觀察到：
 在原本的列 i = 0 的位置，轉了之後的 B 是列固定在 3，也就是新的列對應的是受舊的列控制，也就是 B[R-i-1][?]。
 接著看原本的列 i = 0 的時候，原本的行 j 改變的時候，新的行跟著變，從 j = 0 對應到新的 4、j = 1 對應到新的 3 等等，結合剛剛得到的 B[R-i-1][?]，轉 180 度就是 B[R-i-1][C-j-1]。<br>

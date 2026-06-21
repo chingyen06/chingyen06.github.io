@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/%E5%9C%96%E7%89%873.png">
 <meta property="og:image" content="https://www.tseng-school.com/2026/02/11/apcs/apcs202511/%E5%9C%96%E7%89%874.png">
 <meta property="article:published_time" content="2026-02-11T06:10:45.000Z">
-<meta property="article:modified_time" content="2026-06-19T07:45:05.209Z">
+<meta property="article:modified_time" content="2026-06-21T11:17:51.067Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="DFS">
@@ -46,7 +46,7 @@
     
 
     
-    <link rel="stylesheet" href="/css/common.min.css?v=09a14bfe">
+    <link rel="stylesheet" href="/css/common.min.css?v=ef04b200">
     
     <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <h3 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning note-shortcode">這一題是 DFS 的題目，但如果要從 30 分到 100 分，就需要做記憶化搜尋。
 這題因為題目同時提到提到物品 (字母、分數) 與堆疊 (很多個物品)，所以大家可以發現到堆疊內有物品，物品內有字母、分數，所以我們可以使用物件導向 (OOP) 的封裝概念，別擔心，沒有很難看懂，下面有圖。如果不使用封裝來做，會有一堆變數散落，到時候會比較難看，debug 的時候會很痛苦。
 我將題目提到的物品用 struct 定義為 Item 物件，再把堆疊狀態用 struct 定義為 Content，結構如圖所示：
-<div class="img-row"><img src="圖片1.png" alt="圖片1" loading="lazy" decoding="async" style="width:30%"></div><div class="img-row"><img src="圖片2.png" alt="圖片2" loading="lazy" decoding="async" style="width:30%"></div>物品 Item 裡面放 <code>字母 w</code> 和 <code>分數 s</code>，堆疊狀態 Content 裡面包含 <code>物品數 n</code>、<code>堆疊 st</code> 和 <code>堆疊頂部位置 start</code>，其中 <code>堆疊 st</code> 用陣列存，陣列元素是 <code>物品 Item</code>。
+<div class="img-row left"><img src="圖片1.png" alt="圖片1" loading="lazy" decoding="async" style="width:30%"></div><div class="img-row left"><img src="圖片2.png" alt="圖片2" loading="lazy" decoding="async" style="width:30%"></div>物品 Item 裡面放 <code>字母 w</code> 和 <code>分數 s</code>，堆疊狀態 Content 裡面包含 <code>物品數 n</code>、<code>堆疊 st</code> 和 <code>堆疊頂部位置 start</code>，其中 <code>堆疊 st</code> 用陣列存，陣列元素是 <code>物品 Item</code>。
 DFS 演算法：
 每個過程就是不斷嘗試。
   1. 用雙層迴圈 i、j 任選兩個堆疊
@@ -468,7 +468,7 @@ DFS 演算法：
 <h2 id="第三題-翻來覆去-ZeroJudge-r628"><a href="#第三題-翻來覆去-ZeroJudge-r628" class="headerlink" title="第三題 翻來覆去 (ZeroJudge r628.)"></a>第三題 翻來覆去 (ZeroJudge r628.)</h2><h3 id="題目-2"><a href="#題目-2" class="headerlink" title="題目"></a><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=r628">題目</a></h3><div class="alert-block alert-success note-shortcode">給定一個長度為 $n$ 的排列（Permutation）$P=(p_1, p_2, ..., p_n)$，包含從 $1$ 到 $n$ 的所有整數。一開始，所有元素都按照它們在 $P$ 中的順序，從 $p_n$ 到 $p_1$ 依次被壓入 Stack $S_2$ 中（即 $p_n$ 在底，$p_1$ 在頂）。
 目標是要透過這兩個 stack 的 push 和 pop 操作來將這個排列做由小到大排序，並且輸出最少需要多少 pop 操作。
 以範例測資2 為例，目前的兩個 stack 為 [], [4, 2, 3, 1]
-<div class="img-row"><img src="圖片3.png" alt="圖片3" loading="lazy" decoding="async"></div>總共花費 8 次 pop 操作。</div>
+<div class="img-row left"><img src="圖片3.png" alt="圖片3" loading="lazy" decoding="async"></div>總共花費 8 次 pop 操作。</div>
 
 <h3 id="輸入-輸出說明-2"><a href="#輸入-輸出說明-2" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
 <thead>
@@ -485,7 +485,7 @@ DFS 演算法：
 <h3 id="解題思路-2"><a href="#解題思路-2" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning note-shortcode">這題我看解題報告都寫 BIT，所以我來寫一下分而治之的方法，這題我用線段樹的方法做一次。
 這一題是在問兩個 stack 互相 pop 與 push 後排序，輸出最少需要多少次 pop 操作。觀察一下可以發現其實 pop 次數就是算目前位置的索引到目標數字的索引間隔多少。
 線段樹的建立如下圖，以範例 2 為例：
-<div class="img-row"><img src="圖片4.png" alt="圖片4" loading="lazy" decoding="async" style="width:50%"></div>我們稱根節點 (root)，就是最上面那個節點，他的範圍是 [1, n]，這裡是 [1, 4]，他的數量就是<code>左子節點 [1, 2] 的數量 2</code> + <code>右子節點 [3, 4] 的數量 2</code> = 4，自己不算 1 個數字喔，因為它只是存範圍內有幾個數字 (葉節點)，每一個內部節點 (撇除葉節點的節點) 也都是如此計算數量。
+<div class="img-row left"><img src="圖片4.png" alt="圖片4" loading="lazy" decoding="async" style="width:50%"></div>我們稱根節點 (root)，就是最上面那個節點，他的範圍是 [1, n]，這裡是 [1, 4]，他的數量就是<code>左子節點 [1, 2] 的數量 2</code> + <code>右子節點 [3, 4] 的數量 2</code> = 4，自己不算 1 個數字喔，因為它只是存範圍內有幾個數字 (葉節點)，每一個內部節點 (撇除葉節點的節點) 也都是如此計算數量。
 綠色的地方稱葉節點 (leaf)，它的特點是下面沒有任何節點，它的數量一定是 1，就他自己一個數字。<br>
 建立這個線段樹的方式就是 build 函式，主要就是用遞迴的方式從上而下建立。大家要注意因為我是把樹建立在陣列上，所以我 2 * node 代表是左子節點 (可自行驗算)、2 * node + 1 代表是右子節點 (可自行驗算)。<br>
 主程式輸出每個數字的時候，都會去找目前位置 now 與目標數字 target 的位置，把他當作一個區間 [now, target] 傳入 move 函式當 [left, right]，接著我們就看 [left, right] 是否把 每個節點的範圍 [start, end] 包住，不是的話繼續地回到完全包住，包住後就可以回傳數值，代表 [left, right] 的某一個子區間得到的數量。最後得到的數字加到 t 內，代表 pop 總數。<br>
