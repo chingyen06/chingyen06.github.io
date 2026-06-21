@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html  lang="zh-TW" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    
+    <title>CPE 大學程式能力檢定 | 靖諺的資訊學習筆記 | 靖諺的資訊學習筆記</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
+
+    <style>
+        body { font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif !important; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
+    </style>
+
+    <meta name="description" content="點選不同難度的區塊可以篩選不同難度的題目                        ⭐ 1 星0     ⭐⭐ 2 星0     ⭐⭐⭐ 3 星0     ⭐⭐⭐⭐ 4 星0     ⭐⭐⭐⭐⭐ 5 星0     ❓ 其他（星等未定）0     顯示所有題目                const cpeData &#x3D; [     &#x2F;&#x2F; 1 星     { star: 1, uva: 100,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CPE 大學程式能力檢定">
+<meta property="og:url" content="https://www.tseng-school.com/resources/cpe/index.html">
+<meta property="og:site_name" content="靖諺的資訊學習筆記">
+<meta property="og:description" content="點選不同難度的區塊可以篩選不同難度的題目                        ⭐ 1 星0     ⭐⭐ 2 星0     ⭐⭐⭐ 3 星0     ⭐⭐⭐⭐ 4 星0     ⭐⭐⭐⭐⭐ 5 星0     ❓ 其他（星等未定）0     顯示所有題目                const cpeData &#x3D; [     &#x2F;&#x2F; 1 星     { star: 1, uva: 100,">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-05-25T12:04:04.407Z">
+<meta property="article:modified_time" content="2026-03-22T08:53:19.636Z">
+<meta property="article:author" content="chingyen06">
+<meta property="article:tag" content="曾靖諺, C++, APCS, CPE, 資訊學習, 程式設計, 學習筆記">
+<meta name="twitter:card" content="summary">
+
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+    <link rel="icon" href="/images/avatar.png" type="image/x-icon">
+    
+
+    
+    <link rel="stylesheet" href="/css/common.min.css?v=ef04b200">
+    
+    <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
+
+    
+
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-18D6HBKZSF');
+        </script>
+    
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const COLLAPSE_HEIGHT = 360; // 超過此高度才提供收合鈕
+        const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+        const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        const iconChevron = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+        const iconChevronDouble = `<svg viewBox="0 0 24 24"><path d="M16.59 5.59L12 10.17 7.41 5.59 6 7l6 6 6-6zM16.59 11.59L12 16.17l-4.59-4.58L6 13l6 6 6-6z"/></svg>`;
+        const langMap = { cpp:'C++', 'c++':'C++', cc:'C++', cxx:'C++', c:'C', py:'Python', python:'Python', js:'JavaScript', javascript:'JavaScript', ts:'TypeScript', typescript:'TypeScript', java:'Java', html:'HTML', xml:'XML', css:'CSS', scss:'SCSS', bash:'Bash', sh:'Shell', shell:'Shell', zsh:'Shell', json:'JSON', yaml:'YAML', yml:'YAML', sql:'SQL', go:'Go', rust:'Rust', rs:'Rust', php:'PHP', ruby:'Ruby', rb:'Ruby', kotlin:'Kotlin', swift:'Swift', plaintext:'Text', text:'Text', plain:'Text', md:'Markdown', markdown:'Markdown' };
+
+        const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
+        figures.forEach(figure => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            figure.parentNode.insertBefore(wrapper, figure);
+
+            // 標題列：左邊三個圓點 + 語言標籤，右邊工具列（仿 IDE 視窗）
+            const header = document.createElement('div');
+            header.className = 'code-header';
+
+            const dots = document.createElement('div');
+            dots.className = 'code-dots';
+            dots.innerHTML = '<span></span><span></span><span></span>';
+            header.appendChild(dots);
+
+            const lang = [...figure.classList].find(c => c !== 'highlight');
+            const label = document.createElement('span');
+            label.className = 'code-lang';
+            label.textContent = lang ? (langMap[lang.toLowerCase()] || lang.toUpperCase()) : 'CODE';
+            header.appendChild(label);
+
+            // 工具列（靠右）：複製在左、收合在右
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+            header.appendChild(toolbar);
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-btn copy-btn';
+            copyBtn.innerHTML = iconCopy;
+            copyBtn.title = "複製程式碼";
+            toolbar.appendChild(copyBtn);
+
+            // 右上角收合鈕：負責「整個區塊」摺疊成只剩標題列（每個程式碼都有）
+            const foldBtn = document.createElement('button');
+            foldBtn.className = 'code-btn fold-btn';
+            foldBtn.innerHTML = iconChevron;
+            foldBtn.title = "收合 / 展開整個程式碼";
+            toolbar.appendChild(foldBtn);
+            foldBtn.addEventListener('click', () => {
+                const folded = wrapper.classList.toggle('folded');
+                foldBtn.classList.toggle('folded', folded);
+            });
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(figure);
+
+            // 長程式碼：預設部分收合（300px），底部整條雙箭頭負責展開/收回預覽
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const footer = document.createElement('div');
+                footer.className = 'code-footer';
+                footer.innerHTML = iconChevronDouble;
+                footer.title = "展開 / 收合程式碼";
+                wrapper.appendChild(footer);
+
+                footer.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                });
+            }
+
+            copyBtn.addEventListener('click', () => {
+                const codeCell = figure.querySelector('td.code');
+                const codeText = codeCell ? codeCell.innerText : figure.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = iconCheck;
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = iconCopy;
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    });
+    </script>
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "曾靖諺",
+        "alternateName": "Tseng Ching-Yen",
+        "url": "https://www.tseng-school.com",
+        "sameAs": [
+            "https://github.com/chingyen06"
+        ]
+        }
+    </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/chingyen06" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/avatar.png" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">靖諺的資訊學習筆記</h2>
+            <h3 id="title" class="hidden lg:block"></h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Taipei, Taiwan
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="w-full my-auto">
+        <div class="relative w-full">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="w-full">
+            <button type="submit" style="display: none;"></button>
+        </div>
+    </form>
+    
+    
+<div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div class="search-widget-container">
+        <div class="search-header">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
+        </div>
+        
+        <div class="search-result">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-4 pb-3 mb-2 pt-3 hover:bg-green-50 rounded-lg transition duration-200">
+                <i class="iconfont icon-file text-gray-400 mr-2"></i>
+                <h1 class="result-title inline font-bold text-lg text-gray-800">{{ title }}</h1>
+                <p class="result-content text-gray-500 text-sm mt-1 line-clamp-2">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var observer = new MutationObserver(function(mutations) {
+        var gtInput = document.querySelector('.gt-header-textarea');
+        
+        if (gtInput && !gtInput.dataset.fixed) {
+            gtInput.dataset.fixed = "true";
+
+            
+            gtInput.setAttribute('data-gramm', 'false');
+            gtInput.setAttribute('spellcheck', 'false');
+            gtInput.classList.add('notranslate');
+
+            ['keydown', 'keyup', 'keypress'].forEach(function(event) {
+                gtInput.addEventListener(event, function(e) {
+                    e.stopPropagation();
+                }, true); 
+            });
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+</div>
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">主頁</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">文章</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-resources" role="menuitem">
+                <a href="/resources">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">資源</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">類別</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">標籤</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">關於</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont social-icon icon-facebook"></i>
+                <span class="menu-title hidden lg:inline">menu.facebook</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            CPE 大學程式能力檢定
+        </h1>
+    
+
+
+
+            </header>
+        <div class="marked-body article-body">
+            <p>點選不同難度的區塊可以篩選不同難度的題目</p>
+<div class="leetcode-filter-container">
+  
+  <div class="leetcode-search-box">
+    <input type="text" id="cpe-search-input" placeholder="🔍 搜尋">
+  </div>
+
+  <div class="leetcode-stats cpe-grid">
+    <div class="stat-card star-1" onclick="filterStar(1)"><h3>⭐ 1 星</h3><p id="count-star-1">0</p></div>
+    <div class="stat-card star-2" onclick="filterStar(2)"><h3>⭐⭐ 2 星</h3><p id="count-star-2">0</p></div>
+    <div class="stat-card star-3" onclick="filterStar(3)"><h3>⭐⭐⭐ 3 星</h3><p id="count-star-3">0</p></div>
+    <div class="stat-card star-4" onclick="filterStar(4)"><h3>⭐⭐⭐⭐ 4 星</h3><p id="count-star-4">0</p></div>
+    <div class="stat-card star-5" onclick="filterStar(5)"><h3>⭐⭐⭐⭐⭐ 5 星</h3><p id="count-star-5">0</p></div>
+    <div class="stat-card star-other" onclick="filterStar(0)"><h3>❓ 其他（星等未定）</h3><p id="count-star-0">0</p></div>
+    <div class="stat-btn-all full-width" onclick="filterStar('All')">顯示所有題目</div>
+  </div>
+
+  <div id="cpe-table-container">
+    </div>
+</div>
+
+<script>
+const cpeData = [
+    // 1 星
+    { star: 1, uva: 100, title: "c039. 00100 – The 3n + 1 problem", link: "https://zerojudge.tw/ShowProblem?problemid=c039", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeGlu2EA" },
+    { star: 1, uva: 118, title: "c082. 00118 – Mutant Flatworld Explorers", link: "https://zerojudge.tw/ShowProblem?problemid=c082", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Skou1K34A" },
+    { star: 1, uva: 272, title: "c007. 00272 – TeX Quotes", link: "https://zerojudge.tw/ShowProblem?problemid=c007", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1g6MaaVA" },
+    { star: 1, uva: 299, title: "e561. 00299 – Train Swapping", link: "https://zerojudge.tw/ShowProblem?problemid=e561", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Bk0I7R640" },
+    { star: 1, uva: 490, title: "c045. 00490 – Rotating Sentences", link: "https://zerojudge.tw/ShowProblem?problemid=c045", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/ByEVPRa40" },
+    { star: 1, uva: 948, title: "a134. 00948 – Fibonaccimal Base", link: "https://zerojudge.tw/ShowProblem?problemid=a134", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/HkcA8QJSA" },
+    { star: 1, uva: 10008, title: "c044. 10008 – What’s Cryptanalysis", link: "https://zerojudge.tw/ShowProblem?problemid=c044", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/By6PWdgB0" },
+    { star: 1, uva: 10019, title: "e545. 10019 – Funny Encryption Method", link: "https://zerojudge.tw/ShowProblem?problemid=e545", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/By6PWdgB0" },
+    { star: 1, uva: 10035, title: "c014. 10035 – Primary Arithmetic", link: "https://zerojudge.tw/ShowProblem?problemid=c014", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/ryyjPpCr0" },
+    { star: 1, uva: 10038, title: "d097. 10038 – Jolly Jumpers", link: "https://zerojudge.tw/ShowProblem?problemid=d097", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SygMEH4LA" },
+    { star: 1, uva: 10041, title: "a737. 10041 – Vito’s family", link: "https://zerojudge.tw/ShowProblem?problemid=a737", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/HkDnXBsF0" },
+    { star: 1, uva: 10050, title: "e579. 10050 – Hartals", link: "https://zerojudge.tw/ShowProblem?problemid=e579", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/HkDnXBsF0" },
+    { star: 1, uva: 10055, title: "a012. 10055 – Hashmat the Brave Warrior", link: "https://zerojudge.tw/ShowProblem?problemid=a012", name: "網站筆記", solution: "https://www.tseng-school.com/2026/03/21/cpe/cpe10055/" },
+    { star: 1, uva: 10056, title: "e510. 10056 – What is the Probability?", link: "https://zerojudge.tw/ShowProblem?problemid=e510", name: "網站筆記", solution: "https://www.tseng-school.com/2026/03/21/cpe/cpe10056/" },
+    // { star: 1, uva: 10057, title: "e606. 10057 – A mid-summer nights dream", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10062, title: "c012. 10062 – Tell me the frequencies!", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10071, title: "d226. 10071 – Back to High School Physics", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10093, title: "n786. 10093 - An Easy Problem!", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10101, title: "a741. 10101 – Bangla Numbers", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10170, title: "e555. 10170 – The Hotel with Infinite Rooms", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10180, title: "e605. 10189 – Minesweeper", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10190, title: "e566. 10190 – Divide, But Not Quite Conquer!", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10193, title: "d306. 10193 – All You Need Is Love", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10221, title: "10221 - Satellites", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10222, title: "e578. 10222 – Decode the Mad man", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10226, title: "d492. 10226 – Hardwood species", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10235, title: "d387. 10235 – Simply Emirp", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10242, title: "e512. 10242 – Fourth Point!!", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10252, title: "e507. 10252 – Common Permutation", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10268, title: "f444. 10268 – 498-bis", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10409, title: "e516. 10409 – Die Game", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10415, title: "e531. 10415 – Eb Alto Saxophone Player", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10420, title: "a743. 10420 – List of Conquests", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10642, title: "i859: 10642 – Can You Solve It?", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10783, title: "c022. 10783 – Odd Sum", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10812, title: "c004. 10812 – Beat the Spread!", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10908, title: "e575. 10908 – Largest Squares", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10922, title: "d672. 10922 – 2 the 9s", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10929, title: "d235. 10929 – You can say 11", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 10931, title: "a132. 10931 – Parity", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 11005, title: "11005 - Cheapest Base", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 11063, title: "d123. 11063 – B2-Sequence", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 11150, title: "d189. 11150 – Cola", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 11321, title: "d750. 11321 – Sort! Sort!! and Sort!!!", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 11332, title: "c813. 11332 – Summing Digits", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 11349, title: "e513. 11349 – Symmetric Matrix", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 11417, title: "d255. 11417 – GCD", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 11461, title: "d186. 11461 – Square Numbers", link: "", name: "網站筆記", solution: "" },
+    // { star: 1, uva: 12019, title: "f709: 12019 – Doom’s Day Algorithm", link: "", name: "網站筆記", solution: "" },
+    // 2 星
+    { star: 2, uva: 10327, title: "a539. 10327 - Flip Sort", link: "https://zerojudge.tw/ShowProblem?problemid=a539", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SJx38m2pkl"},
+    { star: 2, uva: 10815, title: "10815 - Andy's First Dictionary", link: "https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1756", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/S1jgOdTpJx" },
+    { star: 2, uva: 13242, title: "13242 - Pool Filling", link: "https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=878&page=show_problem&problem=5165", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/ByWJswApJg" },
+    { star: 2, uva: 10004, title: "10004 - Bicoloring", link: "https://zerojudge.tw/ShowProblem?problemid=d768", name: "網站筆記", solution: "https://www.tseng-school.com/2026/03/22/cpe/cpe10004/" },
+    // 3 星
+    { star: 3, uva: 674, title: "00674 - Coin Change", link: "https://zerojudge.tw/ShowProblem?problemid=d253", name: "網站筆記", solution: "https://www.tseng-school.com/2026/03/22/cpe/cpe00674/" },
+    // 4 星
+    // 5 星
+    // 其他
+    { star: 0, uva: 12442, title: "a523. 12442 - Forwarding Emails", link: "https://zerojudge.tw/ShowProblem?problemid=a523", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/ByA9bNMyxe" },
+    { star: 0, uva: 543, title: "c050. 00453 - Goldbach's Conjecture ", link: "https://zerojudge.tw/ShowProblem?problemid=c050", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/ryozHSlixx" },
+    { star: 0, uva: 483, title: "483 - Word Scramble", link: "https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&category=0&problem=424", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SypmmLThee" },
+    // { star: , uva: , title: "", link: "", name: "", solution: "" },
+];
+
+function renderTable(data) {
+    const container = document.getElementById('cpe-table-container');
+    
+    const styleMap = {
+        1: { color: '#42b983', label: '⭐ 1 星' },
+        2: { color: '#3498db', label: '⭐⭐ 2 星' },
+        3: { color: '#f1c40f', label: '⭐⭐⭐ 3 星' },
+        4: { color: '#e67e22', label: '⭐⭐⭐⭐ 4 星' },
+        5: { color: '#e74c3c', label: '⭐⭐⭐⭐⭐ 5 星' },
+        0: { color: '#95a5a6', label: '❓ 其他（星等未定）' }
+    };
+
+    const order = [1, 2, 3, 4, 5, 0];
+    let finalHtml = '';
+
+    order.forEach(starKey => {
+        // 1. 先篩選出該星級的題目
+        let filtered = data.filter(item => item.star === starKey);
+        
+        // 2. [新增功能] 自動按照 UVa 題號由小到大排序
+        filtered.sort((a, b) => a.uva - b.uva);
+
+        if (filtered.length > 0) {
+            const style = styleMap[starKey];
+            finalHtml += `
+                <div class="difficulty-section">
+                    <h2 style="color: ${style.color}; border-bottom: 2px solid ${style.color}20; padding-bottom: 10px;">${style.label}</h2>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead><tr><th width="15%">題號</th><th width="45%">題目</th><th width="15%">詳解</th></tr></thead>
+                            <tbody>
+                                ${filtered.map(i => `
+                                    <tr>
+                                        <td style="font-weight:bold; color:${style.color};">${i.uva}</td>
+                                        <td><a href="${i.link}" target="_blank" class="lc-link">${i.title}</a></td>
+                                        <td><a href="${i.solution}" class="sol-link">${i.name}</a></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>`;
+        }
+    });
+    container.innerHTML = finalHtml;
+
+    // 更新統計數字
+    order.forEach(k => {
+        document.getElementById(`count-star-${k}`).innerText = cpeData.filter(i => i.star === k).length;
+    });
+}
+
+// 搜尋
+document.getElementById('cpe-search-input').addEventListener('input', (e) => {
+    const key = e.target.value.toLowerCase();
+    const result = cpeData.filter(i => 
+        i.uva.toString().includes(key) || 
+        i.title.toLowerCase().includes(key)
+    );
+    renderTable(result);
+});
+
+// 篩選
+window.filterStar = function(star) {
+    if (star === 'All') renderTable(cpeData);
+    else renderTable(cpeData.filter(i => i.star === star));
+};
+
+renderTable(cpeData);
+</script>
+        </div>
+        </article>
+    
+
+</main>
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="widgets">
+        
+            
+            <hr>
+        
+            
+    <div class="widget">
+        <h3 class="widget-title">類別</h3>
+        <div class="widget-body">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APCS-%E4%B8%AD%E7%B4%9A/">APCS 中級</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/APCS-%E4%B8%AD%E9%AB%98%E7%B4%9A/">APCS 中高級</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/APCS-%E9%AB%98%E7%B4%9A/">APCS 高級</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CPE-1%E6%98%9F/">CPE 1星</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CPE-2%E6%98%9F/">CPE 2星</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CPE-3%E6%98%9F/">CPE 3星</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a><span class="category-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            <hr>
+        
+            
+    <div class="widget">
+        <h3 class="widget-title">
+            標籤
+        </h3>
+        <div class="widget-body">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CLRS/" rel="tag">CLRS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dynamic-Programming/" rel="tag">Dynamic Programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B/" rel="tag">二分搜尋</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%B6%B4%E5%92%8C/" rel="tag">前綴和</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%AE%E5%88%86%E9%99%A3%E5%88%97/" rel="tag">差分陣列</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B7%9A%E6%AE%B5%E6%A8%B9/" rel="tag">線段樹</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%81%B8%E6%93%87/" rel="tag">選擇</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            <hr>
+        
+            
+    <div class="widget">
+        <h3 class="widget-title">文章</h3>
+        <div class="widget-body">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">2026/06</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">2026/03</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">2026/02</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            <hr>
+        
+            
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled">
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/06/21/algorithm/ch9/" class="title">計算機演算法 Chapter 9 中位數與順序統計量</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-06-20T16:00:00.000Z" itemprop="datePublished">2026-06-21</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/06/19/algorithm/ch8/" class="title">計算機演算法 Chapter 8 線性時間排序</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-06-19T11:55:15.000Z" itemprop="datePublished">2026-06-19</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/APCS-%E4%B8%AD%E9%AB%98%E7%B4%9A/">APCS 中高級</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/06/01/apcs/apcs202603-1/" class="title">APCS 2026/03 中高級實作題題解 — C++</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-06-01T11:18:50.000Z" itemprop="datePublished">2026-06-01</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/CPE-2%E6%98%9F/">CPE 2星</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/03/22/cpe/cpe10004/" class="title">UVa 10004 題解 — C++</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-03-22T07:54:13.000Z" itemprop="datePublished">2026-03-22</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/CPE-3%E6%98%9F/">CPE 3星</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/03/22/cpe/cpe00674/" class="title">UVa 00674 題解 — C++</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-03-22T07:29:08.000Z" itemprop="datePublished">2026-03-22</time>
+                        </p>
+                    </div>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+            <hr>
+        
+    </div>
+</aside>
+
+
+
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div style="
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                flex-wrap: wrap;
+                width: 100%; 
+                margin: 40px 0 20px 0;
+                color: #666; 
+                font-size: 0.85rem;
+                clear: both;
+            ">
+              <span id="busuanzi_container_site_uv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-user" style="margin-right: 4px;"></i>
+                訪客數：<span id="busuanzi_value_site_uv">未知</span> 人
+              </span>
+              
+              <span style="margin: 0 12px; color: #ddd;">|</span>
+              
+              <span id="busuanzi_container_site_pv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-eye" style="margin-right: 4px;"></i>
+                總瀏覽：<span id="busuanzi_value_site_pv">未知</span> 次
+              </span>
+            </div>
+            </section>
+        
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont icon-facebook"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+
+    
+    <script src="https://giscus.app"
+            data-repo="chingyen06/blog-comment"
+            data-repo-id="R_kgDORKkDHg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORKkDHs4C_mPa"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+
+
+
+    
+    <script>
+    (function () {
+        var imgs = document.querySelectorAll('main img, article img, .marked-body img');
+        if (!imgs.length) return;
+        var loaded = false;
+        function loadLG() {
+            if (loaded) return; loaded = true;
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css';
+            document.head.appendChild(css);
+            var cdn = document.createElement('script');
+            cdn.src = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js';
+            cdn.onload = function () {
+                var local = document.createElement('script');
+                local.src = '/js/light-gallery.min.js';
+                document.body.appendChild(local);
+            };
+            document.body.appendChild(cdn);
+        }
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) { loadLG(); io.disconnect(); }
+            }, { rootMargin: '300px' });
+            io.observe(imgs[0]);
+        } else {
+            loadLG();
+        }
+    })();
+    </script>
+
+
+
+
+
+    </body>
+</html>

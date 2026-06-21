@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html  lang="zh-TW" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    
+    <title>UVa 10004 題解 — C++ | 靖諺的資訊學習筆記 | 靖諺的資訊學習筆記</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
+
+    <style>
+        body { font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif !important; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
+    </style>
+
+    <meta name="description" content="此筆記為UVa 10004的題目詳解，包含解題思路、C++範例程式碼。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UVa 10004 題解 — C++">
+<meta property="og:url" content="https://www.tseng-school.com/2026/03/22/cpe/cpe10004/index.html">
+<meta property="og:site_name" content="靖諺的資訊學習筆記">
+<meta property="og:description" content="此筆記為UVa 10004的題目詳解，包含解題思路、C++範例程式碼。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-03-22T07:54:13.000Z">
+<meta property="article:modified_time" content="2026-06-19T07:30:36.727Z">
+<meta property="article:author" content="chingyen06">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="DFS">
+<meta name="twitter:card" content="summary">
+
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+    <link rel="icon" href="/images/avatar.png" type="image/x-icon">
+    
+
+    
+    <link rel="stylesheet" href="/css/common.min.css?v=ef04b200">
+    
+    <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
+
+    
+        <script>
+        window.MathJax = {
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+          options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-18D6HBKZSF');
+        </script>
+    
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const COLLAPSE_HEIGHT = 360; // 超過此高度才提供收合鈕
+        const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+        const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        const iconChevron = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+        const iconChevronDouble = `<svg viewBox="0 0 24 24"><path d="M16.59 5.59L12 10.17 7.41 5.59 6 7l6 6 6-6zM16.59 11.59L12 16.17l-4.59-4.58L6 13l6 6 6-6z"/></svg>`;
+        const langMap = { cpp:'C++', 'c++':'C++', cc:'C++', cxx:'C++', c:'C', py:'Python', python:'Python', js:'JavaScript', javascript:'JavaScript', ts:'TypeScript', typescript:'TypeScript', java:'Java', html:'HTML', xml:'XML', css:'CSS', scss:'SCSS', bash:'Bash', sh:'Shell', shell:'Shell', zsh:'Shell', json:'JSON', yaml:'YAML', yml:'YAML', sql:'SQL', go:'Go', rust:'Rust', rs:'Rust', php:'PHP', ruby:'Ruby', rb:'Ruby', kotlin:'Kotlin', swift:'Swift', plaintext:'Text', text:'Text', plain:'Text', md:'Markdown', markdown:'Markdown' };
+
+        const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
+        figures.forEach(figure => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            figure.parentNode.insertBefore(wrapper, figure);
+
+            // 標題列：左邊三個圓點 + 語言標籤，右邊工具列（仿 IDE 視窗）
+            const header = document.createElement('div');
+            header.className = 'code-header';
+
+            const dots = document.createElement('div');
+            dots.className = 'code-dots';
+            dots.innerHTML = '<span></span><span></span><span></span>';
+            header.appendChild(dots);
+
+            const lang = [...figure.classList].find(c => c !== 'highlight');
+            const label = document.createElement('span');
+            label.className = 'code-lang';
+            label.textContent = lang ? (langMap[lang.toLowerCase()] || lang.toUpperCase()) : 'CODE';
+            header.appendChild(label);
+
+            // 工具列（靠右）：複製在左、收合在右
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+            header.appendChild(toolbar);
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-btn copy-btn';
+            copyBtn.innerHTML = iconCopy;
+            copyBtn.title = "複製程式碼";
+            toolbar.appendChild(copyBtn);
+
+            // 右上角收合鈕：負責「整個區塊」摺疊成只剩標題列（每個程式碼都有）
+            const foldBtn = document.createElement('button');
+            foldBtn.className = 'code-btn fold-btn';
+            foldBtn.innerHTML = iconChevron;
+            foldBtn.title = "收合 / 展開整個程式碼";
+            toolbar.appendChild(foldBtn);
+            foldBtn.addEventListener('click', () => {
+                const folded = wrapper.classList.toggle('folded');
+                foldBtn.classList.toggle('folded', folded);
+            });
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(figure);
+
+            // 長程式碼：預設部分收合（300px），底部整條雙箭頭負責展開/收回預覽
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const footer = document.createElement('div');
+                footer.className = 'code-footer';
+                footer.innerHTML = iconChevronDouble;
+                footer.title = "展開 / 收合程式碼";
+                wrapper.appendChild(footer);
+
+                footer.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                });
+            }
+
+            copyBtn.addEventListener('click', () => {
+                const codeCell = figure.querySelector('td.code');
+                const codeText = codeCell ? codeCell.innerText : figure.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = iconCheck;
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = iconCopy;
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    });
+    </script>
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "曾靖諺",
+        "alternateName": "Tseng Ching-Yen",
+        "url": "https://www.tseng-school.com",
+        "sameAs": [
+            "https://github.com/chingyen06"
+        ]
+        }
+    </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/chingyen06" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/avatar.png" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">靖諺的資訊學習筆記</h2>
+            <h3 id="title" class="hidden lg:block"></h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Taipei, Taiwan
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="w-full my-auto">
+        <div class="relative w-full">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="w-full">
+            <button type="submit" style="display: none;"></button>
+        </div>
+    </form>
+    
+    
+<div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div class="search-widget-container">
+        <div class="search-header">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
+        </div>
+        
+        <div class="search-result">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-4 pb-3 mb-2 pt-3 hover:bg-green-50 rounded-lg transition duration-200">
+                <i class="iconfont icon-file text-gray-400 mr-2"></i>
+                <h1 class="result-title inline font-bold text-lg text-gray-800">{{ title }}</h1>
+                <p class="result-content text-gray-500 text-sm mt-1 line-clamp-2">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var observer = new MutationObserver(function(mutations) {
+        var gtInput = document.querySelector('.gt-header-textarea');
+        
+        if (gtInput && !gtInput.dataset.fixed) {
+            gtInput.dataset.fixed = "true";
+
+            
+            gtInput.setAttribute('data-gramm', 'false');
+            gtInput.setAttribute('spellcheck', 'false');
+            gtInput.classList.add('notranslate');
+
+            ['keydown', 'keyup', 'keypress'].forEach(function(event) {
+                gtInput.addEventListener(event, function(e) {
+                    e.stopPropagation();
+                }, true); 
+            });
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+</div>
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">主頁</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">文章</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-resources" role="menuitem">
+                <a href="/resources">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">資源</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">類別</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">標籤</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">關於</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont social-icon icon-facebook"></i>
+                <span class="menu-title hidden lg:inline">menu.facebook</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            UVa 10004 題解 — C++
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2026/03/22/cpe/cpe10004/" class="article-date">
+	  <time datetime="2026-03-22T07:54:13.000Z" itemprop="datePublished">2026-03-22</time>
+	</a>
+</span>
+
+                
+  <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/CPE-2%E6%98%9F/">CPE 2星</a>
+  </span>
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/C/" rel="tag">C++</a>, <a class="article-tag-none-link" href="/tags/DFS/" rel="tag">DFS</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2026/03/22/cpe/cpe10004/#comments" class="article-comment-link">
+                        評論
+                    </a>
+                </span>
+                
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <div class="alert-block alert-info note-shortcode">此筆記為UVa 10004的題目詳解，包含解題思路、C++範例程式碼。</div>
+
+<h2 id="Bicoloring-ZeroJudge-d768"><a href="#Bicoloring-ZeroJudge-d768" class="headerlink" title="Bicoloring (ZeroJudge d768.)"></a>Bicoloring (ZeroJudge d768.)</h2><h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a><a target="_blank" rel="noopener" href="https://zerojudge.tw/ShowProblem?problemid=d768">題目</a></h3><div class="alert-block alert-success note-shortcode">1976 年，在電腦協助之下證明了 4 色地圖理論 (Four Color Map Theorem)。就是僅以 4 種顏色在地圖上不同的區域塗色，使得相鄰的區域顏色均不相同。
+現在，你要解決一個類似，但比較簡單的問題。給你一個相連的圖，請你在節點上塗色 (只有2種不同的顏色)，並且回答是否可以使得相鄰的節點顏色均不相同。為了使問題簡單一些，你可以假設：
+    • 沒有節點會有連向自己的邊。
+    • 邊是沒有方向性的，也就是說如果節點 A 可以連到節點 B，那麼代表節點 B 也可以連到節點 A。
+    • 圖形是強連通的，也就是說任 2 節點之間皆有路徑相連。</div>
+
+<h3 id="輸入-輸出說明"><a href="#輸入-輸出說明" class="headerlink" title="輸入 &#x2F; 輸出說明"></a>輸入 &#x2F; 輸出說明</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>輸入說明</strong></th>
+<th align="left"><strong>輸出說明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">輸入含有多組測試資料。每組測試資料的第一列有一個正整數 𝑛 (1 &lt; 𝑛 &lt; 200) 代表節點的數目。第二列有一個正整數 𝑚，代表邊的數目。接下來的 𝑚 列每列有 2 個整數代表邊所連接的 2 個節點的代號。這 𝑛 個節點的代號分別為 0 到 𝑛-1。<br>𝑛 &#x3D; 0 代表輸入結束。</td>
+<td align="left">對每一組測試資料輸出是否可以用 2 種顏色塗節點使得相鄰的節點顏色均不相同。若可以請輸出：BICOLORABLE.，否則輸出：NOT BICOLORABLE.</td>
+</tr>
+</tbody></table>
+<h3 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h3><div class="alert-block alert-warning note-shortcode">這類型題目他並沒有按照節點連結的關係給輸入資料，所以大家要注意一定要先建圖再走訪。
+首先我用一個 vector<int> relation[200] 存節點之間的關聯，relation[i] 代表是第 i 個點會連到的所有節點形成的 vector。
+這樣我要去找有連接的地方就只需要找 relation[i] 內所有的元素即可。
+接著我用 1、-1 當兩種顏色去塗節點 graph[i]，一開始先定義第 0 個點 (graph[0]) 為 1，接著就跑 DFS。
+DFS 流程如下：
+    1. for 迴圈找所有有連接的節點 relation[node][i]
+    2. 判斷是否塗色
+        (1) 有塗色 => 如果是同色就直接 return 0 (絕對是 NOT BICOLORABLE)
+        (2) 未塗色 => 進入 3.
+    3. 將連接的節點塗成這個節點的相反色 (graph[relation[node][i]] = graph[node] * (-1))
+    4. 繼續從新的節點 relation[node][i] 開始跑 DFS
+        如果回傳是 0 就直接 return 0 (絕對是 NOT BICOLORABLE)</div>
+
+<h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> graph[<span class="number">200</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> node, vector&lt;<span class="type">int</span>&gt; relation[<span class="number">200</span>])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;relation[node].<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (graph[relation[node][i]] == <span class="number">0</span>) &#123;  <span class="comment">// 未塗色 </span></span><br><span class="line">			graph[relation[node][i]] = graph[node] * (<span class="number">-1</span>);  <span class="comment">// 塗相反色 </span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">dfs</span>(relation[node][i], relation) == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;  <span class="comment">// 有塗色 </span></span><br><span class="line">			<span class="keyword">if</span> (graph[relation[node][i]] == graph[node])  <span class="comment">// 同色</span></span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	<span class="type">int</span> n, l, a, b;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> (cin &gt;&gt; n &amp;&amp; n != <span class="number">0</span>) &#123;</span><br><span class="line">		cin &gt;&gt; l;</span><br><span class="line">		</span><br><span class="line">		vector&lt;<span class="type">int</span>&gt; relation[<span class="number">200</span>];</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">200</span>;i++)</span><br><span class="line">			graph[i] = <span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;l;i++) &#123;</span><br><span class="line">			cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">			</span><br><span class="line">			relation[a].<span class="built_in">push_back</span>(b);</span><br><span class="line">			relation[b].<span class="built_in">push_back</span>(a); </span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		graph[<span class="number">0</span>] = <span class="number">1</span>;  <span class="comment">// 0 先塗一種顏色 </span></span><br><span class="line">	</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">dfs</span>(<span class="number">0</span>, relation) == <span class="number">0</span>)</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;NOT BICOLORABLE.&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;BICOLORABLE.&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="運行結果"><a href="#運行結果" class="headerlink" title="運行結果"></a>運行結果</h3><p><font color="#00BB00"><strong>AC</strong></font> (20ms, 592KB)</p>
+<div class="alert-block alert-danger note-shortcode"><strong>查看更多資訊請至：</strong><a href="https://www.tseng-school.com/">https://www.tseng-school.com/</a> </div>
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/03/22/cpe/cpe10004/">https://www.tseng-school.com/2026/03/22/cpe/cpe10004/</a></p>
+    <p><strong> </strong></p>
+</blockquote>
+
+
+    </article>
+    
+    
+        <section id="comments">
+            
+        </section>
+    
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目錄</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Bicoloring-ZeroJudge-d768"><span class="toc-number">1.</span> <span class="toc-text">Bicoloring (ZeroJudge d768.)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%8C%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">題目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BC%B8%E5%85%A5-%E8%BC%B8%E5%87%BA%E8%AA%AA%E6%98%8E"><span class="toc-number">1.2.</span> <span class="toc-text">輸入 &#x2F; 輸出說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF"><span class="toc-number">1.3.</span> <span class="toc-text">解題思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.4.</span> <span class="toc-text">範例程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8B%E8%A1%8C%E7%B5%90%E6%9E%9C"><span class="toc-number">1.5.</span> <span class="toc-text">運行結果</span></a></li></ol></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div style="
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                flex-wrap: wrap;
+                width: 100%; 
+                margin: 40px 0 20px 0;
+                color: #666; 
+                font-size: 0.85rem;
+                clear: both;
+            ">
+              <span id="busuanzi_container_site_uv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-user" style="margin-right: 4px;"></i>
+                訪客數：<span id="busuanzi_value_site_uv">未知</span> 人
+              </span>
+              
+              <span style="margin: 0 12px; color: #ddd;">|</span>
+              
+              <span id="busuanzi_container_site_pv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-eye" style="margin-right: 4px;"></i>
+                總瀏覽：<span id="busuanzi_value_site_pv">未知</span> 次
+              </span>
+            </div>
+            </section>
+        
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont icon-facebook"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+
+    
+    <script src="https://giscus.app"
+            data-repo="chingyen06/blog-comment"
+            data-repo-id="R_kgDORKkDHg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORKkDHs4C_mPa"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+
+
+
+    
+    <script>
+    (function () {
+        var imgs = document.querySelectorAll('main img, article img, .marked-body img');
+        if (!imgs.length) return;
+        var loaded = false;
+        function loadLG() {
+            if (loaded) return; loaded = true;
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css';
+            document.head.appendChild(css);
+            var cdn = document.createElement('script');
+            cdn.src = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js';
+            cdn.onload = function () {
+                var local = document.createElement('script');
+                local.src = '/js/light-gallery.min.js';
+                document.body.appendChild(local);
+            };
+            document.body.appendChild(cdn);
+        }
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) { loadLG(); io.disconnect(); }
+            }, { rootMargin: '300px' });
+            io.observe(imgs[0]);
+        } else {
+            loadLG();
+        }
+    })();
+    </script>
+
+
+
+
+
+    </body>
+</html>

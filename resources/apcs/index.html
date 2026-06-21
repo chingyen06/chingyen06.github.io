@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html  lang="zh-TW" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    
+    <title>APCS 大學程式設計先修檢測 | 靖諺的資訊學習筆記 | 靖諺的資訊學習筆記</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
+
+    <style>
+        body { font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif !important; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
+    </style>
+
+    <meta name="description" content="點選不同等級的區塊可以篩選不同等級的題目                        初級0     中級0     中高級0     高級0     N&#x2F;A0     顯示所有題目               &#x2F;&#x2F; --- APCS 資料庫 --- const apcsData &#x3D; [     &#x2F;&#x2F; { date: &quot;&quot;, level: &quot;&quot;, num: , title: &quot;&quot;, link:">
+<meta property="og:type" content="website">
+<meta property="og:title" content="APCS 大學程式設計先修檢測">
+<meta property="og:url" content="https://www.tseng-school.com/resources/apcs/index.html">
+<meta property="og:site_name" content="靖諺的資訊學習筆記">
+<meta property="og:description" content="點選不同等級的區塊可以篩選不同等級的題目                        初級0     中級0     中高級0     高級0     N&#x2F;A0     顯示所有題目               &#x2F;&#x2F; --- APCS 資料庫 --- const apcsData &#x3D; [     &#x2F;&#x2F; { date: &quot;&quot;, level: &quot;&quot;, num: , title: &quot;&quot;, link:">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-06-01T11:39:09.540Z">
+<meta property="article:modified_time" content="2026-06-01T11:39:09.540Z">
+<meta property="article:author" content="chingyen06">
+<meta property="article:tag" content="曾靖諺, C++, APCS, CPE, 資訊學習, 程式設計, 學習筆記">
+<meta name="twitter:card" content="summary">
+
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+    <link rel="icon" href="/images/avatar.png" type="image/x-icon">
+    
+
+    
+    <link rel="stylesheet" href="/css/common.min.css?v=ef04b200">
+    
+    <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
+
+    
+
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-18D6HBKZSF');
+        </script>
+    
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const COLLAPSE_HEIGHT = 360; // 超過此高度才提供收合鈕
+        const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+        const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        const iconChevron = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+        const iconChevronDouble = `<svg viewBox="0 0 24 24"><path d="M16.59 5.59L12 10.17 7.41 5.59 6 7l6 6 6-6zM16.59 11.59L12 16.17l-4.59-4.58L6 13l6 6 6-6z"/></svg>`;
+        const langMap = { cpp:'C++', 'c++':'C++', cc:'C++', cxx:'C++', c:'C', py:'Python', python:'Python', js:'JavaScript', javascript:'JavaScript', ts:'TypeScript', typescript:'TypeScript', java:'Java', html:'HTML', xml:'XML', css:'CSS', scss:'SCSS', bash:'Bash', sh:'Shell', shell:'Shell', zsh:'Shell', json:'JSON', yaml:'YAML', yml:'YAML', sql:'SQL', go:'Go', rust:'Rust', rs:'Rust', php:'PHP', ruby:'Ruby', rb:'Ruby', kotlin:'Kotlin', swift:'Swift', plaintext:'Text', text:'Text', plain:'Text', md:'Markdown', markdown:'Markdown' };
+
+        const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
+        figures.forEach(figure => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            figure.parentNode.insertBefore(wrapper, figure);
+
+            // 標題列：左邊三個圓點 + 語言標籤，右邊工具列（仿 IDE 視窗）
+            const header = document.createElement('div');
+            header.className = 'code-header';
+
+            const dots = document.createElement('div');
+            dots.className = 'code-dots';
+            dots.innerHTML = '<span></span><span></span><span></span>';
+            header.appendChild(dots);
+
+            const lang = [...figure.classList].find(c => c !== 'highlight');
+            const label = document.createElement('span');
+            label.className = 'code-lang';
+            label.textContent = lang ? (langMap[lang.toLowerCase()] || lang.toUpperCase()) : 'CODE';
+            header.appendChild(label);
+
+            // 工具列（靠右）：複製在左、收合在右
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+            header.appendChild(toolbar);
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-btn copy-btn';
+            copyBtn.innerHTML = iconCopy;
+            copyBtn.title = "複製程式碼";
+            toolbar.appendChild(copyBtn);
+
+            // 右上角收合鈕：負責「整個區塊」摺疊成只剩標題列（每個程式碼都有）
+            const foldBtn = document.createElement('button');
+            foldBtn.className = 'code-btn fold-btn';
+            foldBtn.innerHTML = iconChevron;
+            foldBtn.title = "收合 / 展開整個程式碼";
+            toolbar.appendChild(foldBtn);
+            foldBtn.addEventListener('click', () => {
+                const folded = wrapper.classList.toggle('folded');
+                foldBtn.classList.toggle('folded', folded);
+            });
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(figure);
+
+            // 長程式碼：預設部分收合（300px），底部整條雙箭頭負責展開/收回預覽
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const footer = document.createElement('div');
+                footer.className = 'code-footer';
+                footer.innerHTML = iconChevronDouble;
+                footer.title = "展開 / 收合程式碼";
+                wrapper.appendChild(footer);
+
+                footer.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                });
+            }
+
+            copyBtn.addEventListener('click', () => {
+                const codeCell = figure.querySelector('td.code');
+                const codeText = codeCell ? codeCell.innerText : figure.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = iconCheck;
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = iconCopy;
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    });
+    </script>
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "曾靖諺",
+        "alternateName": "Tseng Ching-Yen",
+        "url": "https://www.tseng-school.com",
+        "sameAs": [
+            "https://github.com/chingyen06"
+        ]
+        }
+    </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/chingyen06" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/avatar.png" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">靖諺的資訊學習筆記</h2>
+            <h3 id="title" class="hidden lg:block"></h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Taipei, Taiwan
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="w-full my-auto">
+        <div class="relative w-full">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="w-full">
+            <button type="submit" style="display: none;"></button>
+        </div>
+    </form>
+    
+    
+<div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div class="search-widget-container">
+        <div class="search-header">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
+        </div>
+        
+        <div class="search-result">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-4 pb-3 mb-2 pt-3 hover:bg-green-50 rounded-lg transition duration-200">
+                <i class="iconfont icon-file text-gray-400 mr-2"></i>
+                <h1 class="result-title inline font-bold text-lg text-gray-800">{{ title }}</h1>
+                <p class="result-content text-gray-500 text-sm mt-1 line-clamp-2">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var observer = new MutationObserver(function(mutations) {
+        var gtInput = document.querySelector('.gt-header-textarea');
+        
+        if (gtInput && !gtInput.dataset.fixed) {
+            gtInput.dataset.fixed = "true";
+
+            
+            gtInput.setAttribute('data-gramm', 'false');
+            gtInput.setAttribute('spellcheck', 'false');
+            gtInput.classList.add('notranslate');
+
+            ['keydown', 'keyup', 'keypress'].forEach(function(event) {
+                gtInput.addEventListener(event, function(e) {
+                    e.stopPropagation();
+                }, true); 
+            });
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+</div>
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">主頁</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">文章</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-resources" role="menuitem">
+                <a href="/resources">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">資源</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">類別</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">標籤</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">關於</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont social-icon icon-facebook"></i>
+                <span class="menu-title hidden lg:inline">menu.facebook</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            APCS 大學程式設計先修檢測
+        </h1>
+    
+
+
+
+            </header>
+        <div class="marked-body article-body">
+            <p>點選不同等級的區塊可以篩選不同等級的題目</p>
+<div class="leetcode-filter-container">
+  
+  <div class="leetcode-search-box">
+    <input type="text" id="apcs-search-input" placeholder="🔍 搜尋">
+  </div>
+
+  <div class="leetcode-stats apcs-grid">
+    <div class="stat-card apcs-level-1" onclick="filterLevel('初級')"><h3>初級</h3><p id="count-level-1">0</p></div>
+    <div class="stat-card apcs-level-2" onclick="filterLevel('中級')"><h3>中級</h3><p id="count-level-2">0</p></div>
+    <div class="stat-card apcs-level-3" onclick="filterLevel('中高級')"><h3>中高級</h3><p id="count-level-3">0</p></div>
+    <div class="stat-card apcs-level-4" onclick="filterLevel('高級')"><h3>高級</h3><p id="count-level-4">0</p></div>
+    <div class="stat-card apcs-level-na" onclick="filterLevel('N/A')"><h3>N/A</h3><p id="count-level-na">0</p></div>
+    <div class="stat-btn-all full-width" onclick="filterLevel('All')">顯示所有題目</div>
+  </div>
+
+  <div id="apcs-table-container">
+  </div>
+
+</div>
+
+<script>
+// --- APCS 資料庫 ---
+const apcsData = [
+    // { date: "", level: "", num: , title: "", link: "", name: "", solution: "", note: ""},
+    // 2026-03-1
+    { date: "2026-03", level: "中高級", num: 1, title: "比例分割", link: "https://zerojudge.tw/ShowProblem?problemid=s179", name: "網站筆記", solution: "https://www.tseng-school.com/2026/06/01/apcs/apcs202603-1/#第一題-比例分割-ZeroJudge-s179", note: ""},
+    { date: "2026-03", level: "中高級", num: 2, title: "觀光旅遊", link: "https://zerojudge.tw/ShowProblem?problemid=s180", name: "網站筆記", solution: "https://www.tseng-school.com/2026/06/01/apcs/apcs202603-1/#第二題-觀光旅遊-ZeroJudge-s180", note: ""},
+
+    // 2025-11
+    { date: "2025-11", level: "高級", num: 1, title: "字母配對", link: "https://zerojudge.tw/ShowProblem?problemid=r626", name: "網站筆記", solution: "https://www.tseng-school.com/2026/02/11/apcs/apcs202511/#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E5%AD%97%E6%AF%8D%E9%85%8D%E5%B0%8D-ZeroJudge-r626", note: ""},
+    { date: "2025-11", level: "高級", num: 2, title: "列印工廠", link: "https://zerojudge.tw/ShowProblem?problemid=r627", name: "網站筆記", solution: "https://www.tseng-school.com/2026/02/11/apcs/apcs202511/#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E5%88%97%E5%8D%B0%E5%B7%A5%E5%BB%A0-ZeroJudge-r627", note: ""},
+    { date: "2025-11", level: "高級", num: 3, title: "翻來覆去", link: "https://zerojudge.tw/ShowProblem?problemid=r628", name: "網站筆記", solution: "https://www.tseng-school.com/2026/02/11/apcs/apcs202511/#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E7%BF%BB%E4%BE%86%E8%A6%86%E5%8E%BB-ZeroJudge-r628", note: ""},
+
+    // 2025-10 (開始有等級)
+    { date: "2025-10", level: "中級", num: 1, title: "彗星撞擊", link: "https://zerojudge.tw/ShowProblem?problemid=r488", name: "網站筆記", solution: "https://www.tseng-school.com/2026/02/09/apcs/apcs202510/#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E5%BD%97%E6%98%9F%E6%92%9E%E6%93%8A-ZeroJudge-r488", note: ""},
+    { date: "2025-10", level: "中級", num: 2, title: "航空拍照圖", link: "https://zerojudge.tw/ShowProblem?problemid=r489", name: "網站筆記", solution: "https://www.tseng-school.com/2026/02/09/apcs/apcs202510/#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E8%88%AA%E7%A9%BA%E6%8B%8D%E7%85%A7%E5%9C%96-ZeroJudge-r489", note: ""},
+    { date: "2025-10", level: "中級", num: 3, title: "商品包裝地", link: "https://zerojudge.tw/ShowProblem?problemid=r490", name: "網站筆記", solution: "https://www.tseng-school.com/2026/02/09/apcs/apcs202510/#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E5%95%86%E5%93%81%E5%8C%85%E8%A3%9D%E5%9C%B0-ZeroJudge-r490", note: ""},
+
+    // 2025-06 (N/A)
+    { date: "2025-06", level: "N/A", num: 1, title: "小心陷阱", link: "https://zerojudge.tw/ShowProblem?problemid=q836", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E5%B0%8F%E5%BF%83%E9%99%B7%E9%98%B1-ZeroJudge-q836", note: " " },
+    { date: "2025-06", level: "N/A", num: 2, title: "轉盤得分", link: "https://zerojudge.tw/ShowProblem?problemid=q837", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E8%BD%89%E7%9B%A4%E5%BE%97%E5%88%86-ZeroJudge-q837", note: " " },
+    { date: "2025-06", level: "N/A", num: 3, title: "貪心闖關", link: "https://zerojudge.tw/ShowProblem?problemid=q838", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E8%B2%AA%E5%BF%83%E9%97%96%E9%97%9C-ZeroJudge-q838", note: " " },
+    { date: "2025-06", level: "N/A", num: 4, title: "分組遊戲", link: "https://zerojudge.tw/ShowProblem?problemid=q839", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/SyeE0Ihull#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E5%88%86%E7%B5%84%E9%81%8A%E6%88%B2-ZeroJudge-q839", note: " " },
+
+    // 2025-01 (N/A)
+    { date: "2025-01", level: "N/A", num: 1, title: "等紅綠燈", link: "https://zerojudge.tw/ShowProblem?problemid=q181", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/B16Ic0Sdeg#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E7%AD%89%E7%B4%85%E7%B6%A0%E7%87%88-ZeroJudge-q181", note: " " },
+    { date: "2025-01", level: "N/A", num: 2, title: "字串操作", link: "https://zerojudge.tw/ShowProblem?problemid=q182", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/B16Ic0Sdeg#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C-ZeroJudge-q182", note: " " },
+    { date: "2025-01", level: "N/A", num: 3, title: "重組問題", link: "https://zerojudge.tw/ShowProblem?problemid=q183", name: "吳邦一教授 筆記", solution: "https://hackmd.io/@bangyewu/rJlvXNP81g#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E9%87%8D%E7%B5%84%E5%95%8F%E9%A1%8C-ZeroJudge-q182", note: "外部" },
+    { date: "2025-01", level: "N/A", num: 4, title: "分組開會", link: "https://zerojudge.tw/ShowProblem?problemid=q184", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/B16Ic0Sdeg#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E5%88%86%E7%B5%84%E9%96%8B%E6%9C%83-ZeroJudge-q184", note: " " },
+
+    // 2024-10 (N/A)
+    { date: "2024-10", level: "N/A", num: 1, title: "裝飲料", link: "https://zerojudge.tw/ShowProblem?problemid=o711", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E8%A3%9D%E9%A3%B2%E6%96%99-ZeroJudge-o711", note: " " },
+    { date: "2024-10", level: "N/A", num: 2, title: "蒐集寶石", link: "https://zerojudge.tw/ShowProblem?problemid=o712", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E8%92%90%E9%9B%86%E5%AF%B6%E7%9F%B3-ZeroJudge-o712", note: " " },
+    { date: "2024-10", level: "N/A", num: 3, title: "連鎖反應", link: "https://zerojudge.tw/ShowProblem?problemid=o713", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E9%80%A3%E9%8E%96%E5%8F%8D%E6%87%89-ZeroJudge-o713", note: " " },
+    { date: "2024-10", level: "N/A", num: 4, title: "搭到終點", link: "https://zerojudge.tw/ShowProblem?problemid=o714", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/Hyb9u_jwyl#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E6%90%AD%E5%88%B0%E7%B5%82%E9%BB%9E-ZeroJudge-o714", note: " " },
+
+    // 2024-06 (N/A)
+    { date: "2024-06", level: "N/A", num: 1, title: "特技表演", link: "https://zerojudge.tw/ShowProblem?problemid=o076", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rJKdh43rR#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E7%89%B9%E6%8A%80%E8%A1%A8%E6%BC%94-ZeroJudge-o076", note: " " },
+    { date: "2024-06", level: "N/A", num: 2, title: "電子畫布", link: "https://zerojudge.tw/ShowProblem?problemid=o077", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rJKdh43rR#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E9%9B%BB%E5%AD%90%E7%95%AB%E5%B8%83-ZeroJudge-o077", note: " " },
+    { date: "2024-06", level: "N/A", num: 3, title: "缺字問題", link: "https://zerojudge.tw/ShowProblem?problemid=o078", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rJKdh43rR#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E7%BC%BA%E5%AD%97%E5%95%8F%E9%A1%8C-ZeroJudge-o078", note: " " },
+    { date: "2024-06", level: "N/A", num: 4, title: "最佳選擇", link: "https://zerojudge.tw/ShowProblem?problemid=o079", name: "吳邦一教授 筆記", solution: "https://hackmd.io/@bangyewu/HycD81TH0?fbclid=IwZXh0bgNhZW0CMTEAAR2TSGEXf5kC4-8XYp0UQq4PBEwbz3QA7VQd2-VZdyJMV4Pw11ogLGd1Svk_aem_cNmtHoAXrJ2dxC40u5RrEg#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E6%9C%80%E4%BD%B3%E9%81%B8%E6%93%87-ZeroJudge-o079", note: "外部" },
+
+    // 2024-01 (N/A)
+    { date: "2024-01", level: "N/A", num: 1, title: "遊戲選角", link: "https://zerojudge.tw/ShowProblem?problemid=m931", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E9%81%8A%E6%88%B2%E9%81%B8%E8%A7%92-ZeroJudge-m931", note: " " },
+    { date: "2024-01", level: "N/A", num: 2, title: "蜜蜂觀察", link: "https://zerojudge.tw/ShowProblem?problemid=m932", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E8%9C%9C%E8%9C%82%E8%A7%80%E5%AF%9F-ZeroJudge-m932", note: " " },
+    { date: "2024-01", level: "N/A", num: 3, title: "邏輯電路", link: "https://zerojudge.tw/ShowProblem?problemid=m933", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E9%82%8F%E8%BC%AF%E9%9B%BB%E8%B7%AF-ZeroJudge-m933", note: " " },
+    { date: "2024-01", level: "N/A", num: 4, title: "合併成本", link: "https://zerojudge.tw/ShowProblem?problemid=m934", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/r1_y8MaM0#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E5%90%88%E4%BD%B5%E6%88%90%E6%9C%AC-ZeroJudge-m934", note: " " },
+
+    // 2023-10 (N/A)
+    { date: "2023-10", level: "N/A", num: 1, title: "機械鼠", link: "https://zerojudge.tw/ShowProblem?problemid=m370", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E4%B8%80%E9%A1%8C-%E6%A9%9F%E6%A2%B0%E9%BC%A0-ZeroJudge-m370", note: " " },
+    { date: "2023-10", level: "N/A", num: 2, title: "卡牌遊戲", link: "https://zerojudge.tw/ShowProblem?problemid=m371", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E4%BA%8C%E9%A1%8C-%E5%8D%A1%E7%89%8C%E9%81%8A%E6%88%B2-ZeroJudge-m371", note: " " },
+    { date: "2023-10", level: "N/A", num: 3, title: "搬家", link: "https://zerojudge.tw/ShowProblem?problemid=m372", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E4%B8%89%E9%A1%8C-%E6%90%AC%E5%AE%B6-ZeroJudge-m372", note: " " },
+    { date: "2023-10", level: "N/A", num: 4, title: "投資遊戲", link: "https://zerojudge.tw/ShowProblem?problemid=m373", name: "HackMD筆記", solution: "https://hackmd.io/@chingyan/rkmQSEEm0#%E7%AC%AC%E5%9B%9B%E9%A1%8C-%E6%8A%95%E8%B3%87%E9%81%8A%E6%88%B2-ZeroJudge-m373", note: " " }
+];
+
+function renderTable(data) {
+    const container = document.getElementById('apcs-table-container');
+    if (!container) return; 
+
+    // 1. 自動排序：先按日期(降序)，再按題號(升序)
+    data.sort((a, b) => {
+        if (a.date !== b.date) return b.date.localeCompare(a.date);
+        return a.num - b.num;
+    });
+
+    // 2. 顏色配置 (表格內的純色文字)
+    const levelColors = { 
+        "初級": "#42b983",    // 綠
+        "中級": "#3498db",    // 藍
+        "中高級": "#e67e22",  // 橘
+        "高級": "#e74c3c",    // 紅
+        "N/A": "#95a5a6"      // 灰
+    };
+    
+    // 3. 題號顏色
+    const numColors = { 1: '#42b983', 2: '#3498db', 3: '#e67e22', 4: '#e74c3c' };
+
+    let html = `
+        <div class="difficulty-section">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="15%">日期</th>
+                            <th width="12%">等級</th>
+                            <th width="8%">題號</th>
+                            <th width="35%">題目</th>
+                            <th width="18%">詳解</th>
+                            <th width="12%">註解</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(i => `
+                            <tr>
+                                <td style="color:#666; font-weight:bold;">${i.date}</td>
+                                <td>
+                                    <span style="color:${levelColors[i.level] || '#666'}; font-weight:bold;">
+                                        ${i.level}
+                                    </span>
+                                </td>
+                                <td><span style="color:${numColors[i.num]}; font-weight:bold;">P${i.num}</span></td>
+                                <td style="font-weight:500;"><a href="${i.link}" target="_blank" class="lc-link">${i.title}</a></td>
+                                <td><a href="${i.solution}" class="sol-link">${i.name}</a></td>
+                                <td style="font-weight:bold; color:#444;">${i.note}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+
+    // 3. 更新儀表板數字 (根據 level 統計)
+    const levels = { "初級": 1, "中級": 2, "中高級": 3, "高級": 4, "N/A": "na" };
+    
+    for (const [lvlName, lvlId] of Object.entries(levels)) {
+        const count = apcsData.filter(i => i.level === lvlName).length;
+        const el = document.getElementById(`count-level-${lvlId}`);
+        if(el) el.innerText = count;
+    }
+}
+
+// 搜尋功能
+const searchInput = document.getElementById('apcs-search-input');
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const key = e.target.value.toLowerCase();
+        const result = apcsData.filter(i => 
+            i.date.includes(key) || 
+            i.level.includes(key) || 
+            i.title.toLowerCase().includes(key) || 
+            i.note.toLowerCase().includes(key)
+        );
+        renderTable(result);
+    });
+}
+
+// 篩選功能 (按鈕觸發)
+window.filterLevel = function(level) {
+    if (level === 'All') renderTable(apcsData);
+    else renderTable(apcsData.filter(i => i.level === level));
+};
+
+// 初始渲染
+document.addEventListener("DOMContentLoaded", function() {
+    renderTable(apcsData);
+});
+</script>
+        </div>
+        </article>
+    
+
+</main>
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="widgets">
+        
+            
+            <hr>
+        
+            
+    <div class="widget">
+        <h3 class="widget-title">類別</h3>
+        <div class="widget-body">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APCS-%E4%B8%AD%E7%B4%9A/">APCS 中級</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/APCS-%E4%B8%AD%E9%AB%98%E7%B4%9A/">APCS 中高級</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/APCS-%E9%AB%98%E7%B4%9A/">APCS 高級</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CPE-1%E6%98%9F/">CPE 1星</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CPE-2%E6%98%9F/">CPE 2星</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CPE-3%E6%98%9F/">CPE 3星</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a><span class="category-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            <hr>
+        
+            
+    <div class="widget">
+        <h3 class="widget-title">
+            標籤
+        </h3>
+        <div class="widget-body">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CLRS/" rel="tag">CLRS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/" rel="tag">DFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dynamic-Programming/" rel="tag">Dynamic Programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B/" rel="tag">二分搜尋</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%B6%B4%E5%92%8C/" rel="tag">前綴和</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%AE%E5%88%86%E9%99%A3%E5%88%97/" rel="tag">差分陣列</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B7%9A%E6%AE%B5%E6%A8%B9/" rel="tag">線段樹</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%81%B8%E6%93%87/" rel="tag">選擇</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            <hr>
+        
+            
+    <div class="widget">
+        <h3 class="widget-title">文章</h3>
+        <div class="widget-body">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">2026/06</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">2026/03</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">2026/02</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            <hr>
+        
+            
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled">
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/06/21/algorithm/ch9/" class="title">計算機演算法 Chapter 9 中位數與順序統計量</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-06-20T16:00:00.000Z" itemprop="datePublished">2026-06-21</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/06/19/algorithm/ch8/" class="title">計算機演算法 Chapter 8 線性時間排序</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-06-19T11:55:15.000Z" itemprop="datePublished">2026-06-19</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/APCS-%E4%B8%AD%E9%AB%98%E7%B4%9A/">APCS 中高級</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/06/01/apcs/apcs202603-1/" class="title">APCS 2026/03 中高級實作題題解 — C++</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-06-01T11:18:50.000Z" itemprop="datePublished">2026-06-01</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/CPE-2%E6%98%9F/">CPE 2星</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/03/22/cpe/cpe10004/" class="title">UVa 10004 題解 — C++</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-03-22T07:54:13.000Z" itemprop="datePublished">2026-03-22</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/CPE-3%E6%98%9F/">CPE 3星</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2026/03/22/cpe/cpe00674/" class="title">UVa 00674 題解 — C++</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2026-03-22T07:29:08.000Z" itemprop="datePublished">2026-03-22</time>
+                        </p>
+                    </div>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+            <hr>
+        
+    </div>
+</aside>
+
+
+
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div style="
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                flex-wrap: wrap;
+                width: 100%; 
+                margin: 40px 0 20px 0;
+                color: #666; 
+                font-size: 0.85rem;
+                clear: both;
+            ">
+              <span id="busuanzi_container_site_uv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-user" style="margin-right: 4px;"></i>
+                訪客數：<span id="busuanzi_value_site_uv">未知</span> 人
+              </span>
+              
+              <span style="margin: 0 12px; color: #ddd;">|</span>
+              
+              <span id="busuanzi_container_site_pv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-eye" style="margin-right: 4px;"></i>
+                總瀏覽：<span id="busuanzi_value_site_pv">未知</span> 次
+              </span>
+            </div>
+            </section>
+        
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont icon-facebook"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+
+    
+    <script src="https://giscus.app"
+            data-repo="chingyen06/blog-comment"
+            data-repo-id="R_kgDORKkDHg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORKkDHs4C_mPa"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+
+
+
+    
+    <script>
+    (function () {
+        var imgs = document.querySelectorAll('main img, article img, .marked-body img');
+        if (!imgs.length) return;
+        var loaded = false;
+        function loadLG() {
+            if (loaded) return; loaded = true;
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css';
+            document.head.appendChild(css);
+            var cdn = document.createElement('script');
+            cdn.src = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js';
+            cdn.onload = function () {
+                var local = document.createElement('script');
+                local.src = '/js/light-gallery.min.js';
+                document.body.appendChild(local);
+            };
+            document.body.appendChild(cdn);
+        }
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) { loadLG(); io.disconnect(); }
+            }, { rootMargin: '300px' });
+            io.observe(imgs[0]);
+        } else {
+            loadLG();
+        }
+    })();
+    </script>
+
+
+
+
+
+    </body>
+</html>
