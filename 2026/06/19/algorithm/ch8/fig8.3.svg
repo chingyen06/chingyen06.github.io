@@ -1,0 +1,32 @@
+<svg viewBox="0 0 620 340" width="620" height="340" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, 'Noto Sans TC', sans-serif">
+  <rect x="1" y="1" width="618" height="338" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+  <style>
+    .num{font-family:'Consolas','Courier New',monospace;font-size:18px;text-anchor:middle;fill:#1f2937;letter-spacing:2px;}
+    .hd{font-size:14px;text-anchor:middle;fill:#1e3a8a;font-weight:600;}
+    .hl{fill:#fde68a;}
+  </style>
+
+  <text class="hd" x="120" y="52">原始</text>
+  <text class="hd" x="270" y="52">排個位</text>
+  <text class="hd" x="420" y="52">排十位</text>
+  <text class="hd" x="555" y="52">排百位</text>
+
+  <g stroke="#cbd5e1" stroke-width="2" fill="#cbd5e1">
+    <path d="M172,47 l14,0 m-5,-4 l8,4 l-8,4 z"/>
+    <path d="M322,47 l14,0 m-5,-4 l8,4 l-8,4 z"/>
+    <path d="M472,47 l14,0 m-5,-4 l8,4 l-8,4 z"/>
+  </g>
+
+  <g class="hl">
+    <rect x="274" y="80" width="18" height="24"/><rect x="274" y="110" width="18" height="24"/><rect x="274" y="140" width="18" height="24"/><rect x="274" y="170" width="18" height="24"/><rect x="274" y="200" width="18" height="24"/><rect x="274" y="230" width="18" height="24"/><rect x="274" y="260" width="18" height="24"/>
+    <rect x="411" y="80" width="18" height="24"/><rect x="411" y="110" width="18" height="24"/><rect x="411" y="140" width="18" height="24"/><rect x="411" y="170" width="18" height="24"/><rect x="411" y="200" width="18" height="24"/><rect x="411" y="230" width="18" height="24"/><rect x="411" y="260" width="18" height="24"/>
+    <rect x="533" y="80" width="18" height="24"/><rect x="533" y="110" width="18" height="24"/><rect x="533" y="140" width="18" height="24"/><rect x="533" y="170" width="18" height="24"/><rect x="533" y="200" width="18" height="24"/><rect x="533" y="230" width="18" height="24"/><rect x="533" y="260" width="18" height="24"/>
+  </g>
+
+  <g class="num"><text x="120" y="98">329</text><text x="120" y="128">457</text><text x="120" y="158">657</text><text x="120" y="188">839</text><text x="120" y="218">436</text><text x="120" y="248">720</text><text x="120" y="278">355</text></g>
+  <g class="num"><text x="270" y="98">720</text><text x="270" y="128">355</text><text x="270" y="158">436</text><text x="270" y="188">457</text><text x="270" y="218">657</text><text x="270" y="248">329</text><text x="270" y="278">839</text></g>
+  <g class="num"><text x="420" y="98">720</text><text x="420" y="128">329</text><text x="420" y="158">436</text><text x="420" y="188">839</text><text x="420" y="218">355</text><text x="420" y="248">457</text><text x="420" y="278">657</text></g>
+  <g class="num"><text x="555" y="98">329</text><text x="555" y="128">355</text><text x="555" y="158">436</text><text x="555" y="188">457</text><text x="555" y="218">657</text><text x="555" y="248">720</text><text x="555" y="278">839</text></g>
+
+  <text x="310" y="312" text-anchor="middle" font-size="12.5" fill="#475569">Radix Sort：由最低位到最高位，每位用穩定排序（黃底＝當前排序的位數）</text>
+</svg>

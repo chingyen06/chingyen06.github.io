@@ -1,0 +1,87 @@
+<svg viewBox="0 0 560 460" width="560" height="460" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, 'Noto Sans TC', sans-serif">
+  <rect x="1" y="1" width="558" height="458" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+  <defs>
+    <marker id="b_ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/></marker>
+  </defs>
+  <style>
+    .acell{fill:#f8fafc;stroke:#475569;stroke-width:1.1;}
+    .av{font-size:14px;text-anchor:middle;fill:#1f2937;}
+    .aidx{font-size:10px;text-anchor:middle;fill:#94a3b8;}
+    .bidx{fill:#dbeafe;stroke:#2563eb;stroke-width:1.2;}
+    .bidxt{font-size:13px;text-anchor:middle;fill:#1e3a8a;font-weight:600;}
+    .node{fill:#eff6ff;stroke:#2563eb;stroke-width:1.2;}
+    .nv{font-size:13px;text-anchor:middle;fill:#1e3a8a;}
+    .arr{stroke:#64748b;stroke-width:1.5;fill:none;}
+  </style>
+
+  <text x="78" y="44" text-anchor="middle" font-size="14" fill="#1e3a8a" font-weight="600">A（輸入）</text>
+  <text x="320" y="44" text-anchor="middle" font-size="14" fill="#1e3a8a" font-weight="600">B（桶，串接成鏈結串列）</text>
+
+  <!-- A column -->
+  <g>
+    <rect class="acell" x="55" y="60" width="46" height="28"/><text class="av" x="78" y="79">.78</text><text class="aidx" x="42" y="79">1</text>
+    <rect class="acell" x="55" y="94" width="46" height="28"/><text class="av" x="78" y="113">.17</text><text class="aidx" x="42" y="113">2</text>
+    <rect class="acell" x="55" y="128" width="46" height="28"/><text class="av" x="78" y="147">.39</text><text class="aidx" x="42" y="147">3</text>
+    <rect class="acell" x="55" y="162" width="46" height="28"/><text class="av" x="78" y="181">.26</text><text class="aidx" x="42" y="181">4</text>
+    <rect class="acell" x="55" y="196" width="46" height="28"/><text class="av" x="78" y="215">.72</text><text class="aidx" x="42" y="215">5</text>
+    <rect class="acell" x="55" y="230" width="46" height="28"/><text class="av" x="78" y="249">.94</text><text class="aidx" x="42" y="249">6</text>
+    <rect class="acell" x="55" y="264" width="46" height="28"/><text class="av" x="78" y="283">.21</text><text class="aidx" x="42" y="283">7</text>
+    <rect class="acell" x="55" y="298" width="46" height="28"/><text class="av" x="78" y="317">.12</text><text class="aidx" x="42" y="317">8</text>
+    <rect class="acell" x="55" y="332" width="46" height="28"/><text class="av" x="78" y="351">.23</text><text class="aidx" x="42" y="351">9</text>
+    <rect class="acell" x="55" y="366" width="46" height="28"/><text class="av" x="78" y="385">.68</text><text class="aidx" x="40" y="385">10</text>
+  </g>
+
+  <path class="arr" d="M108,225 l50,0" marker-end="url(#b_ah)"/>
+  <text x="133" y="217" font-size="11" fill="#64748b" text-anchor="middle">分桶</text>
+
+  <!-- buckets -->
+  <g>
+    <!-- 0 empty -->
+    <rect class="bidx" x="185" y="60" width="30" height="28"/><text class="bidxt" x="200" y="79">0</text>
+    <line x1="220" y1="86" x2="240" y2="62" stroke="#cbd5e1" stroke-width="1.4"/>
+    <!-- 1 -->
+    <rect class="bidx" x="185" y="94" width="30" height="28"/><text class="bidxt" x="200" y="113">1</text>
+    <path class="arr" d="M217,108 l20,0" marker-end="url(#b_ah)"/>
+    <rect class="node" x="240" y="94" width="44" height="28"/><text class="nv" x="262" y="113">.12</text>
+    <path class="arr" d="M286,108 l16,0" marker-end="url(#b_ah)"/>
+    <rect class="node" x="306" y="94" width="44" height="28"/><text class="nv" x="328" y="113">.17</text>
+    <!-- 2 -->
+    <rect class="bidx" x="185" y="128" width="30" height="28"/><text class="bidxt" x="200" y="147">2</text>
+    <path class="arr" d="M217,142 l20,0" marker-end="url(#b_ah)"/>
+    <rect class="node" x="240" y="128" width="44" height="28"/><text class="nv" x="262" y="147">.21</text>
+    <path class="arr" d="M286,142 l16,0" marker-end="url(#b_ah)"/>
+    <rect class="node" x="306" y="128" width="44" height="28"/><text class="nv" x="328" y="147">.23</text>
+    <path class="arr" d="M352,142 l16,0" marker-end="url(#b_ah)"/>
+    <rect class="node" x="372" y="128" width="44" height="28"/><text class="nv" x="394" y="147">.26</text>
+    <!-- 3 -->
+    <rect class="bidx" x="185" y="162" width="30" height="28"/><text class="bidxt" x="200" y="181">3</text>
+    <path class="arr" d="M217,176 l20,0" marker-end="url(#b_ah)"/>
+    <rect class="node" x="240" y="162" width="44" height="28"/><text class="nv" x="262" y="181">.39</text>
+    <!-- 4 empty -->
+    <rect class="bidx" x="185" y="196" width="30" height="28"/><text class="bidxt" x="200" y="215">4</text>
+    <line x1="220" y1="222" x2="240" y2="198" stroke="#cbd5e1" stroke-width="1.4"/>
+    <!-- 5 empty -->
+    <rect class="bidx" x="185" y="230" width="30" height="28"/><text class="bidxt" x="200" y="249">5</text>
+    <line x1="220" y1="256" x2="240" y2="232" stroke="#cbd5e1" stroke-width="1.4"/>
+    <!-- 6 -->
+    <rect class="bidx" x="185" y="264" width="30" height="28"/><text class="bidxt" x="200" y="283">6</text>
+    <path class="arr" d="M217,278 l20,0" marker-end="url(#b_ah)"/>
+    <rect class="node" x="240" y="264" width="44" height="28"/><text class="nv" x="262" y="283">.68</text>
+    <!-- 7 -->
+    <rect class="bidx" x="185" y="298" width="30" height="28"/><text class="bidxt" x="200" y="317">7</text>
+    <path class="arr" d="M217,312 l20,0" marker-end="url(#b_ah)"/>
+    <rect class="node" x="240" y="298" width="44" height="28"/><text class="nv" x="262" y="317">.72</text>
+    <path class="arr" d="M286,312 l16,0" marker-end="url(#b_ah)"/>
+    <rect class="node" x="306" y="298" width="44" height="28"/><text class="nv" x="328" y="317">.78</text>
+    <!-- 8 empty -->
+    <rect class="bidx" x="185" y="332" width="30" height="28"/><text class="bidxt" x="200" y="351">8</text>
+    <line x1="220" y1="358" x2="240" y2="334" stroke="#cbd5e1" stroke-width="1.4"/>
+    <!-- 9 -->
+    <rect class="bidx" x="185" y="366" width="30" height="28"/><text class="bidxt" x="200" y="385">9</text>
+    <path class="arr" d="M217,380 l20,0" marker-end="url(#b_ah)"/>
+    <rect class="node" x="240" y="366" width="44" height="28"/><text class="nv" x="262" y="385">.94</text>
+  </g>
+
+  <text x="280" y="424" text-anchor="middle" font-size="12.5" fill="#475569">桶 i 收 [i/10,(i+1)/10) 的值，桶內用 Insertion Sort 排序</text>
+  <text x="280" y="444" text-anchor="middle" font-size="12.5" fill="#475569">最後依序串接 B[0..9] 即為排序結果（均勻分布時平均 O(n)）</text>
+</svg>

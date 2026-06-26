@@ -57,6 +57,19 @@
         };
         </script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <style>
+          mjx-container[jax="CHTML"][display="true"] {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            padding-top: 2px;
+            padding-bottom: 2px;
+          }
+          mjx-container[jax="CHTML"] {
+            max-width: 100%;
+          }
+        </style>
     
 
     
@@ -398,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">第一行包含三個整數 $R, C, D$。($1 \le R, C, D \le 100$)<br>第二行包含一個整數 $K$。($0 \le K \le 100$)<br>接下來 $K$ 行，每行包含兩個整數 $r_i, c_i$，代表恐龍的初始座標。($0 \le r_i \le R, 0 \le c_i \le C$)<br>接下來一行包含一個整數 $M$。($0 \le M \le 100$)<br>接下來 $M$ 行，每行包含四個整數 $a_j, b_j, S_j, d_j$，代表第 $j$ 次撞擊的參數。<br>($0 \le a_j &lt; R, 0 \le b_j &lt; C, 1 \le S_j \le 19$ 且為奇數 $,1 \le d_j \le 10$)<br>(60 分): $R &#x3D; 1$<br>(40 分): 無限制</td>
+<td align="left">第一行包含三個整數 $R, C, D$。($1 \le R, C, D \le 100$)<br>第二行包含一個整數 $K$。($0 \le K \le 100$)<br>接下來 $K$ 行，每行包含兩個整數 $r_i, c_i$，代表恐龍的初始座標。($0 \le r_i \le R, 0 \le c_i \le C$)<br>接下來一行包含一個整數 $M$。($0 \le M \le 100$)<br>接下來 $M$ 行，每行包含四個整數 $a_j, b_j, S_j, d_j$，代表第 $j$ 次撞擊的參數。<br>($0 \le a_j &lt; R, 0 \le b_j &lt; C, 1 \le S_j \le 19$ 且為奇數 $,1 \le d_j \le 10$)<br>(60 分): $R = 1$<br>(40 分): 無限制</td>
 <td align="left">輸出僅一行，包含三個整數，以空格分隔：<strong>最高地面高度 最低地面高度 清醒恐龍數量</strong></td>
 </tr>
 </tbody></table>
@@ -423,7 +436,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">第一行有兩個數字 $R$ 和 $C$ $(1 \le R, C \le 200)$，代表照片的行數和列數。接下來是第一張圖 $A$，有 $R$ 行，每行有 $C$ 個數字。最後是第二張圖 $B$，有 $R$ 行，每行有 $C$ 個數字。數值介於 $0$ 到 $255$。<br>(60 分): $R &#x3D; 1$<br>(40 分): 無限制</td>
+<td align="left">第一行有兩個數字 $R$ 和 $C$ $(1 \le R, C \le 200)$，代表照片的行數和列數。接下來是第一張圖 $A$，有 $R$ 行，每行有 $C$ 個數字。最後是第二張圖 $B$，有 $R$ 行，每行有 $C$ 個數字。數值介於 $0$ 到 $255$。<br>(60 分): $R = 1$<br>(40 分): 無限制</td>
 <td align="left">輸出兩張照片的相似度百分比。</td>
 </tr>
 </tbody></table>

@@ -59,6 +59,19 @@
         };
         </script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <style>
+          mjx-container[jax="CHTML"][display="true"] {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            padding-top: 2px;
+            padding-bottom: 2px;
+          }
+          mjx-container[jax="CHTML"] {
+            max-width: 100%;
+          }
+        </style>
     
 
     
@@ -396,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">第一行包含一個整數 $k$ ( $2 \le k \le 6$)，表示堆疊的數量。<br>接下來 $k$ 行，每行描述一個堆疊的內容。第 $i$ 行描述堆疊 $i$。<br>每行首先是一個整數 $n_i$，表示堆疊 $i$ 中物品的數量。<br>接著是 $n_i$ 對 (字母, 分數) 的描述，按照從堆頂到堆底的順序給出。<br>&emsp;• <code>字母</code> 是一個大寫英文字母 (‘A’ - ‘Z’)。<br>&emsp;• <code>分數</code> 是一個正整數 $s$ ( $1 \le s \le 10$ )。<br>保證每個堆疊最多 $12$ 個物品。<br>30 分: $k &#x3D; 3$<br>70 分: 無限制</td>
+<td align="left">第一行包含一個整數 $k$ ( $2 \le k \le 6$)，表示堆疊的數量。<br>接下來 $k$ 行，每行描述一個堆疊的內容。第 $i$ 行描述堆疊 $i$。<br>每行首先是一個整數 $n_i$，表示堆疊 $i$ 中物品的數量。<br>接著是 $n_i$ 對 (字母, 分數) 的描述，按照從堆頂到堆底的順序給出。<br>&emsp;• <code>字母</code> 是一個大寫英文字母 (‘A’ - ‘Z’)。<br>&emsp;• <code>分數</code> 是一個正整數 $s$ ( $1 \le s \le 10$ )。<br>保證每個堆疊最多 $12$ 個物品。<br>30 分: $k = 3$<br>70 分: 無限制</td>
 <td align="left">輸出一個正整數，代表能獲得的最大分數。</td>
 </tr>
 </tbody></table>
