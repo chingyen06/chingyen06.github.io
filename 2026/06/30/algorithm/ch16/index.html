@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://www.tseng-school.com/2026/06/30/algorithm/ch16/fig16.7.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/06/30/algorithm/ch16/myfig16.2.png">
 <meta property="article:published_time" content="2026-06-30T05:55:00.000Z">
-<meta property="article:modified_time" content="2026-06-30T06:24:21.403Z">
+<meta property="article:modified_time" content="2026-06-30T11:22:39.455Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="CLRS">
 <meta property="article:tag" content="貪心演算法">
@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </p>
         </header>
         <div class="marked-body article-body">
-            <div class="alert-block alert-info note-shortcode">此筆記整理《演算法導論》第十六章的內容。貪心演算法（Greedy Algorithm）的想法是每一步都做出當時看起來最好的選擇，認為透過多個局部最佳的選擇組合出全部最佳的選擇。本章以三個經典問題說明此思想：活動選擇問題、Huffman 編碼、以及帶截止期的任務排程</div>
+            <div class="alert-block alert-info note-shortcode">此筆記整理《演算法導論》第十六章的內容。貪心演算法（Greedy Algorithm）的想法是每一步都做出當時看起來最好的選擇，認為透過多個局部最佳的選擇可以組合出全部最佳的選擇。本章以三個經典問題說明此思想：活動選擇問題、Huffman 編碼、以及帶截止期的任務排程</div>
 
 <h2 id="第一節-活動選擇問題"><a href="#第一節-活動選擇問題" class="headerlink" title="第一節 活動選擇問題"></a>第一節 活動選擇問題</h2><div class="alert-block alert-success"><strong>問題：</strong>有 $n$ 個活動，第 $i$ 個活動的開始時間為 $s_i$、結束時間為 $f_i$（假設已依結束時間排序，$f_1 \le f_2 \le \cdots \le f_n$）。若兩活動時間區間不重疊（$s_j \ge f_i$），則稱它們<strong>互相相容</strong>。
 <strong>目標：</strong>找出最大的互相相容活動子集
@@ -459,8 +459,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 <p>由上述可知：</p>
 <ul>
-<li><strong>0-1 背包</strong>：<strong>適用</strong>貪心演算法</li>
-<li><strong>連續背包</strong>：<strong>不適用</strong>貪心演算法</li>
+<li><strong>0-1 背包</strong>：<strong>不適用</strong>貪心演算法</li>
+<li><strong>連續背包</strong>：<strong>適用</strong>貪心演算法</li>
 </ul>
 <h2 id="第三節-Huffman-編碼"><a href="#第三節-Huffman-編碼" class="headerlink" title="第三節 Huffman 編碼"></a>第三節 Huffman 編碼</h2><div class="alert-block alert-success"><strong>問題：</strong>給定一組字元及其出現頻率，設計一套編碼方式，使得整體長度最小
 </div>
