@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="210" viewBox="0 0 600 210" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+  <rect width="600" height="210" fill="#ffffff"/>
+  <!-- booktabs-style horizontal rules -->
+  <line x1="20" y1="30" x2="580" y2="30" stroke="#222" stroke-width="2"/>
+  <line x1="20" y1="72" x2="580" y2="72" stroke="#222" stroke-width="1.2"/>
+  <line x1="20" y1="186" x2="580" y2="186" stroke="#222" stroke-width="2"/>
+
+  <!-- header row : characters -->
+  <g font-size="18" text-anchor="middle" fill="#111">
+    <text x="100" y="58" text-anchor="start" font-weight="600">字元</text>
+    <text x="206" y="58">a</text>
+    <text x="274" y="58">b</text>
+    <text x="342" y="58">c</text>
+    <text x="410" y="58">d</text>
+    <text x="478" y="58">e</text>
+    <text x="546" y="58">f</text>
+  </g>
+
+  <!-- data rows -->
+  <g font-size="17" text-anchor="middle" fill="#111">
+    <!-- frequency -->
+    <text x="20" y="100" text-anchor="start">頻率（千次）</text>
+    <text x="206" y="100">45</text>
+    <text x="274" y="100">13</text>
+    <text x="342" y="100">12</text>
+    <text x="410" y="100">16</text>
+    <text x="478" y="100">9</text>
+    <text x="546" y="100">5</text>
+
+    <!-- fixed-length -->
+    <text x="20" y="138" text-anchor="start">固定長度碼</text>
+    <text x="206" y="138">000</text>
+    <text x="274" y="138">001</text>
+    <text x="342" y="138">010</text>
+    <text x="410" y="138">011</text>
+    <text x="478" y="138">100</text>
+    <text x="546" y="138">101</text>
+
+    <!-- huffman -->
+    <text x="20" y="176" text-anchor="start">Huffman 碼</text>
+    <text x="206" y="176">0</text>
+    <text x="274" y="176">101</text>
+    <text x="342" y="176">100</text>
+    <text x="410" y="176">111</text>
+    <text x="478" y="176">1101</text>
+    <text x="546" y="176">1100</text>
+  </g>
+</svg>

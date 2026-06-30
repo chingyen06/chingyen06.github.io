@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="612" height="453" viewBox="0 0 612 453" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#d08a2c"/>
+    </marker>
+  </defs>
+  <rect width="612" height="453" fill="#ffffff"/>
+  <line x1="120" y1="50" x2="120" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="150" y1="50" x2="150" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="180" y1="50" x2="180" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="210" y1="50" x2="210" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="240" y1="50" x2="240" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="270" y1="50" x2="270" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="300" y1="50" x2="300" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="330" y1="50" x2="330" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="360" y1="50" x2="360" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="390" y1="50" x2="390" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="420" y1="50" x2="420" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="450" y1="50" x2="450" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="480" y1="50" x2="480" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="510" y1="50" x2="510" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <line x1="540" y1="50" x2="540" y2="403" stroke="#e7e7e7" stroke-width="1"/>
+  <path d="M 240 80.5 C 240 118, 270 118, 270 154.5" fill="none" stroke="#d08a2c" stroke-width="1.7" marker-end="url(#ah)"/>
+  <path d="M 330 173.5 C 330 226.5, 360 226.5, 360 278.5" fill="none" stroke="#d08a2c" stroke-width="1.7" marker-end="url(#ah)"/>
+  <path d="M 450 297.5 C 450 335, 480 335, 480 371.5" fill="none" stroke="#d08a2c" stroke-width="1.7" marker-end="url(#ah)"/>
+  <rect x="150" y="62" width="90" height="19" rx="3" fill="#4f86c6" stroke="#46566b" stroke-width="1.3"/>
+  <text x="195" y="76.5" font-size="13" text-anchor="middle" fill="#ffffff">a1</text>
+  <text x="14" y="76.5" font-size="13" text-anchor="start" fill="#222" font-weight="600">a1</text>
+  <text x="44" y="76.5" font-size="12" text-anchor="start" fill="#888">[1, 4]</text>
+  <rect x="210" y="93" width="60" height="19" rx="3" fill="#e3e7ec" stroke="#46566b" stroke-width="1.3"/>
+  <text x="240" y="107.5" font-size="13" text-anchor="middle" fill="#33404d">a2</text>
+  <text x="14" y="107.5" font-size="13" text-anchor="start" fill="#222">a2</text>
+  <text x="44" y="107.5" font-size="12" text-anchor="start" fill="#888">[3, 5]</text>
+  <rect x="120" y="124" width="180" height="19" rx="3" fill="#e3e7ec" stroke="#46566b" stroke-width="1.3"/>
+  <text x="210" y="138.5" font-size="13" text-anchor="middle" fill="#33404d">a3</text>
+  <text x="14" y="138.5" font-size="13" text-anchor="start" fill="#222">a3</text>
+  <text x="44" y="138.5" font-size="12" text-anchor="start" fill="#888">[0, 6]</text>
+  <rect x="270" y="155" width="60" height="19" rx="3" fill="#4f86c6" stroke="#46566b" stroke-width="1.3"/>
+  <text x="300" y="169.5" font-size="13" text-anchor="middle" fill="#ffffff">a4</text>
+  <text x="14" y="169.5" font-size="13" text-anchor="start" fill="#222" font-weight="600">a4</text>
+  <text x="44" y="169.5" font-size="12" text-anchor="start" fill="#888">[5, 7]</text>
+  <rect x="210" y="186" width="150" height="19" rx="3" fill="#e3e7ec" stroke="#46566b" stroke-width="1.3"/>
+  <text x="285" y="200.5" font-size="13" text-anchor="middle" fill="#33404d">a5</text>
+  <text x="14" y="200.5" font-size="13" text-anchor="start" fill="#222">a5</text>
+  <text x="44" y="200.5" font-size="12" text-anchor="start" fill="#888">[3, 8]</text>
+  <rect x="270" y="217" width="120" height="19" rx="3" fill="#e3e7ec" stroke="#46566b" stroke-width="1.3"/>
+  <text x="330" y="231.5" font-size="13" text-anchor="middle" fill="#33404d">a6</text>
+  <text x="14" y="231.5" font-size="13" text-anchor="start" fill="#222">a6</text>
+  <text x="44" y="231.5" font-size="12" text-anchor="start" fill="#888">[5, 9]</text>
+  <rect x="300" y="248" width="120" height="19" rx="3" fill="#e3e7ec" stroke="#46566b" stroke-width="1.3"/>
+  <text x="360" y="262.5" font-size="13" text-anchor="middle" fill="#33404d">a7</text>
+  <text x="14" y="262.5" font-size="13" text-anchor="start" fill="#222">a7</text>
+  <text x="44" y="262.5" font-size="12" text-anchor="start" fill="#888">[6, 10]</text>
+  <rect x="360" y="279" width="90" height="19" rx="3" fill="#4f86c6" stroke="#46566b" stroke-width="1.3"/>
+  <text x="405" y="293.5" font-size="13" text-anchor="middle" fill="#ffffff">a8</text>
+  <text x="14" y="293.5" font-size="13" text-anchor="start" fill="#222" font-weight="600">a8</text>
+  <text x="44" y="293.5" font-size="12" text-anchor="start" fill="#888">[8, 11]</text>
+  <rect x="360" y="310" width="120" height="19" rx="3" fill="#e3e7ec" stroke="#46566b" stroke-width="1.3"/>
+  <text x="420" y="324.5" font-size="13" text-anchor="middle" fill="#33404d">a9</text>
+  <text x="14" y="324.5" font-size="13" text-anchor="start" fill="#222">a9</text>
+  <text x="44" y="324.5" font-size="12" text-anchor="start" fill="#888">[8, 12]</text>
+  <rect x="180" y="341" width="330" height="19" rx="3" fill="#e3e7ec" stroke="#46566b" stroke-width="1.3"/>
+  <text x="345" y="355.5" font-size="13" text-anchor="middle" fill="#33404d">a10</text>
+  <text x="14" y="355.5" font-size="13" text-anchor="start" fill="#222">a10</text>
+  <text x="44" y="355.5" font-size="12" text-anchor="start" fill="#888">[2, 13]</text>
+  <rect x="480" y="372" width="60" height="19" rx="3" fill="#4f86c6" stroke="#46566b" stroke-width="1.3"/>
+  <text x="510" y="386.5" font-size="13" text-anchor="middle" fill="#ffffff">a11</text>
+  <text x="14" y="386.5" font-size="13" text-anchor="start" fill="#222" font-weight="600">a11</text>
+  <text x="44" y="386.5" font-size="12" text-anchor="start" fill="#888">[12, 14]</text>
+  <line x1="120" y1="403" x2="540" y2="403" stroke="#555" stroke-width="1.4"/>
+  <text x="120" y="421" font-size="11" text-anchor="middle" fill="#666">0</text>
+  <text x="150" y="421" font-size="11" text-anchor="middle" fill="#666">1</text>
+  <text x="180" y="421" font-size="11" text-anchor="middle" fill="#666">2</text>
+  <text x="210" y="421" font-size="11" text-anchor="middle" fill="#666">3</text>
+  <text x="240" y="421" font-size="11" text-anchor="middle" fill="#666">4</text>
+  <text x="270" y="421" font-size="11" text-anchor="middle" fill="#666">5</text>
+  <text x="300" y="421" font-size="11" text-anchor="middle" fill="#666">6</text>
+  <text x="330" y="421" font-size="11" text-anchor="middle" fill="#666">7</text>
+  <text x="360" y="421" font-size="11" text-anchor="middle" fill="#666">8</text>
+  <text x="390" y="421" font-size="11" text-anchor="middle" fill="#666">9</text>
+  <text x="420" y="421" font-size="11" text-anchor="middle" fill="#666">10</text>
+  <text x="450" y="421" font-size="11" text-anchor="middle" fill="#666">11</text>
+  <text x="480" y="421" font-size="11" text-anchor="middle" fill="#666">12</text>
+  <text x="510" y="421" font-size="11" text-anchor="middle" fill="#666">13</text>
+  <text x="540" y="421" font-size="11" text-anchor="middle" fill="#666">14</text>
+  <text x="564" y="421" font-size="12" text-anchor="middle" fill="#666">時間</text>
+  <rect x="120" y="16" width="16" height="13" rx="2" fill="#4f86c6" stroke="#46566b" stroke-width="1"/>
+  <text x="142" y="28" font-size="12.5" fill="#333">已選入（最佳解 a1, a4, a8, a11）</text>
+  <rect x="370" y="16" width="16" height="13" rx="2" fill="#e3e7ec" stroke="#46566b" stroke-width="1"/>
+  <text x="392" y="28" font-size="12.5" fill="#333">未選入</text>
+</svg>

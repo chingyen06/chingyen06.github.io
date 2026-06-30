@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="180" viewBox="0 0 560 180" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+  <rect width="560" height="180" fill="#ffffff"/>
+
+  <!-- "Task" group label over the task-id row -->
+  <text x="320" y="24" font-size="15" fill="#555" text-anchor="middle" font-style="italic">任務 (Task)</text>
+
+  <!-- horizontal rules -->
+  <line x1="20" y1="34" x2="540" y2="34" stroke="#222" stroke-width="2"/>
+  <line x1="20" y1="74" x2="540" y2="74" stroke="#222" stroke-width="1.2"/>
+  <line x1="20" y1="166" x2="540" y2="166" stroke="#222" stroke-width="2"/>
+  <!-- vertical rule separating row labels from data -->
+  <line x1="120" y1="34" x2="120" y2="166" stroke="#222" stroke-width="1.2"/>
+
+  <!-- row label column (with subscripts) -->
+  <g font-size="18" fill="#111" text-anchor="start" font-style="italic">
+    <text x="40" y="61">a<tspan font-size="12" dy="5">i</tspan></text>
+    <text x="40" y="105">d<tspan font-size="12" dy="5">i</tspan></text>
+    <text x="40" y="149">w<tspan font-size="12" dy="5">i</tspan></text>
+  </g>
+
+  <!-- data : 7 columns centered, step 52 -->
+  <g font-size="17" fill="#111" text-anchor="middle">
+    <!-- task ids -->
+    <g>
+      <text x="160" y="61">1</text><text x="212" y="61">2</text><text x="264" y="61">3</text>
+      <text x="316" y="61">4</text><text x="368" y="61">5</text><text x="420" y="61">6</text>
+      <text x="472" y="61">7</text>
+    </g>
+    <!-- deadlines -->
+    <g>
+      <text x="160" y="105">4</text><text x="212" y="105">2</text><text x="264" y="105">4</text>
+      <text x="316" y="105">3</text><text x="368" y="105">1</text><text x="420" y="105">4</text>
+      <text x="472" y="105">6</text>
+    </g>
+    <!-- penalties -->
+    <g>
+      <text x="160" y="149">70</text><text x="212" y="149">60</text><text x="264" y="149">50</text>
+      <text x="316" y="149">40</text><text x="368" y="149">30</text><text x="420" y="149">20</text>
+      <text x="472" y="149">10</text>
+    </g>
+  </g>
+</svg>
