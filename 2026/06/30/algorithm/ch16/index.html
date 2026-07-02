@@ -17,12 +17,12 @@
         h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
     </style>
 
-    <meta name="description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第十六章的內容：貪心演算法與三個經典應用（活動選擇問題、Huffman 編碼、以及帶截止期的任務排程）。每節包含定理思路與 Pseudocode">
+    <meta name="description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第十六章的內容：貪心演算法與三個經典應用（活動選擇問題、Huffman 編碼、帶截止期的任務排程）。每節包含定理思路與 Pseudocode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="計算機演算法 Chapter 16 貪心演算法">
 <meta property="og:url" content="https://www.tseng-school.com/2026/06/30/algorithm/ch16/index.html">
 <meta property="og:site_name" content="靖諺的資訊學習筆記">
-<meta property="og:description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第十六章的內容：貪心演算法與三個經典應用（活動選擇問題、Huffman 編碼、以及帶截止期的任務排程）。每節包含定理思路與 Pseudocode">
+<meta property="og:description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第十六章的內容：貪心演算法與三個經典應用（活動選擇問題、Huffman 編碼、帶截止期的任務排程）。每節包含定理思路與 Pseudocode">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://www.tseng-school.com/2026/06/30/algorithm/ch16/fig16.1.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/06/30/algorithm/ch16/fig16.2.svg">
@@ -31,8 +31,8 @@
 <meta property="og:image" content="https://www.tseng-school.com/2026/06/30/algorithm/ch16/myfig16.1.png">
 <meta property="og:image" content="https://www.tseng-school.com/2026/06/30/algorithm/ch16/fig16.7.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/06/30/algorithm/ch16/myfig16.2.png">
-<meta property="article:published_time" content="2026-06-30T05:55:00.000Z">
-<meta property="article:modified_time" content="2026-06-30T11:24:26.764Z">
+<meta property="article:published_time" content="2026-06-30T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-02T12:14:37.737Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="CLRS">
 <meta property="article:tag" content="貪心演算法">
@@ -47,7 +47,7 @@
     
 
     
-    <link rel="stylesheet" href="/css/common.min.css?v=e83ea67d">
+    <link rel="stylesheet" href="/css/common.min.css?v=e76b3b48">
     
     <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="article-date">
     <i class="iconfont icon-calendar-check"></i>
 	<a href="/2026/06/30/algorithm/ch16/" class="article-date">
-	  <time datetime="2026-06-30T05:55:00.000Z" itemprop="datePublished">2026-06-30</time>
+	  <time datetime="2026-06-30T12:00:00.000Z" itemprop="datePublished">2026-06-30</time>
 	</a>
 </span>
 
@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </p>
         </header>
         <div class="marked-body article-body">
-            <div class="alert-block alert-info note-shortcode">此筆記整理《演算法導論》第十六章的內容。貪心演算法（Greedy Algorithm）的想法是每一步都做出當時看起來最好的選擇，認為透過多個局部最佳的選擇可以組合出全部最佳的選擇。本章以三個經典問題說明此思想：活動選擇問題、Huffman 編碼、以及帶截止期的任務排程</div>
+            <div class="alert-block alert-info note-shortcode">此筆記整理《演算法導論》第十六章的內容。貪心演算法（Greedy Algorithm）的想法是每一步都做出當時看起來最好的選擇，認為透過多個局部最佳的選擇可以組合出全部最佳的選擇。本章以三個經典問題說明此思想：活動選擇問題、Huffman 編碼、帶截止期的任務排程</div>
 
 <h2 id="第一節-活動選擇問題"><a href="#第一節-活動選擇問題" class="headerlink" title="第一節 活動選擇問題"></a>第一節 活動選擇問題</h2><div class="alert-block alert-success"><strong>問題：</strong>有 $n$ 個活動，第 $i$ 個活動的開始時間為 $s_i$、結束時間為 $f_i$（假設已依結束時間排序，$f_1 \le f_2 \le \cdots \le f_n$）。若兩活動時間區間不重疊（$s_j \ge f_i$），則稱它們<strong>互相相容</strong>。
 <strong>目標：</strong>找出最大的互相相容活動子集
@@ -419,12 +419,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>$i$ 代表最近安排的活動，當 $s[m] \ge f[i]$ 就代表第 $m$ 個活動是第 $i$ 個活動結束後，第一個開始時間晚於第 $i$ 個活動，且結束時間最早的活動</p>
 <h2 id="第二節-背包問題"><a href="#第二節-背包問題" class="headerlink" title="第二節 背包問題"></a>第二節 背包問題</h2><h3 id="0-1-背包-vs-連續背包"><a href="#0-1-背包-vs-連續背包" class="headerlink" title="0-1 背包 vs 連續背包"></a>0-1 背包 vs 連續背包</h3><div class="img-row left"><img src="fig16.2.svg" alt="fig 16.2" loading="lazy" decoding="async" style="width:75%"></div>
 
-<p>這一節用背包問題來說明貪心演算法的界線。物品有重量與價值，背包容量固定，規則不同：</p>
+<p>這一節用背包問題來說明貪心演算法的界線。物品有重量與價值，背包重量固定，規則不同：</p>
 <ul>
 <li><strong>0-1 背包</strong>：每件物品只能選拿或不拿</li>
 <li><strong>連續背包</strong>：可以以任意比例切割物品</li>
 </ul>
-<p>圖中範例：3 件物品，容量 50 磅</p>
+<p>圖中範例：3 件物品，重量 50 磅</p>
 <table>
 <thead>
 <tr>
@@ -570,7 +570,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <td align="left">完成</td>
 </tr>
 </tbody></table>
-<p><strong>&lt;補充&gt;</strong> 以下筆記即為此樹的建構過程，從 <code>f:5, e:9, c:12, b:13, d:14, d:16, a:45</code> 一步步合併，每次圈出頻率最小的兩個節點</p>
+<p><strong>&lt;補充&gt;</strong> 以下筆記即為此樹的建構過程，從 <code>f:5, e:9, c:12, b:13, d:16, a:45</code> 一步步合併，每次圈出頻率最小的兩個節點</p>
 <div class="img-row left"><img src="myfig16.1.png" alt="myfig16.1" loading="lazy" decoding="async" style="width:60%"></div>
 
 <h2 id="第四節-帶截止期的任務排程"><a href="#第四節-帶截止期的任務排程" class="headerlink" title="第四節 帶截止期的任務排程"></a>第四節 帶截止期的任務排程</h2><div class="alert-block alert-success"><strong>問題：</strong>單台處理器，有 $n$ 個各需 1 個時間單位的任務，任務 $a_i$ 有截止期 $d_i$（必須在第 $d_i$ 個時槽結束前完成）以及誤期懲罰 $w_i$。若無法在截止期前完成，則稱為誤期任務
@@ -614,7 +614,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <td align="center">10</td>
 </tr>
 </tbody></table>
-<p>我們要最小化懲罰，就意味著我們必須讓懲罰高的先做完，因此一開始需要先對任務最排序，懲罰最大的先排</p>
+<p>我們要最小化懲罰，就意味著我們必須讓懲罰高的先做完，因此一開始需要先對任務做排序，懲罰最大的先排</p>
 <p>排序後，我們只需要對每一個任務都先排到截止期前才做，如果已經被占走了，就繼續往前放，如果都沒辦法放，就只能捨棄，並接受懲罰<br>以上圖為例：準時執行 $\{a_1, a_2, a_3, a_4, a_7\}$，誤期捨棄 $\{a_5, a_6\}$，誤期懲罰 &#x3D; $30 + 20 = 50$</p>
 <p><strong>&lt;補充&gt;</strong> 以下筆記即為此排程最小化懲罰的步驟過程</p>
 <div class="img-row left"><img src="myfig16.2.png" alt="myfig16.2" loading="lazy" decoding="async" style="width:30%"></div>

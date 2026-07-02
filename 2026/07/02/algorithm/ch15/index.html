@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html  lang="zh-TW" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    
+    <title>計算機演算法 Chapter 15 動態規劃 | 靖諺的資訊學習筆記 | 靖諺的資訊學習筆記</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
+
+    <style>
+        body { font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif !important; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
+    </style>
+
+    <meta name="description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第十五章，以及補充的內容：動態規劃與三個經典應用（0-1 背包問題、矩陣鏈乘法、最長子序列）。每節包含定理思路與 Pseudocode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="計算機演算法 Chapter 15 動態規劃">
+<meta property="og:url" content="https://www.tseng-school.com/2026/07/02/algorithm/ch15/index.html">
+<meta property="og:site_name" content="靖諺的資訊學習筆記">
+<meta property="og:description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第十五章，以及補充的內容：動態規劃與三個經典應用（0-1 背包問題、矩陣鏈乘法、最長子序列）。每節包含定理思路與 Pseudocode">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://www.tseng-school.com/2026/07/02/algorithm/ch15/fig15.3.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/07/02/algorithm/ch15/fig15.8.svg">
+<meta property="article:published_time" content="2026-07-02T05:55:00.000Z">
+<meta property="article:modified_time" content="2026-07-02T12:15:02.633Z">
+<meta property="article:author" content="chingyen06">
+<meta property="article:tag" content="CLRS">
+<meta property="article:tag" content="動態規劃">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tseng-school.com/2026/07/02/algorithm/ch15/fig15.3.svg">
+
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+    <link rel="icon" href="/images/avatar.png" type="image/x-icon">
+    
+
+    
+    <link rel="stylesheet" href="/css/common.min.css?v=e76b3b48">
+    
+    <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
+
+    
+        <script>
+        window.MathJax = {
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+          options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <style>
+          mjx-container[jax="CHTML"][display="true"] {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            padding-top: 2px;
+            padding-bottom: 2px;
+          }
+          mjx-container[jax="CHTML"] {
+            max-width: 100%;
+          }
+        </style>
+    
+
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-18D6HBKZSF');
+        </script>
+    
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const COLLAPSE_HEIGHT = 360; // 超過此高度才提供收合鈕
+        const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+        const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        const iconChevron = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+        const iconChevronDouble = `<svg viewBox="0 0 24 24"><path d="M16.59 5.59L12 10.17 7.41 5.59 6 7l6 6 6-6zM16.59 11.59L12 16.17l-4.59-4.58L6 13l6 6 6-6z"/></svg>`;
+        const langMap = { cpp:'C++', 'c++':'C++', cc:'C++', cxx:'C++', c:'C', py:'Python', python:'Python', js:'JavaScript', javascript:'JavaScript', ts:'TypeScript', typescript:'TypeScript', java:'Java', html:'HTML', xml:'XML', css:'CSS', scss:'SCSS', bash:'Bash', sh:'Shell', shell:'Shell', zsh:'Shell', json:'JSON', yaml:'YAML', yml:'YAML', sql:'SQL', go:'Go', rust:'Rust', rs:'Rust', php:'PHP', ruby:'Ruby', rb:'Ruby', kotlin:'Kotlin', swift:'Swift', plaintext:'Text', text:'Text', plain:'Text', md:'Markdown', markdown:'Markdown' };
+
+        const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
+        figures.forEach(figure => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            figure.parentNode.insertBefore(wrapper, figure);
+
+            // 標題列：左邊三個圓點 + 語言標籤，右邊工具列（仿 IDE 視窗）
+            const header = document.createElement('div');
+            header.className = 'code-header';
+
+            const dots = document.createElement('div');
+            dots.className = 'code-dots';
+            dots.innerHTML = '<span></span><span></span><span></span>';
+            header.appendChild(dots);
+
+            const lang = [...figure.classList].find(c => c !== 'highlight');
+            const label = document.createElement('span');
+            label.className = 'code-lang';
+            label.textContent = lang ? (langMap[lang.toLowerCase()] || lang.toUpperCase()) : 'CODE';
+            header.appendChild(label);
+
+            // 工具列（靠右）：複製在左、收合在右
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+            header.appendChild(toolbar);
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-btn copy-btn';
+            copyBtn.innerHTML = iconCopy;
+            copyBtn.title = "複製程式碼";
+            toolbar.appendChild(copyBtn);
+
+            // 右上角收合鈕：負責「整個區塊」摺疊成只剩標題列（每個程式碼都有）
+            const foldBtn = document.createElement('button');
+            foldBtn.className = 'code-btn fold-btn';
+            foldBtn.innerHTML = iconChevron;
+            foldBtn.title = "收合 / 展開整個程式碼";
+            toolbar.appendChild(foldBtn);
+            foldBtn.addEventListener('click', () => {
+                const folded = wrapper.classList.toggle('folded');
+                foldBtn.classList.toggle('folded', folded);
+            });
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(figure);
+
+            // 長程式碼：預設部分收合（300px），底部整條雙箭頭負責展開/收回預覽
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const footer = document.createElement('div');
+                footer.className = 'code-footer';
+                footer.innerHTML = iconChevronDouble;
+                footer.title = "展開 / 收合程式碼";
+                wrapper.appendChild(footer);
+
+                footer.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                });
+            }
+
+            copyBtn.addEventListener('click', () => {
+                const codeCell = figure.querySelector('td.code');
+                const codeText = codeCell ? codeCell.innerText : figure.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = iconCheck;
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = iconCopy;
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    });
+    </script>
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "曾靖諺",
+        "alternateName": "Tseng Ching-Yen",
+        "url": "https://www.tseng-school.com",
+        "sameAs": [
+            "https://github.com/chingyen06"
+        ]
+        }
+    </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/chingyen06" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/avatar.png" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">靖諺的資訊學習筆記</h2>
+            <h3 id="title" class="hidden lg:block"></h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Taipei, Taiwan
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="w-full my-auto">
+        <div class="relative w-full">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="w-full">
+            <button type="submit" style="display: none;"></button>
+        </div>
+    </form>
+    
+    
+<div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div class="search-widget-container">
+        <div class="search-header">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
+        </div>
+        
+        <div class="search-result">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-4 pb-3 mb-2 pt-3 hover:bg-green-50 rounded-lg transition duration-200">
+                <i class="iconfont icon-file text-gray-400 mr-2"></i>
+                <h1 class="result-title inline font-bold text-lg text-gray-800">{{ title }}</h1>
+                <p class="result-content text-gray-500 text-sm mt-1 line-clamp-2">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var observer = new MutationObserver(function(mutations) {
+        var gtInput = document.querySelector('.gt-header-textarea');
+        
+        if (gtInput && !gtInput.dataset.fixed) {
+            gtInput.dataset.fixed = "true";
+
+            
+            gtInput.setAttribute('data-gramm', 'false');
+            gtInput.setAttribute('spellcheck', 'false');
+            gtInput.classList.add('notranslate');
+
+            ['keydown', 'keyup', 'keypress'].forEach(function(event) {
+                gtInput.addEventListener(event, function(e) {
+                    e.stopPropagation();
+                }, true); 
+            });
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+</div>
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">主頁</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">文章</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-resources" role="menuitem">
+                <a href="/resources">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">資源</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">類別</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">標籤</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">關於</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont social-icon icon-facebook"></i>
+                <span class="menu-title hidden lg:inline">menu.facebook</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            計算機演算法 Chapter 15 動態規劃
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2026/07/02/algorithm/ch15/" class="article-date">
+	  <time datetime="2026-07-02T05:55:00.000Z" itemprop="datePublished">2026-07-02</time>
+	</a>
+</span>
+
+                
+  <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a>
+  </span>
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/CLRS/" rel="tag">CLRS</a>, <a class="article-tag-none-link" href="/tags/%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83/" rel="tag">動態規劃</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2026/07/02/algorithm/ch15/#comments" class="article-comment-link">
+                        評論
+                    </a>
+                </span>
+                
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <div class="alert-block alert-info note-shortcode">此筆記整理《演算法導論》第十五章，以及補充的內容。動態規劃（Dynamic Programming）的想法是把每一個大的問題拆解成幾個小的子問題，並針對重疊子問題進行記憶化儲存（常見的二維動態規劃可以表格的想法思考）避免重複計算，用 bottom-up 的方式組合出整個問題的最佳解。本章以三個經典問題說明此思想：0-1 背包問題、矩陣鏈乘法、以及最長子序列</div>
+
+<h2 id="第一節-動態規劃"><a href="#第一節-動態規劃" class="headerlink" title="第一節 動態規劃"></a>第一節 動態規劃</h2><p>回顧 Fibonacci 數列<br>$F(0) = 0,\ F(1) = 1,\quad F(n) = F(n-1) + F(n-2)\ (n \ge 2)$</p>
+<p>如果我們直接寫遞迴程式計算 $F(n) = F(n-1) + F(n-2) = (F(n-2) + F(n-3)) + F(n-2)$，會發現到 $F(n-2)$ 這個子問題在展開 $F(n)$ 與 $F(n-1)$ 都會被算到一次。同一個子問題被重複計算了非常多次，這種現象稱為<strong>重疊子問題（overlapped subproblem）</strong>。動態規劃就是把算過的子問題結果存起來避免重複計算，下次遇到同樣的子問題直接查表</p>
+<div class="alert-block alert-success"><strong>想法：</strong>動態規劃適用的前提是問題要同時具備<strong>最佳子結構（Optimal Substructure）</strong>與<strong>重疊子問題（Overlapping Subproblems）</strong>。前者確保可以透過組合子問題的最佳解得出整體最佳解；後者讓查表這件事有用
+</div>
+
+<h3 id="動態規劃的四個步驟"><a href="#動態規劃的四個步驟" class="headerlink" title="動態規劃的四個步驟"></a>動態規劃的四個步驟</h3><p>一般動態規劃演算法可以拆成以下四個步驟：</p>
+<ol>
+<li><strong>描述最佳解的結構</strong>：找出最佳解是由哪些子問題的最佳解組成（即最佳子結構 Optimal Substructure）</li>
+<li><strong>遞迴定義最佳解的值</strong>：寫出最佳解的值與子問題最佳解之間的遞迴關係式</li>
+<li><strong>由下而上計算最佳解的值（Bottom-up）</strong>：先算最小的子問題，再逐步推算到大的問題，並把每個子問題的解存進表格中</li>
+<li><strong>由計算過程反推出最佳解本身</strong>：透過表格中記錄的選擇（例如額外開一個 $s$ 或 $b$ 表），還原出最佳解實際上長什麼樣子（不只是最佳值）</li>
+</ol>
+<h2 id="第二節-0-1-背包問題"><a href="#第二節-0-1-背包問題" class="headerlink" title="第二節 0-1 背包問題"></a>第二節 0-1 背包問題</h2><div class="alert-block alert-success"><strong>問題：</strong>給定 $n$ 件物品，第 $i$ 件物品重量為 $w_i$、價值為 $v_i$，背包重量上限為 $W$。
+<strong>目標：</strong>總重量不超過 $W$ 的前提下，選出的物品總價值最大
+</div>
+
+<p>在第十六章貪心演算法中已經說明過：<strong>連續背包</strong>可以用貪心法（依單位價值排序）求解，但<strong>0-1 背包</strong>因為物品不能切割，貪心法不保證最佳解，因此需要動態規劃</p>
+<h3 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DYNAMIC-0-1-KNAPSACK(v, w, n, W)</span><br><span class="line">    for w ← 0 to W</span><br><span class="line">        do c[0, w] ← 0</span><br><span class="line">    for i ← 1 to n</span><br><span class="line">        do c[i, 0] ← 0</span><br><span class="line">           for w ← 1 to W</span><br><span class="line">               do if w[i] ≤ w</span><br><span class="line">                      then if v[i] + c[i-1, w-w[i]] &gt; c[i-1, w]</span><br><span class="line">                               then c[i, w] ← v[i] + c[i-1, w-w[i]]</span><br><span class="line">                               else c[i, w] ← c[i-1, w]</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明"><a href="#說明" class="headerlink" title="說明"></a>說明</h3><div class="alert-block alert-success"><strong>最佳子結構：</strong>令 $i$ 為拿取的物品總重為 $W$、物品 $1,\dots,n$ 的最佳解 $S$ 中編號最大的物品。則 $S' = S - \{i\}$ 必為重量 $W - w_i$、物品 $1,\dots,i-1$ 的最佳解，而 $S$ 的價值等於 $v_i$ 加上子問題 $S'$ 的價值，也就是說我們要找到拿第 $i$ 個物品的最佳解的方法就是：
+1. 拿第 $i$ 個物品的重量後，剩餘的重量可以拿到的最佳解
+2. 不拿第 $i$ 個物品的最佳解
+</div>
+
+<p>由上述說明，可以定義 $c[i, w]$ 為 <strong>只考慮前 $i$ 件物品、重量為 $w$</strong> 時的最大價值：</p>
+<p>$$
+c[i, w] =
+\begin{cases}
+0 &amp; \text{若 } i = 0 \text{ 或 } w = 0 \\
+c[i-1, w] &amp; \text{若 } w_i &gt; w \text{（裝不下，只能不拿）} \\
+\max\big(v_i + c[i-1, w-w_i],\ c[i-1, w]\big) &amp; \text{若 } i &gt; 0 \text{ 且 } w \ge w_i \text{（拿/不拿 兩個子問題中取較大者）}
+\end{cases}
+$$</p>
+<p>雙層迴圈分別跑 $n$ 與 $W$ 次，因此時間複雜度為 $O(nW)$，這是一個偽多項式時間</p>
+<p>因為 $W$ 自身是一個數值，以二進位表示 $W$ 只需要 $m = \lg W$ 個位元，因此時間複雜度可以改寫：</p>
+<p>$O(nW) = O(n \cdot 2^m)$</p>
+<p>以輸入位元數 $m$ 來看，這是<strong>指數時間</strong>，但以數值 $W$ 來看，這是<strong>多項式時間</strong></p>
+<p>因此這題的解法需要看 $W$ 的具體數值，當 $W$ 相對於 $n$ 呈指數增長時（即 $W \approx 2^n$）就是<strong>指數時間</strong>；當 $W$ 控制在 $n$ 的多項式級別之內時（即 $W \le n^k$）就是<strong>多項式時間</strong>。只能算是<strong>偽多項式時間</strong>，而非真正的多項式時間演算法</p>
+<h2 id="第三節-矩陣鏈乘法"><a href="#第三節-矩陣鏈乘法" class="headerlink" title="第三節 矩陣鏈乘法"></a>第三節 矩陣鏈乘法</h2><div class="alert-block alert-success"><strong>問題：</strong>給定 $n$ 個矩陣 $A_1, A_2, \dots, A_n$ 相乘，其中 $A_i$ 的維度為 $p_{i-1} \times p_i$
+<strong>目標：</strong>找出讓乘法總次數最少的相乘方式
+</div>
+
+<h3 id="Pseudocode-1"><a href="#Pseudocode-1" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><h4 id="矩陣相乘"><a href="#矩陣相乘" class="headerlink" title="矩陣相乘"></a>矩陣相乘</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MATRIX-MULTIPLY(A, B)</span><br><span class="line">1   if columns[A] ≠ rows[B]</span><br><span class="line">2       then error &quot;incompatible dimensions&quot;</span><br><span class="line">3       else for i ← 1 to rows[A]</span><br><span class="line">4                do for j ← 1 to columns[B]</span><br><span class="line">5                       do C[i, j] ← 0</span><br><span class="line">6                          for k ← 1 to columns[A]</span><br><span class="line">7                              do C[i, j] ← C[i, j] + A[i, k] · B[k, j]</span><br><span class="line">8   return C</span><br></pre></td></tr></table></figure>
+
+<h4 id="矩陣鏈乘法"><a href="#矩陣鏈乘法" class="headerlink" title="矩陣鏈乘法"></a>矩陣鏈乘法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MATRIX-CHAIN-ORDER(p)</span><br><span class="line">1   n ← length[p] - 1</span><br><span class="line">2   for i ← 1 to n</span><br><span class="line">3       do m[i, i] ← 0</span><br><span class="line">4   for l ← 2 to n                      ▷ l 為鏈長</span><br><span class="line">5       do for i ← 1 to n - l + 1</span><br><span class="line">6              do j ← i + l - 1</span><br><span class="line">7                 m[i, j] ← ∞</span><br><span class="line">8                 for k ← i to j - 1</span><br><span class="line">9                     do q ← m[i, k] + m[k+1, j] + p[i-1]·p[k]·p[j]</span><br><span class="line">10                       if q &lt; m[i, j]</span><br><span class="line">11                           then m[i, j] ← q</span><br><span class="line">12                                s[i, j] ← k</span><br><span class="line">13  return m and s</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明-1"><a href="#說明-1" class="headerlink" title="說明"></a>說明</h3><h4 id="矩陣相乘-1"><a href="#矩陣相乘-1" class="headerlink" title="矩陣相乘"></a>矩陣相乘</h4><p>當 A、B 矩陣分別為 $p \times q$、$q \times r$ 的矩陣相乘，需要 $p \cdot q \cdot r$ 次乘法。這代表我們可以省下兩個矩陣相鄰的行與列一次乘法的成本。</p>
+<p>但這並不意味著我們可以直接用貪心演算法來求解。以直觀的想法我們可能會誤認為相鄰的行與列最大的就先乘，這樣成本最低，是局部最佳解，接著我們可以檢查一下是否滿足第十六章說的貪心演算法的條件：</p>
+<ul>
+<li>是否具備<strong>最優子結構</strong>：<strong>是</strong>。如果已知最佳切點在 $k$，則 $A_{i..k}$ 與 $A_{k+1..j}$ 兩個矩陣鏈各自的最佳解也是原問題最佳解的一部分，這是 $m[i,j]$ 遞迴式（見下方）能夠成立的前提，也是動態規劃的必要條件</li>
+<li>是否具備<strong>局部最優推全局最優</strong>：<strong>否</strong>。這一步的局部最佳解，不保證是最後的最佳解的路。原因是合併相鄰矩陣對這個動作，本身會<strong>改變後續矩陣的維度</strong>，進而改變之後每一步的成本，也就是你現在判斷這個是最佳解後，你只能確保這一步是正確的，可是其他步會因為這一步改變而答案是不一樣的，舉例而言：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">矩陣</th>
+<th align="center">維度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$A_1$</td>
+<td align="center">$40 \times 20$</td>
+</tr>
+<tr>
+<td align="center">$A_2$</td>
+<td align="center">$20 \times 30$</td>
+</tr>
+<tr>
+<td align="center">$A_3$</td>
+<td align="center">$30 \times 10$</td>
+</tr>
+<tr>
+<td align="center">$A_4$</td>
+<td align="center">$10 \times 30$</td>
+</tr>
+</tbody></table>
+<p>先看三個相鄰矩陣對各自的相乘成本：</p>
+<p>$A_1A_2 = 40\cdot20\cdot30 = 24000, \quad A_2A_3 = 20\cdot30\cdot10 = 6000, \quad A_3A_4 = 30\cdot10\cdot30 = 9000$</p>
+<p>貪心演算法過程如下：</p>
+<ol>
+<li>第一步，$A_2A_3$ 成本最小（$6000$），先合併，此時鏈變成 $A_1,\ (A_2A_3),\ A_4$，維度為 $40\times20,\ 20\times10,\ 10\times30$<br>(這時候你就會發現原本算出來其他組合的成本，在選擇了 $A_2A_3$ 後改了)</li>
+<li>第二步比較剩下兩個相鄰對：$A_1\cdot(A_2A_3) = 40\cdot20\cdot10 = 8000$，$(A_2A_3)\cdot A_4 = 20\cdot10\cdot30 = 6000$。貪心會選成本較小的 $(A_2A_3)A_4$（$6000$）</li>
+<li>最後只剩 $A_1$ 與 $[(A_2A_3)A_4]$（維度 $40\times20$ 與 $20\times30$）相乘：$40\cdot20\cdot30 = 24000$</li>
+</ol>
+<p>貪心總成本 $= 6000 + 6000 + 24000 = 36000$</p>
+<p>但實際上最好的方法是先算 $A_1A_2A_3$（成本 $14000$），再與 $A_4$ 合併（成本 $40\cdot10\cdot30 = 12000$），總計 $14000+12000=26000$，其中 $A_1A_2A_3$ 內部又是先合併 $A_2A_3$（$6000$），再合併 $A_1\cdot(A_2A_3)$（$8000$），也就是 $(A_1 \times (A_2A_3)) \times A_4$</p>
+<h4 id="矩陣鏈乘法-1"><a href="#矩陣鏈乘法-1" class="headerlink" title="矩陣鏈乘法"></a>矩陣鏈乘法</h4><p>我們的想法是令 $m[i, j]$ 為計算 $A_i A_{i+1} \cdots A_j$ 所需的最少乘法次數。如果最佳的括號方式是在第 $k$ 個矩陣與第 $k+1$ 個矩陣之間切開（即 $A_{i..k}$ 與 $A_{k+1..j}$ 兩部分先分別算好，再相乘），則：</p>
+<p>$$
+m[i, j] =
+\begin{cases}
+0 &amp; \text{若 } i = j \\
+\displaystyle\min_{i \le k &lt; j}\{m[i, k] + m[k+1, j] + p_{i-1}p_k p_j\} &amp; \text{若 } i &lt; j
+\end{cases}
+$$</p>
+<p>其中 $p_{i-1}p_k p_j$ 是把 $A_{i..k}$（維度 $p_{i-1}\times p_k$）與 $A_{k+1..j}$（維度 $p_k \times p_j$）這兩個中間結果相乘的成本</p>
+<p>Psuedocode 中的外層依鏈長 $l$ 由短到長計算，確保計算 $m[i,j]$ 時，所有更短的子鏈 $m[i,k]$、$m[k+1,j]$ 都已經算好</p>
+<p>與上面的貪心演算法對比：<br>在第二步，貪心法選了當下比較便宜的 $(A_2A_3)A_4$（$6000$），但這個選擇會把 $A_2A_3$ 的結果併進 $A_4$，得到一個 $20\times30$ 的大矩陣，導致最後一步 $A_1$ 要跟這個大矩陣相乘，成本暴增為 $24000$。而動態規劃選了當下比較貴的 $A_1\cdot(A_2A_3)$（$8000$），卻讓最後一步只需要 $40\times10$ 乘 $10\times30$，成本僅 $12000$。雖然並非每一步都是局部最佳解（$A_1\cdot(A_2A_3)$ 多花 $2000$），但換來了後面省下更多（少花 $12000$），整體反而更划算</p>
+<table>
+<thead>
+<tr>
+<th align="left">面向</th>
+<th align="left">貪心演算法</th>
+<th align="left">動態規劃</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">依據</td>
+<td align="left">只看當下這一步的成本</td>
+<td align="left">窮舉所有切點，比較各切法的子問題總成本</td>
+</tr>
+<tr>
+<td align="left">是否考慮影響</td>
+<td align="left">否</td>
+<td align="left">是</td>
+</tr>
+<tr>
+<td align="left">結果</td>
+<td align="left">$36000$（次佳解）</td>
+<td align="left">$26000$（最佳解）</td>
+</tr>
+<tr>
+<td align="left">時間複雜度</td>
+<td align="left">$O(n^2)$（若真的可行）</td>
+<td align="left">$O(n^3)$</td>
+</tr>
+</tbody></table>
+<h3 id="舉例"><a href="#舉例" class="headerlink" title="舉例"></a>舉例</h3><div class="img-row left"><img src="fig15.3.svg" alt="fig15.3" loading="lazy" decoding="async"></div>
+
+<p>如上圖範例所示， 6 個矩陣的維度如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">矩陣</th>
+<th align="center">維度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$A_1$</td>
+<td align="center">$30 \times 35$</td>
+</tr>
+<tr>
+<td align="center">$A_2$</td>
+<td align="center">$35 \times 15$</td>
+</tr>
+<tr>
+<td align="center">$A_3$</td>
+<td align="center">$15 \times 5$</td>
+</tr>
+<tr>
+<td align="center">$A_4$</td>
+<td align="center">$5 \times 10$</td>
+</tr>
+<tr>
+<td align="center">$A_5$</td>
+<td align="center">$10 \times 20$</td>
+</tr>
+<tr>
+<td align="center">$A_6$</td>
+<td align="center">$20 \times 25$</td>
+</tr>
+</tbody></table>
+<p>表格沿對角線旋轉呈現，只用到 $m$ 表的上三角與主對角線。以計算 $m[2,5]$ 為例，需要比較三種切法：</p>
+<p>$$
+m[2,5] = \min
+\begin{cases}
+m[2,2]+m[3,5]+p_1p_2p_5 = 0+2500+35\cdot15\cdot20 = 13000 \\
+m[2,3]+m[4,5]+p_1p_3p_5 = 2625+1000+35\cdot5\cdot20 = 7125 \\
+m[2,4]+m[5,5]+p_1p_4p_5 = 4375+0+35\cdot10\cdot20 = 11375
+\end{cases}
+= 7125
+$$</p>
+<p>最終 $m[1,6] = 15{,}125$ 為 6 個矩陣相乘所需的最少乘法次數</p>
+<h2 id="第四節-最長子序列"><a href="#第四節-最長子序列" class="headerlink" title="第四節 最長子序列"></a>第四節 最長子序列</h2><div class="alert-block alert-success"><strong>問題：</strong>給定兩序列 $X = \langle x_1, \dots, x_m \rangle$ 與 $Y = \langle y_1, \dots, y_n \rangle$，找出兩者的<strong>最長共同子序列（Longest Common Subsequence, LCS）</strong>，子序列不需連續，但需保持原本的相對順序
+</div>
+
+<h3 id="Pseudocode-2"><a href="#Pseudocode-2" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">LCS-LENGTH(X, Y)</span><br><span class="line">1   m ← length[X]</span><br><span class="line">2   n ← length[Y]</span><br><span class="line">3   for i ← 1 to m</span><br><span class="line">4       do c[i, 0] ← 0</span><br><span class="line">5   for j ← 0 to n</span><br><span class="line">6       do c[0, j] ← 0</span><br><span class="line">7   for i ← 1 to m</span><br><span class="line">8       do for j ← 1 to n</span><br><span class="line">9              do if x[i] = y[j]</span><br><span class="line">10                     then c[i, j] ← c[i-1, j-1] + 1</span><br><span class="line">11                          b[i, j] ← &quot;↖&quot;</span><br><span class="line">12                     else if c[i-1, j] ≥ c[i, j-1]</span><br><span class="line">13                              then c[i, j] ← c[i-1, j]</span><br><span class="line">14                                   b[i, j] ← &quot;↑&quot;</span><br><span class="line">15                              else c[i, j] ← c[i, j-1]</span><br><span class="line">16                                   b[i, j] ← &quot;←&quot;</span><br><span class="line">17  return c and b</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明-2"><a href="#說明-2" class="headerlink" title="說明"></a>說明</h3><p>令 $Z = \langle z_1, \dots, z_k \rangle$ 為 $X_m = \langle x_1,\dots,x_m\rangle$ 與 $Y_n = \langle y_1,\dots,y_n\rangle$ 的一個 LCS：</p>
+<ol>
+<li>若 $x_m = y_n$，則 $z_k = x_m = y_n$，且 $Z_{k-1}$ 必為 $X_{m-1}$ 與 $Y_{n-1}$ 的 LCS<br>($X$ 與 $Y$ 的最後一個字元相同：確認這一個是 LCS 中的成員，再判斷 $X_{m-1}$ 與 $Y_{n-1}$ 的 LCS)</li>
+<li>若 $x_m \ne y_n$，且 $z_k \ne x_m$，則 $Z$ 必為 $X_{m-1}$ 與 $Y_n$ 的 LCS<br>($X$ 與 $Y$ 的最後一個字元不同，而且 LCS 中 $Z$ 的最後一個字元與 $X$ 的最後一個字元不同：判斷 $X_{m-1}$ 與 $Y$ 的 LCS)</li>
+<li>若 $x_m \ne y_n$，且 $z_k \ne y_n$，則 $Z$ 必為 $X_m$ 與 $Y_{n-1}$ 的 LCS<br>($X$ 與 $Y$ 的最後一個字元不同，而且 LCS 中 $Z$ 的最後一個字元與 $Y$ 的最後一個字元不同：判斷 $X$ 與 $Y_{m-1}$ 的 LCS)</li>
+</ol>
+<p>也就是說，比較 $X$ 與 $Y$ 的最後一個字元是否相等，決定了要往哪個子問題遞迴</p>
+<p>令 $c[i,j]$ 為 $X_i$ 與 $Y_j$ 的 LCS 長度：</p>
+<p>$$
+c[i,j] =
+\begin{cases}
+0 &amp; \text{若 } i = 0 \text{ 或 } j = 0 \\
+c[i-1, j-1] + 1 &amp; \text{若 } i,j &gt; 0 \text{ 且 } x_i = y_j \\
+\max\big(c[i,j-1],\ c[i-1,j]\big) &amp; \text{若 } i,j &gt; 0 \text{ 且 } x_i \ne y_j
+\end{cases}
+$$</p>
+<h3 id="舉例-1"><a href="#舉例-1" class="headerlink" title="舉例"></a>舉例</h3><p>以 $X = \langle A,B,C,B,D,A,B \rangle$、$Y = \langle B,D,C,A,B,A \rangle$ 為例：</p>
+<div class="img-row left"><img src="fig15.8.svg" alt="fig15.8" loading="lazy" decoding="async"></div>
+
+<p>表格右下角 $c[7,6] = 4$，即為 LCS 的長度。實際的 LCS 為 $\langle B, C, B, A \rangle$。表中每個儲存格 $c[i,j]$ 只依賴 $c[i-1,j]$、$c[i,j-1]$、$c[i-1,j-1]$ 三個已經算好的值，可以把它當成在填表格；$b[i,j]$ 中的 “↖” 記號代表該位置是由 $x_i = y_j$ 貢獻而來，也就是上一個是 LCS 實際上可以找到的其中一個字元</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><table>
+<thead>
+<tr>
+<th align="left">問題</th>
+<th align="left">狀態定義</th>
+<th align="left">遞迴關係</th>
+<th align="center">時間複雜度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0-1 背包問題</td>
+<td align="left">$c[i,w]$：前 $i$ 件物品、容量 $w$ 之最大價值</td>
+<td align="left">拿或不拿取較大者</td>
+<td align="center">$O(nW)$（偽多項式）</td>
+</tr>
+<tr>
+<td align="left">矩陣鏈乘法</td>
+<td align="left">$m[i,j]$：計算 $A_i\cdots A_j$ 之最少乘法次數</td>
+<td align="left">列舉切點 $k$ 取最小</td>
+<td align="center">$O(n^3)$</td>
+</tr>
+<tr>
+<td align="left">最長子序列 (LCS)</td>
+<td align="left">$c[i,j]$：$X_i$ 與 $Y_j$ 之 LCS 長度</td>
+<td align="left">依 $x_i$ 是否等於 $y_j$ 分支</td>
+<td align="center">$O(mn)$</td>
+</tr>
+</tbody></table>
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><p>T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, <em>Introduction to Algorithms, Second Ed.</em>, The MIT Press, 2001.</p>
+
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/07/02/algorithm/ch15/">https://www.tseng-school.com/2026/07/02/algorithm/ch15/</a></p>
+    <p><strong> </strong></p>
+</blockquote>
+
+
+    </article>
+    
+    
+        <section id="comments">
+            
+                <div class="giscus"></div>
+            
+        </section>
+    
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目錄</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AF%80-%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83"><span class="toc-number">1.</span> <span class="toc-text">第一節 動態規劃</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8B%95%E6%85%8B%E8%A6%8F%E5%8A%83%E7%9A%84%E5%9B%9B%E5%80%8B%E6%AD%A5%E9%A9%9F"><span class="toc-number">1.1.</span> <span class="toc-text">動態規劃的四個步驟</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AF%80-0-1-%E8%83%8C%E5%8C%85%E5%95%8F%E9%A1%8C"><span class="toc-number">2.</span> <span class="toc-text">第二節 0-1 背包問題</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode"><span class="toc-number">2.1.</span> <span class="toc-text">Pseudocode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E"><span class="toc-number">2.2.</span> <span class="toc-text">說明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AF%80-%E7%9F%A9%E9%99%A3%E9%8F%88%E4%B9%98%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">第三節 矩陣鏈乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode-1"><span class="toc-number">3.1.</span> <span class="toc-text">Pseudocode</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%99%A3%E7%9B%B8%E4%B9%98"><span class="toc-number">3.1.1.</span> <span class="toc-text">矩陣相乘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%99%A3%E9%8F%88%E4%B9%98%E6%B3%95"><span class="toc-number">3.1.2.</span> <span class="toc-text">矩陣鏈乘法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E-1"><span class="toc-number">3.2.</span> <span class="toc-text">說明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%99%A3%E7%9B%B8%E4%B9%98-1"><span class="toc-number">3.2.1.</span> <span class="toc-text">矩陣相乘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%99%A3%E9%8F%88%E4%B9%98%E6%B3%95-1"><span class="toc-number">3.2.2.</span> <span class="toc-text">矩陣鏈乘法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%88%89%E4%BE%8B"><span class="toc-number">3.3.</span> <span class="toc-text">舉例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AF%80-%E6%9C%80%E9%95%B7%E5%AD%90%E5%BA%8F%E5%88%97"><span class="toc-number">4.</span> <span class="toc-text">第四節 最長子序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode-2"><span class="toc-number">4.1.</span> <span class="toc-text">Pseudocode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E-2"><span class="toc-number">4.2.</span> <span class="toc-text">說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%88%89%E4%BE%8B-1"><span class="toc-number">4.3.</span> <span class="toc-text">舉例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-number">5.</span> <span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E6%96%87%E7%8D%BB"><span class="toc-number">6.</span> <span class="toc-text">參考文獻</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div style="
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                flex-wrap: wrap;
+                width: 100%; 
+                margin: 40px 0 20px 0;
+                color: #666; 
+                font-size: 0.85rem;
+                clear: both;
+            ">
+              <span id="busuanzi_container_site_uv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-user" style="margin-right: 4px;"></i>
+                訪客數：<span id="busuanzi_value_site_uv">未知</span> 人
+              </span>
+              
+              <span style="margin: 0 12px; color: #ddd;">|</span>
+              
+              <span id="busuanzi_container_site_pv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-eye" style="margin-right: 4px;"></i>
+                總瀏覽：<span id="busuanzi_value_site_pv">未知</span> 次
+              </span>
+            </div>
+            </section>
+        
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont icon-facebook"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+
+    
+    <script src="https://giscus.app/client.js"
+            data-repo="chingyen06/blog-comment"
+            data-repo-id="R_kgDORKkDHg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORKkDHs4C_mPa"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+
+
+
+    
+    <script>
+    (function () {
+        var imgs = document.querySelectorAll('main img, article img, .marked-body img');
+        if (!imgs.length) return;
+        var loaded = false;
+        function loadLG() {
+            if (loaded) return; loaded = true;
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css';
+            document.head.appendChild(css);
+            var cdn = document.createElement('script');
+            cdn.src = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js';
+            cdn.onload = function () {
+                var local = document.createElement('script');
+                local.src = '/js/light-gallery.min.js';
+                document.body.appendChild(local);
+            };
+            document.body.appendChild(cdn);
+        }
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) { loadLG(); io.disconnect(); }
+            }, { rootMargin: '300px' });
+            io.observe(imgs[0]);
+        } else {
+            loadLG();
+        }
+    })();
+    </script>
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="562" height="558" viewBox="0 0 562 558" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+<rect width="562" height="558" fill="#ffffff"/>
+<rect x="430" y="350" width="46" height="46" fill="#dde0e3"/>
+<rect x="246" y="212" width="46" height="46" fill="#bfc3c8"/>
+<rect x="384" y="258" width="46" height="46" fill="#dde0e3"/>
+<rect x="476" y="396" width="46" height="46" fill="#bfc3c8"/>
+<rect x="430" y="304" width="46" height="46" fill="#bfc3c8"/>
+<rect x="476" y="442" width="46" height="46" fill="#dde0e3"/>
+<rect x="338" y="258" width="46" height="46" fill="#bfc3c8"/>
+<rect x="292" y="212" width="46" height="46" fill="#dde0e3"/>
+<rect x="200" y="166" width="46" height="46" fill="#dde0e3"/>
+<line x1="200" y1="120" x2="522" y2="120" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="200" y1="166" x2="522" y2="166" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="200" y1="212" x2="522" y2="212" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="200" y1="258" x2="522" y2="258" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="200" y1="304" x2="522" y2="304" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="200" y1="350" x2="522" y2="350" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="200" y1="396" x2="522" y2="396" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="200" y1="442" x2="522" y2="442" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="200" y1="488" x2="522" y2="488" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="200" y1="120" x2="200" y2="488" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="246" y1="120" x2="246" y2="488" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="292" y1="120" x2="292" y2="488" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="338" y1="120" x2="338" y2="488" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="384" y1="120" x2="384" y2="488" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="430" y1="120" x2="430" y2="488" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="476" y1="120" x2="476" y2="488" stroke="#8a8f95" stroke-width="1.1"/>
+<line x1="522" y1="120" x2="522" y2="488" stroke="#8a8f95" stroke-width="1.1"/>
+<text x="120" y="62" font-size="15" font-style="italic" text-anchor="middle" fill="#555">j</text>
+<text x="223.0" y="68" font-size="15" text-anchor="middle" fill="#333">0</text>
+<text x="269.0" y="68" font-size="15" text-anchor="middle" fill="#333">1</text>
+<text x="315.0" y="68" font-size="15" text-anchor="middle" fill="#333">2</text>
+<text x="361.0" y="68" font-size="15" text-anchor="middle" fill="#333">3</text>
+<text x="407.0" y="68" font-size="15" text-anchor="middle" fill="#333">4</text>
+<text x="453.0" y="68" font-size="15" text-anchor="middle" fill="#333">5</text>
+<text x="499.0" y="68" font-size="15" text-anchor="middle" fill="#333">6</text>
+<text x="162" y="96" font-size="15" font-style="italic" text-anchor="middle" fill="#555">y<tspan baseline-shift="sub" font-size="10">j</tspan></text>
+<ellipse cx="269.0" cy="92" rx="13" ry="12" fill="#d9dce0"/>
+<text x="269.0" y="97" font-size="15" font-style="italic" text-anchor="middle" fill="#222">B</text>
+<text x="315.0" y="97" font-size="15" font-style="italic" text-anchor="middle" fill="#222">D</text>
+<ellipse cx="361.0" cy="92" rx="13" ry="12" fill="#d9dce0"/>
+<text x="361.0" y="97" font-size="15" font-style="italic" text-anchor="middle" fill="#222">C</text>
+<text x="407.0" y="97" font-size="15" font-style="italic" text-anchor="middle" fill="#222">A</text>
+<ellipse cx="453.0" cy="92" rx="13" ry="12" fill="#d9dce0"/>
+<text x="453.0" y="97" font-size="15" font-style="italic" text-anchor="middle" fill="#222">B</text>
+<ellipse cx="499.0" cy="92" rx="13" ry="12" fill="#d9dce0"/>
+<text x="499.0" y="97" font-size="15" font-style="italic" text-anchor="middle" fill="#222">A</text>
+<text x="120" y="148.0" font-size="15" font-style="italic" text-anchor="middle" fill="#555">i</text>
+<text x="120" y="148.0" font-size="15" text-anchor="middle" fill="#333">0</text>
+<text x="120" y="194.0" font-size="15" text-anchor="middle" fill="#333">1</text>
+<text x="120" y="240.0" font-size="15" text-anchor="middle" fill="#333">2</text>
+<text x="120" y="286.0" font-size="15" text-anchor="middle" fill="#333">3</text>
+<text x="120" y="332.0" font-size="15" text-anchor="middle" fill="#333">4</text>
+<text x="120" y="378.0" font-size="15" text-anchor="middle" fill="#333">5</text>
+<text x="120" y="424.0" font-size="15" text-anchor="middle" fill="#333">6</text>
+<text x="120" y="470.0" font-size="15" text-anchor="middle" fill="#333">7</text>
+<text x="158" y="148.0" font-size="15" font-style="italic" text-anchor="middle" fill="#555">x<tspan baseline-shift="sub" font-size="10">i</tspan></text>
+<text x="158" y="194.0" font-size="15" font-style="italic" text-anchor="middle" fill="#222">A</text>
+<ellipse cx="158" cy="235.0" rx="13" ry="12" fill="#d9dce0"/>
+<text x="158" y="240.0" font-size="15" font-style="italic" text-anchor="middle" fill="#222">B</text>
+<ellipse cx="158" cy="281.0" rx="13" ry="12" fill="#d9dce0"/>
+<text x="158" y="286.0" font-size="15" font-style="italic" text-anchor="middle" fill="#222">C</text>
+<ellipse cx="158" cy="327.0" rx="13" ry="12" fill="#d9dce0"/>
+<text x="158" y="332.0" font-size="15" font-style="italic" text-anchor="middle" fill="#222">B</text>
+<text x="158" y="378.0" font-size="15" font-style="italic" text-anchor="middle" fill="#222">D</text>
+<ellipse cx="158" cy="419.0" rx="13" ry="12" fill="#d9dce0"/>
+<text x="158" y="424.0" font-size="15" font-style="italic" text-anchor="middle" fill="#222">A</text>
+<text x="158" y="470.0" font-size="15" font-style="italic" text-anchor="middle" fill="#222">B</text>
+<text x="223.0" y="148.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="269.0" y="148.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="315.0" y="148.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="361.0" y="148.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="407.0" y="148.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="453.0" y="148.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="499.0" y="148.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="223.0" y="194.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="259.0" y="185.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="277.0" y="198.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="305.0" y="185.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="323.0" y="198.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="351.0" y="185.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="369.0" y="198.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="397.0" y="185.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="415.0" y="198.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="443.0" y="185.0" font-size="14" text-anchor="middle" fill="#444">←</text>
+<text x="461.0" y="198.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="489.0" y="185.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="507.0" y="198.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="223.0" y="240.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="259.0" y="231.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="277.0" y="244.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="305.0" y="231.0" font-size="14" text-anchor="middle" fill="#444">←</text>
+<text x="323.0" y="244.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="351.0" y="231.0" font-size="14" text-anchor="middle" fill="#444">←</text>
+<text x="369.0" y="244.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="397.0" y="231.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="415.0" y="244.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="443.0" y="231.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="461.0" y="244.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="489.0" y="231.0" font-size="14" text-anchor="middle" fill="#444">←</text>
+<text x="507.0" y="244.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="223.0" y="286.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="259.0" y="277.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="277.0" y="290.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="305.0" y="277.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="323.0" y="290.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="351.0" y="277.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="369.0" y="290.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="397.0" y="277.0" font-size="14" text-anchor="middle" fill="#444">←</text>
+<text x="415.0" y="290.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="443.0" y="277.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="461.0" y="290.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="489.0" y="277.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="507.0" y="290.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="223.0" y="332.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="259.0" y="323.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="277.0" y="336.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="305.0" y="323.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="323.0" y="336.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="351.0" y="323.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="369.0" y="336.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="397.0" y="323.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="415.0" y="336.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="443.0" y="323.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="461.0" y="336.0" font-size="15" text-anchor="middle" fill="#222">3</text>
+<text x="489.0" y="323.0" font-size="14" text-anchor="middle" fill="#444">←</text>
+<text x="507.0" y="336.0" font-size="15" text-anchor="middle" fill="#222">3</text>
+<text x="223.0" y="378.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="259.0" y="369.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="277.0" y="382.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="305.0" y="369.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="323.0" y="382.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="351.0" y="369.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="369.0" y="382.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="397.0" y="369.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="415.0" y="382.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="443.0" y="369.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="461.0" y="382.0" font-size="15" text-anchor="middle" fill="#222">3</text>
+<text x="489.0" y="369.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="507.0" y="382.0" font-size="15" text-anchor="middle" fill="#222">3</text>
+<text x="223.0" y="424.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="259.0" y="415.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="277.0" y="428.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="305.0" y="415.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="323.0" y="428.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="351.0" y="415.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="369.0" y="428.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="397.0" y="415.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="415.0" y="428.0" font-size="15" text-anchor="middle" fill="#222">3</text>
+<text x="443.0" y="415.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="461.0" y="428.0" font-size="15" text-anchor="middle" fill="#222">3</text>
+<text x="489.0" y="415.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="507.0" y="428.0" font-size="15" text-anchor="middle" fill="#222">4</text>
+<text x="223.0" y="470.0" font-size="15" text-anchor="middle" fill="#222">0</text>
+<text x="259.0" y="461.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="277.0" y="474.0" font-size="15" text-anchor="middle" fill="#222">1</text>
+<text x="305.0" y="461.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="323.0" y="474.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="351.0" y="461.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="369.0" y="474.0" font-size="15" text-anchor="middle" fill="#222">2</text>
+<text x="397.0" y="461.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="415.0" y="474.0" font-size="15" text-anchor="middle" fill="#222">3</text>
+<text x="443.0" y="461.0" font-size="14" text-anchor="middle" fill="#444">↖</text>
+<text x="461.0" y="474.0" font-size="15" text-anchor="middle" fill="#222">4</text>
+<text x="489.0" y="461.0" font-size="14" text-anchor="middle" fill="#444">↑</text>
+<text x="507.0" y="474.0" font-size="15" text-anchor="middle" fill="#222">4</text>
+</svg>
