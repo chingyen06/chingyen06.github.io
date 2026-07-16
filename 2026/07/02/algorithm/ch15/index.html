@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://www.tseng-school.com/2026/07/02/algorithm/ch15/fig15.3.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/07/02/algorithm/ch15/fig15.8.svg">
 <meta property="article:published_time" content="2026-07-02T05:55:00.000Z">
-<meta property="article:modified_time" content="2026-07-02T12:15:02.633Z">
+<meta property="article:modified_time" content="2026-07-04T08:53:46.591Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="CLRS">
 <meta property="article:tag" content="動態規劃">
@@ -545,7 +545,7 @@ $$</p>
 <td align="center">$20 \times 25$</td>
 </tr>
 </tbody></table>
-<p>表格沿對角線旋轉呈現，只用到 $m$ 表的上三角與主對角線。以計算 $m[2,5]$ 為例，需要比較三種切法：</p>
+<p>表格沿對角線旋轉呈現，只用到 $m$ 表的上三角與主對角線；外層依鏈長 $\ell$ 由短到長（由下而上、每一列為同一鏈長）計算。以計算 $m[2,5]$ 為例，需要比較三種切法（圖中以同色網底標示，同色的兩格為一組相加：$m[2,k] + m[k+1,5]$，紅色為目標格 $m[2,5]$，可對照圖例）：</p>
 <p>$$
 m[2,5] = \min
 \begin{cases}

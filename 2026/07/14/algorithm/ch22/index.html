@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html  lang="zh-TW" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    
+    <title>計算機演算法 Chapter 22 基本圖演算法 | 靖諺的資訊學習筆記 | 靖諺的資訊學習筆記</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
+
+    <style>
+        body { font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif !important; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
+    </style>
+
+    <meta name="description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第二十二章的部分內容：圖的表示法、廣度優先搜尋（BFS）、深度優先搜尋（DFS），而拓撲排序與強連通分量這邊暫時不講。每節包含定理思路與 Pseudocode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="計算機演算法 Chapter 22 基本圖演算法">
+<meta property="og:url" content="https://www.tseng-school.com/2026/07/14/algorithm/ch22/index.html">
+<meta property="og:site_name" content="靖諺的資訊學習筆記">
+<meta property="og:description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第二十二章的部分內容：圖的表示法、廣度優先搜尋（BFS）、深度優先搜尋（DFS），而拓撲排序與強連通分量這邊暫時不講。每節包含定理思路與 Pseudocode">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://www.tseng-school.com/2026/07/14/algorithm/ch22/fig22.1.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/07/14/algorithm/ch22/fig22.2.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/07/14/algorithm/ch22/fig22.3.svg">
+<meta property="article:published_time" content="2026-07-14T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-16T05:48:18.586Z">
+<meta property="article:author" content="chingyen06">
+<meta property="article:tag" content="BFS">
+<meta property="article:tag" content="CLRS">
+<meta property="article:tag" content="DFS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tseng-school.com/2026/07/14/algorithm/ch22/fig22.1.svg">
+
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+    <link rel="icon" href="/images/avatar.png" type="image/x-icon">
+    
+
+    
+    <link rel="stylesheet" href="/css/common.min.css?v=e76b3b48">
+    
+    <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
+
+    
+        <script>
+        window.MathJax = {
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+          options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <style>
+          mjx-container[jax="CHTML"][display="true"] {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            padding-top: 2px;
+            padding-bottom: 2px;
+          }
+          mjx-container[jax="CHTML"] {
+            max-width: 100%;
+          }
+        </style>
+    
+
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-18D6HBKZSF');
+        </script>
+    
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const COLLAPSE_HEIGHT = 360; // 超過此高度才提供收合鈕
+        const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+        const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        const iconChevron = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+        const iconChevronDouble = `<svg viewBox="0 0 24 24"><path d="M16.59 5.59L12 10.17 7.41 5.59 6 7l6 6 6-6zM16.59 11.59L12 16.17l-4.59-4.58L6 13l6 6 6-6z"/></svg>`;
+        const langMap = { cpp:'C++', 'c++':'C++', cc:'C++', cxx:'C++', c:'C', py:'Python', python:'Python', js:'JavaScript', javascript:'JavaScript', ts:'TypeScript', typescript:'TypeScript', java:'Java', html:'HTML', xml:'XML', css:'CSS', scss:'SCSS', bash:'Bash', sh:'Shell', shell:'Shell', zsh:'Shell', json:'JSON', yaml:'YAML', yml:'YAML', sql:'SQL', go:'Go', rust:'Rust', rs:'Rust', php:'PHP', ruby:'Ruby', rb:'Ruby', kotlin:'Kotlin', swift:'Swift', plaintext:'Text', text:'Text', plain:'Text', md:'Markdown', markdown:'Markdown' };
+
+        const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
+        figures.forEach(figure => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            figure.parentNode.insertBefore(wrapper, figure);
+
+            // 標題列：左邊三個圓點 + 語言標籤，右邊工具列（仿 IDE 視窗）
+            const header = document.createElement('div');
+            header.className = 'code-header';
+
+            const dots = document.createElement('div');
+            dots.className = 'code-dots';
+            dots.innerHTML = '<span></span><span></span><span></span>';
+            header.appendChild(dots);
+
+            const lang = [...figure.classList].find(c => c !== 'highlight');
+            const label = document.createElement('span');
+            label.className = 'code-lang';
+            label.textContent = lang ? (langMap[lang.toLowerCase()] || lang.toUpperCase()) : 'CODE';
+            header.appendChild(label);
+
+            // 工具列（靠右）：複製在左、收合在右
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+            header.appendChild(toolbar);
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-btn copy-btn';
+            copyBtn.innerHTML = iconCopy;
+            copyBtn.title = "複製程式碼";
+            toolbar.appendChild(copyBtn);
+
+            // 右上角收合鈕：負責「整個區塊」摺疊成只剩標題列（每個程式碼都有）
+            const foldBtn = document.createElement('button');
+            foldBtn.className = 'code-btn fold-btn';
+            foldBtn.innerHTML = iconChevron;
+            foldBtn.title = "收合 / 展開整個程式碼";
+            toolbar.appendChild(foldBtn);
+            foldBtn.addEventListener('click', () => {
+                const folded = wrapper.classList.toggle('folded');
+                foldBtn.classList.toggle('folded', folded);
+            });
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(figure);
+
+            // 長程式碼：預設部分收合（300px），底部整條雙箭頭負責展開/收回預覽
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const footer = document.createElement('div');
+                footer.className = 'code-footer';
+                footer.innerHTML = iconChevronDouble;
+                footer.title = "展開 / 收合程式碼";
+                wrapper.appendChild(footer);
+
+                footer.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                });
+            }
+
+            copyBtn.addEventListener('click', () => {
+                const codeCell = figure.querySelector('td.code');
+                const codeText = codeCell ? codeCell.innerText : figure.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = iconCheck;
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = iconCopy;
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    });
+    </script>
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "曾靖諺",
+        "alternateName": "Tseng Ching-Yen",
+        "url": "https://www.tseng-school.com",
+        "sameAs": [
+            "https://github.com/chingyen06"
+        ]
+        }
+    </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/chingyen06" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/avatar.png" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">靖諺的資訊學習筆記</h2>
+            <h3 id="title" class="hidden lg:block"></h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Taipei, Taiwan
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="w-full my-auto">
+        <div class="relative w-full">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="w-full">
+            <button type="submit" style="display: none;"></button>
+        </div>
+    </form>
+    
+    
+<div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div class="search-widget-container">
+        <div class="search-header">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
+        </div>
+        
+        <div class="search-result">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-4 pb-3 mb-2 pt-3 hover:bg-green-50 rounded-lg transition duration-200">
+                <i class="iconfont icon-file text-gray-400 mr-2"></i>
+                <h1 class="result-title inline font-bold text-lg text-gray-800">{{ title }}</h1>
+                <p class="result-content text-gray-500 text-sm mt-1 line-clamp-2">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var observer = new MutationObserver(function(mutations) {
+        var gtInput = document.querySelector('.gt-header-textarea');
+        
+        if (gtInput && !gtInput.dataset.fixed) {
+            gtInput.dataset.fixed = "true";
+
+            
+            gtInput.setAttribute('data-gramm', 'false');
+            gtInput.setAttribute('spellcheck', 'false');
+            gtInput.classList.add('notranslate');
+
+            ['keydown', 'keyup', 'keypress'].forEach(function(event) {
+                gtInput.addEventListener(event, function(e) {
+                    e.stopPropagation();
+                }, true); 
+            });
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+</div>
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">主頁</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">文章</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-resources" role="menuitem">
+                <a href="/resources">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">資源</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">類別</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">標籤</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">關於</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont social-icon icon-facebook"></i>
+                <span class="menu-title hidden lg:inline">menu.facebook</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            計算機演算法 Chapter 22 基本圖演算法
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2026/07/14/algorithm/ch22/" class="article-date">
+	  <time datetime="2026-07-14T12:00:00.000Z" itemprop="datePublished">2026-07-14</time>
+	</a>
+</span>
+
+                
+  <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a>
+  </span>
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/BFS/" rel="tag">BFS</a>, <a class="article-tag-none-link" href="/tags/CLRS/" rel="tag">CLRS</a>, <a class="article-tag-none-link" href="/tags/DFS/" rel="tag">DFS</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2026/07/14/algorithm/ch22/#comments" class="article-comment-link">
+                        評論
+                    </a>
+                </span>
+                
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <div class="alert-block alert-info note-shortcode">此筆記整理《演算法導論》第二十二章的部分內容。這一章介紹處理圖（Graph）最基本的兩種走訪方式：廣度優先搜尋（BFS）與深度優先搜尋（DFS），而拓撲排序與強連通分量這邊暫時不講。圖以 $G = (V, E)$ 表示，$V$ 為頂點集合、$E$ 為邊集合，後面分析複雜度時會頻繁用到 $|V|$ 與 $|E|$</div>
+
+<h2 id="第一節-圖的表示法"><a href="#第一節-圖的表示法" class="headerlink" title="第一節 圖的表示法"></a>第一節 圖的表示法</h2><p>一張圖 $G = (V, E)$ 通常有兩種常見的存法：<strong>鄰接串列（Adjacency List）</strong> 與 <strong>鄰接矩陣（Adjacency Matrix）</strong></p>
+<div class="img-row left"><img src="fig22.1.svg" alt="fig 22.1" loading="lazy" decoding="async" style="width:90%"></div>
+
+<p>以上圖的有向圖為例（6 個頂點、8 條邊）：</p>
+<ul>
+<li><strong>鄰接串列</strong>：每個頂點 $u$ 作為一個串列，這裡可以稱為 $Adj[u]$，記錄所有從 $u$ 出發可直接到達的頂點，會一個一個串在原本的後面。所有串列的長度總和，在有向圖 (有方向限制) 中等於 $|E|$、在無向圖 (無方向限制) 中等於 $2|E|$，因此整體空間為 $\Theta(V + E)$<br>(我們最常用鏈結串列 Linked-List 來實作，通常在大一會介紹)</li>
+<li><strong>鄰接矩陣</strong>：用一個 $|V| \times |V|$ 的矩陣 $A$ 來存，其中 $a_{ij} = 1$ 表示存在邊 $(i, j)$，否則為 $0$。空間為 $\Theta(V^2)$，與邊數和有沒有向無關<br>(我們最常用二維陣列來實作)</li>
+</ul>
+<p>兩者的取捨如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">面向</th>
+<th align="center">鄰接串列</th>
+<th align="center">鄰接矩陣</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">空間</td>
+<td align="center">$\Theta(V + E)$</td>
+<td align="center">$\Theta(V^2)$</td>
+</tr>
+<tr>
+<td align="left">查詢邊 $(u,v)$ 是否存在</td>
+<td align="center">$O(\deg(u))$ (臨邊數)</td>
+<td align="center">$O(1)$</td>
+</tr>
+<tr>
+<td align="left">走訪 $u$ 的所有鄰居</td>
+<td align="center">$O(\deg(u))$ (臨邊數)</td>
+<td align="center">$O(V)$</td>
+</tr>
+<tr>
+<td align="left">適合</td>
+<td align="center"><strong>稀疏圖</strong>（$\lvert E\rvert \ll \lvert V\rvert^2$）</td>
+<td align="center"><strong>稠密圖</strong> (需頻繁查單一邊)</td>
+</tr>
+</tbody></table>
+<p>本章的 BFS 與 DFS 皆以鄰接串列表示，因此才能做到 $O(V + E)$ 的時間複雜度</p>
+<h2 id="第二節-廣度優先搜尋-BFS"><a href="#第二節-廣度優先搜尋-BFS" class="headerlink" title="第二節 廣度優先搜尋 BFS"></a>第二節 廣度優先搜尋 BFS</h2><div class="alert-block alert-success"><strong>問題：</strong>給定圖 $G = (V, E)$ 與一個起點 $s$，找出從 $s$ 到每個可以走到的頂點的<strong>最短路徑</strong>，並建立一棵廣度優先樹
+</div>
+
+<p>BFS 的想法是一層一層往外長，會先走到離起點 $s$ 距離為 1 的所有頂點，再走訪距離到為距離為 2 的頂點，以此類推<br>通常為了做到這件事，我們必須在走到某個頂點 (距離 $x$) 後，就把與他相鄰的所有未走訪頂點 (距離 $x+1$) 都加入等待，等前面距離 $x$ 的點走完後，就會走到距離 $x+1$ 的點，通常我們會用<strong>佇列（Queue）</strong> 來實作</p>
+<p>過程中每個頂點會有三種顏色，這只是用來說明，實作並不需要：</p>
+<ul>
+<li><strong>白色（WHITE）</strong>：尚未被發現</li>
+<li><strong>灰色（GRAY）</strong>：已被發現，但其鄰居還沒全部探索完（在佇列中，即上述例子）</li>
+<li><strong>黑色（BLACK）</strong>：已被發現，且已經走過</li>
+</ul>
+<h3 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">BFS(G, s)</span><br><span class="line">    for each vertex u ∈ V[G] - &#123;s&#125;</span><br><span class="line">        do color[u] ← WHITE</span><br><span class="line">           d[u] ← ∞</span><br><span class="line">           π[u] ← NIL</span><br><span class="line">    color[s] ← GRAY</span><br><span class="line">    d[s] ← 0</span><br><span class="line">    π[s] ← NIL</span><br><span class="line">    Q ← ∅</span><br><span class="line">    ENQUEUE(Q, s)</span><br><span class="line">    while Q ≠ ∅</span><br><span class="line">        do u ← DEQUEUE(Q)</span><br><span class="line">           for each v ∈ Adj[u]</span><br><span class="line">               do if color[v] = WHITE</span><br><span class="line">                      then color[v] ← GRAY</span><br><span class="line">                           d[v] ← d[u] + 1</span><br><span class="line">                           π[v] ← u</span><br><span class="line">                           ENQUEUE(Q, v)</span><br><span class="line">           color[u] ← BLACK</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明"><a href="#說明" class="headerlink" title="說明"></a>說明</h3><div class="img-row left"><img src="fig22.2.svg" alt="fig 22.2" loading="lazy" decoding="async" style="width:80%"></div>
+
+<p>$d[u]$ 記錄從 $s$ 到 $u$ 的最短距離 (邊數)，$\pi[u]$ 記錄 $u$ 在廣度優先樹上的父節點</p>
+<p>每次都從 queue 取出最先放進，且還沒被 pop 的值 (即距離最小的灰色頂點) $u$，檢查它的每個鄰居 $v$：<br>    如果 $v$ 還是白色，代表第一次被發現，把它的距離設為 $d[u] + 1$、父節點設為 $u$，塗成灰色後放進 queue。當 $u$ 的鄰居都處理完，就把 $u$ 塗黑 (這邊其實就 pop 掉就可以)</p>
+<p>因為 queue 是先進先出 (FIFO)，距離小的頂點一定比距離大的先被取出來，所以 BFS 保證第一次走道 $v$ 的時候走的就是 $s$ 到 $v$ 的最短路徑。上圖以起點 $s$ 為例，每個頂點內標記的數字為 $d$ 值，粗線為廣度優先樹的邊，可以看到頂點是依 $0 \to 1 \to 2 \to 3$ 的距離一層層被發現</p>
+<p>初始化每個頂點需 $O(V)$，每個頂點最多進出 queue 一次也是，所以 $V$ 個頂點是 $O(V)$，每個頂點被取出時會掃過自己的鄰接串列，所有鄰接串列的長度總和為 $\Theta(E)$，因此掃描鄰居的成本為 $O(E)$，整體時間複雜度為 $O(V) + O(V) + O(E) = O(2V + E) = O(V + E)$</p>
+<h3 id="最短路徑"><a href="#最短路徑" class="headerlink" title="最短路徑"></a>最短路徑</h3><p>建好廣度優先樹（也就是 $\pi$ 陣列）後，要印出從 $s$ 到 $v$ 的最短路徑，只要沿著父節點一路往回走即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PRINT-PATH(G, s, v)</span><br><span class="line">    if v = s</span><br><span class="line">        then print s</span><br><span class="line">        else if π[v] = NIL</span><br><span class="line">                then print &quot;no path from&quot; s &quot;to&quot; v &quot;exists&quot;</span><br><span class="line">                else PRINT-PATH(G, s, π[v])</span><br><span class="line">                     print v</span><br></pre></td></tr></table></figure>
+
+<p>先遞迴印出 $s$ 到 $\pi[v]$ 的路徑，回來後再印出 $v$ 自己，這樣輸出的順序就會是從 $s$ 到 $v$。如果某個 $v$ 的 $\pi[v] = \text{NIL}$ 且 $v \ne s$，代表 $v$ 從 $s$ 根本走不到，直接輸出 no path from $s$ to $v$</p>
+<h2 id="第三節-深度優先搜尋-DFS"><a href="#第三節-深度優先搜尋-DFS" class="headerlink" title="第三節 深度優先搜尋 DFS"></a>第三節 深度優先搜尋 DFS</h2><div class="alert-block alert-success"><strong>問題：</strong>給定圖 $G = (V, E)$，盡可能地往深處走訪，直到走不下去才回溯，並為每個頂點記錄<strong>發現時間</strong>與<strong>完成時間</strong>
+</div>
+
+<p>BFS 是一層一層擴散，DFS 則是先一條路走到底，再回頭走另一條路，也就是說從一個頂點出發，沿著邊往下走，只要有還沒走過的鄰居就繼續走，直到走不下去才回頭一格，再嘗試往其他沒走過的鄰居走</p>
+<p>教科書在 DFS 教我們的是在每個頂點都存兩個時間：</p>
+<ul>
+<li><strong>發現時間 $d[u]$</strong>：$u$ 第一次被發現 (塗成灰色)的時間</li>
+<li><strong>完成時間 $f[u]$</strong>：$u$ 的鄰居都探索完 (塗成黑色) 的時間</li>
+</ul>
+<h3 id="Pseudocode-1"><a href="#Pseudocode-1" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">DFS(G)</span><br><span class="line">    for each vertex u ∈ V[G]</span><br><span class="line">        do color[u] ← WHITE</span><br><span class="line">           π[u] ← NIL</span><br><span class="line">    time ← 0</span><br><span class="line">    for each vertex u ∈ V[G]</span><br><span class="line">        do if color[u] = WHITE</span><br><span class="line">               then DFS-VISIT(u)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DFS-VISIT(u)</span><br><span class="line">    color[u] ← GRAY          ▷ 剛發現白色頂點 u</span><br><span class="line">    time ← time + 1</span><br><span class="line">    d[u] ← time</span><br><span class="line">    for each v ∈ Adj[u]      ▷ 探索邊 (u, v)</span><br><span class="line">        do if color[v] = WHITE</span><br><span class="line">               then π[v] ← u</span><br><span class="line">                    DFS-VISIT(v)</span><br><span class="line">    color[u] ← BLACK         ▷ 將 u 塗黑；u 已完成</span><br><span class="line">    f[u] ← time ← time + 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明-1"><a href="#說明-1" class="headerlink" title="說明"></a>說明</h3><div class="img-row left"><img src="fig22.3.svg" alt="fig 22.3" loading="lazy" decoding="async" style="width:85%"></div>
+
+<p>$DFS(G)$ 的外層迴圈先把所有頂點初始化為白色，接著一個一個檢查每個頂點，只要遇到白色的就呼叫 <code>DFS-VISIT</code> 去走<br><code>DFS-VISIT(u)</code> 會先把 $u$ 塗灰然後記錄發現時間，然後繼續重複上面的步驟檢查每個白色鄰居，等所有鄰居都處理完，才把 $u$ 塗黑並記下完成時間</p>
+<p>上圖每個頂點標記的 $d/f$ 即為發現時間與完成時間，粗線是樹的邊。由於每個頂點只會做 <code>DFS-VISIT</code> 一次 (第一次走過後就會塗灰，下次不再走)，初始化白色的點要 $O(V)$，而所有鄰接串列的掃描總和為 $O(E)$，所以時間複雜度同樣是 $O(V + E)$</p>
+<p>其實從上面的這個做法就可以發現到，任意兩個頂點 $u$ 與 $v$，他們的區間分別是 $[d[u], f[u]]$ 與 $[d[v], f[v]]$，那麼不可能有一個點是比較早走到但比較晚結束的，或反之比較晚走到但比較早結束。這是因為 DFS 是後進先出 (LIFO)，你一定要先走完子節點的所有路徑，才可以確定你這個節點已經結束了</p>
+<h3 id="邊的分類"><a href="#邊的分類" class="headerlink" title="邊的分類"></a>邊的分類</h3><p>DFS 走訪過程中，可以依照探索邊 $(u, v)$ 時 $v$ 的顏色，把邊分成四類：</p>
+<table>
+<thead>
+<tr>
+<th align="left">邊的種類</th>
+<th align="center">探索到 $(u,v)$ 時 $v$ 的顏色</th>
+<th align="left">意義</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>樹邊（Tree edge）</strong></td>
+<td align="center">白色</td>
+<td align="left">$v$ 第一次由 $(u,v)$ 被發現，是森林中的邊</td>
+</tr>
+<tr>
+<td align="left"><strong>後向邊（Back edge）</strong></td>
+<td align="center">灰色</td>
+<td align="left">$v$ 是 $u$ 的祖先，代表存在環 (因為 v 已經先走過但還沒結束，你就已經走回去了)</td>
+</tr>
+<tr>
+<td align="left"><strong>前向邊（Forward edge）</strong></td>
+<td align="center">黑色，且 $d[u] &lt; d[v]$</td>
+<td align="left">$v$ 是 $u$ 的子孫，但不是樹邊</td>
+</tr>
+<tr>
+<td align="left"><strong>橫向邊（Cross edge）</strong></td>
+<td align="center">黑色，且 $d[u] &gt; d[v]$</td>
+<td align="left">其餘情況，連接不同子樹或同層</td>
+</tr>
+</tbody></table>
+<p>上圖中的邊除了樹邊外，分別標記了 B (後向)、F (前向)、C (橫向)<br>這個分類非常有用，例如<strong>一張有向圖是有向無環圖 (DAG) 若且唯若 (if and only if) DFS 不會產生任何後向邊</strong>，白話講就是一個圖如果沒有環就是有向無環圖 (DAG)</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><table>
+<thead>
+<tr>
+<th align="left">演算法</th>
+<th align="left">用途</th>
+<th align="center">資料結構</th>
+<th align="center">時間複雜度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">BFS</td>
+<td align="left">無權圖單源最短路徑、分層走訪</td>
+<td align="center">佇列（Queue）</td>
+<td align="center">$O(V + E)$</td>
+</tr>
+<tr>
+<td align="left">DFS</td>
+<td align="left">走訪、時間戳記、邊分類</td>
+<td align="center">遞迴／堆疊（Stack）</td>
+<td align="center">$O(V + E)$</td>
+</tr>
+</tbody></table>
+<ul>
+<li>BFS 用<strong>佇列</strong>、一層層擴散，適合求<strong>最短邊數</strong>；DFS 用<strong>遞迴（堆疊）</strong>、一路走到底，適合分析圖的結構</li>
+<li>DFS 的<strong>時間</strong>與<strong>邊分類</strong>是後續拓撲排序與強連通分量的基礎，無後向邊 $\Leftrightarrow$ DAG，是拓撲排序成立的條件</li>
+</ul>
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><p>T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, <em>Introduction to Algorithms, Second Ed.</em>, The MIT Press, 2001.</p>
+
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/07/14/algorithm/ch22/">https://www.tseng-school.com/2026/07/14/algorithm/ch22/</a></p>
+    <p><strong> </strong></p>
+</blockquote>
+
+
+    </article>
+    
+    
+        <section id="comments">
+            
+                <div class="giscus"></div>
+            
+        </section>
+    
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目錄</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AF%80-%E5%9C%96%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">第一節 圖的表示法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AF%80-%E5%BB%A3%E5%BA%A6%E5%84%AA%E5%85%88%E6%90%9C%E5%B0%8B-BFS"><span class="toc-number">2.</span> <span class="toc-text">第二節 廣度優先搜尋 BFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode"><span class="toc-number">2.1.</span> <span class="toc-text">Pseudocode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E"><span class="toc-number">2.2.</span> <span class="toc-text">說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%91"><span class="toc-number">2.3.</span> <span class="toc-text">最短路徑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AF%80-%E6%B7%B1%E5%BA%A6%E5%84%AA%E5%85%88%E6%90%9C%E5%B0%8B-DFS"><span class="toc-number">3.</span> <span class="toc-text">第三節 深度優先搜尋 DFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode-1"><span class="toc-number">3.1.</span> <span class="toc-text">Pseudocode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E-1"><span class="toc-number">3.2.</span> <span class="toc-text">說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%8A%E7%9A%84%E5%88%86%E9%A1%9E"><span class="toc-number">3.3.</span> <span class="toc-text">邊的分類</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-number">4.</span> <span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E6%96%87%E7%8D%BB"><span class="toc-number">5.</span> <span class="toc-text">參考文獻</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div style="
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                flex-wrap: wrap;
+                width: 100%; 
+                margin: 40px 0 20px 0;
+                color: #666; 
+                font-size: 0.85rem;
+                clear: both;
+            ">
+              <span id="busuanzi_container_site_uv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-user" style="margin-right: 4px;"></i>
+                訪客數：<span id="busuanzi_value_site_uv">未知</span> 人
+              </span>
+              
+              <span style="margin: 0 12px; color: #ddd;">|</span>
+              
+              <span id="busuanzi_container_site_pv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-eye" style="margin-right: 4px;"></i>
+                總瀏覽：<span id="busuanzi_value_site_pv">未知</span> 次
+              </span>
+            </div>
+            </section>
+        
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont icon-facebook"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+
+    
+    <script src="https://giscus.app/client.js"
+            data-repo="chingyen06/blog-comment"
+            data-repo-id="R_kgDORKkDHg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORKkDHs4C_mPa"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+
+
+
+    
+    <script>
+    (function () {
+        var imgs = document.querySelectorAll('main img, article img, .marked-body img');
+        if (!imgs.length) return;
+        var loaded = false;
+        function loadLG() {
+            if (loaded) return; loaded = true;
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css';
+            document.head.appendChild(css);
+            var cdn = document.createElement('script');
+            cdn.src = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js';
+            cdn.onload = function () {
+                var local = document.createElement('script');
+                local.src = '/js/light-gallery.min.js';
+                document.body.appendChild(local);
+            };
+            document.body.appendChild(cdn);
+        }
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) { loadLG(); io.disconnect(); }
+            }, { rootMargin: '300px' });
+            io.observe(imgs[0]);
+        } else {
+            loadLG();
+        }
+    })();
+    </script>
+
+
+
+
+
+    </body>
+</html>
