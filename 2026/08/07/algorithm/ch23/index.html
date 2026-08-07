@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html  lang="zh-TW" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    
+    <title>計算機演算法 Chapter 23 最小生成樹 | 靖諺的資訊學習筆記 | 靖諺的資訊學習筆記</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
+
+    <style>
+        body { font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif !important; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
+    </style>
+
+    <meta name="description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第二十三章的內容：最小生成樹 (MST)。從通用方法 Generic-MST 的想法出發，推導出兩個圖論的貪心演算法 Kruskal 與 Prim。每節包含定理思路與 Pseudocode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="計算機演算法 Chapter 23 最小生成樹">
+<meta property="og:url" content="https://www.tseng-school.com/2026/08/07/algorithm/ch23/index.html">
+<meta property="og:site_name" content="靖諺的資訊學習筆記">
+<meta property="og:description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第二十三章的內容：最小生成樹 (MST)。從通用方法 Generic-MST 的想法出發，推導出兩個圖論的貪心演算法 Kruskal 與 Prim。每節包含定理思路與 Pseudocode">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://www.tseng-school.com/2026/08/07/algorithm/ch23/fig23.1.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/08/07/algorithm/ch23/fig23.2.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/08/07/algorithm/ch23/fig23.3.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/08/07/algorithm/ch23/fig23.4.svg">
+<meta property="article:published_time" content="2026-08-07T03:25:00.000Z">
+<meta property="article:modified_time" content="2026-08-07T03:22:18.014Z">
+<meta property="article:author" content="chingyen06">
+<meta property="article:tag" content="CLRS">
+<meta property="article:tag" content="Kruskal">
+<meta property="article:tag" content="Prim">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tseng-school.com/2026/08/07/algorithm/ch23/fig23.1.svg">
+
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+    <link rel="icon" href="/images/avatar.png" type="image/x-icon">
+    
+
+    
+    <link rel="stylesheet" href="/css/common.min.css?v=414f1e19">
+    
+    <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
+
+    
+        <script>
+        window.MathJax = {
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+          options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <style>
+          mjx-container[jax="CHTML"][display="true"] {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            padding-top: 2px;
+            padding-bottom: 2px;
+          }
+          mjx-container[jax="CHTML"] {
+            max-width: 100%;
+          }
+        </style>
+    
+
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-18D6HBKZSF');
+        </script>
+    
+
+    
+        
+        <meta name="google-adsense-account" content="ca-pub-3486620369936828">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3486620369936828" crossorigin="anonymous"></script>
+    
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const COLLAPSE_HEIGHT = 360; // 超過此高度才提供收合鈕
+        const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+        const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        const iconChevron = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+        const iconChevronDouble = `<svg viewBox="0 0 24 24"><path d="M16.59 5.59L12 10.17 7.41 5.59 6 7l6 6 6-6zM16.59 11.59L12 16.17l-4.59-4.58L6 13l6 6 6-6z"/></svg>`;
+        const langMap = { cpp:'C++', 'c++':'C++', cc:'C++', cxx:'C++', c:'C', py:'Python', python:'Python', js:'JavaScript', javascript:'JavaScript', ts:'TypeScript', typescript:'TypeScript', java:'Java', html:'HTML', xml:'XML', css:'CSS', scss:'SCSS', bash:'Bash', sh:'Shell', shell:'Shell', zsh:'Shell', json:'JSON', yaml:'YAML', yml:'YAML', sql:'SQL', go:'Go', rust:'Rust', rs:'Rust', php:'PHP', ruby:'Ruby', rb:'Ruby', kotlin:'Kotlin', swift:'Swift', plaintext:'Text', text:'Text', plain:'Text', md:'Markdown', markdown:'Markdown' };
+
+        const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
+        figures.forEach(figure => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            figure.parentNode.insertBefore(wrapper, figure);
+
+            // 標題列：左邊三個圓點 + 語言標籤，右邊工具列（仿 IDE 視窗）
+            const header = document.createElement('div');
+            header.className = 'code-header';
+
+            const dots = document.createElement('div');
+            dots.className = 'code-dots';
+            dots.innerHTML = '<span></span><span></span><span></span>';
+            header.appendChild(dots);
+
+            const lang = [...figure.classList].find(c => c !== 'highlight');
+            const label = document.createElement('span');
+            label.className = 'code-lang';
+            label.textContent = lang ? (langMap[lang.toLowerCase()] || lang.toUpperCase()) : 'CODE';
+            header.appendChild(label);
+
+            // 工具列（靠右）：複製在左、收合在右
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+            header.appendChild(toolbar);
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-btn copy-btn';
+            copyBtn.innerHTML = iconCopy;
+            copyBtn.title = "複製程式碼";
+            toolbar.appendChild(copyBtn);
+
+            // 右上角收合鈕：負責「整個區塊」摺疊成只剩標題列（每個程式碼都有）
+            const foldBtn = document.createElement('button');
+            foldBtn.className = 'code-btn fold-btn';
+            foldBtn.innerHTML = iconChevron;
+            foldBtn.title = "收合 / 展開整個程式碼";
+            toolbar.appendChild(foldBtn);
+            foldBtn.addEventListener('click', () => {
+                const folded = wrapper.classList.toggle('folded');
+                foldBtn.classList.toggle('folded', folded);
+            });
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(figure);
+
+            // 長程式碼：預設部分收合（300px），底部整條雙箭頭負責展開/收回預覽
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const footer = document.createElement('div');
+                footer.className = 'code-footer';
+                footer.innerHTML = iconChevronDouble;
+                footer.title = "展開 / 收合程式碼";
+                wrapper.appendChild(footer);
+
+                footer.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                });
+            }
+
+            copyBtn.addEventListener('click', () => {
+                const codeCell = figure.querySelector('td.code');
+                const codeText = codeCell ? codeCell.innerText : figure.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = iconCheck;
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = iconCopy;
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    });
+    </script>
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "曾靖諺",
+        "alternateName": "Tseng Ching-Yen",
+        "url": "https://www.tseng-school.com",
+        "sameAs": [
+            "https://github.com/chingyen06"
+        ]
+        }
+    </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/chingyen06" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/avatar.png" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">靖諺的資訊學習筆記</h2>
+            <h3 id="title" class="hidden lg:block"></h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Taipei, Taiwan
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="w-full my-auto">
+        <div class="relative w-full">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="w-full">
+            <button type="submit" style="display: none;"></button>
+        </div>
+    </form>
+    
+    
+<div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div class="search-widget-container">
+        <div class="search-header">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
+        </div>
+        
+        <div class="search-result">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-4 pb-3 mb-2 pt-3 hover:bg-green-50 rounded-lg transition duration-200">
+                <i class="iconfont icon-file text-gray-400 mr-2"></i>
+                <h1 class="result-title inline font-bold text-lg text-gray-800">{{ title }}</h1>
+                <p class="result-content text-gray-500 text-sm mt-1 line-clamp-2">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var observer = new MutationObserver(function(mutations) {
+        var gtInput = document.querySelector('.gt-header-textarea');
+        
+        if (gtInput && !gtInput.dataset.fixed) {
+            gtInput.dataset.fixed = "true";
+
+            
+            gtInput.setAttribute('data-gramm', 'false');
+            gtInput.setAttribute('spellcheck', 'false');
+            gtInput.classList.add('notranslate');
+
+            ['keydown', 'keyup', 'keypress'].forEach(function(event) {
+                gtInput.addEventListener(event, function(e) {
+                    e.stopPropagation();
+                }, true); 
+            });
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+</div>
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">主頁</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">文章</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-resources" role="menuitem">
+                <a href="/resources">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">資源</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">類別</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">標籤</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-privacy" role="menuitem">
+                <a href="/privacy">
+                    <i class="iconfont icon-file" aria-hidden="true"></i>
+                    <span class="menu-title">隱私權</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">關於</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont social-icon icon-facebook"></i>
+                <span class="menu-title hidden lg:inline">menu.facebook</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            計算機演算法 Chapter 23 最小生成樹
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2026/08/07/algorithm/ch23/" class="article-date">
+	  <time datetime="2026-08-07T03:25:00.000Z" itemprop="datePublished">2026-08-07</time>
+	</a>
+</span>
+
+                
+  <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a>
+  </span>
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/CLRS/" rel="tag">CLRS</a>, <a class="article-tag-none-link" href="/tags/Kruskal/" rel="tag">Kruskal</a>, <a class="article-tag-none-link" href="/tags/Prim/" rel="tag">Prim</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2026/08/07/algorithm/ch23/#comments" class="article-comment-link">
+                        評論
+                    </a>
+                </span>
+                
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <div class="alert-block alert-info note-shortcode">此筆記整理《演算法導論》第二十三章的內容。給定一張帶權重的無向圖，<strong>最小生成樹 (Minimum Spanning Tree, MST)</strong> 就是一棵把所有頂點連在一起的樹 (不能形成環)，他的總權重在所有可能的方法中最小。本章先講一個涵蓋所有 MST 演算法的通用框架 Generic-MST，，再介紹兩個<strong>第十六章貪心演算法</strong>應用於圖論的實作：Kruskal 與 Prim</div>
+
+<h2 id="第一節-最小生成樹與通用方法"><a href="#第一節-最小生成樹與通用方法" class="headerlink" title="第一節 最小生成樹與通用方法"></a>第一節 最小生成樹與通用方法</h2><div class="alert-block alert-success"><strong>問題：</strong>給定一張無向圖 $G = (V, E)$，每條邊 $(u, v)$ 有權重 $w(u, v)$。找一個邊的子集合 $T \subseteq E$ ($E$ 代表邊的集合)，讓 $T$ 連接所有頂點且不含環 (就是一棵<strong>生成樹</strong>)，並使總權重 $w(T) = \sum_{(u,v) \in T} w(u, v)$ 最小
+</div>
+
+<p>一棵生成樹一定恰好有 $|V| - 1$ 條邊 (這樣才能連接 $|V|$ 個頂點，而且不會形成環)。因為權重可能有很多組合，我們沒辦法窮舉，因此需要一個有系統的方法</p>
+<div class="img-row left"><img src="fig23.1.svg" alt="fig 23.1" loading="lazy" decoding="async" style="width:90%"></div>
+
+<p>上圖是本章會一直用到的範例：粗線就是其中一個最小生成樹，總權重為 $37$。<br>這裡要注意，最小生成樹不一定唯一，例如把上面的邊 $(a, h)$ 換成同樣權重為 8 的 $(b, c)$，會得到另一棵權重一樣是 $37$ 的最小生成樹</p>
+<h3 id="Generic-MST"><a href="#Generic-MST" class="headerlink" title="Generic-MST"></a>Generic-MST</h3><p>我們先用一個很抽象的概念來描述所有 MST 演算法共同的方法：<br>維護一個邊的集合 $A$，$A$ 一直都是某一棵最小生成樹的子集，就是最後形成出來的最小生成樹的某一段。我們每一步都往 $A$ 裡加入一條 <strong>安全邊 (safe edge)</strong>，也就是加進去之後 $A$ 仍然是某棵最小生成樹子集的邊 (也就是他不能成環)，直到 $A$ 長成一棵完整的生成樹</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GENERIC-MST(G, w)</span><br><span class="line">    A ← ∅</span><br><span class="line">    while A does not form a spanning tree</span><br><span class="line">        do find an edge (u, v) that is safe for A</span><br><span class="line">           A ← A ∪ &#123;(u, v)&#125;</span><br><span class="line">    return A</span><br></pre></td></tr></table></figure>
+
+<p>這個方法的重點就是要怎麼找到那個安全邊，下面解釋</p>
+<h3 id="割、安全邊與切分定理"><a href="#割、安全邊與切分定理" class="headerlink" title="割、安全邊與切分定理"></a>割、安全邊與切分定理</h3><div class="img-row left"><img src="fig23.2.svg" alt="fig 23.2" loading="lazy" decoding="async" style="width:90%"></div>
+
+<p>先定義幾個名詞：</p>
+<ul>
+<li><strong>割 (cut)</strong> $(S, V - S)$：把頂點集合 $V$ 分成兩堆 (一堆是 $S$，另一堆是 $V - S$) 的一種分法</li>
+<li><strong>橫跨 (crossing)</strong>：若一條邊的兩個端點分別落在 $S$ 與 $V - S$，就說這條邊 <strong>橫跨 (crossing)</strong> 這個 <strong>割 (cut)</strong></li>
+<li><strong>尊重 (respect)</strong>：若 $A$ 中沒有任何一條邊 <strong>橫跨 (crossing)</strong> 這個 <strong>割 (cut)</strong>，就說這個 <strong>割 (cut)</strong> <strong>尊重 (respect)</strong> $A$</li>
+<li><strong>輕邊 (light edge)</strong>：所有 <strong>橫跨(crossing)</strong> <strong>割 (cut)</strong> 的邊之中，權重最小的那一條</li>
+</ul>
+<p>以上圖為例，$S = \{a, b, h, i\}$ (黑色頂點)，<strong>橫跨 (crossing) 割 (cut)</strong> 的邊有 $(b,c)=8$、$(c,i)=2$、$(g,i)=6$、$(h,g)=1$ (橘色)，其中權重最小的 $(h, g) = 1$ 就是<strong>輕邊 (light edge)</strong></p>
+<div class="alert-block alert-success"><strong>定理 23.1：</strong>設 $A$ 是某棵最小生成樹的子集，$(S, V-S)$ 是一個尊重 (respect) $A$ 的割 (cut)，$(u, v)$ 是橫跨 (crossing) 這個割 (cut) 的一條輕邊 (light edge)，則 $(u, v)$ 對 $A$ 而言是安全的
+</div>
+
+<p><strong>&lt;註&gt;</strong> 這個意思就是說割 (cut) $(S, V - S)$ 的時候不會把 $A$ 裡面的邊割 (cut) 了，這意思就是 $A$ 裡面的邊要馬就在 $S$ 內，要馬就在 $V - S$ 內，不會有橫跨 $S$ 跟 $V - S$ 的邊，也就是他不能切到已經確定是最小生成樹的任一個邊，那確定沒有割到已經確定是最小生成樹的任一個邊後，接著就在橫跨 (crossing) $S$ 跟 $V - S$ 的邊中挑權重最小的出來加進去 $A$ (這條也叫 輕邊 light edge)</p>
+<p>也就是說只要一個割 (cut)沒有被 $A$ 橫跨 (crossing)，那麼橫跨 (crossing) 它的最輕的邊，一定可以安全地加進 $A$。上圖的 $(h,g)$ 就是這樣一條安全邊</p>
+<p>這個定理可以用<strong>交換論證 (exchange argument)</strong> 來理解：既然 $A$ 是某棵最小生成樹 $T$ 的子集，如果輕邊 $(u,v)$ 本來就在 $T$ 裡，那沒事。如果不在的話，把 $(u,v)$ 加進 $T$ 會形成一個環，這個環一定會在割上來回一次，所以環上必有另一條橫跨割的邊 $(x,y)$。因為 $(u,v)$ 是輕邊，$w(u,v) \le w(x,y)$，於是我們把 $(x,y)$ 換成 $(u,v)$，得到的新樹 $T' = T - \{(x,y)\} \cup \{(u,v)\}$ 仍是生成樹，總權重不會變大，因此 $T'$ 也是一棵最小生成樹，而且它同時包含了 $A$ 與 $(u,v)$。這就證明了 $(u,v)$ 是安全的</p>
+<p>有了這個定理，Kruskal 與 Prim 其實只是用不同的方式去製造尊重 $A$ 的割，再挑出那條輕邊而已</p>
+<h2 id="第二節-Kruskal-演算法"><a href="#第二節-Kruskal-演算法" class="headerlink" title="第二節 Kruskal 演算法"></a>第二節 Kruskal 演算法</h2><div class="alert-block alert-success"><strong>想法：</strong>不需要管從哪裡開始，直接把所有邊依權重<strong>由小到大</strong>排序，一條一條看，只要這條邊的兩個端點還沒被連在一起 (加進去不會形成環)，就把它加進去
+</div>
+
+<p>要判斷兩個端點有沒有連在一起，會用到 <strong>互斥集合 (Disjoint-Set &#x2F; Union-Find)</strong> 這個資料結構，它提供三個操作：<br><code>MAKE-SET(v)</code> 建立單點集合、<code>FIND-SET(v)</code> 查詢 $v$ 屬於哪個集合、<code>UNION(u, v)</code> 把兩個集合合併</p>
+<h3 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MST-KRUSKAL(G, w)</span><br><span class="line">    A ← ∅</span><br><span class="line">    for each vertex v ∈ V[G]</span><br><span class="line">        do MAKE-SET(v)</span><br><span class="line">    將 E 中的邊依權重由小到大排序</span><br><span class="line">    for each edge (u, v) ∈ E, 依權重由小到大取出</span><br><span class="line">        do if FIND-SET(u) ≠ FIND-SET(v)</span><br><span class="line">               then A ← A ∪ &#123;(u, v)&#125;</span><br><span class="line">                    UNION(u, v)</span><br><span class="line">    return A</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明"><a href="#說明" class="headerlink" title="說明"></a>說明</h3><div class="img-row left"><img src="fig23.3.svg" alt="fig 23.3" loading="lazy" decoding="async" style="width:90%"></div>
+
+<p><code>FIND-SET(u) ≠ FIND-SET(v)</code> 的意思是判斷 $u$ 跟 $v$ 是不是屬於不同的樹。如果是，代表加入 $(u,v)$ 不會成環，就把它加入 $A$ 並用 <code>UNION</code> 合併兩棵樹；如果 <code>FIND-SET</code> 相同，代表兩點已經在同一棵樹裡，加入就會成環，直接跳過</p>
+<div class="alert-block alert-info note-shortcode"><strong>題外話：互斥集合的實作</strong>
+
+我們通常會維護一個父節點陣列 <code>p[1..V]</code>：
+- <strong>FIND-SET(x)：</strong>：** 沿著 <code>p[x]</code> 一路向上尋找直到根節點，這個根節點就是代表你屬於的樹
+- <strong>路徑壓縮：</strong> 在 <code>FIND-SET</code> 結束後，可以順便把沿途所有節點直接指向根節點，這樣下次查 <code>FIND-SET</code> 的時候就能把時間複雜度降到接近 $O(1)$，這就是為什麼時間複雜度可以降到接近常數的 $O(\alpha(V))$</div>
+
+<p>上圖標出了 Kruskal 加入邊的順序：先挑最輕的 $(h,g)=1$，接著 $(c,i)=2$、$(f,g)=2$…依序往上。中途遇到 $(g,i)=6$、$(h,i)=7$、$(b,c)=8$ 這些會成環的邊就略過 (圖中以淡色虛線表示)，最後長出的就是最小生成樹的一種，權重 $= 37$</p>
+<p>回想一下上面說的定理 23.1。這裡要加入邊 $(u,v)$ 的時候，$(u,v)$ 是目前所有連接兩棵不同樹的邊裡最輕的。你可以想像一個割把 $u$ 所在的那棵樹當成 $S$、其餘頂點當成 $V-S$，這個割顯然尊重 $A$ ($A$ 中的邊都在各自的樹內部，不會橫跨)，而 $(u,v)$ 正是橫跨這個割的輕邊，所以它是安全邊</p>
+<h3 id="複雜度"><a href="#複雜度" class="headerlink" title="複雜度"></a>複雜度</h3><ul>
+<li>排序所有邊：$O(E \lg E)$</li>
+<li>Union-Find 的操作總共約 $O(E \, \alpha(V))$，其中 $\alpha$ 是成長緩慢，實務上可視為常數</li>
+</ul>
+<p>邊數 $E$ 至少會是 $V - 1$，至多完全圖的邊數，即 $V - 1 &lt; E &lt; \frac{V(V-1)}{2} &lt; \frac{V^2}{2}$，這就可以看出 $E &lt; V^2$，所以 $\lg E$ 可以再改寫成 $\lg E = O(\lg V)$，最後的時間複雜度就可以寫成：<br>$$O(E \lg E) = O(E \lg V)$$</p>
+<h2 id="第三節-Prim-演算法"><a href="#第三節-Prim-演算法" class="headerlink" title="第三節 Prim 演算法"></a>第三節 Prim 演算法</h2><div class="alert-block alert-success"><strong>想法：</strong>從任意一個根 $r$ 開始，維護<strong>一棵</strong>不斷長大的樹。每一步都在樹與樹外頂點的邊之中，挑一條權重最小的加入，直到涵蓋所有頂點
+</div>
+
+<p>和 Kruskal 維護一整片邊集合不同，Prim 從頭到尾只維護一棵樹。為了每次都能快速找到樹與樹外頂點的邊之中權重最小的邊，我們會用 <strong>優先佇列 (Priority Queue，通常以 Min-Heap 實作，這個在第六章有提到)</strong></p>
+<p>每個還沒進入樹的頂點 $v$ 都維護一個 $key[v]$：代表 $v$ 到目前這棵樹的所有邊之中最小的權重 (這裡不是存根到頂點 $v$ 加總的權重，那是下一章講 Dijkstra 的時候這樣存。這裡是只有 頂點 $v$ 與樹有相鄰的點的權重中，取最小的存；若還連不到樹則為 $\infty$)。$\pi[v]$ 則記錄他在最小生成樹中的父節點</p>
+<h3 id="Pseudocode-1"><a href="#Pseudocode-1" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MST-PRIM(G, w, r)</span><br><span class="line">    for each u ∈ V[G]</span><br><span class="line">        do key[u] ← ∞</span><br><span class="line">           π[u] ← NIL</span><br><span class="line">    key[r] ← 0</span><br><span class="line">    Q ← V[G]                          ▷ 以 key 為鍵值的最小優先佇列</span><br><span class="line">    while Q ≠ ∅</span><br><span class="line">        do u ← EXTRACT-MIN(Q)         ▷ 取出目前離樹最近的頂點</span><br><span class="line">           for each v ∈ Adj[u]</span><br><span class="line">               do if v ∈ Q and w(u, v) &lt; key[v]</span><br><span class="line">                      then π[v] ← u</span><br><span class="line">                           key[v] ← w(u, v)</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明-1"><a href="#說明-1" class="headerlink" title="說明"></a>說明</h3><div class="img-row left"><img src="fig23.4.svg" alt="fig 23.4" loading="lazy" decoding="async" style="width:90%"></div>
+
+<p><code>EXTRACT-MIN(Q)</code> 每次取出 $key$ 最小的頂點 $u$，就是離目前確定的最小生成樹最近的那個頂點 ($key[u]$ 最小的)，把它併入樹。接著檢查 $u$ 的每個鄰居 $v$：<br>如果 $v$ 還在佇列裡 (還沒進樹)，而且經由 $u$ 連過去的權重 $w(u,v)$ 比 $v$ 原本記錄的 $key[v]$ 還小，就更新 $key[v] = w(u,v)$ 與 $\pi[v] = u$，代表 $v$ 目前最好的連法是接到 $u$</p>
+<p>上圖從根 $a$ 出發，先加入權重最小的 $(a,b)=2$，再來 $(a,h)=8$，然後沿著 $(h,g)=1$、$(g,f)=2$… 一路把樹撐開。每一步已經在樹裡的頂點就構成一個割 (沒在樹裡的是另一半)，Prim 挑的就是橫跨這個割的輕邊，所以同樣符合定理 23.1。最後長出的也是那棵權重 $37$ 的最小生成樹 (與 Kruskal 相同，只是加入的順序不同)</p>
+<h3 id="複雜度-1"><a href="#複雜度-1" class="headerlink" title="複雜度"></a>複雜度</h3><p>以 Min-Heap 實作時：</p>
+<ul>
+<li>第 1～3 行的初始化：$O(V)$</li>
+<li><code>while</code> 迴圈共執行 $V$ 次，每次的 <code>EXTRACT-MIN</code> 為 $O(\lg V)$，合計 $O(V \lg V)$</li>
+<li>內層 <code>for</code> 迴圈掃過所有 linked-list，總共 $O(E)$ 次；每次更新 $key[v]$ 相當於一次 <code>DECREASE-KEY</code>，為 $O(\lg V)$，合計 $O(E \lg V)$</li>
+</ul>
+<p>整體時間複雜度為：<br>$$O(V \lg V + E \lg V) = O(E \lg V)$$</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><table>
+<thead>
+<tr>
+<th align="left">演算法</th>
+<th align="left">貪心策略</th>
+<th align="left">維護的結構</th>
+<th align="center">資料結構</th>
+<th align="center">時間複雜度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Generic-MST</td>
+<td align="left">每步加入一條安全邊</td>
+<td align="left">邊集合 $A$</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr>
+<td align="left">Kruskal</td>
+<td align="left">全域挑最輕、不成環的邊</td>
+<td align="left">一整片邊集合</td>
+<td align="center">Union-Find</td>
+<td align="center">$O(E \lg V)$</td>
+</tr>
+<tr>
+<td align="left">Prim</td>
+<td align="left">挑連接樹與外界最輕的邊</td>
+<td align="left">單一棵樹</td>
+<td align="center">Min-Heap</td>
+<td align="center">$O(E \lg V)$</td>
+</tr>
+</tbody></table>
+<ul>
+<li>兩者都是用<strong>貪心演算法</strong>完成的，正確性都建立在**定理 23.1 (安全邊定理)**上，只差在用什麼方式製造尊重 $A$ 的割</li>
+<li><strong>Kruskal</strong> 看的是全域最輕的邊，適合<strong>稀疏圖</strong>；<strong>Prim</strong> 從一個根長出單一棵樹，配合好的優先佇列在<strong>稠密圖</strong>上表現較佳</li>
+<li>兩者在同一張圖上可能長出不同 (但權重相同) 的最小生成樹，因為當有多條同權重的邊時，選擇順序不同</li>
+</ul>
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><p>T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, <em>Introduction to Algorithms, Second Ed.</em>, The MIT Press, 2001.</p>
+
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/08/07/algorithm/ch23/">https://www.tseng-school.com/2026/08/07/algorithm/ch23/</a></p>
+    <p><strong> </strong></p>
+</blockquote>
+
+
+    </article>
+    
+
+
+    
+    
+        <section id="comments">
+            
+                <div class="giscus"></div>
+            
+        </section>
+    
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目錄</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AF%80-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A8%B9%E8%88%87%E9%80%9A%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">第一節 最小生成樹與通用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Generic-MST"><span class="toc-number">1.1.</span> <span class="toc-text">Generic-MST</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%B2%E3%80%81%E5%AE%89%E5%85%A8%E9%82%8A%E8%88%87%E5%88%87%E5%88%86%E5%AE%9A%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text">割、安全邊與切分定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AF%80-Kruskal-%E6%BC%94%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">第二節 Kruskal 演算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode"><span class="toc-number">2.1.</span> <span class="toc-text">Pseudocode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E"><span class="toc-number">2.2.</span> <span class="toc-text">說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A4%87%E9%9B%9C%E5%BA%A6"><span class="toc-number">2.3.</span> <span class="toc-text">複雜度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AF%80-Prim-%E6%BC%94%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">第三節 Prim 演算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode-1"><span class="toc-number">3.1.</span> <span class="toc-text">Pseudocode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E-1"><span class="toc-number">3.2.</span> <span class="toc-text">說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A4%87%E9%9B%9C%E5%BA%A6-1"><span class="toc-number">3.3.</span> <span class="toc-text">複雜度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-number">4.</span> <span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E6%96%87%E7%8D%BB"><span class="toc-number">5.</span> <span class="toc-text">參考文獻</span></a></li></ol>
+        </nav>
+        
+
+
+    </div>
+</aside>
+
+
+
+
+
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div style="
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                flex-wrap: wrap;
+                width: 100%; 
+                margin: 40px 0 20px 0;
+                color: #666; 
+                font-size: 0.85rem;
+                clear: both;
+            ">
+              <span id="busuanzi_container_site_uv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-user" style="margin-right: 4px;"></i>
+                訪客數：<span id="busuanzi_value_site_uv">未知</span> 人
+              </span>
+              
+              <span style="margin: 0 12px; color: #ddd;">|</span>
+              
+              <span id="busuanzi_container_site_pv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-eye" style="margin-right: 4px;"></i>
+                總瀏覽：<span id="busuanzi_value_site_pv">未知</span> 次
+              </span>
+
+              
+              <a href="/privacy/" style="color: inherit; margin-left: 24px;">隱私權政策</a>
+            </div>
+            </section>
+        
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont icon-facebook"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+
+    
+    <script src="https://giscus.app/client.js"
+            data-repo="chingyen06/blog-comment"
+            data-repo-id="R_kgDORKkDHg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORKkDHs4C_mPa"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+
+
+
+    
+    <script>
+    (function () {
+        var imgs = document.querySelectorAll('main img, article img, .marked-body img');
+        if (!imgs.length) return;
+        var loaded = false;
+        function loadLG() {
+            if (loaded) return; loaded = true;
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css';
+            document.head.appendChild(css);
+            var cdn = document.createElement('script');
+            cdn.src = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js';
+            cdn.onload = function () {
+                var local = document.createElement('script');
+                local.src = '/js/light-gallery.min.js';
+                document.body.appendChild(local);
+            };
+            document.body.appendChild(cdn);
+        }
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) { loadLG(); io.disconnect(); }
+            }, { rootMargin: '300px' });
+            io.observe(imgs[0]);
+        } else {
+            loadLG();
+        }
+    })();
+    </script>
+
+
+
+
+
+    </body>
+</html>
