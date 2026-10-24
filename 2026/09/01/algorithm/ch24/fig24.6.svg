@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="340" viewBox="0 0 600 340" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+  <defs>
+    <marker id="art" markerWidth="9" markerHeight="9" refX="7.6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#4f86c6"/></marker>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="7.6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7b8794"/></marker>
+    <marker id="arL" markerWidth="9" markerHeight="9" refX="7.6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#c3cad3"/></marker>
+    <marker id="arR" markerWidth="9" markerHeight="9" refX="7.6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#c0504d"/></marker>
+  </defs>
+  <rect width="600" height="340" fill="#ffffff"/>
+  <line x1="77.3" y1="160.0" x2="196.8" y2="90.5" stroke="#7b8794" stroke-width="1.8" marker-end="url(#ar)"/>
+  <rect x="132.1" y="124.9" width="24.0" height="17" rx="3" fill="#ffffff" opacity="0.92"/>
+  <text x="144.1" y="137.4" font-size="13" text-anchor="middle" fill="#5b6672">10</text>
+  <line x1="77.3" y1="180.0" x2="196.8" y2="249.5" stroke="#4f86c6" stroke-width="2.6" marker-end="url(#art)"/>
+  <rect x="136.3" y="189.3" width="16.5" height="17" rx="3" fill="#ffffff" opacity="0.92"/>
+  <text x="144.6" y="201.8" font-size="13" text-anchor="middle" fill="#4f86c6">5</text>
+  <line x1="235.0" y1="80.0" x2="384.0" y2="80.0" stroke="#4f86c6" stroke-width="2.6" marker-end="url(#art)"/>
+  <rect x="301.2" y="81.5" width="16.5" height="17" rx="3" fill="#ffffff" opacity="0.92"/>
+  <text x="309.5" y="94.0" font-size="13" text-anchor="middle" fill="#4f86c6">1</text>
+  <path d="M 224.1 97.8 Q 261.0 170.0 224.6 241.3" fill="none" stroke="#7b8794" stroke-width="1.8" marker-end="url(#ar)"/>
+  <rect x="218.4" y="157.3" width="16.5" height="17" rx="3" fill="#ffffff" opacity="0.92"/>
+  <text x="226.7" y="169.8" font-size="13" text-anchor="middle" fill="#5b6672">2</text>
+  <path d="M 205.9 242.2 Q 169.0 170.0 205.4 98.7" fill="none" stroke="#4f86c6" stroke-width="2.6" marker-end="url(#art)"/>
+  <rect x="195.1" y="157.7" width="16.5" height="17" rx="3" fill="#ffffff" opacity="0.92"/>
+  <text x="203.3" y="170.2" font-size="13" text-anchor="middle" fill="#4f86c6">3</text>
+  <line x1="229.5" y1="246.2" x2="389.8" y2="94.4" stroke="#7b8794" stroke-width="1.8" marker-end="url(#ar)"/>
+  <rect x="262.9" y="175.0" width="16.5" height="17" rx="3" fill="#ffffff" opacity="0.92"/>
+  <text x="271.2" y="187.5" font-size="13" text-anchor="middle" fill="#5b6672">9</text>
+  <line x1="235.0" y1="260.0" x2="384.0" y2="260.0" stroke="#4f86c6" stroke-width="2.6" marker-end="url(#art)"/>
+  <rect x="301.2" y="262.5" width="16.5" height="17" rx="3" fill="#ffffff" opacity="0.92"/>
+  <text x="309.5" y="275.0" font-size="13" text-anchor="middle" fill="#4f86c6">2</text>
+  <path d="M 414.1 97.8 Q 451.0 170.0 414.6 241.3" fill="none" stroke="#7b8794" stroke-width="1.8" marker-end="url(#ar)"/>
+  <rect x="408.4" y="157.3" width="16.5" height="17" rx="3" fill="#ffffff" opacity="0.92"/>
+  <text x="416.7" y="169.8" font-size="13" text-anchor="middle" fill="#5b6672">4</text>
+  <path d="M 395.9 242.2 Q 359.0 170.0 395.4 98.7" fill="none" stroke="#7b8794" stroke-width="1.8" marker-end="url(#ar)"/>
+  <rect x="385.1" y="157.7" width="16.5" height="17" rx="3" fill="#ffffff" opacity="0.92"/>
+  <text x="393.3" y="170.2" font-size="13" text-anchor="middle" fill="#5b6672">6</text>
+  <line x1="385.6" y1="255.0" x2="80.3" y2="175.3" stroke="#7b8794" stroke-width="1.8" marker-end="url(#ar)"/>
+  <rect x="282.3" y="232.1" width="16.5" height="17" rx="3" fill="#ffffff" opacity="0.92"/>
+  <text x="290.5" y="244.6" font-size="13" text-anchor="middle" fill="#5b6672">7</text>
+  <circle cx="60" cy="170" r="18" fill="#e9edf2" stroke="#33404d" stroke-width="1.6"/>
+  <text x="60" y="174.5" font-size="14" text-anchor="middle" fill="#111">0</text>
+  <text x="28.0" y="175.0" font-size="14" text-anchor="middle" fill="#33404d" font-style="italic">s</text>
+  <circle cx="215" cy="80" r="18" fill="#e9edf2" stroke="#33404d" stroke-width="1.6"/>
+  <text x="215" y="84.5" font-size="14" text-anchor="middle" fill="#111">8</text>
+  <text x="215.0" y="50.0" font-size="14" text-anchor="middle" fill="#33404d" font-style="italic">t</text>
+  <circle cx="405" cy="80" r="18" fill="#e9edf2" stroke="#33404d" stroke-width="1.6"/>
+  <text x="405" y="84.5" font-size="14" text-anchor="middle" fill="#111">9</text>
+  <text x="405.0" y="50.0" font-size="14" text-anchor="middle" fill="#33404d" font-style="italic">x</text>
+  <circle cx="215" cy="260" r="18" fill="#e9edf2" stroke="#33404d" stroke-width="1.6"/>
+  <text x="215" y="264.5" font-size="14" text-anchor="middle" fill="#111">5</text>
+  <text x="215.0" y="294.0" font-size="14" text-anchor="middle" fill="#33404d" font-style="italic">y</text>
+  <circle cx="405" cy="260" r="18" fill="#e9edf2" stroke="#33404d" stroke-width="1.6"/>
+  <text x="405" y="264.5" font-size="14" text-anchor="middle" fill="#111">7</text>
+  <text x="405.0" y="294.0" font-size="14" text-anchor="middle" fill="#33404d" font-style="italic">z</text>
+  <text x="60" y="312" font-size="13" fill="#111">頂點內為結束後的 d[v] = &#948;(s, v)</text>
+  <line x1="60" y1="328" x2="92" y2="328" stroke="#4f86c6" stroke-width="2.6"/>
+  <text x="100" y="332.5" font-size="13" fill="#111">最短路徑樹的邊</text>
+</svg>

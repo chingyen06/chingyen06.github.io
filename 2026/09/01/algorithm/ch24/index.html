@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html  lang="zh-TW" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    
+    <title>計算機演算法 Chapter 24 單源最短路徑 | 靖諺的資訊學習筆記 | 靖諺的資訊學習筆記</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
+
+    <style>
+        body { font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif !important; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
+    </style>
+
+    <meta name="description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第二十四章的內容：單源最短路徑。從鬆弛 (Relaxation) 這個共同動作出發，介紹 Bellman-Ford、DAG 最短路徑與 Dijkstra 三個演算法，最後補充差分約束系統的應用。每節包含定理思路與 Pseudocode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="計算機演算法 Chapter 24 單源最短路徑">
+<meta property="og:url" content="https://www.tseng-school.com/2026/09/01/algorithm/ch24/index.html">
+<meta property="og:site_name" content="靖諺的資訊學習筆記">
+<meta property="og:description" content="此筆記整理《Introduction to Algorithms》(CLRS) 第二十四章的內容：單源最短路徑。從鬆弛 (Relaxation) 這個共同動作出發，介紹 Bellman-Ford、DAG 最短路徑與 Dijkstra 三個演算法，最後補充差分約束系統的應用。每節包含定理思路與 Pseudocode">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://www.tseng-school.com/2026/09/01/algorithm/ch24/fig24.1.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/09/01/algorithm/ch24/fig24.2.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/09/01/algorithm/ch24/fig24.3.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/09/01/algorithm/ch24/fig24.4.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/09/01/algorithm/ch24/fig24.5.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/09/01/algorithm/ch24/fig24.6.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/09/01/algorithm/ch24/fig24.7.svg">
+<meta property="article:published_time" content="2026-09-01T11:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-01T11:24:03.998Z">
+<meta property="article:author" content="chingyen06">
+<meta property="article:tag" content="Bellman-Ford">
+<meta property="article:tag" content="CLRS">
+<meta property="article:tag" content="Dijkstra">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tseng-school.com/2026/09/01/algorithm/ch24/fig24.1.svg">
+
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+    <link rel="icon" href="/images/avatar.png" type="image/x-icon">
+    
+
+    
+    <link rel="stylesheet" href="/css/common.min.css?v=414f1e19">
+    
+    <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
+
+    
+        <script>
+        window.MathJax = {
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+          options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <style>
+          mjx-container[jax="CHTML"][display="true"] {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            padding-top: 2px;
+            padding-bottom: 2px;
+          }
+          mjx-container[jax="CHTML"] {
+            max-width: 100%;
+          }
+        </style>
+    
+
+    
+
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-18D6HBKZSF');
+        </script>
+    
+
+    
+        
+        <meta name="google-adsense-account" content="ca-pub-3486620369936828">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3486620369936828" crossorigin="anonymous"></script>
+    
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const COLLAPSE_HEIGHT = 360; // 超過此高度才提供收合鈕
+        const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+        const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        const iconChevron = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+        const iconChevronDouble = `<svg viewBox="0 0 24 24"><path d="M16.59 5.59L12 10.17 7.41 5.59 6 7l6 6 6-6zM16.59 11.59L12 16.17l-4.59-4.58L6 13l6 6 6-6z"/></svg>`;
+        const langMap = { cpp:'C++', 'c++':'C++', cc:'C++', cxx:'C++', c:'C', py:'Python', python:'Python', js:'JavaScript', javascript:'JavaScript', ts:'TypeScript', typescript:'TypeScript', java:'Java', html:'HTML', xml:'XML', css:'CSS', scss:'SCSS', bash:'Bash', sh:'Shell', shell:'Shell', zsh:'Shell', json:'JSON', yaml:'YAML', yml:'YAML', sql:'SQL', go:'Go', rust:'Rust', rs:'Rust', php:'PHP', ruby:'Ruby', rb:'Ruby', kotlin:'Kotlin', swift:'Swift', plaintext:'Text', text:'Text', plain:'Text', md:'Markdown', markdown:'Markdown' };
+
+        const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
+        figures.forEach(figure => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            figure.parentNode.insertBefore(wrapper, figure);
+
+            // 標題列：左邊三個圓點 + 語言標籤，右邊工具列（仿 IDE 視窗）
+            const header = document.createElement('div');
+            header.className = 'code-header';
+
+            const dots = document.createElement('div');
+            dots.className = 'code-dots';
+            dots.innerHTML = '<span></span><span></span><span></span>';
+            header.appendChild(dots);
+
+            const lang = [...figure.classList].find(c => c !== 'highlight');
+            const label = document.createElement('span');
+            label.className = 'code-lang';
+            label.textContent = lang ? (langMap[lang.toLowerCase()] || lang.toUpperCase()) : 'CODE';
+            header.appendChild(label);
+
+            // 工具列（靠右）：複製在左、收合在右
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+            header.appendChild(toolbar);
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-btn copy-btn';
+            copyBtn.innerHTML = iconCopy;
+            copyBtn.title = "複製程式碼";
+            toolbar.appendChild(copyBtn);
+
+            // 右上角收合鈕：負責「整個區塊」摺疊成只剩標題列（每個程式碼都有）
+            const foldBtn = document.createElement('button');
+            foldBtn.className = 'code-btn fold-btn';
+            foldBtn.innerHTML = iconChevron;
+            foldBtn.title = "收合 / 展開整個程式碼";
+            toolbar.appendChild(foldBtn);
+            foldBtn.addEventListener('click', () => {
+                const folded = wrapper.classList.toggle('folded');
+                foldBtn.classList.toggle('folded', folded);
+            });
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(figure);
+
+            // 長程式碼：預設部分收合（300px），底部整條雙箭頭負責展開/收回預覽
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const footer = document.createElement('div');
+                footer.className = 'code-footer';
+                footer.innerHTML = iconChevronDouble;
+                footer.title = "展開 / 收合程式碼";
+                wrapper.appendChild(footer);
+
+                footer.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                });
+            }
+
+            copyBtn.addEventListener('click', () => {
+                const codeCell = figure.querySelector('td.code');
+                const codeText = codeCell ? codeCell.innerText : figure.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = iconCheck;
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = iconCopy;
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    });
+    </script>
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "曾靖諺",
+        "alternateName": "Tseng Ching-Yen",
+        "url": "https://www.tseng-school.com",
+        "sameAs": [
+            "https://github.com/chingyen06"
+        ]
+        }
+    </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/chingyen06" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/avatar.png" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">靖諺的資訊學習筆記</h2>
+            <h3 id="title" class="hidden lg:block"></h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Taipei, Taiwan
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="w-full my-auto">
+        <div class="relative w-full">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="w-full">
+            <button type="submit" style="display: none;"></button>
+        </div>
+    </form>
+    
+    
+<div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div class="search-widget-container">
+        <div class="search-header">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
+        </div>
+        
+        <div class="search-result">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-4 pb-3 mb-2 pt-3 hover:bg-green-50 rounded-lg transition duration-200">
+                <i class="iconfont icon-file text-gray-400 mr-2"></i>
+                <h1 class="result-title inline font-bold text-lg text-gray-800">{{ title }}</h1>
+                <p class="result-content text-gray-500 text-sm mt-1 line-clamp-2">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var observer = new MutationObserver(function(mutations) {
+        var gtInput = document.querySelector('.gt-header-textarea');
+        
+        if (gtInput && !gtInput.dataset.fixed) {
+            gtInput.dataset.fixed = "true";
+
+            
+            gtInput.setAttribute('data-gramm', 'false');
+            gtInput.setAttribute('spellcheck', 'false');
+            gtInput.classList.add('notranslate');
+
+            ['keydown', 'keyup', 'keypress'].forEach(function(event) {
+                gtInput.addEventListener(event, function(e) {
+                    e.stopPropagation();
+                }, true); 
+            });
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+</div>
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">主頁</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">文章</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-resources" role="menuitem">
+                <a href="/resources">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">資源</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">類別</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">標籤</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-privacy" role="menuitem">
+                <a href="/privacy">
+                    <i class="iconfont icon-file" aria-hidden="true"></i>
+                    <span class="menu-title">隱私權</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">關於</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont social-icon icon-facebook"></i>
+                <span class="menu-title hidden lg:inline">menu.facebook</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            計算機演算法 Chapter 24 單源最短路徑
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2026/09/01/algorithm/ch24/" class="article-date">
+	  <time datetime="2026-09-01T11:00:00.000Z" itemprop="datePublished">2026-09-01</time>
+	</a>
+</span>
+
+                
+  <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a>
+  </span>
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/Bellman-Ford/" rel="tag">Bellman-Ford</a>, <a class="article-tag-none-link" href="/tags/CLRS/" rel="tag">CLRS</a>, <a class="article-tag-none-link" href="/tags/Dijkstra/" rel="tag">Dijkstra</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2026/09/01/algorithm/ch24/#comments" class="article-comment-link">
+                        評論
+                    </a>
+                </span>
+                
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <div class="alert-block alert-info note-shortcode">此筆記整理《演算法導論》第二十四章的內容。第二十二章的 BFS 已經可以找最短路徑，但那是<strong>每條邊都一樣長</strong>的情況，只要數邊數就好。這一章的邊有<strong>權重</strong> (可以想成距離、時間或花費)，要找的是權重加起來最小的走法。本章的三個演算法其實都在做同一件事，就是不斷地<strong>鬆弛 (Relax)</strong> 每一條邊，差別只在鬆弛的順序跟次數</div>
+
+<h2 id="第一節-單源最短路徑"><a href="#第一節-單源最短路徑" class="headerlink" title="第一節 單源最短路徑"></a>第一節 單源最短路徑</h2><div class="alert-block alert-success"><strong>問題：</strong>給定一張有向圖 $G = (V, E)$，每條邊 $(u, v)$ 有權重 $w(u, v)$，以及一個起點 $s$。對每個頂點 $v$，求出 $s$ 到 $v$ 的最短路徑權重
+$$\delta(s, v) = \min \{\, w(p) : p \text{ 是 } s \text{ 到 } v \text{ 的路徑} \,\}$$
+其中 $w(p)$ 是路徑 $p$ 上所有邊的權重相加。如果 $s$ 走不到 $v$，就定義 $\delta(s, v) = \infty$
+</div>
+
+<p>最短路徑最重要的性質是<strong>最佳子結構</strong>：最短路徑切下來的任何一段，本身也是最短路徑 (不然把那一段換成更短的走法，整條路就更短了，這樣就矛盾)。有最佳子結構就代表這題可以用<strong>動態規劃 (第十五章)</strong> 或<strong>貪心 (第十六章)</strong> 去解，後面的 Bellman-Ford 就是動態規劃的味道，Dijkstra 則是貪心</p>
+<p>另外還有兩件之後會一直用到的事：對任何一條邊 $(u,v)$ 都有 $\delta(s, v) \le \delta(s, u) + w(u, v)$ (這叫<strong>三角不等式</strong>，繞去 $u$ 再走過來不會比較好)，以及最短路徑<strong>不會有環</strong>，所以最多只有 $|V| - 1$ 條邊</p>
+<h3 id="負權重邊與負權重環"><a href="#負權重邊與負權重環" class="headerlink" title="負權重邊與負權重環"></a>負權重邊與負權重環</h3><div class="img-row left"><img src="fig24.1.svg" alt="fig 24.1" loading="lazy" decoding="async" style="width:95%"></div>
+
+<p>權重是負的其實沒關係，真正會出事的是<strong>負權重環 (negative-weight cycle)</strong>：如果從 $s$ 走得到一個環，而這個環上的權重加起來是負的，那只要一直繞這個環，路徑權重就可以一直變小，這時候最短路徑根本不存在，我們定義 $\delta(s, v) = -\infty$</p>
+<p>上圖頂點內的數字就是 $\delta(s, v)$。$e$ 跟 $f$ 形成的環權重是 $3 + (-6) = -3$，所以這兩點都是 $-\infty$；$g$ 自己不在環上，但它可以從 $f$ 走過來，所以也被拖成 $-\infty$。$c$ 跟 $d$ 之間也有環，但加起來是 $6 + (-3) = 3$，繞圈只會更差，所以不影響。至於 $h, i, j$ 上面雖然有一個 $-3$ 的負環，但<strong>從 $s$ 根本走不到</strong>，所以是 $\infty$ 而不是 $-\infty$</p>
+<p>也就是只有<strong>從起點走得到的負環</strong>才會有問題。後面的 Dijkstra 是連負的邊都不能有，Bellman-Ford 則可以有負邊，而且還會順便告訴你有沒有這種負環</p>
+<h3 id="最短路徑樹"><a href="#最短路徑樹" class="headerlink" title="最短路徑樹"></a>最短路徑樹</h3><div class="img-row left"><img src="fig24.2.svg" alt="fig 24.2" loading="lazy" decoding="async" style="width:90%"></div>
+
+<p>跟 BFS 一樣，每個頂點 $v$ 都存兩個東西：$d[v]$ 是目前已知從 $s$ 到 $v$ 的最短權重，但它只是一個<strong>估計值</strong>，演算法跑完後才會等於 $\delta(s, v)$；$\pi[v]$ 則是 $v$ 在最短路徑上的前一個頂點</p>
+<p>把所有 $\pi$ 連起來就是一棵<strong>最短路徑樹</strong>，從 $s$ 沿著樹走到 $v$ 就是一條最短路徑，要印出來一樣可以用第二十二章的 <code>PRINT-PATH</code></p>
+<p>上圖粗線是其中一棵最短路徑樹。這裡要注意最短路徑樹跟最小生成樹一樣<strong>不唯一</strong>，例如 $x$ 的 $9$ 可以從 $t$ 走過來 ($3+6$)，也可以從 $y$ 走過來 ($5+4$)，兩種都是合法的</p>
+<h2 id="第二節-鬆弛-Relaxation"><a href="#第二節-鬆弛-Relaxation" class="headerlink" title="第二節 鬆弛 Relaxation"></a>第二節 鬆弛 Relaxation</h2><p>開始跑之前要先把估計值設好，除了起點自己是 $0$ 以外，其他點都先當作走不到：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INITIALIZE-SINGLE-SOURCE(G, s)</span><br><span class="line">    for each vertex v ∈ V[G]</span><br><span class="line">        do d[v] ← ∞</span><br><span class="line">           π[v] ← NIL</span><br><span class="line">    d[s] ← 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">RELAX(u, v, w)</span><br><span class="line">    if d[v] &gt; d[u] + w(u, v)</span><br><span class="line">        then d[v] ← d[u] + w(u, v)</span><br><span class="line">             π[v] ← u</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明"><a href="#說明" class="headerlink" title="說明"></a>說明</h3><div class="img-row left"><img src="fig24.3.svg" alt="fig 24.3" loading="lazy" decoding="async" style="width:85%"></div>
+
+<p>鬆弛一條邊 $(u,v)$ 就是問一句話：<strong>先走到 $u$ 再走 $(u,v)$ 過來，會不會比我現在知道的走法更短？</strong> 如果 $d[u] + w(u,v)$ 比 $d[v]$ 小，就把 $d[v]$ 改小，順便把 $\pi[v]$ 記成 $u$ (代表現在最好的走法是從 $u$ 過來)，不然就什麼都不做。上圖 (a) 的 $d[v] = 9 &gt; 5 + 2$ 所以更新成 $7$；(b) 的 $d[v] = 6 \le 5 + 2$，維持不變</p>
+<p>這個動作有一個很重要的性質：$d[v]$ 只會越來越小，而且一旦變成 $\delta(s,v)$ 就不會再被改了。更重要的是，只要一條最短路徑上的邊<strong>有照順序被鬆弛過</strong>，那條路徑的終點就一定算對，中間夾雜其他邊的鬆弛也沒關係</p>
+<p><strong>&lt;註&gt;</strong> 這就是後面三個演算法正確性的來源。我們不用剛好只鬆弛「對的邊」，剩下的問題就只是要用什麼順序、鬆弛幾次而已</p>
+<h2 id="第三節-Bellman-Ford-演算法"><a href="#第三節-Bellman-Ford-演算法" class="headerlink" title="第三節 Bellman-Ford 演算法"></a>第三節 Bellman-Ford 演算法</h2><div class="alert-block alert-success"><strong>想法：</strong>既然不知道正確的順序，那就把<strong>所有的邊</strong>都鬆弛一遍，然後重複 $|V| - 1$ 次。允許負權重邊，而且可以回報有沒有負權重環
+</div>
+
+<p>前面說過最短路徑最多 $|V| - 1$ 條邊。每把所有邊掃過一輪，至少可以確定最短路徑上的下一條邊被鬆弛到，所以掃完 $k$ 輪，所有只需要 $k$ 條邊的最短路徑就都算對了，跑滿 $|V| - 1$ 輪就全部都對</p>
+<h3 id="Pseudocode-1"><a href="#Pseudocode-1" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">BELLMAN-FORD(G, w, s)</span><br><span class="line">    INITIALIZE-SINGLE-SOURCE(G, s)</span><br><span class="line">    for i ← 1 to |V[G]| - 1</span><br><span class="line">        do for each edge (u, v) ∈ E[G]</span><br><span class="line">               do RELAX(u, v, w)</span><br><span class="line">    for each edge (u, v) ∈ E[G]              ▷ 檢查有沒有負權重環</span><br><span class="line">        do if d[v] &gt; d[u] + w(u, v)</span><br><span class="line">               then return FALSE</span><br><span class="line">    return TRUE</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明-1"><a href="#說明-1" class="headerlink" title="說明"></a>說明</h3><div class="img-row left"><img src="fig24.4.svg" alt="fig 24.4" loading="lazy" decoding="async" style="width:90%"></div>
+
+<p>前面兩層迴圈就是所有邊鬆弛 $|V|-1$ 輪，最後那一次 (第 5～7 行) 不是在算答案，而是在檢查：都已經跑滿 $|V|-1$ 輪了，居然還有一條邊可以再變短，那就代表路徑上有環而且是負的，直接回傳 FALSE；不然就回傳 TRUE，此時的 $d$ 就是答案</p>
+<p>上圖有 5 個頂點所以要跑 4 輪，假設每輪鬆弛的順序都固定是<br>$(t,x), (t,y), (t,z), (x,t), (y,x), (y,z), (z,x), (z,s), (s,t), (s,y)$，過程如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">回合</th>
+<th align="center">$d[s]$</th>
+<th align="center">$d[t]$</th>
+<th align="center">$d[x]$</th>
+<th align="center">$d[y]$</th>
+<th align="center">$d[z]$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">初始</td>
+<td align="center">0</td>
+<td align="center">$\infty$</td>
+<td align="center">$\infty$</td>
+<td align="center">$\infty$</td>
+<td align="center">$\infty$</td>
+</tr>
+<tr>
+<td align="center">第 1 輪</td>
+<td align="center">0</td>
+<td align="center">6</td>
+<td align="center">$\infty$</td>
+<td align="center">7</td>
+<td align="center">$\infty$</td>
+</tr>
+<tr>
+<td align="center">第 2 輪</td>
+<td align="center">0</td>
+<td align="center">6</td>
+<td align="center">4</td>
+<td align="center">7</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">第 3 輪</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">7</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">第 4 輪</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">7</td>
+<td align="center">$-2$</td>
+</tr>
+</tbody></table>
+<p>第 1 輪只有 $t$ 跟 $y$ 被更新，因為其他點還是 $\infty$，$\infty$ 加上任何數還是很大，鬆弛不動，要等下一輪才會再往外傳一層。最後 $d[t] = 2$ 走的是 $s \to y \to x \to t$ ($7 - 3 - 2$)，比直接走 $s \to t$ 的 $6$ 還短，這就是有負邊的時候會發生的事，也是為什麼不能像下面的 Dijkstra 一樣確定了就不再改</p>
+<h3 id="複雜度"><a href="#複雜度" class="headerlink" title="複雜度"></a>複雜度</h3><ul>
+<li>初始化：$O(V)$</li>
+<li>主迴圈跑 $|V| - 1$ 輪，每輪掃過所有的邊 $O(E)$</li>
+<li>最後檢查負環再掃一次所有的邊：$O(E)$</li>
+</ul>
+<p>整體時間複雜度為：<br>$$O(V) + O(VE) + O(E) = O(VE)$$</p>
+<h2 id="第四節-DAG-上的最短路徑"><a href="#第四節-DAG-上的最短路徑" class="headerlink" title="第四節 DAG 上的最短路徑"></a>第四節 DAG 上的最短路徑</h2><div class="alert-block alert-success"><strong>想法：</strong>如果圖是<strong>有向無環圖 (DAG)</strong>，先做拓撲排序，再照著這個順序把每個頂點的出邊鬆弛一次就好，一輪都不用重複
+</div>
+
+<p>DAG 沒有環，當然也不會有負權重環，所以負邊完全沒問題。而且拓撲排序保證處理到 $u$ 的時候，所有可以走到 $u$ 的頂點都已經處理完了，$d[u]$ 早就是最後的答案，這時候才去鬆弛 $u$ 的出邊剛剛好。拓撲順序本身就是那個「照順序鬆弛」的順序，所以掃一次就夠了</p>
+<h3 id="Pseudocode-2"><a href="#Pseudocode-2" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DAG-SHORTEST-PATHS(G, w, s)</span><br><span class="line">    topologically sort the vertices of G</span><br><span class="line">    INITIALIZE-SINGLE-SOURCE(G, s)</span><br><span class="line">    for each vertex u, taken in topologically sorted order</span><br><span class="line">        do for each vertex v ∈ Adj[u]</span><br><span class="line">               do RELAX(u, v, w)</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明-2"><a href="#說明-2" class="headerlink" title="說明"></a>說明</h3><div class="img-row left"><img src="fig24.5.svg" alt="fig 24.5" loading="lazy" decoding="async" style="width:95%"></div>
+
+<p>上圖的頂點已經照拓撲排序由左排到右 ($r, s, t, x, y, z$)，起點是 $s$。$r$ 排在 $s$ 前面，從 $s$ 走不到它，所以 $d[r]$ 一直是 $\infty$，鬆弛它的出邊也不會更新到任何人</p>
+<p>接著處理 $s$ 得到 $d[t] = 2$、$d[x] = 6$；處理 $t$ 時 $d[x]$ 沒有變小 ($2+7 &gt; 6$)，但 $d[y] = 6$、$d[z] = 4$；處理 $x$ 時 $d[y]$ 被改成 $6-1 = 5$；最後處理 $y$，$d[z]$ 變成 $5-2 = 3$。每個頂點只被當成 $u$ 處理一次，每條邊也只鬆弛一次就結束了</p>
+<p><strong>&lt;註&gt;</strong> 這個做法拿來排工程進度 (PERT chart) 很好用，把邊的權重都乘上 $-1$ 再求最短路徑，就等於在求 DAG 上的<strong>最長路徑</strong>，也就是整個專案的關鍵路徑</p>
+<h3 id="複雜度-1"><a href="#複雜度-1" class="headerlink" title="複雜度"></a>複雜度</h3><ul>
+<li>拓撲排序 (第二十二章的 DFS)：$\Theta(V + E)$</li>
+<li>初始化：$\Theta(V)$</li>
+<li>外層跑過每個頂點、內層總共鬆弛每條邊一次：$\Theta(E)$</li>
+</ul>
+<p>整體時間複雜度為：<br>$$\Theta(V + E)$$</p>
+<p>只要圖是 DAG 就用這個，沒必要用 Bellman-Ford</p>
+<h2 id="第五節-Dijkstra-演算法"><a href="#第五節-Dijkstra-演算法" class="headerlink" title="第五節 Dijkstra 演算法"></a>第五節 Dijkstra 演算法</h2><div class="alert-block alert-success"><strong>想法：</strong>在<strong>所有邊的權重都非負</strong>的前提下，每次從還沒確定的頂點裡挑 $d$ 最小的那一個出來，把它的答案確定下來，再拿它去鬆弛出邊
+</div>
+
+<p>Dijkstra 維護一個集合 $S$，裡面放已經確定 $d[v] = \delta(s,v)$ 的頂點，剩下的都放在以 $d$ 為鍵值的<strong>最小優先佇列 (Min-Priority Queue)</strong> $Q$ 裡面，整個結構跟第二十三章的 Prim 幾乎一樣</p>
+<div class="alert-block alert-info note-shortcode"><strong>題外話：跟 Prim 的差別</strong>
+
+Prim 的 $key[v]$ 存的是 $v$ 連到<strong>那棵樹</strong>的邊裡面最小的權重，只看一條邊；Dijkstra 的 $d[v]$ 存的是從<strong>起點 $s$</strong> 一路走過來的權重總和，是一直累加的。這就是為什麼 Prim 長出最小生成樹，Dijkstra 長出最短路徑樹</div>
+
+<h3 id="Pseudocode-3"><a href="#Pseudocode-3" class="headerlink" title="Pseudocode"></a>Pseudocode</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DIJKSTRA(G, w, s)</span><br><span class="line">    INITIALIZE-SINGLE-SOURCE(G, s)</span><br><span class="line">    S ← ∅</span><br><span class="line">    Q ← V[G]                          ▷ 以 d 為鍵值的最小優先佇列</span><br><span class="line">    while Q ≠ ∅</span><br><span class="line">        do u ← EXTRACT-MIN(Q)         ▷ 取出目前 d 最小的頂點</span><br><span class="line">           S ← S ∪ &#123;u&#125;</span><br><span class="line">           for each vertex v ∈ Adj[u]</span><br><span class="line">               do RELAX(u, v, w)</span><br></pre></td></tr></table></figure>
+
+<h3 id="說明-3"><a href="#說明-3" class="headerlink" title="說明"></a>說明</h3><div class="img-row left"><img src="fig24.6.svg" alt="fig 24.6" loading="lazy" decoding="async" style="width:90%"></div>
+
+<p><code>EXTRACT-MIN(Q)</code> 每次取出 $d$ 最小的頂點 $u$ 丟進 $S$，代表 $d[u]$ 就是最後的答案不會再變，接著鬆弛 $u$ 的所有出邊，看看鄰居能不能更短。每個頂點只會被取出來一次，所以每條邊也只會被鬆弛一次</p>
+<p>上圖從 $s$ 出發，取出的順序是 $s(0) \to y(5) \to z(7) \to t(8) \to x(9)$：取出 $s$ 後 $d[t] = 10$、$d[y] = 5$；取出 $y$ 後 $d[t]$ 被改成 $5+3 = 8$、$d[x] = 14$、$d[z] = 7$；取出 $z$ 後 $d[x] = 13$；取出 $t$ 後 $d[x]$ 再變成 $8+1 = 9$。注意 $d[t]$ 一開始是 $10$，後來被 $y$ 改成 $8$，但 $t$ 一旦被取出來就不會再變了</p>
+<p>那為什麼權重不能是負的？假設 $u$ 被取出來的時候 $d[u]$ 還不是答案，那真正的最短路徑一定會在某個地方離開 $S$，設離開後的第一個頂點是 $y$。$y$ 排在 $u$ 前面，而<strong>在權重非負的前提下</strong>後面那段路不會是負的，所以 $d[y] \le d[u]$，<code>EXTRACT-MIN</code> 應該要先挑到 $y$ 才對，矛盾</p>
+<p>整段推論唯一用到非負的就是「後面那段路不會是負的」這句。如果可以有負邊，先確定的頂點之後還是會再變短，「確定了就不再改」這個貪心就壞掉了，那種情況只能改用 Bellman-Ford</p>
+<h3 id="複雜度-2"><a href="#複雜度-2" class="headerlink" title="複雜度"></a>複雜度</h3><p>整個過程做了 $|V|$ 次 <code>EXTRACT-MIN</code>，以及最多 $|E|$ 次的鬆弛 (每次可能是一個 <code>DECREASE-KEY</code>)，所以看優先佇列怎麼實作：</p>
+<ul>
+<li>用<strong>陣列</strong>線性找最小值：<code>EXTRACT-MIN</code> 要 $O(V)$、<code>DECREASE-KEY</code> 是 $O(1)$，合計 $O(V^2 + E) = O(V^2)$</li>
+<li>用 <strong>Min-Heap</strong>：兩個操作都是 $O(\lg V)$，合計 $O((V + E) \lg V) = O(E \lg V)$</li>
+<li>用<strong>費氏堆積 (Fibonacci Heap)</strong>：<code>DECREASE-KEY</code> 攤還後是 $O(1)$，合計 $O(V \lg V + E)$</li>
+</ul>
+<p>所以<strong>稠密圖</strong> ($E$ 接近 $V^2$) 用陣列反而比較好，<strong>稀疏圖</strong>用 Min-Heap 比較好，這個取捨跟 Prim 是一樣的</p>
+<h2 id="第六節-差分約束系統"><a href="#第六節-差分約束系統" class="headerlink" title="第六節 差分約束系統"></a>第六節 差分約束系統</h2><p>最後補一個最短路徑的應用。<strong>差分約束系統 (system of difference constraints)</strong> 就是一堆長成 $x_j - x_i \le b_k$ 的不等式，每一條都只牽涉到兩個變數的差，例如下面這組 (5 個變數、8 個限制)：</p>
+<p>$$
+\begin{aligned}
+x_1 - x_2 &amp;\le 0, &amp; x_1 - x_5 &amp;\le -1, &amp; x_2 - x_5 &amp;\le 1, &amp; x_3 - x_1 &amp;\le 5,\\
+x_4 - x_1 &amp;\le 4, &amp; x_4 - x_3 &amp;\le -1, &amp; x_5 - x_3 &amp;\le -3, &amp; x_5 - x_4 &amp;\le -3
+\end{aligned}
+$$</p>
+<div class="img-row left"><img src="fig24.7.svg" alt="fig 24.7" loading="lazy" decoding="async" style="width:85%"></div>
+
+<p>把 $x_j - x_i \le b_k$ 移項變成 $x_j \le x_i + b_k$，就會發現它跟三角不等式 $\delta(v_0, v_j) \le \delta(v_0, v_i) + w(v_i, v_j)$ 長得一模一樣，所以可以直接當成圖來解：每個變數 $x_i$ 是一個頂點 $v_i$，每條限制是一條權重 $b_k$ 的邊 $(v_i, v_j)$，再加一個頂點 $v_0$ 拉權重 $0$ 的邊到每個 $v_i$ (確保所有點都走得到)，這張圖叫<strong>約束圖 (constraint graph)</strong></p>
+<div class="alert-block alert-success"><strong>定理 24.9：</strong>如果約束圖沒有負權重環，那 $x_i = \delta(v_0, v_i)$ 就是這個系統的一組解；如果有負權重環，那這個系統無解
+</div>
+
+<p>上圖就是這組限制的約束圖，頂點內的數字是 $\delta(v_0, v_i)$，也就是一組解 $x = (-5, -3, 0, -1, -4)$，代回去每條限制都會成立。負環無解也很好理解，一個負環上那幾條限制式加起來會變成 $0 \le$ 一個負數，這顯然不可能</p>
+<p>因為會有負邊，所以要用 <strong>Bellman-Ford</strong> 解。$n$ 個變數、$m$ 條限制的話，約束圖有 $n+1$ 個頂點跟 $n+m$ 條邊，時間複雜度是 $O((n+1)(n+m)) = O(n^2 + nm)$。像「工作 $j$ 至少要在工作 $i$ 開始後 3 小時才能開始」這種排程限制，就可以直接寫成差分約束丟給它解</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><table>
+<thead>
+<tr>
+<th align="left">演算法</th>
+<th align="left">適用的圖</th>
+<th align="center">負權重邊</th>
+<th align="left">鬆弛的順序</th>
+<th align="center">時間複雜度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">BFS (第 22 章)</td>
+<td align="left">沒有權重的圖</td>
+<td align="center">—</td>
+<td align="left">依距離一層一層</td>
+<td align="center">$O(V + E)$</td>
+</tr>
+<tr>
+<td align="left">Bellman-Ford</td>
+<td align="left">一般有向圖</td>
+<td align="center">可以，還能偵測負環</td>
+<td align="left">所有邊重複 $V-1$ 輪</td>
+<td align="center">$O(VE)$</td>
+</tr>
+<tr>
+<td align="left">DAG-Shortest-Paths</td>
+<td align="left">有向無環圖</td>
+<td align="center">可以</td>
+<td align="left">依拓撲排序掃一次</td>
+<td align="center">$\Theta(V + E)$</td>
+</tr>
+<tr>
+<td align="left">Dijkstra</td>
+<td align="left">權重非負的圖</td>
+<td align="center">不行</td>
+<td align="left">每次挑 $d$ 最小的頂點</td>
+<td align="center">$O(E \lg V)$</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三個演算法的骨架完全一樣，都是 <code>INITIALIZE-SINGLE-SOURCE</code> 之後不停地 <code>RELAX</code>，差別只在用什麼順序鬆弛、鬆弛幾次</li>
+<li><strong>Dijkstra</strong> 是貪心，結構跟第二十三章的 Prim 幾乎一樣，只是 $d[v]$ 存的是累加的路徑權重，速度最快但不能有負邊；<strong>Bellman-Ford</strong> 慢但最通用，還可以偵測負權重環；圖如果是 <strong>DAG</strong>，拓撲排序後掃一次就結束</li>
+</ul>
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><p>T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, <em>Introduction to Algorithms, Second Ed.</em>, The MIT Press, 2001.</p>
+
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/09/01/algorithm/ch24/">https://www.tseng-school.com/2026/09/01/algorithm/ch24/</a></p>
+    <p><strong> </strong></p>
+</blockquote>
+
+
+    </article>
+    
+
+
+    
+    
+        <section id="comments">
+            
+                <div class="giscus"></div>
+            
+        </section>
+    
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目錄</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AF%80-%E5%96%AE%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%91"><span class="toc-number">1.</span> <span class="toc-text">第一節 單源最短路徑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B2%A0%E6%AC%8A%E9%87%8D%E9%82%8A%E8%88%87%E8%B2%A0%E6%AC%8A%E9%87%8D%E7%92%B0"><span class="toc-number">1.1.</span> <span class="toc-text">負權重邊與負權重環</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%91%E6%A8%B9"><span class="toc-number">1.2.</span> <span class="toc-text">最短路徑樹</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AF%80-%E9%AC%86%E5%BC%9B-Relaxation"><span class="toc-number">2.</span> <span class="toc-text">第二節 鬆弛 Relaxation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode"><span class="toc-number">2.1.</span> <span class="toc-text">Pseudocode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E"><span class="toc-number">2.2.</span> <span class="toc-text">說明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AF%80-Bellman-Ford-%E6%BC%94%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">第三節 Bellman-Ford 演算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode-1"><span class="toc-number">3.1.</span> <span class="toc-text">Pseudocode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E-1"><span class="toc-number">3.2.</span> <span class="toc-text">說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A4%87%E9%9B%9C%E5%BA%A6"><span class="toc-number">3.3.</span> <span class="toc-text">複雜度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AF%80-DAG-%E4%B8%8A%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%91"><span class="toc-number">4.</span> <span class="toc-text">第四節 DAG 上的最短路徑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode-2"><span class="toc-number">4.1.</span> <span class="toc-text">Pseudocode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E-2"><span class="toc-number">4.2.</span> <span class="toc-text">說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A4%87%E9%9B%9C%E5%BA%A6-1"><span class="toc-number">4.3.</span> <span class="toc-text">複雜度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AF%80-Dijkstra-%E6%BC%94%E7%AE%97%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">第五節 Dijkstra 演算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pseudocode-3"><span class="toc-number">5.1.</span> <span class="toc-text">Pseudocode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%AA%E6%98%8E-3"><span class="toc-number">5.2.</span> <span class="toc-text">說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A4%87%E9%9B%9C%E5%BA%A6-2"><span class="toc-number">5.3.</span> <span class="toc-text">複雜度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AF%80-%E5%B7%AE%E5%88%86%E7%B4%84%E6%9D%9F%E7%B3%BB%E7%B5%B1"><span class="toc-number">6.</span> <span class="toc-text">第六節 差分約束系統</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-number">7.</span> <span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E6%96%87%E7%8D%BB"><span class="toc-number">8.</span> <span class="toc-text">參考文獻</span></a></li></ol>
+        </nav>
+        
+
+
+    </div>
+</aside>
+
+
+
+
+
+            
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div style="
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                flex-wrap: wrap;
+                width: 100%; 
+                margin: 40px 0 20px 0;
+                color: #666; 
+                font-size: 0.85rem;
+                clear: both;
+            ">
+              <span id="busuanzi_container_site_uv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-user" style="margin-right: 4px;"></i>
+                訪客數：<span id="busuanzi_value_site_uv">未知</span> 人
+              </span>
+              
+              <span style="margin: 0 12px; color: #ddd;">|</span>
+              
+              <span id="busuanzi_container_site_pv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-eye" style="margin-right: 4px;"></i>
+                總瀏覽：<span id="busuanzi_value_site_pv">未知</span> 次
+              </span>
+
+              
+              <a href="/privacy/" style="color: inherit; margin-left: 24px;">隱私權政策</a>
+            </div>
+            </section>
+        
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont icon-facebook"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+
+    
+    <script src="https://giscus.app/client.js"
+            data-repo="chingyen06/blog-comment"
+            data-repo-id="R_kgDORKkDHg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORKkDHs4C_mPa"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+
+
+
+    
+    <script>
+    (function () {
+        var imgs = document.querySelectorAll('main img, article img, .marked-body img');
+        if (!imgs.length) return;
+        var loaded = false;
+        function loadLG() {
+            if (loaded) return; loaded = true;
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css';
+            document.head.appendChild(css);
+            var cdn = document.createElement('script');
+            cdn.src = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js';
+            cdn.onload = function () {
+                var local = document.createElement('script');
+                local.src = '/js/light-gallery.min.js';
+                document.body.appendChild(local);
+            };
+            document.body.appendChild(cdn);
+        }
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) { loadLG(); io.disconnect(); }
+            }, { rootMargin: '300px' });
+            io.observe(imgs[0]);
+        } else {
+            loadLG();
+        }
+    })();
+    </script>
+
+
+
+
+
+    </body>
+</html>

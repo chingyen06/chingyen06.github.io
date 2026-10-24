@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+<title>COMPANY 資料庫的 ER 圖</title>
+<rect width="900" height="600" fill="#ffffff"/>
+<line x1="270" y1="150" x2="170" y2="265" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="170" y1="265" x2="270" y2="380" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="270" y1="150" x2="370" y2="265" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="370" y1="265" x2="270" y2="380" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="270" y1="150" x2="485" y2="150" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="485" y1="150" x2="700" y2="150" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="270" y1="380" x2="700" y2="300" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="700" y1="300" x2="700" y2="150" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="110" y1="471" x2="110" y2="395" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="110" y1="395" x2="210" y2="395" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="170" y1="500" x2="250" y2="500" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="250" y1="500" x2="250" y2="402" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="270" y1="380" x2="440" y2="480" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="440.0" y1="482.6" x2="640.0" y2="482.6" stroke="#7b8794" stroke-width="1.5"/>
+<line x1="440.0" y1="477.4" x2="640.0" y2="477.4" stroke="#7b8794" stroke-width="1.5"/>
+<line x1="180" y1="60" x2="270" y2="150" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="270" y1="60" x2="270" y2="150" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="360" y1="60" x2="270" y2="150" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="640" y1="60" x2="700" y2="150" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="760" y1="60" x2="700" y2="150" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="110" y1="340" x2="270" y2="380" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="470" y1="215" x2="370" y2="265" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="830" y1="300" x2="700" y2="300" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="640" y1="555" x2="640" y2="480" stroke="#7b8794" stroke-width="1.6"/>
+<rect x="205.0" y="128.0" width="130" height="44" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="270" y="155" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">DEPARTMENT</text>
+<rect x="205.0" y="358.0" width="130" height="44" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="270" y="385" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">EMPLOYEE</text>
+<rect x="640.0" y="128.0" width="120" height="44" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="700" y="155" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">PROJECT</text>
+<rect x="575.0" y="458.0" width="130" height="44" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<rect x="580.0" y="463.0" width="120" height="34" fill="none" stroke="#4f86c6" stroke-width="2"/>
+<text x="640" y="485" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">DEPENDENT</text>
+<polygon points="170,239.0 229.0,265 170,291.0 111.0,265" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="170" y="269" font-size="11" text-anchor="middle" fill="#2c3e50" font-weight="bold">WORKS_FOR</text>
+<polygon points="370,239.0 422.0,265 370,291.0 318.0,265" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="370" y="269" font-size="11" text-anchor="middle" fill="#2c3e50" font-weight="bold">MANAGES</text>
+<polygon points="485,124.0 539.0,150 485,176.0 431.0,150" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="485" y="154" font-size="11" text-anchor="middle" fill="#2c3e50" font-weight="bold">CONTROLS</text>
+<polygon points="700,274.0 754.0,300 700,326.0 646.0,300" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="700" y="304" font-size="11" text-anchor="middle" fill="#2c3e50" font-weight="bold">WORKS_ON</text>
+<polygon points="110,474.0 171.0,500 110,526.0 49.0,500" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="110" y="504" font-size="11" text-anchor="middle" fill="#2c3e50" font-weight="bold">SUPERVISION</text>
+<polygon points="440,452.0 525.0,480 440,508.0 355.0,480" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<polygon points="440,458.0 517.0,480 440,502.0 363.0,480" fill="none" stroke="#d9822b" stroke-width="2"/>
+<text x="440" y="484" font-size="10.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">DEPENDENTS_OF</text>
+<ellipse cx="180" cy="60" rx="35.0" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
+<text x="180" y="64.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Dname</text>
+<line x1="162.0" y1="68" x2="198.0" y2="68" stroke="#2c3e50" stroke-width="1.3"/>
+<ellipse cx="270" cy="60" rx="43.400000000000006" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
+<text x="270" y="64.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Dnumber</text>
+<line x1="244.8" y1="68" x2="295.2" y2="68" stroke="#2c3e50" stroke-width="1.3"/>
+<ellipse cx="360" cy="60" rx="46" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
+<ellipse cx="360" cy="60" rx="41" ry="12" fill="none" stroke="#7b8794" stroke-width="1.6"/>
+<text x="360" y="64.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Dlocations</text>
+<ellipse cx="640" cy="60" rx="35.0" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
+<text x="640" y="64.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Pname</text>
+<line x1="622.0" y1="68" x2="658.0" y2="68" stroke="#2c3e50" stroke-width="1.3"/>
+<ellipse cx="760" cy="60" rx="43.400000000000006" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
+<text x="760" y="64.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Pnumber</text>
+<line x1="734.8" y1="68" x2="785.2" y2="68" stroke="#2c3e50" stroke-width="1.3"/>
+<ellipse cx="110" cy="340" rx="28" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
+<text x="110" y="344.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Ssn</text>
+<line x1="99.2" y1="348" x2="120.8" y2="348" stroke="#2c3e50" stroke-width="1.3"/>
+<ellipse cx="470" cy="215" rx="44" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
+<text x="470" y="219.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">StartDate</text>
+<ellipse cx="830" cy="300" rx="34" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
+<text x="830" y="304.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Hours</text>
+<ellipse cx="640" cy="555" rx="30.8" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
+<text x="640" y="559.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Name</text>
+<line x1="625.6" y1="563" x2="654.4" y2="563" stroke="#2c3e50" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text x="235" y="197" font-size="12.5" text-anchor="end" fill="#d9822b" font-weight="bold">(1,N)</text>
+<text x="215" y="347" font-size="12.5" text-anchor="end" fill="#d9822b" font-weight="bold">(1,1)</text>
+<text x="318" y="197" font-size="12.5" text-anchor="start" fill="#d9822b" font-weight="bold">(1,1)</text>
+<text x="318" y="347" font-size="12.5" text-anchor="start" fill="#d9822b" font-weight="bold">(0,1)</text>
+<text x="345" y="140" font-size="12.5" text-anchor="start" fill="#d9822b" font-weight="bold">(0,N)</text>
+<text x="636" y="140" font-size="12.5" text-anchor="end" fill="#d9822b" font-weight="bold">(1,1)</text>
+<text x="348" y="356" font-size="12.5" text-anchor="start" fill="#d9822b" font-weight="bold">(0,N)</text>
+<text x="700" y="205" font-size="12.5" text-anchor="start" fill="#d9822b" font-weight="bold">(1,N)</text>
+<text x="200" y="385" font-size="12.5" text-anchor="end" fill="#d9822b" font-weight="bold">(0,N)</text>
+<text x="262" y="455" font-size="12.5" text-anchor="start" fill="#d9822b" font-weight="bold">(0,1)</text>
+<text x="78" y="437" font-size="12" text-anchor="end" fill="#2c3e50" font-weight="normal">supervisor</text>
+<text x="215" y="525" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">supervisee</text>
+<text x="322" y="422" font-size="12.5" text-anchor="end" fill="#d9822b" font-weight="bold">(0,N)</text>
+<text x="550" y="466" font-size="12.5" text-anchor="middle" fill="#d9822b" font-weight="bold">(1,1)</text>
+</svg>
