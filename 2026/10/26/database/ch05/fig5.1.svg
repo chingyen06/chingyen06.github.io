@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="330" viewBox="0 0 780 330" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+<title>relation schema、state 與 tuple</title>
+<rect width="780" height="330" fill="#ffffff"/>
+<rect x="40" y="30" width="70" height="36" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="75.0" y="52.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">A</text>
+<line x1="71.5" y1="57.0" x2="78.5" y2="57.0" stroke="#2c3e50" stroke-width="1.3"/>
+<rect x="110" y="30" width="70" height="36" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="145.0" y="52.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">B</text>
+<rect x="180" y="30" width="70" height="36" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="215.0" y="52.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">C</text>
+<rect x="250" y="30" width="70" height="36" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="285.0" y="52.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">D</text>
+<rect x="320" y="30" width="70" height="36" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="355.0" y="52.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">E</text>
+<text x="420" y="52" font-size="14" text-anchor="start" fill="#2c3e50" font-weight="bold">relation schema</text>
+<text x="420" y="72" font-size="12" text-anchor="start" fill="#7b8794" font-weight="normal">R(A, B, C, D, E)，只描述結構，沒有資料</text>
+<rect x="40" y="140" width="70" height="36" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="75.0" y="162.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">A</text>
+<line x1="71.5" y1="167.0" x2="78.5" y2="167.0" stroke="#2c3e50" stroke-width="1.3"/>
+<rect x="110" y="140" width="70" height="36" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="145.0" y="162.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">B</text>
+<rect x="180" y="140" width="70" height="36" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="215.0" y="162.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">C</text>
+<rect x="250" y="140" width="70" height="36" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="285.0" y="162.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">D</text>
+<rect x="320" y="140" width="70" height="36" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="355.0" y="162.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">E</text>
+<rect x="40" y="176" width="70" height="36" fill="#ffffff" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="75.0" y="198.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">1</text>
+<rect x="110" y="176" width="70" height="36" fill="#ffffff" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="145.0" y="198.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">4</text>
+<rect x="180" y="176" width="70" height="36" fill="#ffffff" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="215.0" y="198.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">3</text>
+<rect x="250" y="176" width="70" height="36" fill="#ffffff" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="285.0" y="198.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">4</text>
+<rect x="320" y="176" width="70" height="36" fill="#ffffff" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="355.0" y="198.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">2</text>
+<rect x="40" y="212" width="70" height="36" fill="#ffffff" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="75.0" y="234.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">2</text>
+<rect x="110" y="212" width="70" height="36" fill="#ffffff" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="145.0" y="234.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">2</text>
+<rect x="180" y="212" width="70" height="36" fill="#ffffff" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="215.0" y="234.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">5</text>
+<rect x="250" y="212" width="70" height="36" fill="#ffffff" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="285.0" y="234.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">7</text>
+<rect x="320" y="212" width="70" height="36" fill="#ffffff" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="355.0" y="234.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">3</text>
+<text x="420" y="150" font-size="14" text-anchor="start" fill="#2c3e50" font-weight="bold">relation state r(R)</text>
+<text x="420" y="170" font-size="12" text-anchor="start" fill="#7b8794" font-weight="normal">某一個時間點，這張表裡實際存的資料</text>
+<ellipse cx="215" cy="194" rx="195" ry="25" fill="none" stroke="#d9822b" stroke-width="2.4"/>
+<text x="420" y="199" font-size="13" text-anchor="start" fill="#d9822b" font-weight="bold">tuple (row)，也稱為 instance</text>
+<text x="420" y="292" font-size="12" text-anchor="start" fill="#7b8794" font-weight="normal">所有 relation 的 state 合起來是 database state，</text>
+<text x="420" y="312" font-size="12" text-anchor="start" fill="#7b8794" font-weight="normal">也稱 snapshot 或 instance</text>
+</svg>

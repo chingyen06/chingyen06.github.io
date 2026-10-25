@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="570" viewBox="0 0 860 570" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+<title>COMPANY 的 relational schema 與 referential integrity</title>
+<rect width="860" height="570" fill="#ffffff"/>
+<text x="110" y="62" font-size="13" text-anchor="start" fill="#2c3e50" font-weight="bold">EMPLOYEE</text>
+<rect x="110" y="70" width="60" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="140.0" y="89.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Fname</text>
+<rect x="170" y="70" width="56" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="198.0" y="89.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Minit</text>
+<rect x="226" y="70" width="60" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="256.0" y="89.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Lname</text>
+<rect x="286" y="70" width="56" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="314.0" y="89.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Ssn</text>
+<line x1="303.5" y1="94.0" x2="324.5" y2="94.0" stroke="#2c3e50" stroke-width="1.3"/>
+<rect x="342" y="70" width="60" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="372.0" y="89.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Bdate</text>
+<rect x="402" y="70" width="70" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="437.0" y="89.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Address</text>
+<rect x="472" y="70" width="46" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="495.0" y="89.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Sex</text>
+<rect x="518" y="70" width="62" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="549.0" y="89.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Salary</text>
+<rect x="580" y="70" width="84" height="30" fill="#fff4e5" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="622.0" y="89.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Super_ssn</text>
+<rect x="664" y="70" width="46" height="30" fill="#fff4e5" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="687.0" y="89.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Dno</text>
+<text x="110" y="286" font-size="13" text-anchor="start" fill="#2c3e50" font-weight="bold">DEPARTMENT</text>
+<rect x="110" y="240" width="66" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="143.0" y="259.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Dname</text>
+<rect x="176" y="240" width="80" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="216.0" y="259.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Dnumber</text>
+<line x1="191.5" y1="264.0" x2="240.5" y2="264.0" stroke="#2c3e50" stroke-width="1.3"/>
+<rect x="256" y="240" width="80" height="30" fill="#fff4e5" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="296.0" y="259.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Mgr_ssn</text>
+<rect x="336" y="240" width="120" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="396.0" y="259.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Mgr_start_date</text>
+<text x="520" y="232" font-size="13" text-anchor="start" fill="#2c3e50" font-weight="bold">DEPT_LOCATIONS</text>
+<rect x="520" y="240" width="80" height="30" fill="#fff4e5" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="560.0" y="259.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Dnumber</text>
+<line x1="535.5" y1="264.0" x2="584.5" y2="264.0" stroke="#2c3e50" stroke-width="1.3"/>
+<rect x="600" y="240" width="84" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="642.0" y="259.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Dlocation</text>
+<line x1="610.5" y1="264.0" x2="673.5" y2="264.0" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="110" y="372" font-size="13" text-anchor="start" fill="#2c3e50" font-weight="bold">PROJECT</text>
+<rect x="110" y="380" width="66" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="143.0" y="399.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Pname</text>
+<rect x="176" y="380" width="80" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="216.0" y="399.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Pnumber</text>
+<line x1="191.5" y1="404.0" x2="240.5" y2="404.0" stroke="#2c3e50" stroke-width="1.3"/>
+<rect x="256" y="380" width="84" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="298.0" y="399.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Plocation</text>
+<rect x="340" y="380" width="60" height="30" fill="#fff4e5" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="370.0" y="399.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Dnum</text>
+<text x="470" y="372" font-size="13" text-anchor="start" fill="#2c3e50" font-weight="bold">WORKS_ON</text>
+<rect x="470" y="380" width="56" height="30" fill="#fff4e5" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="498.0" y="399.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Essn</text>
+<line x1="484.0" y1="404.0" x2="512.0" y2="404.0" stroke="#2c3e50" stroke-width="1.3"/>
+<rect x="526" y="380" width="50" height="30" fill="#fff4e5" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="551.0" y="399.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Pno</text>
+<line x1="540.5" y1="404.0" x2="561.5" y2="404.0" stroke="#2c3e50" stroke-width="1.3"/>
+<rect x="576" y="380" width="56" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="604.0" y="399.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Hours</text>
+<text x="110" y="556" font-size="13" text-anchor="start" fill="#2c3e50" font-weight="bold">DEPENDENT</text>
+<rect x="110" y="510" width="56" height="30" fill="#fff4e5" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="138.0" y="529.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Essn</text>
+<line x1="124.0" y1="534.0" x2="152.0" y2="534.0" stroke="#2c3e50" stroke-width="1.3"/>
+<rect x="166" y="510" width="120" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="226.0" y="529.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Dependent_name</text>
+<line x1="177.0" y1="534.0" x2="275.0" y2="534.0" stroke="#2c3e50" stroke-width="1.3"/>
+<rect x="286" y="510" width="46" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="309.0" y="529.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Sex</text>
+<rect x="332" y="510" width="60" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="362.0" y="529.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Bdate</text>
+<rect x="392" y="510" width="90" height="30" fill="#eaf2fb" stroke="#4f86c6" stroke-width="1.6"/>
+<text x="437.0" y="529.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="normal">Relationship</text>
+<path d="M 300.0 240.0 L 300.0 102.0" fill="none" stroke="#d9822b" stroke-width="2"/>
+<polygon points="300.0,102.0 305.5,113.0 294.5,113.0" fill="#d9822b"/>
+<path d="M 687.0 100.0 L 687.0 160.0 L 236.0 160.0 L 236.0 238.0" fill="none" stroke="#d9822b" stroke-width="2"/>
+<polygon points="236.0,238.0 230.5,227.0 241.5,227.0" fill="#d9822b"/>
+<path d="M 622.0 70.0 L 622.0 26.0 L 322.0 26.0 L 322.0 68.0" fill="none" stroke="#d9822b" stroke-width="2"/>
+<polygon points="322.0,68.0 316.5,57.0 327.5,57.0" fill="#d9822b"/>
+<path d="M 560.0 240.0 L 560.0 205.0 L 196.0 205.0 L 196.0 238.0" fill="none" stroke="#d9822b" stroke-width="2"/>
+<polygon points="196.0,238.0 190.5,227.0 201.5,227.0" fill="#d9822b"/>
+<path d="M 370.0 380.0 L 370.0 310.0 L 216.0 310.0 L 216.0 272.0" fill="none" stroke="#d9822b" stroke-width="2"/>
+<polygon points="216.0,272.0 221.5,283.0 210.5,283.0" fill="#d9822b"/>
+<path d="M 488.0 380.0 L 488.0 125.0 L 332.0 125.0 L 332.0 102.0" fill="none" stroke="#d9822b" stroke-width="2"/>
+<polygon points="332.0,102.0 337.5,113.0 326.5,113.0" fill="#d9822b"/>
+<path d="M 551.0 410.0 L 551.0 440.0 L 216.0 440.0 L 216.0 412.0" fill="none" stroke="#d9822b" stroke-width="2"/>
+<polygon points="216.0,412.0 221.5,423.0 210.5,423.0" fill="#d9822b"/>
+<path d="M 135.0 510.0 L 135.0 480.0 L 60.0 480.0 L 60.0 36.0 L 298.0 36.0 L 298.0 68.0" fill="none" stroke="#d9822b" stroke-width="2"/>
+<polygon points="298.0,68.0 292.5,57.0 303.5,57.0" fill="#d9822b"/>
+<text x="840" y="505" font-size="12" text-anchor="end" fill="#7b8794" font-weight="normal">底線：primary key</text>
+<text x="840" y="525" font-size="12" text-anchor="end" fill="#7b8794" font-weight="normal">橘色格：foreign key</text>
+<text x="840" y="545" font-size="12" text-anchor="end" fill="#7b8794" font-weight="normal">箭頭：由 FK 指向被參照的 PK</text>
+</svg>
