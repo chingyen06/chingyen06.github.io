@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="620" viewBox="0 0 820 620" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+<title>specialization 的四種組合</title>
+<rect width="820" height="620" fill="#ffffff"/>
+<line x1="197.4" y1="69.0" x2="197.4" y2="126.0" stroke="#7b8794" stroke-width="1.5"/>
+<line x1="202.6" y1="69.0" x2="202.6" y2="126.0" stroke="#7b8794" stroke-width="1.5"/>
+<line x1="189.1" y1="148.7" x2="100.0" y2="201.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="210.9" y1="148.7" x2="300.0" y2="201.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="620.0" y1="69.0" x2="620.0" y2="126.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="609.1" y1="148.7" x2="520.0" y2="201.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="630.9" y1="148.7" x2="720.0" y2="201.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="197.4" y1="389.0" x2="197.4" y2="446.0" stroke="#7b8794" stroke-width="1.5"/>
+<line x1="202.6" y1="389.0" x2="202.6" y2="446.0" stroke="#7b8794" stroke-width="1.5"/>
+<line x1="189.1" y1="468.7" x2="100.0" y2="521.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="210.9" y1="468.7" x2="300.0" y2="521.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="620.0" y1="389.0" x2="620.0" y2="446.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="609.1" y1="468.7" x2="520.0" y2="521.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="630.9" y1="468.7" x2="720.0" y2="521.0" stroke="#7b8794" stroke-width="1.6"/>
+<rect x="125.0" y="31.0" width="150" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="200" y="54.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">STUDENT</text>
+<circle cx="200" cy="140" r="14" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="200" y="145" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">d</text>
+<path d="M 171.2 169.7 C 160.0 176.2 150.9 160.7 162.1 154.1" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="20.0" y="201.0" width="160" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="100" y="224.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="bold">UNDERGRADUATE</text>
+<path d="M 237.9 154.1 C 249.1 160.7 240.0 176.2 228.8 169.7" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="220.0" y="201.0" width="160" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="300" y="224.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="bold">GRADUATE</text>
+<text x="200" y="270" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">disjoint, total</text>
+<text x="200" y="290" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">每位 STUDENT 恰好屬於其中一個</text>
+<rect x="545.0" y="31.0" width="150" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="620" y="54.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">EMPLOYEE</text>
+<circle cx="620" cy="140" r="14" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="620" y="145" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">d</text>
+<path d="M 591.2 169.7 C 580.0 176.2 570.9 160.7 582.1 154.1" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="440.0" y="201.0" width="160" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="520" y="224.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="bold">SECRETARY</text>
+<path d="M 657.9 154.1 C 669.1 160.7 660.0 176.2 648.8 169.7" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="640.0" y="201.0" width="160" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="720" y="224.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="bold">ENGINEER</text>
+<text x="620" y="270" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">disjoint, partial</text>
+<text x="620" y="290" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">最多屬於一個，也可以都不屬於</text>
+<rect x="125.0" y="351.0" width="150" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="200" y="374.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">PART</text>
+<circle cx="200" cy="460" r="14" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="200" y="465" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">o</text>
+<path d="M 171.2 489.7 C 160.0 496.2 150.9 480.7 162.1 474.1" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="20.0" y="521.0" width="160" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="100" y="544.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="bold">MANUFACTURED_PART</text>
+<path d="M 237.9 474.1 C 249.1 480.7 240.0 496.2 228.8 489.7" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="220.0" y="521.0" width="160" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="300" y="544.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="bold">PURCHASED_PART</text>
+<text x="200" y="590" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">overlapping, total</text>
+<text x="200" y="610" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">至少屬於一個，也可以兩個都屬於</text>
+<rect x="545.0" y="351.0" width="150" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="620" y="374.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">PERSON</text>
+<circle cx="620" cy="460" r="14" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="620" y="465" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">o</text>
+<path d="M 591.2 489.7 C 580.0 496.2 570.9 480.7 582.1 474.1" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="440.0" y="521.0" width="160" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="520" y="544.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="bold">STUDENT</text>
+<path d="M 657.9 474.1 C 669.1 480.7 660.0 496.2 648.8 489.7" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="640.0" y="521.0" width="160" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="720" y="544.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="bold">EMPLOYEE</text>
+<text x="620" y="590" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">overlapping, partial</text>
+<text x="620" y="610" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">可以屬於 0 個、1 個或 2 個</text>
+</svg>

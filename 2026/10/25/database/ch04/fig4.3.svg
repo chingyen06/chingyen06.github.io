@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="460" viewBox="0 0 880 460" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+<title>hierarchy 與 lattice</title>
+<rect width="880" height="460" fill="#ffffff"/>
+<line x1="200.0" y1="69.0" x2="200.0" y2="116.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="189.1" y1="138.7" x2="100.0" y2="191.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="210.9" y1="138.7" x2="300.0" y2="191.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="300.0" y1="229.0" x2="300.0" y2="266.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="290.1" y1="289.9" x2="220.0" y2="341.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="309.9" y1="289.9" x2="380.0" y2="341.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="660.0" y1="69.0" x2="660.0" y2="116.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="649.5" y1="139.3" x2="570.0" y2="191.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="670.5" y1="139.3" x2="750.0" y2="191.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="581.4" y1="226.4" x2="660.0" y2="321.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="738.6" y1="226.4" x2="660.0" y2="321.0" stroke="#7b8794" stroke-width="1.6"/>
+<rect x="130.0" y="31.0" width="140" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="200" y="54.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">EMPLOYEE</text>
+<circle cx="200" cy="130" r="14" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="200" y="135" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">d</text>
+<path d="M 171.2 159.7 C 160.0 166.2 150.9 150.7 162.1 144.1" fill="none" stroke="#d9822b" stroke-width="2"/>
+<path d="M 237.9 144.1 C 249.1 150.7 240.0 166.2 228.8 159.7" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="35.0" y="191.0" width="130" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="100" y="214.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">SECRETARY</text>
+<rect x="235.0" y="191.0" width="130" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="300" y="214.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">ENGINEER</text>
+<circle cx="300" cy="280" r="14" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="300" y="285" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">d</text>
+<path d="M 274.4 312.5 C 263.9 320.1 253.3 305.6 263.8 297.9" fill="none" stroke="#d9822b" stroke-width="2"/>
+<path d="M 336.2 297.9 C 346.7 305.6 336.1 320.1 325.6 312.5" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="155.0" y="341.0" width="130" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="220" y="364.5" font-size="11.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">SOFTWARE_ENG</text>
+<rect x="315.0" y="341.0" width="130" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="380" y="364.5" font-size="11.5" text-anchor="middle" fill="#2c3e50" font-weight="bold">HARDWARE_ENG</text>
+<text x="210" y="425" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">hierarchy</text>
+<text x="210" y="445" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">每個 subclass 只有一個 superclass</text>
+<rect x="590.0" y="31.0" width="140" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="660" y="54.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">EMPLOYEE</text>
+<circle cx="660" cy="130" r="14" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="660" y="135" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">d</text>
+<path d="M 632.6 161.0 C 621.7 168.1 611.9 153.0 622.8 145.9" fill="none" stroke="#d9822b" stroke-width="2"/>
+<path d="M 697.2 145.9 C 708.1 153.0 698.3 168.1 687.4 161.0" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="505.0" y="191.0" width="130" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="570" y="214.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">ENGINEER</text>
+<rect x="685.0" y="191.0" width="130" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="750" y="214.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">MANAGER</text>
+<path d="M 604.9 240.7 C 613.2 250.7 599.4 262.2 591.1 252.2" fill="none" stroke="#d9822b" stroke-width="2"/>
+<path d="M 728.9 252.2 C 720.6 262.2 706.8 250.7 715.1 240.7" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="560.0" y="321.0" width="200" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="660" y="344.5" font-size="12" text-anchor="middle" fill="#2c3e50" font-weight="bold">ENGINEERING_MANAGER</text>
+<text x="660" y="395" font-size="12" text-anchor="middle" fill="#d9822b" font-weight="normal">Name 經由兩條路徑繼承，只算一次</text>
+<text x="660" y="425" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">lattice</text>
+<text x="660" y="445" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">subclass 可以有多個 superclass</text>
+</svg>

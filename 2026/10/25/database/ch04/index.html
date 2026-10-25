@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html  lang="zh-TW" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    
+    <title>資料庫系統 Chapter 4 增強型實體關係模型 (EER Model) | 靖諺的資訊學習筆記 | 靖諺的資訊學習筆記</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
+
+    <style>
+        body { font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif !important; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
+    </style>
+
+    <meta name="description" content="此筆記整理《Fundamentals of Database Systems》(Elmasri &amp; Navathe) 第四章的內容：Enhanced Entity-Relationship (EER) Model。涵蓋 subclass 與 superclass、specialization 與 generalization 的 constraint、hierarchy 與 lattice、sha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="資料庫系統 Chapter 4 增強型實體關係模型 (EER Model)">
+<meta property="og:url" content="https://www.tseng-school.com/2026/10/25/database/ch04/index.html">
+<meta property="og:site_name" content="靖諺的資訊學習筆記">
+<meta property="og:description" content="此筆記整理《Fundamentals of Database Systems》(Elmasri &amp; Navathe) 第四章的內容：Enhanced Entity-Relationship (EER) Model。涵蓋 subclass 與 superclass、specialization 與 generalization 的 constraint、hierarchy 與 lattice、sha">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.1.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.2.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.3.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.4.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.5.svg">
+<meta property="article:published_time" content="2026-10-25T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-25T06:42:49.825Z">
+<meta property="article:author" content="chingyen06">
+<meta property="article:tag" content="EER Model">
+<meta property="article:tag" content="Elmasri">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.1.svg">
+
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+    <link rel="icon" href="/images/avatar.png" type="image/x-icon">
+    
+
+    
+    <link rel="stylesheet" href="/css/common.min.css?v=414f1e19">
+    
+    <link rel="stylesheet" href="/css/iconfont.min.css?v=855d9600" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/css/iconfont.min.css"></noscript>
+
+    
+        <script>
+        window.MathJax = {
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+          options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+        };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <style>
+          mjx-container[jax="CHTML"][display="true"] {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            padding-top: 2px;
+            padding-bottom: 2px;
+          }
+          mjx-container[jax="CHTML"] {
+            max-width: 100%;
+          }
+        </style>
+    
+
+    
+
+    
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-18D6HBKZSF');
+            window.addEventListener('load', function () {
+                var run = function () {
+                    var s = document.createElement('script');
+                    s.async = true;
+                    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF';
+                    document.head.appendChild(s);
+                };
+                'requestIdleCallback' in window ? requestIdleCallback(run, { timeout: 3000 }) : setTimeout(run, 1500);
+            });
+        </script>
+    
+
+    
+        
+        <meta name="google-adsense-account" content="ca-pub-3486620369936828">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3486620369936828" crossorigin="anonymous"></script>
+    
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const COLLAPSE_HEIGHT = 360; // 超過此高度才提供收合鈕
+        const iconCopy = `<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+        const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+        const iconChevron = `<svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>`;
+        const iconChevronDouble = `<svg viewBox="0 0 24 24"><path d="M16.59 5.59L12 10.17 7.41 5.59 6 7l6 6 6-6zM16.59 11.59L12 16.17l-4.59-4.58L6 13l6 6 6-6z"/></svg>`;
+        const langMap = { cpp:'C++', 'c++':'C++', cc:'C++', cxx:'C++', c:'C', py:'Python', python:'Python', js:'JavaScript', javascript:'JavaScript', ts:'TypeScript', typescript:'TypeScript', java:'Java', html:'HTML', xml:'XML', css:'CSS', scss:'SCSS', bash:'Bash', sh:'Shell', shell:'Shell', zsh:'Shell', json:'JSON', yaml:'YAML', yml:'YAML', sql:'SQL', go:'Go', rust:'Rust', rs:'Rust', php:'PHP', ruby:'Ruby', rb:'Ruby', kotlin:'Kotlin', swift:'Swift', plaintext:'Text', text:'Text', plain:'Text', md:'Markdown', markdown:'Markdown' };
+
+        const figures = document.querySelectorAll('.article-entry figure.highlight, .content figure.highlight');
+        figures.forEach(figure => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            figure.parentNode.insertBefore(wrapper, figure);
+
+            // 標題列：左邊三個圓點 + 語言標籤，右邊工具列（仿 IDE 視窗）
+            const header = document.createElement('div');
+            header.className = 'code-header';
+
+            const dots = document.createElement('div');
+            dots.className = 'code-dots';
+            dots.innerHTML = '<span></span><span></span><span></span>';
+            header.appendChild(dots);
+
+            const lang = [...figure.classList].find(c => c !== 'highlight');
+            const label = document.createElement('span');
+            label.className = 'code-lang';
+            label.textContent = lang ? (langMap[lang.toLowerCase()] || lang.toUpperCase()) : 'CODE';
+            header.appendChild(label);
+
+            // 工具列（靠右）：複製在左、收合在右
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+            header.appendChild(toolbar);
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-btn copy-btn';
+            copyBtn.innerHTML = iconCopy;
+            copyBtn.title = "複製程式碼";
+            toolbar.appendChild(copyBtn);
+
+            // 右上角收合鈕：負責「整個區塊」摺疊成只剩標題列（每個程式碼都有）
+            const foldBtn = document.createElement('button');
+            foldBtn.className = 'code-btn fold-btn';
+            foldBtn.innerHTML = iconChevron;
+            foldBtn.title = "收合 / 展開整個程式碼";
+            toolbar.appendChild(foldBtn);
+            foldBtn.addEventListener('click', () => {
+                const folded = wrapper.classList.toggle('folded');
+                foldBtn.classList.toggle('folded', folded);
+            });
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(figure);
+
+            // 長程式碼：預設部分收合（300px），底部整條雙箭頭負責展開/收回預覽
+            if (figure.offsetHeight > COLLAPSE_HEIGHT) {
+                wrapper.classList.add('collapsed');
+
+                const footer = document.createElement('div');
+                footer.className = 'code-footer';
+                footer.innerHTML = iconChevronDouble;
+                footer.title = "展開 / 收合程式碼";
+                wrapper.appendChild(footer);
+
+                footer.addEventListener('click', () => {
+                    wrapper.classList.toggle('collapsed');
+                });
+            }
+
+            copyBtn.addEventListener('click', () => {
+                const codeCell = figure.querySelector('td.code');
+                const codeText = codeCell ? codeCell.innerText : figure.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    copyBtn.innerHTML = iconCheck;
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = iconCopy;
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    });
+    </script>
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "曾靖諺",
+        "alternateName": "Tseng Ching-Yen",
+        "url": "https://www.tseng-school.com",
+        "sameAs": [
+            "https://github.com/chingyen06"
+        ]
+        }
+    </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/chingyen06" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/avatar.png" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">靖諺的資訊學習筆記</h2>
+            <h3 id="title" class="hidden lg:block"></h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Taipei, Taiwan
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="w-full my-auto">
+        <div class="relative w-full">
+            <input id="search-input" type="text" placeholder="🔍 搜尋" class="w-full">
+            <button type="submit" style="display: none;"></button>
+        </div>
+    </form>
+    
+    
+<div id="content-json" data-placeholder="🔍 搜尋" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div class="search-widget-container">
+        <div class="search-header">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="🔍 搜尋" type="text">
+        </div>
+        
+        <div class="search-result">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-4 pb-3 mb-2 pt-3 hover:bg-green-50 rounded-lg transition duration-200">
+                <i class="iconfont icon-file text-gray-400 mr-2"></i>
+                <h1 class="result-title inline font-bold text-lg text-gray-800">{{ title }}</h1>
+                <p class="result-content text-gray-500 text-sm mt-1 line-clamp-2">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var observer = new MutationObserver(function(mutations) {
+        var gtInput = document.querySelector('.gt-header-textarea');
+        
+        if (gtInput && !gtInput.dataset.fixed) {
+            gtInput.dataset.fixed = "true";
+
+            
+            gtInput.setAttribute('data-gramm', 'false');
+            gtInput.setAttribute('spellcheck', 'false');
+            gtInput.classList.add('notranslate');
+
+            ['keydown', 'keyup', 'keypress'].forEach(function(event) {
+                gtInput.addEventListener(event, function(e) {
+                    e.stopPropagation();
+                }, true); 
+            });
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+</div>
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">主頁</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">文章</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-resources" role="menuitem">
+                <a href="/resources">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">資源</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">類別</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">標籤</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-privacy" role="menuitem">
+                <a href="/privacy">
+                    <i class="iconfont icon-file" aria-hidden="true"></i>
+                    <span class="menu-title">隱私權</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">關於</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont social-icon icon-facebook"></i>
+                <span class="menu-title hidden lg:inline">menu.facebook</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            資料庫系統 Chapter 4 增強型實體關係模型 (EER Model)
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2026/10/25/database/ch04/" class="article-date">
+	  <time datetime="2026-10-25T12:00:00.000Z" itemprop="datePublished">2026-10-25</time>
+	</a>
+</span>
+
+                
+  <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E8%B3%87%E6%96%99%E5%BA%AB/">資料庫</a>
+  </span>
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/EER-Model/" rel="tag">EER Model</a>, <a class="article-tag-none-link" href="/tags/Elmasri/" rel="tag">Elmasri</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2026/10/25/database/ch04/#comments" class="article-comment-link">
+                        評論
+                    </a>
+                </span>
+                
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <div class="alert-block alert-info note-shortcode">此筆記整理《Fundamentals of Database Systems》第四章的內容。<strong>EER Model (Enhanced / Extended ER Model)</strong> 包含第三章 ER Model 的所有概念，再加上 <strong>subclass / superclass、specialization / generalization、category (union type)、inheritance</strong>，讓設計可以描述得更完整、更準確。EER 帶有一些物件導向的概念 (inheritance)。本章的重點是各種符號與 constraint 的意義，其中 <strong>disjoint / overlapping 與 total / partial 是兩件不同的事</strong>，以及 <strong>shared subclass 與 category 的差別</strong>最容易搞混，下面會特別整理</div>
+
+<h2 id="第一節-Subclass-與-Superclass"><a href="#第一節-Subclass-與-Superclass" class="headerlink" title="第一節 Subclass 與 Superclass"></a>第一節 Subclass 與 Superclass</h2><p>一個 entity type 裡的 entity 常常還可以再分成有意義的子群。例如 EMPLOYEE 可以依不同角度再分成：</p>
+<ul>
+<li>依工作類別：SECRETARY、ENGINEER、TECHNICIAN</li>
+<li>依扮演的角色：MANAGER</li>
+<li>依薪資計算方式：SALARIED_EMPLOYEE、HOURLY_EMPLOYEE</li>
+</ul>
+<p>每一個子群都是 EMPLOYEE 的<strong>子集合</strong>，稱為 EMPLOYEE 的 <strong>subclass</strong> (或 subtype)，EMPLOYEE 則是它們的 <strong>superclass</strong>。EMPLOYEE&#x2F;SECRETARY、EMPLOYEE&#x2F;MANAGER 這樣的配對叫做 <strong>superclass&#x2F;subclass relationship</strong>，也稱為 <strong>IS-A relationship</strong> (SECRETARY IS-A EMPLOYEE)</p>
+<p>關於 subclass 的 member，有幾個要記清楚的性質：</p>
+<ul>
+<li>subclass 的 member 與 superclass 的某個 member 是<strong>同一個現實世界的 entity</strong>，只是扮演不同的 role</li>
+<li>一個 entity <strong>不能只當 subclass 的 member 而存在</strong>，它一定也要是 superclass 的 member</li>
+<li>superclass 的 member 可以選擇性地加入<strong>任意多個</strong> subclass：一位領月薪的工程師同時屬於 ENGINEER 與 SALARIED_EMPLOYEE；一位領月薪的工程經理同時屬於 MANAGER、ENGINEER、SALARIED_EMPLOYEE</li>
+<li>superclass 的 entity <strong>不一定</strong>要屬於某個 subclass</li>
+</ul>
+<h3 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h3><p>subclass 的 member 會<strong>繼承 (inherit)</strong> 它在 superclass 中擁有的<strong>所有 attribute 與所有 relationship</strong>。例如 SECRETARY 會繼承 EMPLOYEE 的 Name、Ssn 等 attribute，每個 SECRETARY entity 在這些 attribute 上都有值</p>
+<p>subclass 自己額外還可以有：</p>
+<ul>
+<li><strong>specific (local) attribute</strong>：只屬於這個 subclass 的 attribute，例如 SECRETARY 的 TypingSpeed</li>
+<li><strong>specific relationship type</strong>：只有這個 subclass 才參與的 relationship，例如 HOURLY_EMPLOYEE 才參與的 BELONGS_TO</li>
+</ul>
+<h2 id="第二節-Specialization-與-Generalization"><a href="#第二節-Specialization-與-Generalization" class="headerlink" title="第二節 Specialization 與 Generalization"></a>第二節 Specialization 與 Generalization</h2><div class="img-row left"><img src="fig4.1.svg" alt="fig 4.1" loading="lazy" decoding="async" style="width:90%"></div>
+
+<ul>
+<li><strong>specialization</strong>：由 superclass 出發，根據 entity 的某個區別特徵，定義出一組 subclass。是 <strong>top-down</strong> 的 conceptual refinement。例如 {SECRETARY, ENGINEER, TECHNICIAN} 是 EMPLOYEE 依 job type 做的 specialization，{SALARIED_EMPLOYEE, HOURLY_EMPLOYEE} 是依 method of pay 做的另一個 specialization。同一個 superclass 可以有<strong>很多個</strong> specialization</li>
+<li><strong>generalization</strong>：反過來，由幾個有共同特徵的 class 出發，歸納出一個 superclass，原本的 class 變成它的 subclass。是 <strong>bottom-up</strong> 的 conceptual synthesis。例如把 CAR 與 TRUCK generalize 成 VEHICLE</li>
+</ul>
+<p>兩者<strong>最後得到的結果是一樣的</strong> (一個 superclass 與一組 subclass)，只是思考的方向不同，所以 EER diagram 裡<strong>不畫箭頭</strong>來區分 (到底算 specialization 還是 generalization 常常很主觀)。實務上兩種方向會混著用</p>
+<p><strong>&lt;註&gt;</strong> generalization 的結果<strong>通常是 total</strong> (見下一節)，因為 superclass 是由那些 subclass 歸納出來的，superclass 裡的每個 entity 本來就來自某個 subclass</p>
+<p>上圖是 EER diagram 的基本畫法：</p>
+<ul>
+<li><strong>circle</strong> 代表一個 specialization，superclass 連到 circle，circle 再連到各個 subclass</li>
+<li>線上的 <strong>subset symbol</strong> (U 形)，開口朝向 superclass，表示 subclass 是 superclass 的子集合</li>
+<li>circle 裡的字母 <strong>d</strong> 或 <strong>o</strong> 代表 disjoint 或 overlapping (下一節)</li>
+<li>subclass 的 local attribute 掛在自己身上 (TypingSpeed 只屬於 SECRETARY)，繼承來的 attribute 不用再畫</li>
+<li>superclass 與 subclass 都用矩形，因為它們都是 entity 的集合與型別，統稱 <strong>class</strong></li>
+</ul>
+<h3 id="Specialization-的決定方式"><a href="#Specialization-的決定方式" class="headerlink" title="Specialization 的決定方式"></a>Specialization 的決定方式</h3><p>subclass 的 member 怎麼決定，分成三種：</p>
+<table>
+<thead>
+<tr>
+<th align="left">種類</th>
+<th align="left">怎麼決定 member</th>
+<th align="left">圖上畫法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>predicate-defined</strong> (condition-defined)</td>
+<td align="left">由一個<strong>條件 (predicate)</strong> 決定哪些 entity 是 member</td>
+<td align="left">條件寫在連到 subclass 的線旁</td>
+</tr>
+<tr>
+<td align="left"><strong>attribute-defined</strong></td>
+<td align="left">predicate-defined 的特例：所有 subclass 的條件都是<strong>同一個 attribute</strong> 的值</td>
+<td align="left">在 superclass 到 circle 的線旁寫 <strong>defining attribute</strong> 的名字，各 subclass 線旁寫值</td>
+</tr>
+<tr>
+<td align="left"><strong>user-defined</strong></td>
+<td align="left"><strong>沒有條件</strong>，由使用者逐一指定每個 entity 要不要加入</td>
+<td align="left">線旁什麼都不寫</td>
+</tr>
+</tbody></table>
+<p><strong>&lt;註&gt;</strong> 包含關係是 <strong>attribute-defined ⊂ predicate-defined</strong>，user-defined 則是另外一類。上圖的 Job_type 是 defining attribute，’Secretary’、’Technician’、’Engineer’ 是各 subclass 的條件值</p>
+<p>形式化地寫，predicate-defined 的 subclass 是 $S = C[p]$，也就是 superclass $C$ 中滿足條件 $p$ 的 entity。attribute-defined 的條件形如 $A = c_i$ ($A$ 是 attribute、$c_i$ 是常數)。如果各 $c_i$ 不相同、而且 $A$ 是 single-valued，那麼這個 specialization 一定是 <strong>disjoint</strong> (一個 entity 的 $A$ 只有一個值，不可能同時等於兩個不同常數)</p>
+<h2 id="第三節-Specialization-的-Constraint"><a href="#第三節-Specialization-的-Constraint" class="headerlink" title="第三節 Specialization 的 Constraint"></a>第三節 Specialization 的 Constraint</h2><p>specialization &#x2F; generalization 有兩個基本的 constraint，而且<strong>兩者互相獨立</strong>：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Constraint</th>
+<th align="left">問的問題</th>
+<th align="left">選項</th>
+<th align="left">圖上畫法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>disjointness</strong></td>
+<td align="left">一個 entity 可以同時屬於幾個 subclass？</td>
+<td align="left"><strong>disjoint</strong>：至多一個；<strong>overlapping</strong>：可以多個</td>
+<td align="left">circle 裡寫 <strong>d</strong> 或 <strong>o</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>completeness</strong></td>
+<td align="left">superclass 的 entity 一定要屬於某個 subclass 嗎？</td>
+<td align="left"><strong>total</strong>：一定要；<strong>partial</strong>：可以不屬於任何一個</td>
+<td align="left">superclass 到 circle：<strong>total 雙線</strong>、partial 單線</td>
+</tr>
+</tbody></table>
+<div class="img-row left"><img src="fig4.2.svg" alt="fig 4.2" loading="lazy" decoding="async" style="width:90%"></div>
+
+<p>兩個 constraint 各兩種選擇，所以一共有 <strong>4 種組合</strong>：disjoint total、disjoint partial、overlapping total、overlapping partial。上圖是各一個例子。</p>
+<div class="alert-block alert-warning"><strong>d / o 與 total / partial 不要搞混：</strong>d / o 看的是「<strong>subclass 之間</strong>會不會重疊」，寫在 circle 裡；total / partial 看的是「<strong>superclass 的 entity</strong> 有沒有被 subclass 蓋滿」，畫在 superclass 到 circle 的線上。互相沒有關係，任何一個組合都可能出現
+</div>
+
+<p>用集合的寫法會更清楚。設 specialization $Z = \{S_1, S_2, \dots, S_n\}$ 的 superclass 是 $G$：</p>
+<ul>
+<li><strong>total</strong>：$S_1 \cup S_2 \cup \dots \cup S_n = G$ (所有 subclass 聯集起來等於 superclass)；否則是 partial</li>
+<li><strong>disjoint</strong>：對所有 $i \neq j$，$S_i \cap S_j = \emptyset$ (任兩個 subclass 沒有共同的 entity)；否則是 overlapping</li>
+</ul>
+<p><strong>&lt;註&gt;</strong> 這裡的雙線 &#x2F; 單線與第三章 relationship 的 total &#x2F; partial participation 是同一個概念：雙線代表「這一端的每個 entity 都必須參與」。在 specialization 裡，「參與」就是「屬於某個 subclass」。另外，如果需求沒有任何限制，預設就是 <strong>overlapping 且 partial</strong></p>
+<h2 id="第四節-Hierarchy、Lattice-與-Shared-Subclass"><a href="#第四節-Hierarchy、Lattice-與-Shared-Subclass" class="headerlink" title="第四節 Hierarchy、Lattice 與 Shared Subclass"></a>第四節 Hierarchy、Lattice 與 Shared Subclass</h2><p>一個 subclass 自己也可以再當別的 subclass 的 superclass，一層一層往下，形成 <strong>hierarchy</strong> 或 <strong>lattice</strong>：</p>
+<div class="img-row left"><img src="fig4.3.svg" alt="fig 4.3" loading="lazy" decoding="async"></div>
+
+<table>
+<thead>
+<tr>
+<th align="left">結構</th>
+<th align="left">規則</th>
+<th align="left">又叫</th>
+<th align="left">形狀</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>hierarchy</strong></td>
+<td align="left">每個 subclass <strong>只有一個</strong> superclass</td>
+<td align="left">single inheritance</td>
+<td align="left">樹</td>
+</tr>
+<tr>
+<td align="left"><strong>lattice</strong></td>
+<td align="left">一個 subclass 可以有<strong>多個</strong> superclass</td>
+<td align="left">multiple inheritance</td>
+<td align="left">一般的圖</td>
+</tr>
+</tbody></table>
+<p>有一個以上 superclass 的 subclass 叫 <strong>shared subclass</strong>，例如 ENGINEERING_MANAGER 同時是 ENGINEER 與 MANAGER 的 subclass。shared subclass 的 member <strong>必須同時是所有 superclass 的 member</strong></p>
+<p>inheritance 在 hierarchy 或 lattice 中的規則：</p>
+<ul>
+<li>subclass 不只繼承<strong>直接</strong> superclass 的 attribute，還會繼承<strong>所有祖先 superclass</strong> 的 attribute</li>
+<li>如果同一個 attribute (或 relationship) 來自同一個祖先，經由<strong>不同路徑</strong>被繼承了不只一次，在 shared subclass 裡<strong>只會算一次</strong>。上圖 ENGINEERING_MANAGER 從 ENGINEER 與 MANAGER 兩條路徑都繼承到 EMPLOYEE 的 Name，但 Name 只會出現一次</li>
+</ul>
+<p><strong>&lt;註&gt;</strong> 「只算一次」指的是<strong>同一個 attribute 經由不同路徑到達同一個 shared subclass 時不會重複</strong>。attribute 只在最頂端的 superclass 定義一次，往下所有 subclass 都擁有它，shared subclass 也只有一份</p>
+<h2 id="第五節-Category-Union-Type"><a href="#第五節-Category-Union-Type" class="headerlink" title="第五節 Category (Union Type)"></a>第五節 Category (Union Type)</h2><p>前面所有的 superclass&#x2F;subclass relationship 都只有<strong>一個</strong> superclass。<strong>shared subclass</strong> 是 subclass 同時出現在<strong>好幾個</strong> superclass&#x2F;subclass relationship 中，<strong>每個 relationship 各有一個</strong> superclass。</p>
+<p>有時需要的是另一件事：<strong>一個</strong> superclass&#x2F;subclass relationship，卻有<strong>多個</strong> superclass，而且這些 superclass 還可以是<strong>不同 entity type</strong>。這種 subclass 叫 <strong>category</strong>，也叫 <strong>union type</strong></p>
+<div class="img-row left"><img src="fig4.4.svg" alt="fig 4.4" loading="lazy" decoding="async"></div>
+
+<p>例如車輛登記資料庫中，車子的 OWNER 可能是 PERSON、BANK (有留置權的銀行)、COMPANY。這三種是完全不同的 entity type (連 key 都不一樣：Ssn、Bname、Cname)，但 OWNER 這個 category 就是它們的聯集的子集合</p>
+<div class="alert-block alert-success"><strong>shared subclass vs category：</strong>shared subclass 是 superclass 的<strong>交集</strong>的子集合；category 是 superclass 的<strong>聯集</strong>的子集合
+</div>
+
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">shared subclass</th>
+<th align="left">category (union type)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">superclass&#x2F;subclass relationship 數量</td>
+<td align="left"><strong>多個</strong>，每個有 1 個 superclass</td>
+<td align="left"><strong>1 個</strong>，有多個 superclass</td>
+</tr>
+<tr>
+<td align="left">集合關係</td>
+<td align="left">$S \subseteq D_1 \cap D_2 \cap \dots \cap D_n$</td>
+<td align="left">$T \subseteq D_1 \cup D_2 \cup \dots \cup D_n$</td>
+</tr>
+<tr>
+<td align="left">member 的條件</td>
+<td align="left">必須<strong>同時</strong>是<strong>所有</strong> superclass 的 member</td>
+<td align="left">只要是<strong>至少一個</strong> (通常只有一個) superclass 的 member</td>
+</tr>
+<tr>
+<td align="left">inheritance</td>
+<td align="left"><strong>multiple inheritance</strong>，繼承所有 superclass 的 attribute</td>
+<td align="left"><strong>selective inheritance</strong>，只繼承它實際所屬的那個 superclass 的 attribute</td>
+</tr>
+<tr>
+<td align="left">superclass 的 entity type</td>
+<td align="left">通常是同一個 entity type 的 subclass (key 相同)</td>
+<td align="left">可以是<strong>不同</strong> entity type，可以有不同的 key</td>
+</tr>
+</tbody></table>
+<p><strong>&lt;註&gt;</strong> 一個 OWNER 通常只會是 PERSON、BANK、COMPANY 其中<strong>一個</strong>，所以只會繼承那個 superclass 的 attribute，這就是 selective。嚴格來說 category 的 member 要「至少屬於其中一個 superclass (通常只有一個)」，不是一定只有一個</p>
+<div class="img-row left"><img src="fig4.5.svg" alt="fig 4.5" loading="lazy" decoding="async" style="width:80%"></div>
+
+<p>category 也有 <strong>total &#x2F; partial</strong>，畫法與 specialization 一樣：</p>
+<ul>
+<li><strong>雙線</strong> (如上圖的 BANK)：這個 superclass 的每個 entity 都<strong>必須</strong>是 category 的 member，也就是每個 BANK 都一定是 OWNER</li>
+<li><strong>單線</strong> (PERSON、COMPANY)：可以是 category 的 member，也可以不是</li>
+</ul>
+<p>形式上，category 是 $T \subseteq (D_1 \cup D_2 \cup \dots \cup D_n)$。也可以對每個 $D_i$ 加一個條件 $p_i$，變成 $T = (D_1[p_1] \cup D_2[p_2] \cup \dots \cup D_n[p_n])$，意思是只有 $D_i$ 中滿足 $p_i$ 的 entity 才是 $T$ 的 member。全部 superclass 都是 total 時，category 剛好就是整個聯集</p>
+<h2 id="第六節-設計時的取捨"><a href="#第六節-設計時的取捨" class="headerlink" title="第六節 設計時的取捨"></a>第六節 設計時的取捨</h2><p>EER 可以定義很多 subclass 讓模型更精確，但不是越多越好：</p>
+<ul>
+<li>如果 subclass 只有<strong>很少的 specific attribute</strong> 而且<strong>沒有 specific relationship</strong>，可以直接<strong>合併回 superclass</strong></li>
+<li>如果一個 specialization 的<strong>所有 subclass</strong> 都是這種情況，可以全部合併，改用一個或多個 <strong>type attribute</strong> 來記錄每個 entity 屬於哪些 subclass</li>
+<li><strong>category (union type) 通常應該避免</strong>，有些設計方法甚至沒有 union type</li>
+<li>disjoint &#x2F; overlapping 與 total &#x2F; partial 的選擇要<strong>依現實世界的規則</strong>決定；沒有限制時預設 overlapping、partial</li>
+</ul>
+<h2 id="第七節-Formal-Definition"><a href="#第七節-Formal-Definition" class="headerlink" title="第七節 Formal Definition"></a>第七節 Formal Definition</h2><table>
+<thead>
+<tr>
+<th align="left">名詞</th>
+<th align="left">定義</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>class</strong> $C$</td>
+<td align="left">一個 entity 的集合，可以是 entity type、subclass、superclass 或 category。relationship type 的定義裡「entity type」都改成「class」，這樣 class 之間也能有 relationship</td>
+</tr>
+<tr>
+<td align="left"><strong>subclass</strong> $S$</td>
+<td align="left">繼承 class $C$ 所有 attribute 與 relationship，且 $S \subseteq C$</td>
+</tr>
+<tr>
+<td align="left"><strong>specialization</strong> $Z$</td>
+<td align="left">$Z = \{S_1, S_2, \dots, S_n\}$ 是有相同 superclass $G$ 的 subclass 集合；$G$ 稱為這些 subclass 的 generalization</td>
+</tr>
+<tr>
+<td align="left"><strong>total</strong></td>
+<td align="left">$S_1 \cup S_2 \cup \dots \cup S_n = G$</td>
+</tr>
+<tr>
+<td align="left"><strong>disjoint</strong></td>
+<td align="left">$S_i \cap S_j = \emptyset$，$i \neq j$</td>
+</tr>
+<tr>
+<td align="left"><strong>predicate-defined</strong></td>
+<td align="left">$S = C[p]$</td>
+</tr>
+<tr>
+<td align="left"><strong>category</strong> $T$</td>
+<td align="left">$T \subseteq (D_1 \cup D_2 \cup \dots \cup D_n)$，$n &gt; 1$</td>
+</tr>
+</tbody></table>
+<h2 id="第八節-其他表示法與-Knowledge-Representation"><a href="#第八節-其他表示法與-Knowledge-Representation" class="headerlink" title="第八節 其他表示法與 Knowledge Representation"></a>第八節 其他表示法與 Knowledge Representation</h2><p><strong>UML class diagram</strong> 也可以表達 specialization &#x2F; generalization，用 generalization 箭頭，並在旁邊標 <code>&#123;disjoint&#125;</code> 或 <code>&#123;overlapping&#125;</code>。不同設計工具的 notation 差異很大，概念相同</p>
+<p><strong>Knowledge Representation (KR)</strong> 處理的是某個領域的知識如何建模，常用 <strong>ontology</strong>：描述某個領域的<strong>概念與概念之間的關係</strong>，作用像是 knowledge base 的 schema。KR 與資料建模有幾個相同的抽象：classification、aggregation、generalization、identification。差別在於 KR 的範圍更廣，要處理缺漏的知識與常識，包含 rule 與 reasoning，而且 schema 與 instance 常常混在一起。ontology 在醫學、科學、工程領域用來統一概念與術語</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><ul>
+<li><strong>EER 新增的概念</strong>：subclass &#x2F; superclass、specialization &#x2F; generalization、category (union type)、inheritance</li>
+<li><strong>符號</strong>：circle 代表一個 specialization，裡面寫 d (disjoint) 或 o (overlapping)；U 形 subset symbol 開口朝向 superclass；superclass 到 circle 的雙線是 total、單線是 partial；category 用 ∪ 圓圈</li>
+</ul>
+<p>容易搞混的整理：</p>
+<table>
+<thead>
+<tr>
+<th align="left">容易搞混的點</th>
+<th align="left">結論</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">specialization vs generalization</td>
+<td align="left">結果一樣，只是方向不同：由 superclass 推 subclass 是 specialization，由 subclass 推 superclass 是 generalization (通常是 total)；EER 不畫箭頭</td>
+</tr>
+<tr>
+<td align="left">predicate-defined、attribute-defined、user-defined</td>
+<td align="left">attribute-defined 是 predicate-defined 的特例；user-defined 沒有條件</td>
+</tr>
+<tr>
+<td align="left">disjoint &#x2F; overlapping vs total &#x2F; partial</td>
+<td align="left">互相獨立，共 4 種組合。d &#x2F; o 看 subclass 之間，total &#x2F; partial 看 superclass 有沒有被蓋滿</td>
+</tr>
+<tr>
+<td align="left">hierarchy vs lattice</td>
+<td align="left">hierarchy 每個 subclass 只有 1 個 superclass (single inheritance)；lattice 可以有多個 (multiple inheritance)</td>
+</tr>
+<tr>
+<td align="left">經多條路徑繼承</td>
+<td align="left">同一個 attribute 只會繼承一次</td>
+</tr>
+<tr>
+<td align="left">shared subclass vs category</td>
+<td align="left">shared subclass：多個 relationship、每個 1 個 superclass、是<strong>交集</strong>的子集合、member 要屬於<strong>所有</strong> superclass；category：1 個 relationship、多個 superclass、是<strong>聯集</strong>的子集合、member 屬於<strong>至少一個</strong> (通常只有一個) superclass</td>
+</tr>
+<tr>
+<td align="left">category 的 inheritance</td>
+<td align="left">selective，只繼承實際所屬的 superclass 的 attribute</td>
+</tr>
+<tr>
+<td align="left">category 的 total 雙線</td>
+<td align="left">畫在 superclass 到 circle 的線上，表示該 superclass 的每個 entity 都必須是 category 的 member</td>
+</tr>
+<tr>
+<td align="left">subclass 設計</td>
+<td align="left">specific attribute 很少又沒有 specific relationship 時，應合併回 superclass</td>
+</tr>
+</tbody></table>
+<h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><p>R. Elmasri and S. B. Navathe, <em>Fundamentals of Database Systems, 7th Ed.</em>, Pearson, 2016.</p>
+
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文連結 : </strong><a class="permalink" href="https://www.tseng-school.com/2026/10/25/database/ch04/">https://www.tseng-school.com/2026/10/25/database/ch04/</a></p>
+    <p><strong> </strong></p>
+</blockquote>
+
+
+    </article>
+    
+
+
+    
+    
+        <section id="comments">
+            
+                <div class="giscus"></div>
+            
+        </section>
+    
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目錄</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AF%80-Subclass-%E8%88%87-Superclass"><span class="toc-number">1.</span> <span class="toc-text">第一節 Subclass 與 Superclass</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Inheritance"><span class="toc-number">1.1.</span> <span class="toc-text">Inheritance</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AF%80-Specialization-%E8%88%87-Generalization"><span class="toc-number">2.</span> <span class="toc-text">第二節 Specialization 與 Generalization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Specialization-%E7%9A%84%E6%B1%BA%E5%AE%9A%E6%96%B9%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">Specialization 的決定方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AF%80-Specialization-%E7%9A%84-Constraint"><span class="toc-number">3.</span> <span class="toc-text">第三節 Specialization 的 Constraint</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AF%80-Hierarchy%E3%80%81Lattice-%E8%88%87-Shared-Subclass"><span class="toc-number">4.</span> <span class="toc-text">第四節 Hierarchy、Lattice 與 Shared Subclass</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AF%80-Category-Union-Type"><span class="toc-number">5.</span> <span class="toc-text">第五節 Category (Union Type)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AF%80-%E8%A8%AD%E8%A8%88%E6%99%82%E7%9A%84%E5%8F%96%E6%8D%A8"><span class="toc-number">6.</span> <span class="toc-text">第六節 設計時的取捨</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AF%80-Formal-Definition"><span class="toc-number">7.</span> <span class="toc-text">第七節 Formal Definition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AF%80-%E5%85%B6%E4%BB%96%E8%A1%A8%E7%A4%BA%E6%B3%95%E8%88%87-Knowledge-Representation"><span class="toc-number">8.</span> <span class="toc-text">第八節 其他表示法與 Knowledge Representation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-number">9.</span> <span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E6%96%87%E7%8D%BB"><span class="toc-number">10.</span> <span class="toc-text">參考文獻</span></a></li></ol>
+        </nav>
+        
+
+
+    </div>
+</aside>
+
+
+
+
+
+            
+            <script>
+            window.addEventListener('load', function () {
+                var run = function () {
+                    var s = document.createElement('script');
+                    s.src = '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+                    document.body.appendChild(s);
+                };
+                'requestIdleCallback' in window ? requestIdleCallback(run, { timeout: 3000 }) : setTimeout(run, 1500);
+            });
+            </script>
+            <div style="
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                flex-wrap: wrap;
+                width: 100%; 
+                margin: 40px 0 20px 0;
+                color: #666; 
+                font-size: 0.85rem;
+                clear: both;
+            ">
+              <span id="busuanzi_container_site_uv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-user" style="margin-right: 4px;"></i>
+                訪客數：<span id="busuanzi_value_site_uv">未知</span> 人
+              </span>
+              
+              <span style="margin: 0 12px; color: #ddd;">|</span>
+              
+              <span id="busuanzi_container_site_pv" style="display: flex; align-items: center;">
+                <i class="iconfont icon-eye" style="margin-right: 4px;"></i>
+                總瀏覽：<span id="busuanzi_value_site_pv">未知</span> 次
+              </span>
+
+              
+              <a href="/privacy/" style="color: inherit; margin-left: 24px;">隱私權政策</a>
+            </div>
+            </section>
+        
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/chingyen06">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/Tseng.Ching.Yen/">
+                <i class="iconfont icon-facebook"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+
+    
+    <script src="https://giscus.app/client.js"
+            data-repo="chingyen06/blog-comment"
+            data-repo-id="R_kgDORKkDHg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDORKkDHs4C_mPa"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+
+
+
+    
+    <script>
+    (function () {
+        var imgs = document.querySelectorAll('main img, article img, .marked-body img');
+        if (!imgs.length) return;
+        var loaded = false;
+        function loadLG() {
+            if (loaded) return; loaded = true;
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css';
+            document.head.appendChild(css);
+            var cdn = document.createElement('script');
+            cdn.src = '//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js';
+            cdn.onload = function () {
+                var local = document.createElement('script');
+                local.src = '/js/light-gallery.min.js';
+                document.body.appendChild(local);
+            };
+            document.body.appendChild(cdn);
+        }
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) { loadLG(); io.disconnect(); }
+            }, { rootMargin: '300px' });
+            io.observe(imgs[0]);
+        } else {
+            loadLG();
+        }
+    })();
+    </script>
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="380" viewBox="0 0 720 380" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+<title>category 的 total 標示</title>
+<rect width="720" height="380" fill="#ffffff"/>
+<line x1="120.0" y1="79.0" x2="346.0" y2="176.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="357.4" y1="79.0" x2="357.4" y2="156.0" stroke="#7b8794" stroke-width="1.5"/>
+<line x1="362.6" y1="79.0" x2="362.6" y2="156.0" stroke="#7b8794" stroke-width="1.5"/>
+<line x1="600.0" y1="79.0" x2="374.0" y2="176.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="360.0" y1="184.0" x2="360.0" y2="261.0" stroke="#7b8794" stroke-width="1.6"/>
+<rect x="55.0" y="41.0" width="130" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="120" y="64.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">PERSON</text>
+<rect x="295.0" y="41.0" width="130" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="360" y="64.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">BANK</text>
+<rect x="535.0" y="41.0" width="130" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="600" y="64.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">COMPANY</text>
+<circle cx="360" cy="170" r="14" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="360" y="175.5" font-size="15" text-anchor="middle" fill="#2c3e50" font-weight="bold">∪</text>
+<path d="M 369.0 210.0 C 369.0 223.0 351.0 223.0 351.0 210.0" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="295.0" y="261.0" width="130" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="360" y="284.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">OWNER</text>
+<text x="360" y="340" font-size="13" text-anchor="middle" fill="#d9822b" font-weight="normal">BANK 是雙線：每個 BANK 都必須是 OWNER</text>
+<text x="360" y="362" font-size="13" text-anchor="middle" fill="#7b8794" font-weight="normal">PERSON、COMPANY 是單線：可以是 OWNER，也可以不是</text>
+</svg>
