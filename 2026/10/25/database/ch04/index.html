@@ -25,12 +25,15 @@
 <meta property="og:description" content="此筆記整理《Fundamentals of Database Systems》(Elmasri &amp; Navathe) 第四章的內容：Enhanced Entity-Relationship (EER) Model。涵蓋 subclass 與 superclass、specialization 與 generalization 的 constraint、hierarchy 與 lattice、sha">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.1.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.7.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.6.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.2.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.3.svg">
+<meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.8.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.4.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/25/database/ch04/fig4.5.svg">
 <meta property="article:published_time" content="2026-10-25T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-10-25T06:42:49.825Z">
+<meta property="article:modified_time" content="2026-10-25T06:58:40.188Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="EER Model">
 <meta property="article:tag" content="Elmasri">
@@ -435,6 +438,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><strong>specialization</strong>：由 superclass 出發，根據 entity 的某個區別特徵，定義出一組 subclass。是 <strong>top-down</strong> 的 conceptual refinement。例如 {SECRETARY, ENGINEER, TECHNICIAN} 是 EMPLOYEE 依 job type 做的 specialization，{SALARIED_EMPLOYEE, HOURLY_EMPLOYEE} 是依 method of pay 做的另一個 specialization。同一個 superclass 可以有<strong>很多個</strong> specialization</li>
 <li><strong>generalization</strong>：反過來，由幾個有共同特徵的 class 出發，歸納出一個 superclass，原本的 class 變成它的 subclass。是 <strong>bottom-up</strong> 的 conceptual synthesis。例如把 CAR 與 TRUCK generalize 成 VEHICLE</li>
 </ul>
+<div class="img-row left"><img src="fig4.7.svg" alt="fig 4.7" loading="lazy" decoding="async" style="width:90%"></div>
+
 <p>兩者<strong>最後得到的結果是一樣的</strong> (一個 superclass 與一組 subclass)，只是思考的方向不同，所以 EER diagram 裡<strong>不畫箭頭</strong>來區分 (到底算 specialization 還是 generalization 常常很主觀)。實務上兩種方向會混著用</p>
 <p><strong>&lt;註&gt;</strong> generalization 的結果<strong>通常是 total</strong> (見下一節)，因為 superclass 是由那些 subclass 歸納出來的，superclass 裡的每個 entity 本來就來自某個 subclass</p>
 <p>上圖是 EER diagram 的基本畫法：</p>
@@ -470,6 +475,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <td align="left">線旁什麼都不寫</td>
 </tr>
 </tbody></table>
+<div class="img-row left"><img src="fig4.6.svg" alt="fig 4.6" loading="lazy" decoding="async" style="width:80%"></div>
+
 <p><strong>&lt;註&gt;</strong> 包含關係是 <strong>attribute-defined ⊂ predicate-defined</strong>，user-defined 則是另外一類。上圖的 Job_type 是 defining attribute，’Secretary’、’Technician’、’Engineer’ 是各 subclass 的條件值</p>
 <p>形式化地寫，predicate-defined 的 subclass 是 $S = C[p]$，也就是 superclass $C$ 中滿足條件 $p$ 的 entity。attribute-defined 的條件形如 $A = c_i$ ($A$ 是 attribute、$c_i$ 是常數)。如果各 $c_i$ 不相同、而且 $A$ 是 single-valued，那麼這個 specialization 一定是 <strong>disjoint</strong> (一個 entity 的 $A$ 只有一個值，不可能同時等於兩個不同常數)</p>
 <h2 id="第三節-Specialization-的-Constraint"><a href="#第三節-Specialization-的-Constraint" class="headerlink" title="第三節 Specialization 的 Constraint"></a>第三節 Specialization 的 Constraint</h2><p>specialization &#x2F; generalization 有兩個基本的 constraint，而且<strong>兩者互相獨立</strong>：</p>
@@ -538,6 +545,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>subclass 不只繼承<strong>直接</strong> superclass 的 attribute，還會繼承<strong>所有祖先 superclass</strong> 的 attribute</li>
 <li>如果同一個 attribute (或 relationship) 來自同一個祖先，經由<strong>不同路徑</strong>被繼承了不只一次，在 shared subclass 裡<strong>只會算一次</strong>。上圖 ENGINEERING_MANAGER 從 ENGINEER 與 MANAGER 兩條路徑都繼承到 EMPLOYEE 的 Name，但 Name 只會出現一次</li>
 </ul>
+<div class="img-row left"><img src="fig4.8.svg" alt="fig 4.8" loading="lazy" decoding="async" style="width:90%"></div>
+
+<p>上圖中 attribute A 定義在最上面的 C，所有 subclass 都擁有 A。X 同時是 S1 到 S4 的 subclass，從 C 到 X 有 4 條路徑，但 X 只有一個 A</p>
 <p><strong>&lt;註&gt;</strong> 「只算一次」指的是<strong>同一個 attribute 經由不同路徑到達同一個 shared subclass 時不會重複</strong>。attribute 只在最頂端的 superclass 定義一次，往下所有 subclass 都擁有它，shared subclass 也只有一份</p>
 <h2 id="第五節-Category-Union-Type"><a href="#第五節-Category-Union-Type" class="headerlink" title="第五節 Category (Union Type)"></a>第五節 Category (Union Type)</h2><p>前面所有的 superclass&#x2F;subclass relationship 都只有<strong>一個</strong> superclass。<strong>shared subclass</strong> 是 subclass 同時出現在<strong>好幾個</strong> superclass&#x2F;subclass relationship 中，<strong>每個 relationship 各有一個</strong> superclass。</p>
 <p>有時需要的是另一件事：<strong>一個</strong> superclass&#x2F;subclass relationship，卻有<strong>多個</strong> superclass，而且這些 superclass 還可以是<strong>不同 entity type</strong>。這種 subclass 叫 <strong>category</strong>，也叫 <strong>union type</strong></p>
@@ -639,51 +649,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><strong>EER 新增的概念</strong>：subclass &#x2F; superclass、specialization &#x2F; generalization、category (union type)、inheritance</li>
 <li><strong>符號</strong>：circle 代表一個 specialization，裡面寫 d (disjoint) 或 o (overlapping)；U 形 subset symbol 開口朝向 superclass；superclass 到 circle 的雙線是 total、單線是 partial；category 用 ∪ 圓圈</li>
 </ul>
-<p>容易搞混的整理：</p>
-<table>
-<thead>
-<tr>
-<th align="left">容易搞混的點</th>
-<th align="left">結論</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">specialization vs generalization</td>
-<td align="left">結果一樣，只是方向不同：由 superclass 推 subclass 是 specialization，由 subclass 推 superclass 是 generalization (通常是 total)；EER 不畫箭頭</td>
-</tr>
-<tr>
-<td align="left">predicate-defined、attribute-defined、user-defined</td>
-<td align="left">attribute-defined 是 predicate-defined 的特例；user-defined 沒有條件</td>
-</tr>
-<tr>
-<td align="left">disjoint &#x2F; overlapping vs total &#x2F; partial</td>
-<td align="left">互相獨立，共 4 種組合。d &#x2F; o 看 subclass 之間，total &#x2F; partial 看 superclass 有沒有被蓋滿</td>
-</tr>
-<tr>
-<td align="left">hierarchy vs lattice</td>
-<td align="left">hierarchy 每個 subclass 只有 1 個 superclass (single inheritance)；lattice 可以有多個 (multiple inheritance)</td>
-</tr>
-<tr>
-<td align="left">經多條路徑繼承</td>
-<td align="left">同一個 attribute 只會繼承一次</td>
-</tr>
-<tr>
-<td align="left">shared subclass vs category</td>
-<td align="left">shared subclass：多個 relationship、每個 1 個 superclass、是<strong>交集</strong>的子集合、member 要屬於<strong>所有</strong> superclass；category：1 個 relationship、多個 superclass、是<strong>聯集</strong>的子集合、member 屬於<strong>至少一個</strong> (通常只有一個) superclass</td>
-</tr>
-<tr>
-<td align="left">category 的 inheritance</td>
-<td align="left">selective，只繼承實際所屬的 superclass 的 attribute</td>
-</tr>
-<tr>
-<td align="left">category 的 total 雙線</td>
-<td align="left">畫在 superclass 到 circle 的線上，表示該 superclass 的每個 entity 都必須是 category 的 member</td>
-</tr>
-<tr>
-<td align="left">subclass 設計</td>
-<td align="left">specific attribute 很少又沒有 specific relationship 時，應合併回 superclass</td>
-</tr>
-</tbody></table>
 <h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><p>R. Elmasri and S. B. Navathe, <em>Fundamentals of Database Systems, 7th Ed.</em>, Pearson, 2016.</p>
 
         </div>

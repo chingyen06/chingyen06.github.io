@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="380" viewBox="0 0 800 380" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+<title>specialization 與 generalization 的方向</title>
+<rect width="800" height="380" fill="#ffffff"/>
+<line x1="200.0" y1="79.0" x2="200.0" y2="136.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="190.1" y1="159.9" x2="110.0" y2="221.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="209.9" y1="159.9" x2="290.0" y2="221.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="20" y1="70" x2="20" y2="250" stroke="#d9822b" stroke-width="2.4"/>
+<line x1="617.4" y1="79.0" x2="617.4" y2="136.0" stroke="#7b8794" stroke-width="1.5"/>
+<line x1="622.6" y1="79.0" x2="622.6" y2="136.0" stroke="#7b8794" stroke-width="1.5"/>
+<line x1="610.1" y1="159.9" x2="530.0" y2="221.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="629.9" y1="159.9" x2="710.0" y2="221.0" stroke="#7b8794" stroke-width="1.6"/>
+<line x1="440" y1="250" x2="440" y2="70" stroke="#d9822b" stroke-width="2.4"/>
+<rect x="125.0" y="41.0" width="150" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="200" y="64.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">EMPLOYEE</text>
+<circle cx="200" cy="150" r="14" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="200" y="155" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">d</text>
+<path d="M 174.9 182.8 C 164.6 190.7 153.6 176.4 164.0 168.5" fill="none" stroke="#d9822b" stroke-width="2"/>
+<path d="M 236.0 168.5 C 246.4 176.4 235.4 190.7 225.1 182.8" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="40.0" y="221.0" width="140" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="110" y="244.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">SECRETARY</text>
+<rect x="220.0" y="221.0" width="140" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="290" y="244.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">ENGINEER</text>
+<polygon points="20.0,250.0 14.0,238.0 26.0,238.0" fill="#d9822b"/>
+<text x="200" y="320" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">specialization</text>
+<text x="200" y="342" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">由 superclass 推出 subclass (top-down)</text>
+<rect x="545.0" y="41.0" width="150" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="620" y="64.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">VEHICLE</text>
+<circle cx="620" cy="150" r="14" fill="#fff4e5" stroke="#d9822b" stroke-width="2"/>
+<text x="620" y="155" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">d</text>
+<path d="M 594.9 182.8 C 584.6 190.7 573.6 176.4 584.0 168.5" fill="none" stroke="#d9822b" stroke-width="2"/>
+<path d="M 656.0 168.5 C 666.4 176.4 655.4 190.7 645.1 182.8" fill="none" stroke="#d9822b" stroke-width="2"/>
+<rect x="460.0" y="221.0" width="140" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="530" y="244.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">CAR</text>
+<rect x="640.0" y="221.0" width="140" height="38" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2"/>
+<text x="710" y="244.5" font-size="13" text-anchor="middle" fill="#2c3e50" font-weight="bold">TRUCK</text>
+<polygon points="440.0,70.0 446.0,82.0 434.0,82.0" fill="#d9822b"/>
+<text x="620" y="320" font-size="14" text-anchor="middle" fill="#2c3e50" font-weight="bold">generalization</text>
+<text x="620" y="342" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">由 subclass 歸納出 superclass (bottom-up)，通常是 total</text>
+</svg>

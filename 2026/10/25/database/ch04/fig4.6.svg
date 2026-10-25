@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="340" viewBox="0 0 680 340" font-family="'Noto Sans TC','Segoe UI',Arial,sans-serif">
+<title>specialization 的三種決定方式</title>
+<rect width="680" height="340" fill="#ffffff"/>
+
+<ellipse cx="210" cy="165" rx="195" ry="130" fill="#eaf2fb" stroke="#4f86c6" stroke-width="2.2"/>
+<ellipse cx="225" cy="215" rx="115" ry="55" fill="#fff4e5" stroke="#d9822b" stroke-width="2.2"/>
+<ellipse cx="545" cy="165" rx="110" ry="62" fill="#f5f7fa" stroke="#7b8794" stroke-width="2.2"/>
+<text x="210" y="80" font-size="16" text-anchor="middle" fill="#2c3e50" font-weight="bold">predicate-defined</text>
+<text x="210" y="102" font-size="13" text-anchor="middle" fill="#7b8794" font-weight="normal">(condition-defined)</text>
+<text x="225" y="212" font-size="15" text-anchor="middle" fill="#2c3e50" font-weight="bold">attribute-defined</text>
+<text x="225" y="233" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">條件限定在同一個 attribute</text>
+<text x="545" y="163" font-size="16" text-anchor="middle" fill="#2c3e50" font-weight="bold">user-defined</text>
+<text x="545" y="185" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">沒有條件，逐一指定</text>
+<text x="210" y="328" font-size="12.5" text-anchor="middle" fill="#7b8794" font-weight="normal">有條件 (predicate) 決定 member</text>
+<text x="545" y="328" font-size="12.5" text-anchor="middle" fill="#7b8794" font-weight="normal">由 user 決定 member</text>
+</svg>

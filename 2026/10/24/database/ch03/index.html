@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/24/database/ch03/fig3.7.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/24/database/ch03/fig3.2.svg">
 <meta property="article:published_time" content="2026-10-24T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-10-25T04:57:11.992Z">
+<meta property="article:modified_time" content="2026-10-25T06:58:40.188Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="ER Model">
 <meta property="article:tag" content="Elmasri">
@@ -761,51 +761,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><strong>ER Model 的三個基本概念</strong>：entity (含 attribute)、relationship、constraint。ER diagram 畫的是 schema (type)，不是資料 (set)</li>
 <li><strong>符號</strong>：矩形是 entity、橢圓是 attribute (雙橢圓 multi-valued、虛線橢圓 derived)、菱形是 relationship；雙矩形與雙菱形是 weak entity 與 identifying relationship；雙線是 total participation；底線是 key、虛線底線是 partial key</li>
 </ul>
-<p>容易搞混的整理：</p>
-<table>
-<thead>
-<tr>
-<th align="left">容易搞混的點</th>
-<th align="left">結論</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">哪些 attribute 要畫底線</td>
-<td align="left">ER diagram 中<strong>所有</strong>能當 key 的 attribute 都畫；relational schema 才只畫一個 primary key</td>
-</tr>
-<tr>
-<td align="left">菱形的閱讀方向</td>
-<td align="left">沒有箭頭，由左至右、由上至下，名稱是動詞</td>
-</tr>
-<tr>
-<td align="left">(min, max) 的位置</td>
-<td align="left">標在<strong>自己</strong>這側，描述自己參與幾次</td>
-</tr>
-<tr>
-<td align="left">Cardinality ratio 的位置</td>
-<td align="left">標在<strong>對方</strong>那側，與 (min, max) 的位置相反</td>
-</tr>
-<tr>
-<td align="left">Total &#x2F; partial participation</td>
-<td align="left">由 min 決定：<code>min = 0</code> 為 partial (單線)、<code>min ≥ 1</code> 為 total (雙線)</td>
-</tr>
-<tr>
-<td align="left">Partial key、primary key、foreign key</td>
-<td align="left">partial key 是 weak entity 在 ER 階段的概念，需搭配 owner 的 key；primary key 與 foreign key 是 relational schema 的概念</td>
-</tr>
-<tr>
-<td align="left">Relationship attribute 能不能搬</td>
-<td align="left">M:N 不行；1:N 可以搬到 N 側；1:1 任一側皆可</td>
-</tr>
-<tr>
-<td align="left">Ternary relationship 與三個 binary relationship</td>
-<td align="left">不等價，三個 binary relationship 無法還原 ternary 的組合資訊</td>
-</tr>
-<tr>
-<td align="left">Recursive relationship</td>
-<td align="left">同一個 entity type 以不同 role 參與，兩條線都要標 role name</td>
-</tr>
-</tbody></table>
 <h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><p>R. Elmasri and S. B. Navathe, <em>Fundamentals of Database Systems, 7th Ed.</em>, Pearson, 2016.</p>
 
         </div>
