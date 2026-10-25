@@ -17,12 +17,12 @@
         h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; }
     </style>
 
-    <meta name="description" content="此筆記整理《Fundamentals of Database Systems》(Elmasri &amp; Navathe) 第三章的內容：實體關係模型 (ER Model)。涵蓋實體與屬性、關係與限制、弱實體、COMPANY 範例的 ER 圖與高階關係，並特別整理 (min,max) 與基數比例的方向、部分鍵、三元關係等容易搞混的地方">
+    <meta name="description" content="此筆記整理《Fundamentals of Database Systems》(Elmasri &amp; Navathe) 第三章的內容：Entity-Relationship (ER) Model。涵蓋 entity 與 attribute、relationship 與 constraint、weak entity、COMPANY 範例的 ER diagram 與 higher-degree rela">
 <meta property="og:type" content="article">
 <meta property="og:title" content="資料庫系統 Chapter 3 實體關係模型 (ER Model)">
 <meta property="og:url" content="https://www.tseng-school.com/2026/10/24/database/ch03/index.html">
 <meta property="og:site_name" content="靖諺的資訊學習筆記">
-<meta property="og:description" content="此筆記整理《Fundamentals of Database Systems》(Elmasri &amp; Navathe) 第三章的內容：實體關係模型 (ER Model)。涵蓋實體與屬性、關係與限制、弱實體、COMPANY 範例的 ER 圖與高階關係，並特別整理 (min,max) 與基數比例的方向、部分鍵、三元關係等容易搞混的地方">
+<meta property="og:description" content="此筆記整理《Fundamentals of Database Systems》(Elmasri &amp; Navathe) 第三章的內容：Entity-Relationship (ER) Model。涵蓋 entity 與 attribute、relationship 與 constraint、weak entity、COMPANY 範例的 ER diagram 與 higher-degree rela">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/24/database/ch03/fig3.1.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/24/database/ch03/fig3.3.svg">
@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/24/database/ch03/fig3.7.svg">
 <meta property="og:image" content="https://www.tseng-school.com/2026/10/24/database/ch03/fig3.2.svg">
 <meta property="article:published_time" content="2026-10-24T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-10-24T14:30:59.169Z">
+<meta property="article:modified_time" content="2026-10-25T04:57:11.992Z">
 <meta property="article:author" content="chingyen06">
 <meta property="article:tag" content="ER Model">
 <meta property="article:tag" content="Elmasri">
@@ -78,12 +78,20 @@
     
 
     
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-18D6HBKZSF');
+            window.addEventListener('load', function () {
+                var run = function () {
+                    var s = document.createElement('script');
+                    s.async = true;
+                    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-18D6HBKZSF';
+                    document.head.appendChild(s);
+                };
+                'requestIdleCallback' in window ? requestIdleCallback(run, { timeout: 3000 }) : setTimeout(run, 1500);
+            });
         </script>
     
 
@@ -401,14 +409,14 @@ document.addEventListener('DOMContentLoaded', function() {
             </p>
         </header>
         <div class="marked-body article-body">
-            <div class="alert-block alert-info note-shortcode">此筆記整理《Fundamentals of Database Systems》第三章的內容。<strong>ER 模型 (Entity-Relationship Model)</strong> 是做<strong>概念設計 (conceptual design)</strong> 的工具：先用圖把現實世界要存的東西畫出來 (有哪些東西、東西有什麼性質、東西之間有什麼關係、有什麼限制)，之後才轉成關聯式的表格 (第九章)。本章的重點是看懂與畫出 ER 圖，其中符號的意義與<strong>限制標示的方向</strong>最容易搞混，下面會特別整理</div>
+            <div class="alert-block alert-info note-shortcode">此筆記整理《Fundamentals of Database Systems》第三章的內容。<strong>ER Model (Entity-Relationship Model)</strong> 是做 <strong>conceptual design</strong> 的工具：先用圖把現實世界要存的東西畫出來 (有哪些東西、東西有什麼性質、東西之間有什麼關係、有什麼限制)，之後才轉成 relational 的表格 (第九章)。本章的重點是看懂與畫出 ER diagram，其中符號的意義與 <strong>constraint 標示的方向</strong>最容易搞混，下面會特別整理</div>
 
-<h2 id="第一節-資料庫設計流程"><a href="#第一節-資料庫設計流程" class="headerlink" title="第一節 資料庫設計流程"></a>第一節 資料庫設計流程</h2><p>資料庫的設計大致分成兩件事：<strong>資料庫設計 (database design)</strong> 與<strong>應用程式設計 (application design)</strong>。後者是程式與介面怎麼存取資料，屬於軟體工程，本章只談前者的第一步，也就是<strong>概念設計</strong>：根據需求畫出<strong>概念綱要 (conceptual schema)</strong></p>
-<p>常見的概念設計工具有：</p>
+<h2 id="第一節-資料庫設計流程"><a href="#第一節-資料庫設計流程" class="headerlink" title="第一節 資料庫設計流程"></a>第一節 資料庫設計流程</h2><p>資料庫的設計大致分成兩件事：<strong>database design</strong> 與 <strong>application design</strong>。後者是程式與介面怎麼存取資料，屬於軟體工程，本章只談前者的第一步，也就是 <strong>conceptual design</strong>：根據需求畫出 <strong>conceptual schema</strong></p>
+<p>常見的 conceptual design 工具有：</p>
 <ul>
-<li><strong>ER 圖 (ER Diagram)</strong>：本章</li>
-<li><strong>EER 圖 (Enhanced ER)</strong>：加入繼承 (特殊化 &#x2F; 一般化)，第四章</li>
-<li><strong>UML 類別圖 (Class Diagram)</strong>：業界常用，在 ER 圖的基礎上多了「方法」，之後會簡單提到</li>
+<li><strong>ER diagram</strong>：本章</li>
+<li><strong>EER diagram (Enhanced ER)</strong>：加入繼承 (specialization &#x2F; generalization)，第四章</li>
+<li><strong>UML class diagram</strong>：業界常用，在 ER diagram 的基礎上多了「方法」，之後會簡單提到</li>
 </ul>
 <p>本章全程使用同一個範例資料庫 <strong>COMPANY</strong>，需求如下：</p>
 <ul>
@@ -417,13 +425,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>要記錄每個 <strong>EMPLOYEE</strong> 的 SSN、地址、薪水、性別、生日。每位員工屬於一個部門，但可以參與多個專案，並記錄每週在每個專案的工時；還要記錄每位員工的直屬主管</li>
 <li>每位員工可以有多個 <strong>DEPENDENT</strong> (眷屬)，記錄名字、性別、生日與跟員工的關係</li>
 </ul>
-<h2 id="第二節-實體與屬性"><a href="#第二節-實體與屬性" class="headerlink" title="第二節 實體與屬性"></a>第二節 實體與屬性</h2><h3 id="實體、實體型別與實體集"><a href="#實體、實體型別與實體集" class="headerlink" title="實體、實體型別與實體集"></a>實體、實體型別與實體集</h3><ul>
-<li><strong>實體 (entity)</strong>：現實世界中一個具體的東西，例如員工 John Smith、Research 部門</li>
-<li><strong>實體型別 (entity type)</strong>：擁有相同種類屬性的實體所歸成的一類，例如 EMPLOYEE、PROJECT。它是<strong>綱要 (schema)</strong>，描述長什麼樣子，ER 圖畫的就是這個</li>
-<li><strong>實體集 (entity set)</strong>：資料庫此刻實際存的某型別所有實體，是<strong>狀態 (state)</strong>，會隨著新增刪除而變動</li>
+<h2 id="第二節-Entity-與-Attribute"><a href="#第二節-Entity-與-Attribute" class="headerlink" title="第二節 Entity 與 Attribute"></a>第二節 Entity 與 Attribute</h2><h3 id="Entity、Entity-Type-與-Entity-Set"><a href="#Entity、Entity-Type-與-Entity-Set" class="headerlink" title="Entity、Entity Type 與 Entity Set"></a>Entity、Entity Type 與 Entity Set</h3><ul>
+<li><strong>entity</strong>：現實世界中一個具體的東西，例如員工 John Smith、Research 部門</li>
+<li><strong>entity type</strong>：擁有相同種類 attribute 的 entity 所歸成的一類，例如 EMPLOYEE、PROJECT。它是 <strong>schema</strong>，描述長什麼樣子，ER diagram 畫的就是這個</li>
+<li><strong>entity set</strong>：資料庫此刻實際存的某 type 所有 entity，是 <strong>state</strong>，會隨著新增刪除而變動</li>
 </ul>
-<p><strong>&lt;註&gt;</strong> 型別是設計時決定的、實體集是執行時變動的，兩者常常用同一個名字 (都叫 EMPLOYEE)，但意義不同。ER 圖上畫的是型別，不會畫出任何一筆實際資料。關係也一樣，下一節的<strong>關係型別 (relationship type)</strong> 與<strong>關係集 (relationship set)</strong> 是同樣的對應</p>
-<h3 id="屬性的種類"><a href="#屬性的種類" class="headerlink" title="屬性的種類"></a>屬性的種類</h3><div class="img-row left"><img src="fig3.1.svg" alt="fig 3.1" loading="lazy" decoding="async" style="width:90%"></div>
+<p><strong>&lt;註&gt;</strong> entity type 是設計時決定的、entity set 是執行時變動的，兩者常常用同一個名字 (都叫 EMPLOYEE)，但意義不同。ER diagram 上畫的是 type，不會畫出任何一筆實際資料。relationship 也一樣，下一節的 <strong>relationship type</strong> 與 <strong>relationship set</strong> 是同樣的對應</p>
+<h3 id="Attribute-的種類"><a href="#Attribute-的種類" class="headerlink" title="Attribute 的種類"></a>Attribute 的種類</h3><div class="img-row left"><img src="fig3.1.svg" alt="fig 3.1" loading="lazy" decoding="async" style="width:90%"></div>
 
 <table>
 <thead>
@@ -435,56 +443,56 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">簡單 (simple)</td>
+<td align="left">simple</td>
 <td align="left">單一、不可再分的值</td>
 <td align="left">Ssn、Sex</td>
 <td align="left">橢圓</td>
 </tr>
 <tr>
-<td align="left">複合 (composite)</td>
+<td align="left">composite</td>
 <td align="left">由幾個部分組成，可再分</td>
 <td align="left">Name (Fname, Lname)、Address</td>
 <td align="left">橢圓底下再接橢圓，可以多層</td>
 </tr>
 <tr>
-<td align="left">單值 (single-valued)</td>
-<td align="left">每個實體只有一個值</td>
+<td align="left">single-valued</td>
+<td align="left">每個 entity 只有一個值</td>
 <td align="left">Ssn</td>
 <td align="left">一般橢圓</td>
 </tr>
 <tr>
-<td align="left">多值 (multi-valued)</td>
-<td align="left">一個實體可以有多個值</td>
+<td align="left">multi-valued</td>
+<td align="left">一個 entity 可以有多個值</td>
 <td align="left">汽車的 Color、員工的 Phone</td>
 <td align="left"><strong>雙橢圓</strong>，記為 $\{\text{Color}\}$</td>
 </tr>
 <tr>
-<td align="left">儲存 (stored) &#x2F; 衍生 (derived)</td>
-<td align="left">衍生屬性可以由別的屬性算出來</td>
+<td align="left">stored &#x2F; derived</td>
+<td align="left">derived attribute 可以由別的 attribute 算出來</td>
 <td align="left">Age 可由 BirthDate 算出</td>
-<td align="left">衍生用<strong>虛線橢圓</strong></td>
+<td align="left">derived 用<strong>虛線橢圓</strong></td>
 </tr>
 </tbody></table>
-<p>複合與多值可以任意巢狀，例如學生的 <code>PreviousDegrees</code> 是「多值且複合」的屬性，記作 $\{\text{PreviousDegrees}(\text{College}, \text{Year}, \text{Degree}, \text{Field})\}$，意思是可以有很多筆學位，每一筆都有四個部分</p>
-<p>數學上，值域為 $V$ 的屬性 $A$ 是一個函數 $A : E \rightarrow \mathcal{P}(V)$，$\mathcal{P}(V)$ 是 $V$ 的<strong>冪集 (所有子集)</strong>。單值屬性取到的子集只有一個元素；多值屬性可以有多個元素 (也可以是空集合，也就是沒有值)</p>
-<h3 id="鍵屬性-Key-Attribute"><a href="#鍵屬性-Key-Attribute" class="headerlink" title="鍵屬性 (Key Attribute)"></a>鍵屬性 (Key Attribute)</h3><p>若一個屬性在實體型別中每個實體都必須有<strong>唯一</strong>的值，它就是<strong>鍵屬性</strong>，圖上在名稱底下畫<strong>底線</strong></p>
-<p>這裡有幾個地方跟之後的關聯式綱要不一樣，容易搞混：</p>
+<p>composite 與 multi-valued 可以任意巢狀，例如學生的 <code>PreviousDegrees</code> 是「multi-valued 且 composite」的 attribute，記作 $\{\text{PreviousDegrees}(\text{College}, \text{Year}, \text{Degree}, \text{Field})\}$，意思是可以有很多筆學位，每一筆都有四個部分</p>
+<p>數學上，value set 為 $V$ 的 attribute $A$ 是一個函數 $A : E \rightarrow \mathcal{P}(V)$，$\mathcal{P}(V)$ 是 $V$ 的 <strong>power set (所有子集)</strong>。single-valued 取到的子集只有一個元素；multi-valued 可以有多個元素 (也可以是空集合，也就是沒有值)</p>
+<h3 id="Key-Attribute"><a href="#Key-Attribute" class="headerlink" title="Key Attribute"></a>Key Attribute</h3><p>若一個 attribute 在 entity type 中每個 entity 都必須有<strong>唯一</strong>的值，它就是 <strong>key attribute</strong>，圖上在名稱底下畫<strong>底線</strong></p>
+<p>這裡有幾個地方跟之後的 relational schema 不一樣，容易搞混：</p>
 <ul>
-<li>ER 圖中<strong>所有能當鍵的屬性都要畫底線</strong>，不是只畫其中一個。一個實體型別可以有多個鍵，例如 CAR 同時有 VehicleIdentificationNumber (VIN) 與 VehicleTagNumber，兩個都畫底線。到了關聯式綱要才需要從候選鍵中選<strong>一個</strong>當 primary key 畫底線</li>
-<li>鍵屬性可以是<strong>複合的</strong>，例如 VehicleTagNumber 由 (Number, State) 一起才唯一，這整個複合屬性畫底線，而不是分開畫</li>
+<li>ER diagram 中<strong>所有能當 key 的 attribute 都要畫底線</strong>，不是只畫其中一個。一個 entity type 可以有多個 key，例如 CAR 同時有 VehicleIdentificationNumber (VIN) 與 VehicleTagNumber，兩個都畫底線。到了 relational schema 才需要從 candidate key 中選<strong>一個</strong>當 primary key 畫底線</li>
+<li>key attribute 可以是 <strong>composite</strong> 的，例如 VehicleTagNumber 由 (Number, State) 一起才唯一，這整個 composite attribute 畫底線，而不是分開畫</li>
 </ul>
-<h2 id="第三節-關係"><a href="#第三節-關係" class="headerlink" title="第三節 關係"></a>第三節 關係</h2><h3 id="關係、關係型別、度"><a href="#關係、關係型別、度" class="headerlink" title="關係、關係型別、度"></a>關係、關係型別、度</h3><ul>
-<li><strong>關係 (relationship)</strong>：把兩個以上的實體以一個特定意義連起來，例如「John Smith works on ProductX」</li>
-<li><strong>關係型別 (relationship type)</strong>：相同種類的關係的歸類，例如 WORKS_ON。它描述的是名稱、參與的實體型別與限制 (綱要)</li>
-<li><strong>關係集 (relationship set)</strong>：目前資料庫實際存在的所有關係 (狀態)</li>
-<li><strong>度 (degree)</strong>：參與的實體型別個數。2 個叫<strong>二元 (binary)</strong>、3 個叫<strong>三元 (ternary)</strong>，$n$ 個叫 <strong>$n$ 元 (n-ary)</strong></li>
+<h2 id="第三節-Relationship"><a href="#第三節-Relationship" class="headerlink" title="第三節 Relationship"></a>第三節 Relationship</h2><h3 id="Relationship、Relationship-Type、Degree"><a href="#Relationship、Relationship-Type、Degree" class="headerlink" title="Relationship、Relationship Type、Degree"></a>Relationship、Relationship Type、Degree</h3><ul>
+<li><strong>relationship</strong>：把兩個以上的 entity 以一個特定意義連起來，例如「John Smith works on ProductX」</li>
+<li><strong>relationship type</strong>：相同種類的 relationship 的歸類，例如 WORKS_ON。它描述的是名稱、參與的 entity type 與 constraint (schema)</li>
+<li><strong>relationship set</strong>：目前資料庫實際存在的所有 relationship (state)</li>
+<li><strong>degree</strong>：參與的 entity type 個數。2 個叫 <strong>binary</strong>、3 個叫 <strong>ternary</strong>，<code>n</code> 個叫 <strong><code>n</code>-ary</strong></li>
 </ul>
-<p>COMPANY 經過整理後有 6 個二元關係型別，原本寫在實體屬性裡的東西 (部門的經理、員工所屬部門、員工參與的專案) 都改成關係：</p>
+<p>COMPANY 經過整理後有 6 個 binary relationship type，原本寫在 entity attribute 裡的東西 (部門的經理、員工所屬部門、員工參與的專案) 都改成 relationship：</p>
 <table>
 <thead>
 <tr>
-<th align="left">關係型別</th>
-<th align="left">參與的實體型別</th>
+<th align="left">Relationship type</th>
+<th align="left">參與的 entity type</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -505,69 +513,69 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 <tr>
 <td align="left">SUPERVISION</td>
-<td align="left">EMPLOYEE (主管)、EMPLOYEE (部屬)</td>
+<td align="left">EMPLOYEE (supervisor)、EMPLOYEE (supervisee)</td>
 </tr>
 <tr>
 <td align="left">DEPENDENTS_OF</td>
 <td align="left">EMPLOYEE、DEPENDENT</td>
 </tr>
 </tbody></table>
-<p><strong>&lt;註&gt;</strong> 同樣兩個實體型別之間可以有<strong>不只一個</strong>關係型別。MANAGES 與 WORKS_FOR 都在 EMPLOYEE 與 DEPARTMENT 之間，但意義不同、實際連起來的實體也不同 (一個部門的經理是員工，但不代表是只有經理在這個部門工作)</p>
+<p><strong>&lt;註&gt;</strong> 同樣兩個 entity type 之間可以有<strong>不只一個</strong> relationship type。MANAGES 與 WORKS_FOR 都在 EMPLOYEE 與 DEPARTMENT 之間，但意義不同、實際連起來的 entity 也不同 (一個部門的經理是員工，但不代表是只有經理在這個部門工作)</p>
 <h3 id="閱讀方向"><a href="#閱讀方向" class="headerlink" title="閱讀方向"></a>閱讀方向</h3><div class="img-row left"><img src="fig3.3.svg" alt="fig 3.3" loading="lazy" decoding="async" style="width:90%"></div>
 
-<p>ER 圖中關係的菱形<strong>沒有箭頭</strong>，約定俗成的讀法是<strong>由左至右、由上至下</strong>，菱形的名稱就是中間的動詞。上圖兩種寫法分別讀成「DEPARTMENT employs EMPLOYEE」與「EMPLOYEE works for DEPARTMENT」，說的是同一件事。如果把實體左右換位置，關係的名字也要跟著換成讀得通順的動詞，否則讀起來意思會相反</p>
-<h3 id="遞迴關係"><a href="#遞迴關係" class="headerlink" title="遞迴關係"></a>遞迴關係</h3><div class="img-row left"><img src="fig3.6.svg" alt="fig 3.6" loading="lazy" decoding="async" style="width:70%"></div>
+<p>ER diagram 中 relationship 的菱形<strong>沒有箭頭</strong>，約定俗成的讀法是<strong>由左至右、由上至下</strong>，菱形的名稱就是中間的動詞。上圖兩種寫法分別讀成「DEPARTMENT employs EMPLOYEE」與「EMPLOYEE works for DEPARTMENT」，說的是同一件事。如果把 entity 左右換位置，relationship 的名字也要跟著換成讀得通順的動詞，否則讀起來意思會相反</p>
+<h3 id="Recursive-Relationship"><a href="#Recursive-Relationship" class="headerlink" title="Recursive Relationship"></a>Recursive Relationship</h3><div class="img-row left"><img src="fig3.6.svg" alt="fig 3.6" loading="lazy" decoding="async" style="width:70%"></div>
 
-<p>同一個實體型別在同一個關係中<strong>參與兩次、扮演不同角色</strong>，叫做<strong>遞迴關係 (recursive relationship)</strong> 或自我參照 (self-referencing)。SUPERVISION 就是例子：一位員工當<strong>主管 (supervisor)</strong>，另一位員工當<strong>部屬 (supervisee)</strong>，每一個關係實例連結的是<strong>兩位不同</strong>的員工</p>
-<p>因為兩條線連到同一個矩形，單看圖分不出誰是誰，所以遞迴關係的每條線上一定要標<strong>角色名稱 (role name)</strong>。上圖 1 對 N 的意思是：一位主管有多位部屬，但一位部屬只有一位主管</p>
-<h3 id="關係的屬性"><a href="#關係的屬性" class="headerlink" title="關係的屬性"></a>關係的屬性</h3><p>關係也可以有屬性。例如員工參與專案的<strong>每週工時 Hours</strong>，它取決於 (員工, 專案) 的<strong>組合</strong>，不屬於員工也不屬於專案，所以掛在 WORKS_ON 這個關係上</p>
-<p><strong>&lt;註&gt;</strong> 關係屬性可以搬到實體上，是有條件的：</p>
+<p>同一個 entity type 在同一個 relationship 中<strong>參與兩次、扮演不同 role</strong>，叫做 <strong>recursive relationship</strong> (或 self-referencing)。SUPERVISION 就是例子：一位員工當 <strong>supervisor</strong>，另一位員工當 <strong>supervisee</strong>，每一個 relationship instance 連結的是<strong>兩位不同</strong>的員工</p>
+<p>因為兩條線連到同一個矩形，單看圖分不出誰是誰，所以 recursive relationship 的每條線上一定要標 <strong>role name</strong>。上圖 1 對 N 的意思是：一位 supervisor 有多位 supervisee，但一位 supervisee 只有一位 supervisor</p>
+<h3 id="Relationship-的-Attribute"><a href="#Relationship-的-Attribute" class="headerlink" title="Relationship 的 Attribute"></a>Relationship 的 Attribute</h3><p>relationship 也可以有 attribute。例如員工參與專案的<strong>每週工時 Hours</strong>，它取決於 (員工, 專案) 的<strong>組合</strong>，不屬於員工也不屬於專案，所以掛在 WORKS_ON 這個 relationship 上</p>
+<p><strong>&lt;註&gt;</strong> relationship attribute 可以搬到 entity 上，是有條件的：</p>
 <ul>
-<li><strong>M:N</strong>：不能搬，必須留在關係上 (因為值由兩邊的組合決定)</li>
-<li><strong>1:N</strong>：可以搬到 <strong>N 這一側</strong>的實體 (N 側的每個實體只對應一個關係實例，所以值唯一)。例如在 WORKS_FOR 上記錄「到職日」，可以改掛在 EMPLOYEE 上</li>
+<li><strong>M:N</strong>：不能搬，必須留在 relationship 上 (因為值由兩邊的組合決定)</li>
+<li><strong>1:N</strong>：可以搬到 <strong>N 這一側</strong>的 entity (N 側的每個 entity 只對應一個 relationship instance，所以值唯一)。例如在 WORKS_FOR 上記錄「到職日」，可以改掛在 EMPLOYEE 上</li>
 <li><strong>1:1</strong>：搬到任一側都可以。例如 MANAGES 的上任日期 StartDate 可以改掛在 DEPARTMENT 或 EMPLOYEE 上</li>
 </ul>
-<h2 id="第四節-關係的限制"><a href="#第四節-關係的限制" class="headerlink" title="第四節 關係的限制"></a>第四節 關係的限制</h2><p>關係型別有兩種限制，常常被合稱為結構限制，分別規定<strong>最多</strong>與<strong>最少</strong>能參與幾次：</p>
+<h2 id="第四節-Relationship-的-Constraint"><a href="#第四節-Relationship-的-Constraint" class="headerlink" title="第四節 Relationship 的 Constraint"></a>第四節 Relationship 的 Constraint</h2><p>relationship type 有兩種 constraint，常常被合稱為 structural constraint，分別規定<strong>最多</strong>與<strong>最少</strong>能參與幾次：</p>
 <table>
 <thead>
 <tr>
-<th align="left">限制</th>
+<th align="left">Constraint</th>
 <th align="left">管什麼</th>
 <th align="left">取值</th>
 <th align="left">圖上畫法</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><strong>基數比例 (cardinality ratio)</strong></td>
+<td align="left"><strong>cardinality ratio</strong></td>
 <td align="left">最多 (maximum)</td>
 <td align="left">1:1、1:N (N:1)、M:N</td>
 <td align="left">在線旁標 1、N、M</td>
 </tr>
 <tr>
-<td align="left"><strong>參與限制 (participation)</strong></td>
+<td align="left"><strong>participation constraint</strong></td>
 <td align="left">最少 (minimum)</td>
-<td align="left"><strong>全部 (total)</strong>：每個實體都必須參與，又叫存在相依；<strong>部分 (partial)</strong>：可以不參與</td>
-<td align="left">全部是<strong>雙線</strong>，部分是單線</td>
+<td align="left"><strong>total</strong> (又叫 existence dependency)：每個 entity 都必須參與；<strong>partial</strong>：可以不參與</td>
+<td align="left">total 是<strong>雙線</strong>，partial 是單線</td>
 </tr>
 </tbody></table>
-<p>這兩個限制對<strong>二元關係</strong>好表達，對高階關係就變得困難 (後面會提到)</p>
-<h3 id="min-max-標示法"><a href="#min-max-標示法" class="headerlink" title="(min, max) 標示法"></a>(min, max) 標示法</h3><p>另一種寫法是在每一條連線上標 $(\text{min}, \text{max})$：<strong>這個實體至少 (min) 且至多 (max) 參與幾個關係實例</strong>。限制是 $\text{min} \le \text{max}$、$\text{max} \ge 1$。$\text{min} = 0$ 就等於部分參與，$\text{min} \ge 1$ 就等於全部參與；不寫限制時預設 $(0, n)$，也就是沒有限制</p>
-<p>這個寫法同時包含基數比例與參與限制，資訊比較完整</p>
+<p>這兩個 constraint 對 <strong>binary relationship</strong> 好表達，對 higher-degree relationship 就變得困難 (後面會提到)</p>
+<h3 id="min-max-標示法"><a href="#min-max-標示法" class="headerlink" title="(min, max) 標示法"></a>(min, max) 標示法</h3><p>另一種寫法是在每一條連線上標 <code>(min, max)</code>：<strong>這個 entity 至少 (min) 且至多 (max) 參與幾個 relationship instance</strong>。限制是 <code>min ≤ max</code>、<code>max ≥ 1</code>。<code>min = 0</code> 就等於 partial participation，<code>min ≥ 1</code> 就等於 total participation；不寫限制時預設 <code>(0, n)</code>，也就是沒有限制</p>
+<p>這個寫法同時包含 cardinality ratio 與 participation constraint，資訊比較完整</p>
 <div class="img-row left"><img src="fig3.4.svg" alt="fig 3.4" loading="lazy" decoding="async" style="width:90%"></div>
 
-<div class="alert-block alert-success"><strong>最容易搞混的地方：</strong>(min, max) 與基數比例的數字，標的位置<strong>剛好相反</strong>
+<div class="alert-block alert-success"><strong>最容易搞混的地方：</strong>(min, max) 與 cardinality ratio 的數字，標的位置<strong>剛好相反</strong>
 </div>
 
 <ul>
-<li><strong>(min, max)</strong>：標在<strong>自己</strong>這一側的線上，往<strong>對方</strong>看。上圖上排 EMPLOYEE 旁的 $(1,1)$ 是說「<strong>每個 EMPLOYEE</strong> 恰好參與 1 個 WORKS_FOR」，也就是恰好屬於 1 個部門；DEPARTMENT 旁的 $(1,N)$ 是說「<strong>每個 DEPARTMENT</strong> 有 1 到 N 位員工」</li>
-<li><strong>基數比例</strong>：標在<strong>對方</strong>那一側。下排 EMPLOYEE 旁的 $N$ 是說「一個 DEPARTMENT 對應至多 $N$ 個 EMPLOYEE」，DEPARTMENT 旁的 $1$ 是說「一個 EMPLOYEE 對應至多 1 個 DEPARTMENT」</li>
+<li><strong>(min, max)</strong>：標在<strong>自己</strong>這一側的線上，往<strong>對方</strong>看。上圖上排 EMPLOYEE 旁的 <code>(1,1)</code> 是說「<strong>每個 EMPLOYEE</strong> 恰好參與 1 個 WORKS_FOR」，也就是恰好屬於 1 個部門；DEPARTMENT 旁的 <code>(1,N)</code> 是說「<strong>每個 DEPARTMENT</strong> 有 1 到 N 位員工」</li>
+<li><strong>cardinality ratio</strong>：標在<strong>對方</strong>那一側。下排 EMPLOYEE 旁的 <code>N</code> 是說「一個 DEPARTMENT 對應至多 <code>N</code> 個 EMPLOYEE」，DEPARTMENT 旁的 <code>1</code> 是說「一個 EMPLOYEE 對應至多 1 個 DEPARTMENT」</li>
 </ul>
 <p>兩排畫的是<strong>同一件事</strong>。要換算時，<strong>只看 max</strong>，並把兩側交換：</p>
 <table>
 <thead>
 <tr>
 <th align="center">兩側的 max</th>
-<th align="center">基數比例</th>
+<th align="center">Cardinality ratio</th>
 <th align="left">例子</th>
 </tr>
 </thead>
@@ -587,12 +595,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <td align="left">WORKS_ON</td>
 </tr>
 </tbody></table>
-<p><strong>&lt;註&gt;</strong> 一個簡單的判斷法：看到 $(\text{min},\text{max})$ 時，把數字讀成「<strong>緊鄰的這個實體</strong>自己參與幾次」；看到基數比例時，把數字讀成「<strong>對方</strong>實體的數量」。另外 min 只有在 (min, max) 才看得到，基數比例本身看不出是全部還是部分參與</p>
-<h3 id="COMPANY-的限制"><a href="#COMPANY-的限制" class="headerlink" title="COMPANY 的限制"></a>COMPANY 的限制</h3><p>依 COMPANY 的需求逐條寫成 (min, max)，這些限制是由現實世界的規則決定的：</p>
+<p><strong>&lt;註&gt;</strong> 一個簡單的判斷法：看到 <code>(min, max)</code> 時，把數字讀成「<strong>緊鄰的這個 entity</strong> 自己參與幾次」；看到 cardinality ratio 時，把數字讀成「<strong>對方</strong> entity 的數量」。另外 min 只有在 (min, max) 才看得到，cardinality ratio 本身看不出是 total 還是 partial participation</p>
+<h3 id="COMPANY-的-Constraint"><a href="#COMPANY-的-Constraint" class="headerlink" title="COMPANY 的 Constraint"></a>COMPANY 的 Constraint</h3><p>依 COMPANY 的需求逐條寫成 (min, max)，這些 constraint 是由現實世界的規則決定的：</p>
 <table>
 <thead>
 <tr>
-<th align="left">關係</th>
+<th align="left">Relationship</th>
 <th align="left">需求</th>
 <th align="left">(min, max)</th>
 </tr>
@@ -600,25 +608,25 @@ document.addEventListener('DOMContentLoaded', function() {
 <tbody><tr>
 <td align="left">MANAGES</td>
 <td align="left">一個部門恰有一位經理；一位員工最多管理一個部門</td>
-<td align="left">DEPARTMENT $(1,1)$、EMPLOYEE $(0,1)$</td>
+<td align="left">DEPARTMENT <code>(1,1)</code>、EMPLOYEE <code>(0,1)</code></td>
 </tr>
 <tr>
 <td align="left">WORKS_FOR</td>
 <td align="left">一位員工恰屬於一個部門；一個部門可以有任意位員工</td>
-<td align="left">EMPLOYEE $(1,1)$、DEPARTMENT $(1,N)$</td>
+<td align="left">EMPLOYEE <code>(1,1)</code>、DEPARTMENT <code>(1,N)</code></td>
 </tr>
 </tbody></table>
-<h2 id="第五節-弱實體型別"><a href="#第五節-弱實體型別" class="headerlink" title="第五節 弱實體型別"></a>第五節 弱實體型別</h2><div class="alert-block alert-success"><strong>弱實體 (weak entity)：</strong>沒有自己的鍵屬性、必須靠另一個實體型別才能被識別的實體型別。它所依附的叫<strong>擁有者 (owner)</strong> 或識別實體型別，兩者透過<strong>識別關係 (identifying relationship)</strong> 連起來
+<h2 id="第五節-Weak-Entity-Type"><a href="#第五節-Weak-Entity-Type" class="headerlink" title="第五節 Weak Entity Type"></a>第五節 Weak Entity Type</h2><div class="alert-block alert-success"><strong>weak entity：</strong>沒有自己的 key attribute、必須靠另一個 entity type 才能被識別的 entity type。它所依附的叫 <strong>owner</strong> (或 identifying entity type)，兩者透過 <strong>identifying relationship</strong> 連起來
 </div>
 
 <div class="img-row left"><img src="fig3.5.svg" alt="fig 3.5" loading="lazy" decoding="async" style="width:90%"></div>
 
-<p>弱實體要識別時需要兩個東西<strong>合在一起</strong>：</p>
+<p>weak entity 要識別時需要兩個東西<strong>合在一起</strong>：</p>
 <ol>
-<li>弱實體自己的<strong>部分鍵 (partial key)</strong>：在同一個擁有者底下可以唯一識別的屬性</li>
-<li>它所連結的<strong>擁有者實體</strong></li>
+<li>weak entity 自己的 <strong>partial key</strong>：在同一個 owner 底下可以唯一識別的 attribute</li>
+<li>它所連結的 <strong>owner entity</strong></li>
 </ol>
-<p>以 DEPENDENT 為例，眷屬的 Name 只在同一位員工底下才會唯一 (不同員工可以各有一個叫 Mary 的眷屬)，所以 Name 是部分鍵，要搭配 EMPLOYEE 的 Ssn 才能識別一位眷屬。圖上弱實體用<strong>雙矩形</strong>、識別關係用<strong>雙菱形</strong>，部分鍵畫<strong>虛線底線</strong>，弱實體與識別關係之間是<strong>雙線</strong> (全部參與，因為弱實體一定要有擁有者才存在，所以它的限制通常是 $(1,1)$)</p>
+<p>以 DEPENDENT 為例，眷屬的 Name 只在同一位員工底下才會唯一 (不同員工可以各有一個叫 Mary 的眷屬)，所以 Name 是 partial key，要搭配 EMPLOYEE 的 Ssn 才能識別一位眷屬。圖上 weak entity 用<strong>雙矩形</strong>、identifying relationship 用<strong>雙菱形</strong>，partial key 畫<strong>虛線底線</strong>，weak entity 與 identifying relationship 之間是<strong>雙線</strong> (total participation，因為 weak entity 一定要有 owner 才存在，所以它的限制通常是 <code>(1,1)</code>)</p>
 <div class="alert-block alert-warning"><strong>Partial Key ≠ Primary Key ≠ Foreign Key：</strong>三個名字很像，但是不同層次的東西
 </div>
 
@@ -631,127 +639,127 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">部分鍵 (partial key)</td>
-<td align="left">ER 圖 (弱實體)</td>
-<td align="left">單獨不能識別，要搭配擁有者的鍵才唯一，畫虛線底線</td>
+<td align="left">partial key</td>
+<td align="left">ER diagram (weak entity)</td>
+<td align="left">單獨不能識別，要搭配 owner 的 key 才唯一，畫虛線底線</td>
 </tr>
 <tr>
-<td align="left">主鍵 (primary key)</td>
-<td align="left">關聯式綱要</td>
-<td align="left">從候選鍵中選出來唯一識別每一列的那個</td>
+<td align="left">primary key</td>
+<td align="left">relational schema</td>
+<td align="left">從 candidate key 中選出來唯一識別每一列的那個</td>
 </tr>
 <tr>
-<td align="left">外來鍵 (foreign key)</td>
-<td align="left">關聯式綱要</td>
-<td align="left">參考到另一個表格的主鍵，用來表示關係</td>
+<td align="left">foreign key</td>
+<td align="left">relational schema</td>
+<td align="left">參考到另一個表格的 primary key，用來表示 relationship</td>
 </tr>
 </tbody></table>
-<p><strong>&lt;註&gt;</strong> 轉成關聯式綱要時，弱實體的主鍵就是「擁有者的主鍵 (成為外來鍵) + 部分鍵」，所以部分鍵最後會跟另外兩個混在一起出現，要記得它們在 ER 階段的區別</p>
-<h2 id="第六節-COMPANY-的-ER-圖"><a href="#第六節-COMPANY-的-ER-圖" class="headerlink" title="第六節 COMPANY 的 ER 圖"></a>第六節 COMPANY 的 ER 圖</h2><div class="img-row left"><img src="fig3.7.svg" alt="fig 3.7" loading="lazy" decoding="async"></div>
+<p><strong>&lt;註&gt;</strong> 轉成 relational schema 時，weak entity 的 primary key 就是「owner 的 primary key (成為 foreign key) + partial key」，所以 partial key 最後會跟另外兩個混在一起出現，要記得它們在 ER 階段的區別</p>
+<h2 id="第六節-COMPANY-的-ER-Diagram"><a href="#第六節-COMPANY-的-ER-Diagram" class="headerlink" title="第六節 COMPANY 的 ER Diagram"></a>第六節 COMPANY 的 ER Diagram</h2><div class="img-row left"><img src="fig3.7.svg" alt="fig 3.7" loading="lazy" decoding="async"></div>
 
-<p>這張圖把前面的概念全部放在一起 (為了容易閱讀，只畫出主要屬性)。逐項對照：</p>
+<p>這張圖把前面的概念全部放在一起 (為了容易閱讀，只畫出主要 attribute)。逐項對照：</p>
 <ul>
-<li><strong>鍵屬性</strong> (底線)：Dname、Dnumber (部門名稱與編號都是唯一的，所以兩個都畫)、Pname、Pnumber、Ssn</li>
-<li><strong>多值屬性</strong> (雙橢圓)：Dlocations，因為一個部門可以有多個地點</li>
-<li><strong>關係屬性</strong>：StartDate 掛在 MANAGES，Hours 掛在 WORKS_ON</li>
-<li><strong>遞迴關係</strong>：SUPERVISION，兩條線標 supervisor 與 supervisee 角色</li>
-<li><strong>弱實體</strong>：DEPENDENT，透過雙菱形 DEPENDENTS_OF 依附 EMPLOYEE，且為全部參與</li>
+<li><strong>key attribute</strong> (底線)：Dname、Dnumber (部門名稱與編號都是唯一的，所以兩個都畫)、Pname、Pnumber、Ssn</li>
+<li><strong>multi-valued attribute</strong> (雙橢圓)：Dlocations，因為一個部門可以有多個地點</li>
+<li><strong>relationship attribute</strong>：StartDate 掛在 MANAGES，Hours 掛在 WORKS_ON</li>
+<li><strong>recursive relationship</strong>：SUPERVISION，兩條線標 supervisor 與 supervisee 的 role name</li>
+<li><strong>weak entity</strong>：DEPENDENT，透過雙菱形 DEPENDENTS_OF 依附 EMPLOYEE，且為 total participation</li>
 </ul>
 <p>(min, max) 的值依需求而定：</p>
 <table>
 <thead>
 <tr>
-<th align="left">關係</th>
+<th align="left">Relationship</th>
 <th align="left">一側</th>
 <th align="left">另一側</th>
-<th align="center">基數比例</th>
+<th align="center">Cardinality ratio</th>
 </tr>
 </thead>
 <tbody><tr>
 <td align="left">WORKS_FOR</td>
-<td align="left">EMPLOYEE $(1,1)$</td>
-<td align="left">DEPARTMENT $(1,N)$</td>
+<td align="left">EMPLOYEE <code>(1,1)</code></td>
+<td align="left">DEPARTMENT <code>(1,N)</code></td>
 <td align="center">N:1</td>
 </tr>
 <tr>
 <td align="left">MANAGES</td>
-<td align="left">DEPARTMENT $(1,1)$</td>
-<td align="left">EMPLOYEE $(0,1)$</td>
+<td align="left">DEPARTMENT <code>(1,1)</code></td>
+<td align="left">EMPLOYEE <code>(0,1)</code></td>
 <td align="center">1:1</td>
 </tr>
 <tr>
 <td align="left">CONTROLS</td>
-<td align="left">PROJECT $(1,1)$</td>
-<td align="left">DEPARTMENT $(0,N)$</td>
+<td align="left">PROJECT <code>(1,1)</code></td>
+<td align="left">DEPARTMENT <code>(0,N)</code></td>
 <td align="center">1:N</td>
 </tr>
 <tr>
 <td align="left">WORKS_ON</td>
-<td align="left">EMPLOYEE $(0,N)$</td>
-<td align="left">PROJECT $(1,N)$</td>
+<td align="left">EMPLOYEE <code>(0,N)</code></td>
+<td align="left">PROJECT <code>(1,N)</code></td>
 <td align="center">M:N</td>
 </tr>
 <tr>
 <td align="left">SUPERVISION</td>
-<td align="left">supervisor $(0,N)$</td>
-<td align="left">supervisee $(0,1)$</td>
+<td align="left">supervisor <code>(0,N)</code></td>
+<td align="left">supervisee <code>(0,1)</code></td>
 <td align="center">1:N</td>
 </tr>
 <tr>
 <td align="left">DEPENDENTS_OF</td>
-<td align="left">EMPLOYEE $(0,N)$</td>
-<td align="left">DEPENDENT $(1,1)$</td>
+<td align="left">EMPLOYEE <code>(0,N)</code></td>
+<td align="left">DEPENDENT <code>(1,1)</code></td>
 <td align="center">1:N</td>
 </tr>
 </tbody></table>
-<h2 id="第七節-UML-類別圖"><a href="#第七節-UML-類別圖" class="headerlink" title="第七節 UML 類別圖"></a>第七節 UML 類別圖</h2><p>業界常用 <strong>UML 類別圖</strong>表達同樣的概念，與 ER 圖的對應是：</p>
+<h2 id="第七節-UML-Class-Diagram"><a href="#第七節-UML-Class-Diagram" class="headerlink" title="第七節 UML Class Diagram"></a>第七節 UML Class Diagram</h2><p>業界常用 <strong>UML class diagram</strong> 表達同樣的概念，與 ER diagram 的對應是：</p>
 <table>
 <thead>
 <tr>
-<th align="left">ER 圖</th>
-<th align="left">UML 類別圖</th>
+<th align="left">ER diagram</th>
+<th align="left">UML class diagram</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">實體型別 (矩形)</td>
-<td align="left">類別 (class)，圓角方框分三格：名稱、屬性、<strong>操作 (operation)</strong></td>
+<td align="left">entity type (矩形)</td>
+<td align="left">class，圓角方框分三格：名稱、attribute、<strong>operation</strong></td>
 </tr>
 <tr>
-<td align="left">關係 (菱形)</td>
-<td align="left">關聯 (association)，只有一條線，沒有菱形</td>
+<td align="left">relationship (菱形)</td>
+<td align="left">association，只有一條線，沒有菱形</td>
 </tr>
 <tr>
 <td align="left">(min, max)</td>
-<td align="left">標在線端的多重性 (multiplicity)</td>
+<td align="left">標在線端的 multiplicity</td>
 </tr>
 </tbody></table>
-<p>第三格的<strong>操作</strong>是基本 ER 模型沒有的東西 (ER 只管資料，不管行為)，這是兩者最大的差別。UML 的細部符號在各家工具之間不盡相同</p>
-<h2 id="第八節-高階關係-Relationships-of-Higher-Degree"><a href="#第八節-高階關係-Relationships-of-Higher-Degree" class="headerlink" title="第八節 高階關係 (Relationships of Higher Degree)"></a>第八節 高階關係 (Relationships of Higher Degree)</h2><p>度大於 2 的關係叫<strong>高階關係</strong>，最常見的是三元關係。</p>
-<h3 id="三元關係-≠-三個二元關係"><a href="#三元關係-≠-三個二元關係" class="headerlink" title="三元關係 ≠ 三個二元關係"></a>三元關係 ≠ 三個二元關係</h3><div class="img-row left"><img src="fig3.2.svg" alt="fig 3.2" loading="lazy" decoding="async"></div>
+<p>第三格的 <strong>operation</strong> 是基本 ER Model 沒有的東西 (ER 只管資料，不管行為)，這是兩者最大的差別。UML 的細部符號在各家工具之間不盡相同</p>
+<h2 id="第八節-Higher-Degree-Relationship"><a href="#第八節-Higher-Degree-Relationship" class="headerlink" title="第八節 Higher-Degree Relationship"></a>第八節 Higher-Degree Relationship</h2><p>degree 大於 2 的 relationship 叫 <strong>higher-degree relationship</strong>，最常見的是 ternary relationship。</p>
+<h3 id="Ternary-Relationship-≠-三個-Binary-Relationship"><a href="#Ternary-Relationship-≠-三個-Binary-Relationship" class="headerlink" title="Ternary Relationship ≠ 三個 Binary Relationship"></a>Ternary Relationship ≠ 三個 Binary Relationship</h3><div class="img-row left"><img src="fig3.2.svg" alt="fig 3.2" loading="lazy" decoding="async"></div>
 
-<p>這是整章最常考也最容易搞混的觀念。左圖 SUPPLY 的一個實例是一個<strong>三元組</strong> $(s, j, p)$：供應商 $s$ 為專案 $j$ 供應零件 $p$。右圖三個二元關係各自只記錄<strong>兩兩之間</strong>的關係，<strong>少了三個一起的資訊</strong>。</p>
-<p>舉個具體例子，三元關係 SUPPLY 的內容是 $\{(s_1, j_1, p_1),\ (s_1, j_2, p_2),\ (s_2, j_1, p_2)\}$，把它拆成三個二元關係：</p>
+<p>這是整章最常考也最容易搞混的觀念。左圖 SUPPLY 的一個 instance 是一個 <strong>三元組</strong> $(s, j, p)$：供應商 $s$ 為專案 $j$ 供應零件 $p$。右圖三個 binary relationship 各自只記錄<strong>兩兩之間</strong>的關係，<strong>少了三個一起的資訊</strong>。</p>
+<p>舉個具體例子，ternary relationship SUPPLY 的內容是 $\{(s_1, j_1, p_1),\ (s_1, j_2, p_2),\ (s_2, j_1, p_2)\}$，把它拆成三個 binary relationship：</p>
 <ul>
-<li>CAN_SUPPLY (供應商, 零件)：$(s_1, p_1)$、$(s_1, p_2)$、$(s_2, p_2)$</li>
-<li>USES (專案, 零件)：$(j_1, p_1)$、$(j_2, p_2)$、$(j_1, p_2)$</li>
-<li>SUPPLIES (供應商, 專案)：$(s_1, j_1)$、$(s_1, j_2)$、$(s_2, j_1)$</li>
+<li>CAN_SUPPLY (SUPPLIER, PART)：$(s_1, p_1)$、$(s_1, p_2)$、$(s_2, p_2)$</li>
+<li>USES (PROJECT, PART)：$(j_1, p_1)$、$(j_2, p_2)$、$(j_1, p_2)$</li>
+<li>SUPPLIES (SUPPLIER, PROJECT)：$(s_1, j_1)$、$(s_1, j_2)$、$(s_2, j_1)$</li>
 </ul>
-<p>這時候只看三個二元關係，會推出 $s_1$ 供應 $j_1$、$j_1$ 用 $p_2$、$s_1$ 能供應 $p_2$，似乎可以得到 $(s_1, j_1, p_2)$，但它並不在原本的 SUPPLY 裡。<strong>三個二元關係無法還原出原本的三元關係</strong>，所以兩種設計代表不同的資訊，不能互相取代。需求如果兩種資訊都需要，兩種關係可以同時放在綱要中，各自代表不同的意義</p>
-<p>另外兩個補充：</p>
+<p>這時候只看三個 binary relationship，會推出 $s_1$ 供應 $j_1$、$j_1$ 用 $p_2$、$s_1$ 能供應 $p_2$，似乎可以得到 $(s_1, j_1, p_2)$，但它並不在原本的 SUPPLY 裡。<strong>三個 binary relationship 無法還原出原本的 ternary relationship</strong>，所以兩種設計代表不同的資訊，不能互相取代。需求如果兩種資訊都需要，兩種 relationship 可以同時放在 schema 中，各自代表不同的意義</p>
+<p>另外幾個補充：</p>
 <ul>
-<li>如果某個二元關係<strong>永遠</strong>可以從高階關係推導出來，它就是多餘的。例如 TAUGHT_DURING 可以從三元關係 OFFERS (課程、學期、教師) 推出，就可以省略</li>
-<li>三個二元關係只有在<strong>額外限制</strong>下才能取代三元關係，例如 CAN_TEACH 是 1:1 的時候，OFFER 這個三元關係可以不要</li>
-<li>如果資料模型允許弱實體有<strong>多個識別關係</strong>，有些三元關係也可以用弱實體表示</li>
+<li>如果某個 binary relationship <strong>永遠</strong>可以從 higher-degree relationship 推導出來，它就是多餘的。例如 TAUGHT_DURING 可以從 ternary relationship OFFERS (COURSE、SEMESTER、INSTRUCTOR) 推出，就可以省略</li>
+<li>三個 binary relationship 只有在<strong>額外 constraint</strong> 下才能取代 ternary relationship，例如 CAN_TEACH 是 1:1 的時候，OFFERS 這個 ternary relationship 可以不要</li>
+<li>如果資料模型允許 weak entity 有<strong>多個 identifying relationship</strong>，有些 ternary relationship 也可以用 weak entity 表示</li>
 </ul>
-<h3 id="高階關係的限制"><a href="#高階關係的限制" class="headerlink" title="高階關係的限制"></a>高階關係的限制</h3><p>三元以上的關係，限制的表達比較困難，也容易有歧義。</p>
+<h3 id="Higher-Degree-Relationship-的-Constraint"><a href="#Higher-Degree-Relationship-的-Constraint" class="headerlink" title="Higher-Degree Relationship 的 Constraint"></a>Higher-Degree Relationship 的 Constraint</h3><p>degree 大於 2 的 relationship，constraint 的表達比較困難，也容易有歧義。</p>
 <ul>
-<li>標在線上的 $(\text{min},\text{max})$ 仍然有意義，但<strong>不足以完整描述</strong>限制</li>
-<li>因此線上會再標 <strong>1、M、N</strong> 表示額外的限制：標 M 或 N 代表沒有限制；標 <strong>1</strong> 代表<strong>固定其他參與者的組合後，這個實體最多參與一次</strong></li>
+<li>標在線上的 <code>(min, max)</code> 仍然有意義，但<strong>不足以完整描述</strong> constraint</li>
+<li>因此線上會再標 <strong>1、M、N</strong> 表示額外的 constraint：標 M 或 N 代表沒有限制；標 <strong>1</strong> 代表<strong>固定其他參與者的組合後，這個 entity 最多參與一次</strong></li>
 </ul>
-<p>以 1:M:N 的 SUPPLY (SUPPLIER : 1、PROJECT : M、PART : N) 為例，SUPPLIER 旁標 1 的意思是：每一個 (PROJECT, PART) 組合<strong>最多只會由一個供應商供應</strong>，也就是同一個專案的同一種零件不會有兩個供應商，所以關係集中的 $(j, p)$ 組合不會重複出現。三元關係要把 (min, max) 與 1&#x2F;M&#x2F;N 兩種標示<strong>都</strong>用上才能描述完整</p>
+<p>以 1:M:N 的 SUPPLY (SUPPLIER : 1、PROJECT : M、PART : N) 為例，SUPPLIER 旁標 1 的意思是：每一個 (PROJECT, PART) 組合<strong>最多只會由一個 SUPPLIER 供應</strong>，也就是同一個專案的同一種零件不會有兩個供應商，所以 relationship set 中的 $(j, p)$ 組合不會重複出現。ternary relationship 要把 (min, max) 與 1&#x2F;M&#x2F;N 兩種標示<strong>都</strong>用上才能描述完整</p>
 <h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><ul>
-<li><strong>ER 模型的三個基本概念</strong>：實體 (含屬性)、關係、限制。ER 圖畫的是綱要 (型別)，不是資料 (集合)</li>
-<li><strong>符號</strong>：矩形是實體、橢圓是屬性 (雙橢圓多值、虛線橢圓衍生)、菱形是關係；雙矩形與雙菱形是弱實體與識別關係；雙線是全部參與；底線是鍵、虛線底線是部分鍵</li>
+<li><strong>ER Model 的三個基本概念</strong>：entity (含 attribute)、relationship、constraint。ER diagram 畫的是 schema (type)，不是資料 (set)</li>
+<li><strong>符號</strong>：矩形是 entity、橢圓是 attribute (雙橢圓 multi-valued、虛線橢圓 derived)、菱形是 relationship；雙矩形與雙菱形是 weak entity 與 identifying relationship；雙線是 total participation；底線是 key、虛線底線是 partial key</li>
 </ul>
 <p>容易搞混的整理：</p>
 <table>
@@ -762,8 +770,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">哪些屬性要畫底線</td>
-<td align="left">ER 圖中<strong>所有</strong>能當鍵的屬性都畫；關聯式綱要才只畫一個 primary key</td>
+<td align="left">哪些 attribute 要畫底線</td>
+<td align="left">ER diagram 中<strong>所有</strong>能當 key 的 attribute 都畫；relational schema 才只畫一個 primary key</td>
 </tr>
 <tr>
 <td align="left">菱形的閱讀方向</td>
@@ -774,28 +782,28 @@ document.addEventListener('DOMContentLoaded', function() {
 <td align="left">標在<strong>自己</strong>這側，描述自己參與幾次</td>
 </tr>
 <tr>
-<td align="left">基數比例的位置</td>
+<td align="left">Cardinality ratio 的位置</td>
 <td align="left">標在<strong>對方</strong>那側，與 (min, max) 的位置相反</td>
 </tr>
 <tr>
-<td align="left">部分 &#x2F; 全部參與</td>
-<td align="left">由 min 決定：$\text{min}=0$ 為部分 (單線)、$\text{min}\ge1$ 為全部 (雙線)</td>
+<td align="left">Total &#x2F; partial participation</td>
+<td align="left">由 min 決定：<code>min = 0</code> 為 partial (單線)、<code>min ≥ 1</code> 為 total (雙線)</td>
 </tr>
 <tr>
-<td align="left">部分鍵、主鍵、外來鍵</td>
-<td align="left">部分鍵是弱實體在 ER 階段的概念，需搭配擁有者的鍵；主鍵與外來鍵是關聯式綱要的概念</td>
+<td align="left">Partial key、primary key、foreign key</td>
+<td align="left">partial key 是 weak entity 在 ER 階段的概念，需搭配 owner 的 key；primary key 與 foreign key 是 relational schema 的概念</td>
 </tr>
 <tr>
-<td align="left">關係屬性能不能搬</td>
+<td align="left">Relationship attribute 能不能搬</td>
 <td align="left">M:N 不行；1:N 可以搬到 N 側；1:1 任一側皆可</td>
 </tr>
 <tr>
-<td align="left">三元關係與三個二元關係</td>
-<td align="left">不等價，三個二元關係無法還原三元的組合資訊</td>
+<td align="left">Ternary relationship 與三個 binary relationship</td>
+<td align="left">不等價，三個 binary relationship 無法還原 ternary 的組合資訊</td>
 </tr>
 <tr>
-<td align="left">遞迴關係</td>
-<td align="left">同一個實體型別以不同角色參與，兩條線都要標角色名稱</td>
+<td align="left">Recursive relationship</td>
+<td align="left">同一個 entity type 以不同 role 參與，兩條線都要標 role name</td>
 </tr>
 </tbody></table>
 <h2 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h2><p>R. Elmasri and S. B. Navathe, <em>Fundamentals of Database Systems, 7th Ed.</em>, Pearson, 2016.</p>
@@ -830,7 +838,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">文章目錄</h3>
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AF%80-%E8%B3%87%E6%96%99%E5%BA%AB%E8%A8%AD%E8%A8%88%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">第一節 資料庫設計流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AF%80-%E5%AF%A6%E9%AB%94%E8%88%87%E5%B1%AC%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">第二節 實體與屬性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%A6%E9%AB%94%E3%80%81%E5%AF%A6%E9%AB%94%E5%9E%8B%E5%88%A5%E8%88%87%E5%AF%A6%E9%AB%94%E9%9B%86"><span class="toc-number">2.1.</span> <span class="toc-text">實體、實體型別與實體集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%AC%E6%80%A7%E7%9A%84%E7%A8%AE%E9%A1%9E"><span class="toc-number">2.2.</span> <span class="toc-text">屬性的種類</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%8D%B5%E5%B1%AC%E6%80%A7-Key-Attribute"><span class="toc-number">2.3.</span> <span class="toc-text">鍵屬性 (Key Attribute)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AF%80-%E9%97%9C%E4%BF%82"><span class="toc-number">3.</span> <span class="toc-text">第三節 關係</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%9C%E4%BF%82%E3%80%81%E9%97%9C%E4%BF%82%E5%9E%8B%E5%88%A5%E3%80%81%E5%BA%A6"><span class="toc-number">3.1.</span> <span class="toc-text">關係、關係型別、度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%B1%E8%AE%80%E6%96%B9%E5%90%91"><span class="toc-number">3.2.</span> <span class="toc-text">閱讀方向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%9E%E8%BF%B4%E9%97%9C%E4%BF%82"><span class="toc-number">3.3.</span> <span class="toc-text">遞迴關係</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%9C%E4%BF%82%E7%9A%84%E5%B1%AC%E6%80%A7"><span class="toc-number">3.4.</span> <span class="toc-text">關係的屬性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AF%80-%E9%97%9C%E4%BF%82%E7%9A%84%E9%99%90%E5%88%B6"><span class="toc-number">4.</span> <span class="toc-text">第四節 關係的限制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#min-max-%E6%A8%99%E7%A4%BA%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">(min, max) 標示法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#COMPANY-%E7%9A%84%E9%99%90%E5%88%B6"><span class="toc-number">4.2.</span> <span class="toc-text">COMPANY 的限制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AF%80-%E5%BC%B1%E5%AF%A6%E9%AB%94%E5%9E%8B%E5%88%A5"><span class="toc-number">5.</span> <span class="toc-text">第五節 弱實體型別</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AF%80-COMPANY-%E7%9A%84-ER-%E5%9C%96"><span class="toc-number">6.</span> <span class="toc-text">第六節 COMPANY 的 ER 圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AF%80-UML-%E9%A1%9E%E5%88%A5%E5%9C%96"><span class="toc-number">7.</span> <span class="toc-text">第七節 UML 類別圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AF%80-%E9%AB%98%E9%9A%8E%E9%97%9C%E4%BF%82-Relationships-of-Higher-Degree"><span class="toc-number">8.</span> <span class="toc-text">第八節 高階關係 (Relationships of Higher Degree)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E5%85%83%E9%97%9C%E4%BF%82-%E2%89%A0-%E4%B8%89%E5%80%8B%E4%BA%8C%E5%85%83%E9%97%9C%E4%BF%82"><span class="toc-number">8.1.</span> <span class="toc-text">三元關係 ≠ 三個二元關係</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E9%9A%8E%E9%97%9C%E4%BF%82%E7%9A%84%E9%99%90%E5%88%B6"><span class="toc-number">8.2.</span> <span class="toc-text">高階關係的限制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-number">9.</span> <span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E6%96%87%E7%8D%BB"><span class="toc-number">10.</span> <span class="toc-text">參考文獻</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AF%80-%E8%B3%87%E6%96%99%E5%BA%AB%E8%A8%AD%E8%A8%88%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">第一節 資料庫設計流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AF%80-Entity-%E8%88%87-Attribute"><span class="toc-number">2.</span> <span class="toc-text">第二節 Entity 與 Attribute</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Entity%E3%80%81Entity-Type-%E8%88%87-Entity-Set"><span class="toc-number">2.1.</span> <span class="toc-text">Entity、Entity Type 與 Entity Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Attribute-%E7%9A%84%E7%A8%AE%E9%A1%9E"><span class="toc-number">2.2.</span> <span class="toc-text">Attribute 的種類</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Attribute"><span class="toc-number">2.3.</span> <span class="toc-text">Key Attribute</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AF%80-Relationship"><span class="toc-number">3.</span> <span class="toc-text">第三節 Relationship</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship%E3%80%81Relationship-Type%E3%80%81Degree"><span class="toc-number">3.1.</span> <span class="toc-text">Relationship、Relationship Type、Degree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%96%B1%E8%AE%80%E6%96%B9%E5%90%91"><span class="toc-number">3.2.</span> <span class="toc-text">閱讀方向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Recursive-Relationship"><span class="toc-number">3.3.</span> <span class="toc-text">Recursive Relationship</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship-%E7%9A%84-Attribute"><span class="toc-number">3.4.</span> <span class="toc-text">Relationship 的 Attribute</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AF%80-Relationship-%E7%9A%84-Constraint"><span class="toc-number">4.</span> <span class="toc-text">第四節 Relationship 的 Constraint</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#min-max-%E6%A8%99%E7%A4%BA%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">(min, max) 標示法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#COMPANY-%E7%9A%84-Constraint"><span class="toc-number">4.2.</span> <span class="toc-text">COMPANY 的 Constraint</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AF%80-Weak-Entity-Type"><span class="toc-number">5.</span> <span class="toc-text">第五節 Weak Entity Type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AF%80-COMPANY-%E7%9A%84-ER-Diagram"><span class="toc-number">6.</span> <span class="toc-text">第六節 COMPANY 的 ER Diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AF%80-UML-Class-Diagram"><span class="toc-number">7.</span> <span class="toc-text">第七節 UML Class Diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AF%80-Higher-Degree-Relationship"><span class="toc-number">8.</span> <span class="toc-text">第八節 Higher-Degree Relationship</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ternary-Relationship-%E2%89%A0-%E4%B8%89%E5%80%8B-Binary-Relationship"><span class="toc-number">8.1.</span> <span class="toc-text">Ternary Relationship ≠ 三個 Binary Relationship</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Higher-Degree-Relationship-%E7%9A%84-Constraint"><span class="toc-number">8.2.</span> <span class="toc-text">Higher-Degree Relationship 的 Constraint</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-number">9.</span> <span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E6%96%87%E7%8D%BB"><span class="toc-number">10.</span> <span class="toc-text">參考文獻</span></a></li></ol>
         </nav>
         
 
@@ -843,7 +851,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
             
-            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <script>
+            window.addEventListener('load', function () {
+                var run = function () {
+                    var s = document.createElement('script');
+                    s.src = '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+                    document.body.appendChild(s);
+                };
+                'requestIdleCallback' in window ? requestIdleCallback(run, { timeout: 3000 }) : setTimeout(run, 1500);
+            });
+            </script>
             <div style="
                 display: flex; 
                 justify-content: center; 

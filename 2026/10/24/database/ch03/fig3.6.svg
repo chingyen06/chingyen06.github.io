@@ -15,7 +15,5 @@
 <text x="425" y="78" font-size="15" text-anchor="middle" fill="#d9822b" font-weight="bold">N</text>
 <text x="130" y="175" font-size="13" text-anchor="end" fill="#2c3e50" font-weight="normal">supervisor</text>
 <text x="510" y="175" font-size="13" text-anchor="start" fill="#2c3e50" font-weight="normal">supervisee</text>
-<text x="130" y="193" font-size="12" text-anchor="end" fill="#7b8794" font-weight="normal">(主管)</text>
-<text x="510" y="193" font-size="12" text-anchor="start" fill="#7b8794" font-weight="normal">(部屬)</text>
-<text x="320" y="305" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">同一個實體型別以兩種角色參與，線上要標角色名稱</text>
+<text x="320" y="305" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">同一個 entity type 以兩種 role 參與，線上要標 role name</text>
 </svg>

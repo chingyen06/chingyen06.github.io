@@ -13,22 +13,22 @@
 <ellipse cx="95" cy="200" rx="30" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
 <text x="95" y="204.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Ssn</text>
 <line x1="84.2" y1="208" x2="105.8" y2="208" stroke="#2c3e50" stroke-width="1.3"/>
-<text x="95" y="242" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">鍵屬性 (底線)</text>
+<text x="95" y="242" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">key attribute (底線)</text>
 <ellipse cx="250" cy="170" rx="34" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
 <text x="250" y="174.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Name</text>
 <ellipse cx="175" cy="95" rx="36" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
 <text x="175" y="99.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Fname</text>
 <ellipse cx="325" cy="95" rx="36" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
 <text x="325" y="99.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Lname</text>
-<text x="250" y="215" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">複合屬性</text>
+<text x="250" y="215" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">composite</text>
 <ellipse cx="520" cy="170" rx="40" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
 <ellipse cx="520" cy="170" rx="35" ry="12" fill="none" stroke="#7b8794" stroke-width="1.6"/>
 <text x="520" y="174.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Phone</text>
-<text x="520" y="215" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">多值屬性 (雙橢圓)</text>
+<text x="520" y="135" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">multi-valued (雙橢圓)</text>
 <ellipse cx="665" cy="200" rx="34" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6" stroke-dasharray="5 3"/>
 <text x="665" y="204.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">Age</text>
-<text x="665" y="242" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">衍生屬性 (虛線)</text>
+<text x="665" y="242" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">derived (虛線)</text>
 <ellipse cx="665" cy="280" rx="48" ry="17" fill="#f5f7fa" stroke="#7b8794" stroke-width="1.6"/>
 <text x="665" y="284.5" font-size="12.5" text-anchor="middle" fill="#2c3e50" font-weight="normal">BirthDate</text>
-<text x="665" y="322" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">一般屬性</text>
+<text x="665" y="322" font-size="12" text-anchor="middle" fill="#7b8794" font-weight="normal">simple</text>
 </svg>
